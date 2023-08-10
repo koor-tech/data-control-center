@@ -5,7 +5,7 @@
   "productName": "Dashkoor App",
   "author": "Dave Mount <dave@koor.tech>",
   "private": true,
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "lint": "eslint --ext .js,.vue ./",
     "format": "prettier --write \"**/*.{js,vue,scss,html,md,json}\" --ignore-path .gitignore",
