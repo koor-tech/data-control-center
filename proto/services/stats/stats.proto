@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package services.cluster;
+option go_package = "github.com/koor-tech/dashcore/gen/go/proto/services/cluster;cluster";
+
+message StreamRequest {}
+
+message StreamResponse {
+    oneof message {
+        // TODO
+    }
+}
+
+service Stats {
+  rpc Stream(StreamRequest) returns (stream StreamResponse);
+}

@@ -1,0 +1,18 @@
+version: v1
+managed:
+  enabled: true
+  go_package_prefix:
+    default: github.com/koor-tech/data-control-center/
+    except:
+      - buf.build/envoyproxy/protoc-gen-validate
+      - buf.build/googleapis/googleapis
+plugins:
+  - plugin: go
+    out: .
+    opt: paths=source_relative
+  - plugin: connect-go
+    out: .
+    opt: paths=source_relative
+  - plugin: buf.build/bufbuild/validate-go:v1.0.2
+    out: .
+    opt: paths=source_relative
