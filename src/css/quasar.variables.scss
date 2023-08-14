@@ -12,11 +12,15 @@
 // to match your app's branding.
 // Tip: Use the "Theme Builder" on Quasar's documentation website.
 
-$primary: #19dda5;
-$secondary: #119671;
-$accent: #9e809a;
+// color palette enhanced by http://colormind.io/bootstrap/#
 
-$dark: #1d2628;
+$primary: #19dda5; // java
+$secondary: #119671; // jungle green
+$accent: #9e809a; // mountbatten pink
+
+$light: #f6f5f6; // wild sand
+$light-brighter: #f8f7f8; // alabastar
+$dark: #1d2628; // shark
 $dark-page: #1d2628;
 
 $positive: #225fba;
