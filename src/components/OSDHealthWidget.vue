@@ -5,7 +5,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const columns = [
   { name: 'name', label: 'Name', field: 'name', align: 'left', sortable: true },
   { name: 'ready', label: 'Ready', field: 'ready', align: 'center' },

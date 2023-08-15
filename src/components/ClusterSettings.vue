@@ -34,10 +34,10 @@
   </q-list>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
-const props = defineProps(['label'])
+defineProps(['label']);
 const settings = {
   check1: ref(true),
   check2: ref(false),

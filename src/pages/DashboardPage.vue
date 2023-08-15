@@ -20,7 +20,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
 import ClusterRadar from 'components/ClusterRadar.vue'
 import StatusDials from 'components/StatusDials.vue'
 import NodeSummaryList from 'components/NodeSummaryList.vue'
@@ -31,6 +30,7 @@ import OSDHealthWidget from 'components/OSDHealthWidget.vue'
 .graph {
   border: 5px groove $grey-3;
 }
+
 .caption {
   margin-left: 5px;
 }

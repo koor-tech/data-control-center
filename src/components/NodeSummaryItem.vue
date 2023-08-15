@@ -13,8 +13,8 @@
   </q-item>
 </template>
 
-<script setup>
-const props = defineProps({
+<script setup lang="ts">
+defineProps({
   name: String,
   description: String,
   lastPing: String,
@@ -22,7 +22,7 @@ const props = defineProps({
   health: Number,
 })
 
-const decodeHealth = (code) => {
+const decodeHealth = (code?: number) => {
   switch (code) {
     case 1:
       return 'yellow'

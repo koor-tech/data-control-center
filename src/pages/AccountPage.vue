@@ -10,7 +10,9 @@
         <q-btn color="warning" @click="signOut">Sign Out</q-btn>
       </div>
     </div>
-    <div v-else><AccountSignIn /></div>
+    <div v-else>
+      <AccountSignIn />
+    </div>
   </q-page>
 </template>
 
@@ -18,9 +20,9 @@
 import { onMounted, ref } from 'vue'
 import { supabase } from '../supabase'
 import { signOutUser } from '../apis/supabase'
-import KoorAccount from 'components/KoorAccount.vue'
-import AccountSettings from 'components/AccountSettings.vue'
-import AccountSignIn from 'components/AccountSignIn.vue'
+import KoorAccount from '../components/KoorAccount.vue'
+import AccountSettings from '../components/AccountSettings.vue'
+import AccountSignIn from '../components/AccountSignIn.vue'
 
 const session = ref()
 

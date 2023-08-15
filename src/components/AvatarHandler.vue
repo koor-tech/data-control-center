@@ -4,12 +4,7 @@
       <q-img v-if="src" :src="src" />
       <q-icon v-else name="face" />
     </q-avatar>
-    <q-file
-      v-model="avatarFile"
-      label="Click here to pick a new avatar"
-      filled
-      style="max-width: 300px"
-    />
+    <q-file v-model="avatarFile" label="Click here to pick a new avatar" filled style="max-width: 300px" />
   </div>
 </template>
 
@@ -24,7 +19,7 @@ const emit = defineEmits(['upload', 'upload:path'])
 const uploading = ref(false)
 const src = ref('')
 const avatarFile = ref(null)
-const files = ref()
+const files = ref();
 
 const downloadImage = async () => {
   try {

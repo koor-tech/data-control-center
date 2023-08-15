@@ -1,8 +1,8 @@
 {
-  "name": "dashkoor-on-quasar",
+  "name": "data-control-center",
   "version": "0.0.1",
   "description": "Nice dashboard and controls for managing Rook Ceph data storage",
-  "productName": "Dashkoor App",
+  "productName": "Koor Data Control Center App",
   "author": "Dave Mount <dave@koor.tech>",
   "private": true,
   "type": "commonjs",
@@ -26,14 +26,18 @@
     "vue-router": "^4.0.0"
   },
   "devDependencies": {
-    "@quasar/app-vite": "^1.3.0",
+    "@quasar/app-vite": "^1.4.3",
     "@types/d3": "^7.4.0",
+    "@typescript-eslint/eslint-plugin": "^6.4.0",
+    "@typescript-eslint/parser": "^6.4.0",
     "autoprefixer": "^10.4.2",
-    "eslint": "^8.10.0",
+    "eslint": "^8.47.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-vue": "^9.0.0",
     "postcss": "^8.4.14",
-    "prettier": "^2.5.1"
+    "prettier": "^2.5.1",
+    "ts-loader": "^9.4.4",
+    "typescript": "^5.1.6"
   },
   "engines": {
     "node": "^18 || ^16 || ^14.19",
