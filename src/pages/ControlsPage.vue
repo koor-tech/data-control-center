@@ -16,8 +16,8 @@
   </q-page>
 </template>
 
-<script setup>
-import ClusterSettings from 'src/components/ClusterSettings.vue'
+<script setup lang="ts">
+import ClusterSettings from 'src/components/ClusterSettings.vue';
 </script>
 
 <style lang="scss">

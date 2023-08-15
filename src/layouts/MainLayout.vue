@@ -28,10 +28,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import ExternalLink from 'components/ExternalLink.vue'
-import InternalLink from 'components/InternalLink.vue'
-import KoorLogo from 'components/KoorLogo.vue'
+import { ref } from 'vue';
+import ExternalLink from 'components/ExternalLink.vue';
+import InternalLink from 'components/InternalLink.vue';
+import KoorLogo from 'components/KoorLogo.vue';
 
 const panelViewsList = [
   {

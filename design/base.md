@@ -55,3 +55,14 @@ flowchart LR
 
 * IOPS Chart (read/write Ops)
 * OSD stats selectable down to per OSD
+
+### Controls aka Cluster Settings
+
+* Two sections: Preferences and Dangerous/Experimental
+    * Preferences
+        * Ceph Version
+        * Nodes to be used for storage (`.spec.storage`)
+        * Basic Cluster Options, especially our custom features like Ceph OSD Scrubbing Schedule
+        * Cluster notifications
+    * Dangerous/Experimental
+        * Cluster Auto Update (I would currently consider it as potentially "dangerous" even with the existing and our upcoming health checks and Co.)

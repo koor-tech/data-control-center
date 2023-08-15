@@ -15,6 +15,6 @@
 </template>
 
 <script setup>
-import LineChart from 'components/LineChartWidget.vue'
-import BarChart from 'components/BarChartWidget.vue'
+import LineChart from 'components/LineChartWidget.vue';
+import BarChart from 'components/BarChartWidget.vue';
 </script>

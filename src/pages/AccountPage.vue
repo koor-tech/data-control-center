@@ -17,9 +17,9 @@
 </template>
 
 <script setup lang="ts">
-import KoorAccount from '../components/KoorAccount.vue'
-import AccountSettings from '../components/AccountSettings.vue'
-import AccountSignIn from '../components/AccountSignIn.vue'
+import KoorAccount from '../components/KoorAccount.vue';
+import AccountSettings from '../components/AccountSettings.vue';
+import AccountSignIn from '../components/AccountSignIn.vue';
 import { useAuthStore } from 'src/stores/auth';
 
 const authStore = useAuthStore();

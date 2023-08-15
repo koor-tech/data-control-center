@@ -35,9 +35,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-defineProps(['label']);
+defineProps<{
+  label: string;
+}>();
 const settings = {
   check1: ref(true),
   check2: ref(false),

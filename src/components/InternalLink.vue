@@ -6,41 +6,22 @@
 
     <q-item-section>
       <q-item-label>{{ title }}</q-item-label>
-      <q-item-label caption>{{ caption }}</q-item-label>
+      <q-item-label>{{ caption }}</q-item-label>
     </q-item-section>
   </q-item>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'EssentialLink',
-  props: {
-    title: {
-      type: String,
-      required: true,
-    },
-
-    caption: {
-      type: String,
-      default: '',
-    },
-
-    to: {
-      type: String,
-      default: '',
-    },
-
-    icon: {
-      type: String,
-      default: '',
-    },
-
-    exact: {
-      type: Boolean,
-      default: false,
-    },
-  },
-})
+<script setup lang="ts">
+withDefaults(defineProps<{
+  title: string;
+  caption: string;
+  to: string;
+  icon: string;
+  exact?: boolean;
+}>(), {
+  caption: '',
+  to: '',
+  icon: '',
+  default: false,
+});
 </script>
