@@ -4,9 +4,9 @@
   </div>
 </template>
 
-<script setup>
-import { onMounted } from 'vue'
-import * as d3 from 'd3'
+<script setup lang="ts">
+import { onMounted } from 'vue';
+import * as d3 from 'd3';
 
 // const props = defineProps(['data'])
 const data = [
@@ -14,15 +14,15 @@ const data = [
   { disc: 'vol 2', used: 37.9, capacity: 40, capacityUnits: 'GiB' },
   { disc: 'vol 3', used: 45.7, capacity: 60, capacityUnits: 'GiB' },
   { disc: 'vol 4', used: 6.4, capacity: 60, capacityUnits: 'GiB' },
-]
+];
 
 onMounted(() => {
-  const width = 464
-  const height = 250
-  const marginTop = 30
-  const marginRight = 0
-  const marginBottom = 30
-  const marginLeft = 40
+  const width = 464;
+  const height = 250;
+  const marginTop = 30;
+  const marginRight = 0;
+  const marginBottom = 30;
+  const marginLeft = 40;
 
   // Declare the x (horizontal position) scale.
   const x = d3
@@ -35,7 +35,7 @@ onMounted(() => {
       )
     ) // descending used
     .range([marginLeft, width - marginRight])
-    .padding(0.1)
+    .padding(0.1);
 
   // Declare the y (vertical position) scale.
   const y = d3

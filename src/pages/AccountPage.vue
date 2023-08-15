@@ -1,8 +1,8 @@
 <template>
   <q-page padding>
-    <div v-if="session">
+    <div v-if="authStore.accessToken">
       <div class="flex">
-        <KoorAccount v-if="session" :session="session" />
+        <KoorAccount v-if="authStore.accessToken" :accessToken="authStore.accessToken" />
         <AccountSettings />
       </div>
       <hr />
@@ -17,25 +17,14 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import { supabase } from '../supabase'
-import { signOutUser } from '../apis/supabase'
 import KoorAccount from '../components/KoorAccount.vue'
 import AccountSettings from '../components/AccountSettings.vue'
 import AccountSignIn from '../components/AccountSignIn.vue'
+import { useAuthStore } from 'src/stores/auth';
 
-const session = ref()
+const authStore = useAuthStore();
 
 async function signOut() {
-  await signOutUser()
+  authStore.signOut();
 }
-onMounted(() => {
-  supabase.auth.getSession().then(({ data }) => {
-    session.value = data.session
-  })
-
-  supabase.auth.onAuthStateChange((_, _session) => {
-    session.value = _session
-  })
-})
 </script>

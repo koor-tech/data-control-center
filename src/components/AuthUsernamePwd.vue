@@ -1,9 +1,10 @@
 <template>
   <div>
-    <div class="text-h4 q-mb-md">Use your email and password to sign in</div>
+    <div class="text-h4 q-mb-md">Use your username and password to sign in</div>
     <q-form>
       <div>
-        <q-input name="email" outlined type="email" label="Email" placeholder="Your email" v-model="email" />
+        <q-input name="username" outlined type="username" label="username" placeholder="Your username"
+          v-model="username" />
       </div>
       <div>
         <q-input name="password" outlined type="password" label="Password" placeholder="Your password"
@@ -17,11 +18,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-const loading = ref(false)
-const email = ref('')
-const password = ref('')
+const loading = ref(false);
+const username = ref('');
+const password = ref('');
 </script>
 
 <style lang="scss" scoped></style>

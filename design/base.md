@@ -41,3 +41,17 @@ flowchart LR
 * OAuth2/OpenID: For the start basic oauth2 login is enough.
     * Due to nature of OAuth2/OpenID, that process will be using HTTP and not GRPC, though we could potentially get away with using a simple auth proxy in front of "everything" that then passes the user info to the backend in the future.
     * Future expansion: Using oauth2 attributes/userinfo for different roles in the dashboard.
+
+## Pages
+
+### Dashboard
+
+* Cluster Radar
+* Key Indicators.
+* Overview over Storage Nodes
+* Pod Status
+
+### Charts
+
+* IOPS Chart (read/write Ops)
+* OSD stats selectable down to per OSD

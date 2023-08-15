@@ -3,7 +3,6 @@ import { defineStore } from 'pinia'
 export interface AuthState {
   accessToken: null | string
   accessTokenExpiration: null | Date
-  lastCharID: number
   accountID: bigint
   loggingIn: boolean
   loginError: null | string
@@ -28,6 +27,12 @@ export const useAuthStore = defineStore('auth', {
     },
     setPermissions(permissions: string[]): void {
       this.permissions = permissions.sort()
+    },
+    signOut(): void {
+      this.accessToken = null
+      this.accessTokenExpiration = null
+      this.accountID = 0n
+      this.permissions = []
     },
   },
 

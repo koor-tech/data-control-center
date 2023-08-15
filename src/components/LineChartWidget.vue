@@ -5,8 +5,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import * as d3 from 'd3'
+import { onMounted } from 'vue';
+import * as d3 from 'd3';
 
 // const props = defineProps(['data'])
 const data = [
@@ -26,12 +26,12 @@ const data = [
 ]
 
 onMounted(() => {
-  const width = 400
-  const height = 250
-  const marginTop = 20
-  const marginRight = 20
-  const marginBottom = 30
-  const marginLeft = 40
+  const width = 400;
+  const height = 250;
+  const marginTop = 20;
+  const marginRight = 20;
+  const marginBottom = 30;
+  const marginLeft = 40;
 
   const svg = d3.select('#line').attr('width', width).attr('height', height)
   const g = svg.append('g')
@@ -75,7 +75,7 @@ onMounted(() => {
     .attr('stroke', 'steelblue')
     .attr('stroke-width', 1.5)
     .attr('d', line)
-})
+});
 </script>
 
 <style lang="scss" scoped>

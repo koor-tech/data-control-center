@@ -4,7 +4,6 @@
     <div class="flex">
       <div class="control-panel">
         <div class="q-pa-md">
-          <CountrySelect />
           <ClusterSettings label="Preferences" />
         </div>
       </div>
@@ -18,8 +17,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import CountrySelect from 'components/CountrySelect.vue'
 import ClusterSettings from 'src/components/ClusterSettings.vue'
 </script>
 

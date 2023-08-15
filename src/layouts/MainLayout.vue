@@ -14,7 +14,7 @@
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
         <q-item-label header> Access Panel </q-item-label>
-        <InternalLink v-for="link in panelViewLinks" :key="link.title" v-bind="link" />
+        <InternalLink v-for="link in panelViewsList" :key="link.title" v-bind="link" />
 
         <q-item-label header> Outside Resources </q-item-label>
         <ExternalLink v-for="link in externalLinks" :key="link.title" v-bind="link" />
@@ -27,8 +27,8 @@
   </q-layout>
 </template>
 
-<script>
-import { defineComponent, ref } from 'vue'
+<script setup lang="ts">
+import { ref } from 'vue'
 import ExternalLink from 'components/ExternalLink.vue'
 import InternalLink from 'components/InternalLink.vue'
 import KoorLogo from 'components/KoorLogo.vue'
@@ -59,8 +59,8 @@ const panelViewsList = [
     icon: 'tune',
     to: 'account',
   },
-]
-const linksList = [
+];
+const externalLinks = [
   {
     title: 'Knowledge Center',
     caption: 'Information about data storage',
@@ -93,26 +93,9 @@ const linksList = [
   },
 ]
 
-export default defineComponent({
-  name: 'MainLayout',
+const leftDrawerOpen = ref(false);
 
-  components: {
-    ExternalLink,
-    InternalLink,
-    KoorLogo,
-  },
-
-  setup() {
-    const leftDrawerOpen = ref(false)
-
-    return {
-      panelViewLinks: panelViewsList,
-      externalLinks: linksList,
-      leftDrawerOpen,
-      toggleLeftDrawer() {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      },
-    }
-  },
-})
+function toggleLeftDrawer() {
+  leftDrawerOpen.value = !leftDrawerOpen.value;
+}
 </script>
