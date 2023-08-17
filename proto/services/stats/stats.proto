@@ -7,7 +7,7 @@ message StreamRequest {}
 
 message StreamResponse {
     oneof message {
-        // TODO
+        bool todo = 1;
     }
 }
 
