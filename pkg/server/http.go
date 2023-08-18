@@ -13,7 +13,7 @@ import (
 	ginzap "github.com/gin-contrib/zap"
 	"github.com/gin-gonic/contrib/gzip"
 	"github.com/gin-gonic/gin"
-	"github.com/koor-tech/data-control-center/gen/go/proto/services/auth/authconnect"
+	"github.com/koor-tech/data-control-center/gen/go/api/services/auth/authconnect"
 	"github.com/koor-tech/data-control-center/pkg/config"
 	"github.com/koor-tech/data-control-center/pkg/grpc/auth"
 	"github.com/koor-tech/data-control-center/pkg/server/api"

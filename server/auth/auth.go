@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"connectrpc.com/connect"
-	"github.com/koor-tech/data-control-center/gen/go/proto/services/auth"
-	"github.com/koor-tech/data-control-center/gen/go/proto/services/auth/authconnect"
+	"github.com/koor-tech/data-control-center/gen/go/api/services/auth"
+	"github.com/koor-tech/data-control-center/gen/go/api/services/auth/authconnect"
 )
 
 type Server struct {
