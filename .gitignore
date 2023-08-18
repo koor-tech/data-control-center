@@ -29,6 +29,9 @@ yarn-error.log*
 *.njsproj
 *.sln
 
+# Build files
+.build/
+
 # local .env files
 .env
 config.yaml

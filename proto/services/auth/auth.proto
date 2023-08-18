@@ -3,7 +3,7 @@ syntax = "proto3";
 package services.auth;
 option go_package = "github.com/koor-tech/dashcore/gen/go/proto/services/auth;auth";
 
-import "resources/timestamp/timestamp.proto";
+import "proto/resources/timestamp/timestamp.proto";
 import "validate/validate.proto";
 
 message LoginRequest {

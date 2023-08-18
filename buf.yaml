@@ -7,3 +7,6 @@ lint:
     - DEFAULT
 deps:
   - buf.build/envoyproxy/protoc-gen-validate
+build:
+  excludes:
+    - .build/

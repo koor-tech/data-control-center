@@ -22,7 +22,7 @@ type BaseProvider struct {
 	oauthConfig *oauth2.Config
 	mapping     *config.OAuth2Mapping
 
-	UserInfoURL   string
+	UserInfoURL string
 
 	Name string
 }

@@ -1,8 +1,8 @@
 package api
 
 type ClientConfig struct {
-	Version   string      `json:"version"`
-	Login     LoginConfig `json:"login"`
+	Version string      `json:"version"`
+	Login   LoginConfig `json:"login"`
 }
 
 type LoginConfig struct {

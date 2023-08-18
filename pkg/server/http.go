@@ -106,7 +106,6 @@ func setupHTTPServer(p ServerParams) *gin.Engine {
 		}),
 	)))
 
-
 	// Register app routes
 	oauth := oauth2.New(p.Logger.Named("oauth"), p.TokenMgr, p.Config.OAuth2.Providers)
 	rs := api.New(p.Logger, p.Config)

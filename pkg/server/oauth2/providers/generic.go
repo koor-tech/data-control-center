@@ -43,8 +43,7 @@ func (p *Generic) GetUserInfo(code string) (*UserInfo, error) {
 		return nil, fmt.Errorf("no username found in user info")
 	}
 
-  username := usernameRaw.(string)
-
+	username := usernameRaw.(string)
 
 	user := &UserInfo{
 		ID:       int64(subId),

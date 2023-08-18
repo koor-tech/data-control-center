@@ -29,7 +29,7 @@ func New(logger *zap.Logger, cfg *config.Config) *Routes {
 		logger: logger,
 
 		clientCfg: &ClientConfig{
-			Version:   "TODO",
+			Version: "TODO",
 			Login: LoginConfig{
 				Providers: providers,
 			},
@@ -47,9 +47,11 @@ func (r *Routes) Register(e *gin.Engine, oa2 *oauth2.OAuth2) {
 		g.GET("/ping", func(c *gin.Context) {
 			c.JSON(http.StatusOK, PingResponse)
 		})
+
 		g.POST("/config", func(c *gin.Context) {
 			c.JSON(http.StatusOK, r.clientCfg)
 		})
+
 		g.GET("/clear-site-data", func(c *gin.Context) {
 			c.Header("Clear-Site-Data", "\"cache\", \"cookies\", \"storage\"")
 			c.String(http.StatusOK, "Your local site data should be cleared now, please go back to the data-control-center homepage yourself.")

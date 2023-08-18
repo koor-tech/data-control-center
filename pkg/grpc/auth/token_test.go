@@ -10,8 +10,8 @@ import (
 const jwtTokenTestSecret = "secret-jwt-token-secret-for-testing"
 
 var basicUserInfoClaim = &UserInfoClaims{
-	AccID:        123456,
-	Username:     "example-username",
+	AccID:    123456,
+	Username: "example-username",
 	RegisteredClaims: jwt.RegisteredClaims{
 		Subject: "example-subject",
 	},

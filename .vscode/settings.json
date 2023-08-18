@@ -8,7 +8,7 @@
   "editor.codeActionsOnSave": ["source.fixAll.eslint"],
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "vue"],
   "protoc": {
-    "options": ["--proto_path=./.build/validate", "--proto_path=./proto"]
+    "options": ["--proto_path=./.build/validate", "--proto_path=./"]
   },
   "volar.takeOverMode.extension": "Vue.volar"
 }

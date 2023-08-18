@@ -16,8 +16,8 @@ const (
 )
 
 type UserInfoClaims struct {
-	AccID        uint64 `json:"accid"`
-	Username     string `json:"usr"`
+	AccID    uint64 `json:"accid"`
+	Username string `json:"usr"`
 
 	jwt.RegisteredClaims
 }
@@ -58,8 +58,8 @@ func (t *TokenMgr) ParseWithClaims(tokenString string) (*UserInfoClaims, error) 
 
 func BuildTokenClaimsFromAccount(accountID uint64, username string) *UserInfoClaims {
 	claims := &UserInfoClaims{
-		AccID:        accountID,
-		Username:     username,
+		AccID:    accountID,
+		Username: username,
 		RegisteredClaims: jwt.RegisteredClaims{
 			Issuer:   "fivenet",
 			Subject:  strconv.FormatUint(accountID, 10),

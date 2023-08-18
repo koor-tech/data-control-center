@@ -20,7 +20,7 @@ func main() {
 		}),
 		LoggerModule,
 		config.Module,
-    server.HTTPServerModule,
+		server.HTTPServerModule,
 		auth.AuthModule,
 		auth.TokenMgrModule,
 
@@ -50,4 +50,3 @@ func NewLogger(cfg *config.Config) (*zap.Logger, error) {
 
 	return logger, nil
 }
-
