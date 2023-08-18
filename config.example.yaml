@@ -2,12 +2,12 @@ logLevel: 'DEBUG'
 # debug or release
 mode: 'debug'
 http:
-  listen: ':8181'
+  listen: ':8080'
   sessions:
     cookieSecret: 'your_generated_cookie_secret'
     domain: 'localhost'
 grpc:
-  listen: ':9191'
+  listen: ':9090'
 jwt:
   secret: 'your_generated_jwt_secret'
 oauth2:

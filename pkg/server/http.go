@@ -13,6 +13,7 @@ import (
 	ginzap "github.com/gin-contrib/zap"
 	"github.com/gin-gonic/contrib/gzip"
 	"github.com/gin-gonic/gin"
+	"github.com/koor-tech/data-control-center/gen/go/proto/services/auth/authconnect"
 	"github.com/koor-tech/data-control-center/pkg/config"
 	"github.com/koor-tech/data-control-center/pkg/grpc/auth"
 	"github.com/koor-tech/data-control-center/pkg/server/api"
@@ -21,6 +22,9 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
+
+	// Services
+	serverauth "github.com/koor-tech/data-control-center/server/auth"
 )
 
 var HTTPServerModule = fx.Module("httpserver",
@@ -38,6 +42,8 @@ type ServerParams struct {
 	Logger   *zap.Logger
 	Config   *config.Config
 	TokenMgr *auth.TokenMgr
+
+    // TODO use fx framework
 }
 
 type ServerResult struct {
@@ -52,7 +58,7 @@ func NewHTTP(p ServerParams) (ServerResult, error) {
 	// Create HTTP Server for graceful shutdown handling
 	srv := &http.Server{
 		Addr:    p.Config.HTTP.Listen,
-		Handler: setupHTTPServer(p),
+		Handler: setupHTTPServer(p).Handler(),
 	}
 
 	p.LC.Append(fx.Hook{
@@ -79,6 +85,8 @@ func setupHTTPServer(p ServerParams) *gin.Engine {
 	// Gin HTTP Server
 	gin.SetMode(p.Config.Mode)
 	e := gin.New()
+
+    e.UseH2C = true
 
 	// Add Zap Logger to Gin
 	e.Use(ginzap.Ginzap(p.Logger, time.RFC3339, true))
@@ -133,6 +141,11 @@ func setupHTTPServer(p ServerParams) *gin.Engine {
 	})
 	// Register output dir for assets and other static files
 	e.Use(static.Serve("/", fs))
+
+    // Register Connect services
+    authSvc := &serverauth.Server{}
+    authPath, authHandler := authconnect.NewAuthHandler(authSvc)
+    e.Any(authPath, gin.WrapH(authHandler))
 
 	return e
 }

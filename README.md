@@ -41,3 +41,7 @@ quasar build
 ### Customize the configuration
 
 See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
+
+## Development
+
+* To generate code from the proto files you need to have the `buf` cli and `make` installed, run `make gen-proto`.
