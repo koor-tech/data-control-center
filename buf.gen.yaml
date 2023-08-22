@@ -6,7 +6,14 @@ managed:
     except:
       - buf.build/envoyproxy/protoc-gen-validate
       - buf.build/googleapis/googleapis
+      - buf.build/bufbuild/validate-go:v1.0.2
+
 plugins:
+  - plugin: go-grpc
+    out: gen/go
+    opt:
+        - paths=source_relative
+        - require_unimplemented_servers=false
   - plugin: buf.build/protocolbuffers/go
     out: ./gen/go
     opt:

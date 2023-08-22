@@ -21,8 +21,8 @@ import (
 const _ = connect.IsAtLeastVersion0_1_0
 
 const (
-	// StatsName is the fully-qualified name of the Stats service.
-	StatsName = "services.cluster.Stats"
+	// StatsServiceName is the fully-qualified name of the StatsService service.
+	StatsServiceName = "stats.StatsService"
 )
 
 // These constants are the fully-qualified names of the RPCs defined in this package. They're
@@ -33,72 +33,73 @@ const (
 // reflection-formatted method names, remove the leading slash and convert the remaining slash to a
 // period.
 const (
-	// StatsStreamProcedure is the fully-qualified name of the Stats's Stream RPC.
-	StatsStreamProcedure = "/services.cluster.Stats/Stream"
+	// StatsServiceGetClusterStatsProcedure is the fully-qualified name of the StatsService's
+	// GetClusterStats RPC.
+	StatsServiceGetClusterStatsProcedure = "/stats.StatsService/GetClusterStats"
 )
 
-// StatsClient is a client for the services.cluster.Stats service.
-type StatsClient interface {
-	Stream(context.Context, *connect.Request[stats.StreamRequest]) (*connect.ServerStreamForClient[stats.StreamResponse], error)
+// StatsServiceClient is a client for the stats.StatsService service.
+type StatsServiceClient interface {
+	GetClusterStats(context.Context, *connect.Request[stats.EmptyRequest]) (*connect.Response[stats.ClusterStatusResponse], error)
 }
 
-// NewStatsClient constructs a client for the services.cluster.Stats service. By default, it uses
+// NewStatsServiceClient constructs a client for the stats.StatsService service. By default, it uses
 // the Connect protocol with the binary Protobuf Codec, asks for gzipped responses, and sends
 // uncompressed requests. To use the gRPC or gRPC-Web protocols, supply the connect.WithGRPC() or
 // connect.WithGRPCWeb() options.
 //
 // The URL supplied here should be the base URL for the Connect or gRPC server (for example,
 // http://api.acme.com or https://acme.com/grpc).
-func NewStatsClient(httpClient connect.HTTPClient, baseURL string, opts ...connect.ClientOption) StatsClient {
+func NewStatsServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...connect.ClientOption) StatsServiceClient {
 	baseURL = strings.TrimRight(baseURL, "/")
-	return &statsClient{
-		stream: connect.NewClient[stats.StreamRequest, stats.StreamResponse](
+	return &statsServiceClient{
+		getClusterStats: connect.NewClient[stats.EmptyRequest, stats.ClusterStatusResponse](
 			httpClient,
-			baseURL+StatsStreamProcedure,
+			baseURL+StatsServiceGetClusterStatsProcedure,
 			opts...,
 		),
 	}
 }
 
-// statsClient implements StatsClient.
-type statsClient struct {
-	stream *connect.Client[stats.StreamRequest, stats.StreamResponse]
+// statsServiceClient implements StatsServiceClient.
+type statsServiceClient struct {
+	getClusterStats *connect.Client[stats.EmptyRequest, stats.ClusterStatusResponse]
 }
 
-// Stream calls services.cluster.Stats.Stream.
-func (c *statsClient) Stream(ctx context.Context, req *connect.Request[stats.StreamRequest]) (*connect.ServerStreamForClient[stats.StreamResponse], error) {
-	return c.stream.CallServerStream(ctx, req)
+// GetClusterStats calls stats.StatsService.GetClusterStats.
+func (c *statsServiceClient) GetClusterStats(ctx context.Context, req *connect.Request[stats.EmptyRequest]) (*connect.Response[stats.ClusterStatusResponse], error) {
+	return c.getClusterStats.CallUnary(ctx, req)
 }
 
-// StatsHandler is an implementation of the services.cluster.Stats service.
-type StatsHandler interface {
-	Stream(context.Context, *connect.Request[stats.StreamRequest], *connect.ServerStream[stats.StreamResponse]) error
+// StatsServiceHandler is an implementation of the stats.StatsService service.
+type StatsServiceHandler interface {
+	GetClusterStats(context.Context, *connect.Request[stats.EmptyRequest]) (*connect.Response[stats.ClusterStatusResponse], error)
 }
 
-// NewStatsHandler builds an HTTP handler from the service implementation. It returns the path on
-// which to mount the handler and the handler itself.
+// NewStatsServiceHandler builds an HTTP handler from the service implementation. It returns the
+// path on which to mount the handler and the handler itself.
 //
 // By default, handlers support the Connect, gRPC, and gRPC-Web protocols with the binary Protobuf
 // and JSON codecs. They also support gzip compression.
-func NewStatsHandler(svc StatsHandler, opts ...connect.HandlerOption) (string, http.Handler) {
-	statsStreamHandler := connect.NewServerStreamHandler(
-		StatsStreamProcedure,
-		svc.Stream,
+func NewStatsServiceHandler(svc StatsServiceHandler, opts ...connect.HandlerOption) (string, http.Handler) {
+	statsServiceGetClusterStatsHandler := connect.NewUnaryHandler(
+		StatsServiceGetClusterStatsProcedure,
+		svc.GetClusterStats,
 		opts...,
 	)
-	return "/services.cluster.Stats/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	return "/stats.StatsService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
-		case StatsStreamProcedure:
-			statsStreamHandler.ServeHTTP(w, r)
+		case StatsServiceGetClusterStatsProcedure:
+			statsServiceGetClusterStatsHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
 	})
 }
 
-// UnimplementedStatsHandler returns CodeUnimplemented from all methods.
-type UnimplementedStatsHandler struct{}
+// UnimplementedStatsServiceHandler returns CodeUnimplemented from all methods.
+type UnimplementedStatsServiceHandler struct{}
 
-func (UnimplementedStatsHandler) Stream(context.Context, *connect.Request[stats.StreamRequest], *connect.ServerStream[stats.StreamResponse]) error {
-	return connect.NewError(connect.CodeUnimplemented, errors.New("services.cluster.Stats.Stream is not implemented"))
+func (UnimplementedStatsServiceHandler) GetClusterStats(context.Context, *connect.Request[stats.EmptyRequest]) (*connect.Response[stats.ClusterStatusResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("stats.StatsService.GetClusterStats is not implemented"))
 }

@@ -2,6 +2,9 @@ package server
 
 import (
 	"context"
+	"fmt"
+	"go.uber.org/fx/fxevent"
+	"go.uber.org/zap/zapcore"
 	"net"
 	"net/http"
 	"strings"
@@ -43,7 +46,7 @@ type ServerParams struct {
 	Config   *config.Config
 	TokenMgr *auth.TokenMgr
 
-    // TODO use fx framework
+	// TODO use fx framework
 }
 
 type ServerResult struct {
@@ -86,7 +89,7 @@ func setupHTTPServer(p ServerParams) *gin.Engine {
 	gin.SetMode(p.Config.Mode)
 	e := gin.New()
 
-    e.UseH2C = true
+	e.UseH2C = true
 
 	// Add Zap Logger to Gin
 	e.Use(ginzap.Ginzap(p.Logger, time.RFC3339, true))
@@ -142,14 +145,52 @@ func setupHTTPServer(p ServerParams) *gin.Engine {
 	// Register output dir for assets and other static files
 	e.Use(static.Serve("/", fs))
 
-    // Register Connect services
-    authSvc := &serverauth.Server{}
-    authPath, authHandler := authconnect.NewAuthHandler(authSvc)
-    e.Any(authPath, gin.WrapH(authHandler))
+	// Register Connect services
+	authSvc := &serverauth.Server{}
+	authPath, authHandler := authconnect.NewAuthHandler(authSvc)
+	e.Any(authPath, gin.WrapH(authHandler))
 
 	return e
 }
 
 func wrapLogger(log *zap.Logger) *zap.Logger {
 	return log.Named("http_server")
+}
+
+func StartHTTPServer() {
+	fx.New(
+		fx.WithLogger(func(log *zap.Logger) fxevent.Logger {
+			return &fxevent.ZapLogger{Logger: log}
+		}),
+		LoggerModule,
+		config.Module,
+		HTTPServerModule,
+		auth.AuthModule,
+		auth.TokenMgrModule,
+
+		fx.Invoke(func(*http.Server) {}),
+	).Run()
+}
+
+var LoggerModule = fx.Module("logger",
+	fx.Provide(
+		NewLogger,
+	),
+)
+
+func NewLogger(cfg *config.Config) (*zap.Logger, error) {
+	// Logger Setup
+	loggerConfig := zap.NewProductionConfig()
+	level, err := zapcore.ParseLevel(cfg.LogLevel)
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse log level from config. %w", err)
+	}
+	loggerConfig.Level.SetLevel(level)
+
+	logger, err := loggerConfig.Build()
+	if err != nil {
+		return nil, fmt.Errorf("failed to configure logger. %w", err)
+	}
+
+	return logger, nil
 }
