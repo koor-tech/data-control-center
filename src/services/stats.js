@@ -1,4 +1,4 @@
-import {createGrpcWebTransport } from "@connectrpc/connect-web";
+import {createConnectTransport } from "@connectrpc/connect-web";
 import { createPromiseClient } from "@bufbuild/connect";
 import { StatsService } from 'app/gen/ts/api/services/stats/stats_connect';
 
@@ -8,9 +8,9 @@ export default class {
         this.proto = deps.proto
     }
 
-    async getStats () {
+    async get () {
 
-        const transport = createGrpcWebTransport({
+        const transport = createConnectTransport({
             baseUrl: 'http://localhost:9000',
         });
 
