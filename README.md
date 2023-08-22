@@ -44,4 +44,12 @@ See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-
 
 ## Development
 
-* To generate code from the proto files you need to have the `buf` cli and `make` installed, run `make gen-proto`.
+### Requirements
+
+* `make` installed
+* `npm` with a Node version of at least `v16.x`
+* [`buf` cli](https://buf.build/docs/installation) installed
+
+### Tasks
+
+* Re-Generate Protobuf generated code: `make gen-proto`

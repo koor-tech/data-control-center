@@ -13,8 +13,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import AuthUsernamePwd from './AuthUsernamePwd.vue'
+import { ref } from 'vue';
+import AuthUsernamePwd from './AuthUsernamePwd.vue';
 
 const options = [
   {
@@ -25,9 +25,9 @@ const options = [
     label: 'OAuth',
     value: 'oauth',
   },
-]
-const createAccount = ref(false)
-const methodForAuth = ref(options[0].value)
+];
+const createAccount = ref(false);
+const methodForAuth = ref(options[0].value);
 </script>
 
 <style lang="scss" scoped></style>

@@ -61,10 +61,10 @@ func BuildTokenClaimsFromAccount(accountID uint64, username string) *UserInfoCla
 		AccID:    accountID,
 		Username: username,
 		RegisteredClaims: jwt.RegisteredClaims{
-			Issuer:   "fivenet",
+			Issuer:   "data-control-center",
 			Subject:  strconv.FormatUint(accountID, 10),
 			ID:       strconv.FormatUint(accountID, 10),
-			Audience: []string{"fivenet"},
+			Audience: []string{"data-control-center"},
 		},
 	}
 	SetTokenClaimsTimes(claims)
