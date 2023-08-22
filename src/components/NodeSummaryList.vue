@@ -1,17 +1,12 @@
 <template>
   <div class="text-h3 text-center">Storage Nodes</div>
-  <q-list>
+  <ul>
     <div v-for="(item, index) in items" :key="item.name">
-      <NodeSummaryItem
-        :name="item.name"
-        :description="item.description"
-        :capacity="item.capacity"
-        :health="item.health"
-        :last-ping="item.lastPing"
-      />
+      <NodeSummaryItem :name="item.name" :description="item.description" :capacity="item.capacity" :health="item.health"
+        :last-ping="item.lastPing" />
       <q-separator v-if="index + 1 < items.length" spaced inset />
     </div>
-  </q-list>
+  </ul>
 </template>
 
 <script setup>

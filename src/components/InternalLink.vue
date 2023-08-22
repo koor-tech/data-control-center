@@ -5,8 +5,8 @@
     </q-item-section>
 
     <q-item-section>
-      <q-item-label>{{ title }}</q-item-label>
-      <q-item-label>{{ caption }}</q-item-label>
+      <li>{{ title }}</li>
+      <li>{{ caption }}</li>
     </q-item-section>
   </q-item>
 </template>

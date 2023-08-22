@@ -1,6 +1,6 @@
 <template>
-  <q-list bordered padding>
-    <q-item-label header>{{ label || 'Setting' }}</q-item-label>
+  <ul bordered padding>
+    <li header>{{ label || 'Setting' }}</li>
 
     <q-item>
       <q-item-section side>
@@ -31,7 +31,7 @@
         <q-slider v-model="settings.mic" :min="0" :max="50" label />
       </q-item-section>
     </q-item>
-  </q-list>
+  </ul>
 </template>
 
 <script setup lang="ts">

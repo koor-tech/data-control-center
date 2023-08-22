@@ -57,7 +57,6 @@ type Config struct {
 	Mode     string `default:"debug" yaml:"mode"`
 
 	HTTP   HTTP    `yaml:"http"`
-	GRPC   GRPC    `yaml:"grpc"`
 	JWT    JWT     `yaml:"jwt"`
 	OAuth2 OAuth2  `yaml:"oauth2"`
 	Users  []*User `yaml:"users"`
@@ -71,10 +70,6 @@ type HTTP struct {
 type Sessions struct {
 	CookieSecret string `yaml:"cookieSecret"`
 	Domain       string `default:"localhost" yaml:"domain"`
-}
-
-type GRPC struct {
-	Listen string `default:":9090" yaml:"listen"`
 }
 
 type JWT struct {

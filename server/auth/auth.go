@@ -15,7 +15,7 @@ import (
 )
 
 type Server struct {
-	authconnect.AuthHandler
+	authconnect.AuthServiceHandler
 
 	tm *auth.TokenMgr
 

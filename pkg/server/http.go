@@ -43,7 +43,7 @@ type ServerParams struct {
 	Config   *config.Config
 	TokenMgr *auth.TokenMgr
 
-    // TODO use fx framework
+	// TODO use fx framework
 }
 
 type ServerResult struct {
@@ -86,7 +86,7 @@ func setupHTTPServer(p ServerParams) *gin.Engine {
 	gin.SetMode(p.Config.Mode)
 	e := gin.New()
 
-    e.UseH2C = true
+	e.UseH2C = true
 
 	// Add Zap Logger to Gin
 	e.Use(ginzap.Ginzap(p.Logger, time.RFC3339, true))
@@ -142,10 +142,10 @@ func setupHTTPServer(p ServerParams) *gin.Engine {
 	// Register output dir for assets and other static files
 	e.Use(static.Serve("/", fs))
 
-    // Register Connect services
-    authSvc := &serverauth.Server{}
-    authPath, authHandler := authconnect.NewAuthHandler(authSvc)
-    e.Any(authPath, gin.WrapH(authHandler))
+	// Register Connect services
+	authSvc := &serverauth.Server{}
+	authPath, authHandler := authconnect.NewAuthServiceHandler(authSvc)
+	e.Any(authPath, gin.WrapH(authHandler))
 
 	return e
 }
