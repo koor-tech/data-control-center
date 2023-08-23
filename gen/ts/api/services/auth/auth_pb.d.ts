@@ -113,3 +113,51 @@ export declare class LogoutResponse extends Message<LogoutResponse> {
   static equals(a: LogoutResponse | PlainMessage<LogoutResponse> | undefined, b: LogoutResponse | PlainMessage<LogoutResponse> | undefined): boolean;
 }
 
+/**
+ * @generated from message services.auth.CheckTokenRequest
+ */
+export declare class CheckTokenRequest extends Message<CheckTokenRequest> {
+  /**
+   * @generated from field: string token = 1;
+   */
+  token: string;
+
+  constructor(data?: PartialMessage<CheckTokenRequest>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "services.auth.CheckTokenRequest";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CheckTokenRequest;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CheckTokenRequest;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CheckTokenRequest;
+
+  static equals(a: CheckTokenRequest | PlainMessage<CheckTokenRequest> | undefined, b: CheckTokenRequest | PlainMessage<CheckTokenRequest> | undefined): boolean;
+}
+
+/**
+ * @generated from message services.auth.CheckTokenResponse
+ */
+export declare class CheckTokenResponse extends Message<CheckTokenResponse> {
+  /**
+   * @generated from field: bool success = 1;
+   */
+  success: boolean;
+
+  constructor(data?: PartialMessage<CheckTokenResponse>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "services.auth.CheckTokenResponse";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CheckTokenResponse;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CheckTokenResponse;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CheckTokenResponse;
+
+  static equals(a: CheckTokenResponse | PlainMessage<CheckTokenResponse> | undefined, b: CheckTokenResponse | PlainMessage<CheckTokenResponse> | undefined): boolean;
+}
+

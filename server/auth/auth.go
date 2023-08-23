@@ -66,7 +66,7 @@ func (s *Server) Login(ctx context.Context, req *connect.Request[pbauth.LoginReq
 		return nil, status.Error(codes.InvalidArgument, "Wrong username or password")
 	}
 
-	claims := auth.BuildTokenClaimsFromAccount(1, "")
+	claims := auth.BuildTokenClaimsFromAccount(1, user.Username)
 	token, err := s.tm.NewWithClaims(claims)
 	if err != nil {
 		return nil, err
@@ -81,10 +81,25 @@ func (s *Server) Login(ctx context.Context, req *connect.Request[pbauth.LoginReq
 	}, nil
 }
 
-func (s *Server) Logout(context.Context, *connect.Request[pbauth.LogoutRequest]) (*connect.Response[pbauth.LogoutResponse], error) {
+func (s *Server) Logout(ctx context.Context, req *connect.Request[pbauth.LogoutRequest]) (*connect.Response[pbauth.LogoutResponse], error) {
 	return &connect.Response[pbauth.LogoutResponse]{
 		Msg: &pbauth.LogoutResponse{
 			Success: true,
 		},
 	}, nil
+}
+
+func (s *Server) CheckToken(ctx context.Context, req *connect.Request[pbauth.CheckTokenRequest]) (*connect.Response[pbauth.CheckTokenResponse], error) {
+	resp := &connect.Response[pbauth.CheckTokenResponse]{
+		Msg: &pbauth.CheckTokenResponse{
+			Success: false,
+		},
+	}
+
+	if _, err := s.tm.ParseWithClaims(req.Msg.Token); err != nil {
+		return resp, nil
+	}
+
+	resp.Msg.Success = true
+	return resp, nil
 }

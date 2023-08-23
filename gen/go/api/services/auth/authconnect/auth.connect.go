@@ -37,12 +37,15 @@ const (
 	AuthServiceLoginProcedure = "/services.auth.AuthService/Login"
 	// AuthServiceLogoutProcedure is the fully-qualified name of the AuthService's Logout RPC.
 	AuthServiceLogoutProcedure = "/services.auth.AuthService/Logout"
+	// AuthServiceCheckTokenProcedure is the fully-qualified name of the AuthService's CheckToken RPC.
+	AuthServiceCheckTokenProcedure = "/services.auth.AuthService/CheckToken"
 )
 
 // AuthServiceClient is a client for the services.auth.AuthService service.
 type AuthServiceClient interface {
 	Login(context.Context, *connect.Request[auth.LoginRequest]) (*connect.Response[auth.LoginResponse], error)
 	Logout(context.Context, *connect.Request[auth.LogoutRequest]) (*connect.Response[auth.LogoutResponse], error)
+	CheckToken(context.Context, *connect.Request[auth.CheckTokenRequest]) (*connect.Response[auth.CheckTokenResponse], error)
 }
 
 // NewAuthServiceClient constructs a client for the services.auth.AuthService service. By default,
@@ -65,13 +68,19 @@ func NewAuthServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 			baseURL+AuthServiceLogoutProcedure,
 			opts...,
 		),
+		checkToken: connect.NewClient[auth.CheckTokenRequest, auth.CheckTokenResponse](
+			httpClient,
+			baseURL+AuthServiceCheckTokenProcedure,
+			opts...,
+		),
 	}
 }
 
 // authServiceClient implements AuthServiceClient.
 type authServiceClient struct {
-	login  *connect.Client[auth.LoginRequest, auth.LoginResponse]
-	logout *connect.Client[auth.LogoutRequest, auth.LogoutResponse]
+	login      *connect.Client[auth.LoginRequest, auth.LoginResponse]
+	logout     *connect.Client[auth.LogoutRequest, auth.LogoutResponse]
+	checkToken *connect.Client[auth.CheckTokenRequest, auth.CheckTokenResponse]
 }
 
 // Login calls services.auth.AuthService.Login.
@@ -84,10 +93,16 @@ func (c *authServiceClient) Logout(ctx context.Context, req *connect.Request[aut
 	return c.logout.CallUnary(ctx, req)
 }
 
+// CheckToken calls services.auth.AuthService.CheckToken.
+func (c *authServiceClient) CheckToken(ctx context.Context, req *connect.Request[auth.CheckTokenRequest]) (*connect.Response[auth.CheckTokenResponse], error) {
+	return c.checkToken.CallUnary(ctx, req)
+}
+
 // AuthServiceHandler is an implementation of the services.auth.AuthService service.
 type AuthServiceHandler interface {
 	Login(context.Context, *connect.Request[auth.LoginRequest]) (*connect.Response[auth.LoginResponse], error)
 	Logout(context.Context, *connect.Request[auth.LogoutRequest]) (*connect.Response[auth.LogoutResponse], error)
+	CheckToken(context.Context, *connect.Request[auth.CheckTokenRequest]) (*connect.Response[auth.CheckTokenResponse], error)
 }
 
 // NewAuthServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -106,12 +121,19 @@ func NewAuthServiceHandler(svc AuthServiceHandler, opts ...connect.HandlerOption
 		svc.Logout,
 		opts...,
 	)
+	authServiceCheckTokenHandler := connect.NewUnaryHandler(
+		AuthServiceCheckTokenProcedure,
+		svc.CheckToken,
+		opts...,
+	)
 	return "/services.auth.AuthService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case AuthServiceLoginProcedure:
 			authServiceLoginHandler.ServeHTTP(w, r)
 		case AuthServiceLogoutProcedure:
 			authServiceLogoutHandler.ServeHTTP(w, r)
+		case AuthServiceCheckTokenProcedure:
+			authServiceCheckTokenHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -127,4 +149,8 @@ func (UnimplementedAuthServiceHandler) Login(context.Context, *connect.Request[a
 
 func (UnimplementedAuthServiceHandler) Logout(context.Context, *connect.Request[auth.LogoutRequest]) (*connect.Response[auth.LogoutResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.auth.AuthService.Logout is not implemented"))
+}
+
+func (UnimplementedAuthServiceHandler) CheckToken(context.Context, *connect.Request[auth.CheckTokenRequest]) (*connect.Response[auth.CheckTokenResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.auth.AuthService.CheckToken is not implemented"))
 }

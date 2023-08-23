@@ -27,7 +27,16 @@ message LogoutResponse {
   bool success = 1;
 }
 
+message CheckTokenRequest {
+  string token = 1;
+}
+
+message CheckTokenResponse {
+  bool success = 1;
+}
+
 service AuthService {
   rpc Login(LoginRequest) returns (LoginResponse);
   rpc Logout(LogoutRequest) returns (LogoutResponse);
+  rpc CheckToken(CheckTokenRequest) returns (CheckTokenResponse);
 }

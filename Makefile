@@ -3,7 +3,7 @@ BUF ?= buf
 VALIDATE_VERSION ?= v1.0.2
 BUILD_DIR := .build/
 
-.DEFAULT: proto-gen
+.DEFAULT: gen-prot
 
 build_dir:
 	mkdir -p $(BUILD_DIR)
@@ -18,6 +18,6 @@ protoc-gen-validate: build_dir
 
 	cd $(BUILD_DIR) && ln -sfn validate-$(VALIDATE_VERSION)/ validate
 
-.PHONY: proto-gen
-proto-gen: protoc-gen-validate
+.PHONY: gen-prot
+gen-prot: protoc-gen-validate
 	$(BUF) generate

@@ -47,3 +47,23 @@ export const LogoutResponse = proto3.makeMessageType(
   ],
 );
 
+/**
+ * @generated from message services.auth.CheckTokenRequest
+ */
+export const CheckTokenRequest = proto3.makeMessageType(
+  "services.auth.CheckTokenRequest",
+  () => [
+    { no: 1, name: "token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
+/**
+ * @generated from message services.auth.CheckTokenResponse
+ */
+export const CheckTokenResponse = proto3.makeMessageType(
+  "services.auth.CheckTokenResponse",
+  () => [
+    { no: 1, name: "success", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ],
+);
+

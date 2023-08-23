@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { LoginRequest, LoginResponse, LogoutRequest, LogoutResponse } from "./auth_pb.js";
+import { CheckTokenRequest, CheckTokenResponse, LoginRequest, LoginResponse, LogoutRequest, LogoutResponse } from "./auth_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -28,6 +28,15 @@ export const AuthService = {
       name: "Logout",
       I: LogoutRequest,
       O: LogoutResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc services.auth.AuthService.CheckToken
+     */
+    checkToken: {
+      name: "CheckToken",
+      I: CheckTokenRequest,
+      O: CheckTokenResponse,
       kind: MethodKind.Unary,
     },
   }
