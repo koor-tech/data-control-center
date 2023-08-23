@@ -10,5 +10,8 @@
   "protoc": {
     "options": ["--proto_path=./.build/validate", "--proto_path=./"]
   },
-  "volar.takeOverMode.extension": "Vue.volar"
+  "volar.takeOverMode.extension": "Vue.volar",
+  "[go]": {
+    "editor.defaultFormatter": "golang.go"
+  }
 }

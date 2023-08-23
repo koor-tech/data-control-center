@@ -21,8 +21,8 @@ import (
 const _ = connect.IsAtLeastVersion0_1_0
 
 const (
-	// AuthName is the fully-qualified name of the Auth service.
-	AuthName = "services.auth.Auth"
+	// AuthServiceName is the fully-qualified name of the AuthService service.
+	AuthServiceName = "services.auth.AuthService"
 )
 
 // These constants are the fully-qualified names of the RPCs defined in this package. They're
@@ -33,98 +33,98 @@ const (
 // reflection-formatted method names, remove the leading slash and convert the remaining slash to a
 // period.
 const (
-	// AuthLoginProcedure is the fully-qualified name of the Auth's Login RPC.
-	AuthLoginProcedure = "/services.auth.Auth/Login"
-	// AuthLogoutProcedure is the fully-qualified name of the Auth's Logout RPC.
-	AuthLogoutProcedure = "/services.auth.Auth/Logout"
+	// AuthServiceLoginProcedure is the fully-qualified name of the AuthService's Login RPC.
+	AuthServiceLoginProcedure = "/services.auth.AuthService/Login"
+	// AuthServiceLogoutProcedure is the fully-qualified name of the AuthService's Logout RPC.
+	AuthServiceLogoutProcedure = "/services.auth.AuthService/Logout"
 )
 
-// AuthClient is a client for the services.auth.Auth service.
-type AuthClient interface {
+// AuthServiceClient is a client for the services.auth.AuthService service.
+type AuthServiceClient interface {
 	Login(context.Context, *connect.Request[auth.LoginRequest]) (*connect.Response[auth.LoginResponse], error)
 	Logout(context.Context, *connect.Request[auth.LogoutRequest]) (*connect.Response[auth.LogoutResponse], error)
 }
 
-// NewAuthClient constructs a client for the services.auth.Auth service. By default, it uses the
-// Connect protocol with the binary Protobuf Codec, asks for gzipped responses, and sends
-// uncompressed requests. To use the gRPC or gRPC-Web protocols, supply the connect.WithGRPC() or
-// connect.WithGRPCWeb() options.
+// NewAuthServiceClient constructs a client for the services.auth.AuthService service. By default,
+// it uses the Connect protocol with the binary Protobuf Codec, asks for gzipped responses, and
+// sends uncompressed requests. To use the gRPC or gRPC-Web protocols, supply the connect.WithGRPC()
+// or connect.WithGRPCWeb() options.
 //
 // The URL supplied here should be the base URL for the Connect or gRPC server (for example,
 // http://api.acme.com or https://acme.com/grpc).
-func NewAuthClient(httpClient connect.HTTPClient, baseURL string, opts ...connect.ClientOption) AuthClient {
+func NewAuthServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...connect.ClientOption) AuthServiceClient {
 	baseURL = strings.TrimRight(baseURL, "/")
-	return &authClient{
+	return &authServiceClient{
 		login: connect.NewClient[auth.LoginRequest, auth.LoginResponse](
 			httpClient,
-			baseURL+AuthLoginProcedure,
+			baseURL+AuthServiceLoginProcedure,
 			opts...,
 		),
 		logout: connect.NewClient[auth.LogoutRequest, auth.LogoutResponse](
 			httpClient,
-			baseURL+AuthLogoutProcedure,
+			baseURL+AuthServiceLogoutProcedure,
 			opts...,
 		),
 	}
 }
 
-// authClient implements AuthClient.
-type authClient struct {
+// authServiceClient implements AuthServiceClient.
+type authServiceClient struct {
 	login  *connect.Client[auth.LoginRequest, auth.LoginResponse]
 	logout *connect.Client[auth.LogoutRequest, auth.LogoutResponse]
 }
 
-// Login calls services.auth.Auth.Login.
-func (c *authClient) Login(ctx context.Context, req *connect.Request[auth.LoginRequest]) (*connect.Response[auth.LoginResponse], error) {
+// Login calls services.auth.AuthService.Login.
+func (c *authServiceClient) Login(ctx context.Context, req *connect.Request[auth.LoginRequest]) (*connect.Response[auth.LoginResponse], error) {
 	return c.login.CallUnary(ctx, req)
 }
 
-// Logout calls services.auth.Auth.Logout.
-func (c *authClient) Logout(ctx context.Context, req *connect.Request[auth.LogoutRequest]) (*connect.Response[auth.LogoutResponse], error) {
+// Logout calls services.auth.AuthService.Logout.
+func (c *authServiceClient) Logout(ctx context.Context, req *connect.Request[auth.LogoutRequest]) (*connect.Response[auth.LogoutResponse], error) {
 	return c.logout.CallUnary(ctx, req)
 }
 
-// AuthHandler is an implementation of the services.auth.Auth service.
-type AuthHandler interface {
+// AuthServiceHandler is an implementation of the services.auth.AuthService service.
+type AuthServiceHandler interface {
 	Login(context.Context, *connect.Request[auth.LoginRequest]) (*connect.Response[auth.LoginResponse], error)
 	Logout(context.Context, *connect.Request[auth.LogoutRequest]) (*connect.Response[auth.LogoutResponse], error)
 }
 
-// NewAuthHandler builds an HTTP handler from the service implementation. It returns the path on
-// which to mount the handler and the handler itself.
+// NewAuthServiceHandler builds an HTTP handler from the service implementation. It returns the path
+// on which to mount the handler and the handler itself.
 //
 // By default, handlers support the Connect, gRPC, and gRPC-Web protocols with the binary Protobuf
 // and JSON codecs. They also support gzip compression.
-func NewAuthHandler(svc AuthHandler, opts ...connect.HandlerOption) (string, http.Handler) {
-	authLoginHandler := connect.NewUnaryHandler(
-		AuthLoginProcedure,
+func NewAuthServiceHandler(svc AuthServiceHandler, opts ...connect.HandlerOption) (string, http.Handler) {
+	authServiceLoginHandler := connect.NewUnaryHandler(
+		AuthServiceLoginProcedure,
 		svc.Login,
 		opts...,
 	)
-	authLogoutHandler := connect.NewUnaryHandler(
-		AuthLogoutProcedure,
+	authServiceLogoutHandler := connect.NewUnaryHandler(
+		AuthServiceLogoutProcedure,
 		svc.Logout,
 		opts...,
 	)
-	return "/services.auth.Auth/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	return "/services.auth.AuthService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
-		case AuthLoginProcedure:
-			authLoginHandler.ServeHTTP(w, r)
-		case AuthLogoutProcedure:
-			authLogoutHandler.ServeHTTP(w, r)
+		case AuthServiceLoginProcedure:
+			authServiceLoginHandler.ServeHTTP(w, r)
+		case AuthServiceLogoutProcedure:
+			authServiceLogoutHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
 	})
 }
 
-// UnimplementedAuthHandler returns CodeUnimplemented from all methods.
-type UnimplementedAuthHandler struct{}
+// UnimplementedAuthServiceHandler returns CodeUnimplemented from all methods.
+type UnimplementedAuthServiceHandler struct{}
 
-func (UnimplementedAuthHandler) Login(context.Context, *connect.Request[auth.LoginRequest]) (*connect.Response[auth.LoginResponse], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.auth.Auth.Login is not implemented"))
+func (UnimplementedAuthServiceHandler) Login(context.Context, *connect.Request[auth.LoginRequest]) (*connect.Response[auth.LoginResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.auth.AuthService.Login is not implemented"))
 }
 
-func (UnimplementedAuthHandler) Logout(context.Context, *connect.Request[auth.LogoutRequest]) (*connect.Response[auth.LogoutResponse], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.auth.Auth.Logout is not implemented"))
+func (UnimplementedAuthServiceHandler) Logout(context.Context, *connect.Request[auth.LogoutRequest]) (*connect.Response[auth.LogoutResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("services.auth.AuthService.Logout is not implemented"))
 }

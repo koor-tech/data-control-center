@@ -8,9 +8,3 @@
 
 <script setup></script>
 
-<style lang="scss" scoped>
-.cluster-radar {
-  padding: 5px;
-  border: 1px solid $grey-12;
-}
-</style>

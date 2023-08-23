@@ -56,10 +56,10 @@ type Config struct {
 	LogLevel string `default:"DEBUG" yaml:"logLevel"`
 	Mode     string `default:"debug" yaml:"mode"`
 
-	HTTP   HTTP   `yaml:"http"`
-	GRPC   GRPC   `yaml:"grpc"`
-	JWT    JWT    `yaml:"jwt"`
-	OAuth2 OAuth2 `yaml:"oauth2"`
+	HTTP   HTTP    `yaml:"http"`
+	JWT    JWT     `yaml:"jwt"`
+	OAuth2 OAuth2  `yaml:"oauth2"`
+	Users  []*User `yaml:"users"`
 }
 
 type HTTP struct {
@@ -70,10 +70,6 @@ type HTTP struct {
 type Sessions struct {
 	CookieSecret string `yaml:"cookieSecret"`
 	Domain       string `default:"localhost" yaml:"domain"`
-}
-
-type GRPC struct {
-	Listen string `default:":9090" yaml:"listen"`
 }
 
 type JWT struct {
@@ -113,4 +109,9 @@ type OAuth2Endpoints struct {
 type OAuth2Mapping struct {
 	ID       string `yaml:"id"`
 	Username string `yaml:"username"`
+}
+
+type User struct {
+	Username string `yaml:"username"`
+	Password string `yaml:"password"`
 }

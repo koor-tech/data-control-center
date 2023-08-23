@@ -25,3 +25,4 @@ oauth2:
       endpoints:
         authURL: 'https://keycloak.example.com/api/oauth2/authorize'
         tokenURL: 'https://keycloak.example.com/api/oauth2/token'
+users: []

@@ -27,7 +27,7 @@ message LogoutResponse {
   bool success = 1;
 }
 
-service Auth {
+service AuthService {
   rpc Login(LoginRequest) returns (LoginResponse);
   rpc Logout(LogoutRequest) returns (LogoutResponse);
 }

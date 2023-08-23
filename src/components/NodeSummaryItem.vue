@@ -1,12 +1,12 @@
 <template>
   <q-item>
     <q-item-section>
-      <q-item-label>{{ name }}</q-item-label>
-      <q-item-label caption>{{ description }}</q-item-label>
+      <li>{{ name }}</li>
+      <li caption>{{ description }}</li>
     </q-item-section>
 
     <q-item-section side top>
-      <q-item-label caption>{{ lastPing }} ago</q-item-label>
+      <li caption>{{ lastPing }} ago</li>
       <q-icon name="star" :color="decodeHealth(health)" />
       <q-badge color="teal" :label="capacity" />
     </q-item-section>

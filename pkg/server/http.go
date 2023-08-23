@@ -147,7 +147,7 @@ func setupHTTPServer(p ServerParams) *gin.Engine {
 
 	// Register Connect services
 	authSvc := &serverauth.Server{}
-	authPath, authHandler := authconnect.NewAuthHandler(authSvc)
+	authPath, authHandler := authconnect.NewAuthServiceHandler(authSvc)
 	e.Any(authPath, gin.WrapH(authHandler))
 
 	return e

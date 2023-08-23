@@ -111,7 +111,7 @@ func (o *OAuth2) handleRedirect(c *gin.Context, err error, connectOnly bool, suc
 }
 
 func (o *OAuth2) Login(c *gin.Context) {
-	sess := sessions.DefaultMany(c, "fivenet_oauth2_state")
+	sess := sessions.DefaultMany(c, "datacontrolcenter_oauth2_state")
 	connectOnly := false
 	connectOnlyVal := c.Query("connect-only")
 	if connectOnlyVal != "" {
@@ -151,7 +151,7 @@ func (o *OAuth2) Login(c *gin.Context) {
 }
 
 func (o *OAuth2) Callback(c *gin.Context) {
-	sess := sessions.DefaultMany(c, "fivenet_oauth2_state")
+	sess := sessions.DefaultMany(c, "datacontrolcenter_oauth2_state")
 	sessState := sess.Get("state")
 	if sessState == nil {
 		o.handleRedirect(c, nil, false, false, "invalid_state")
