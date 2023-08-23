@@ -1,12 +1,10 @@
-import { createPromiseClient, PromiseClient } from '@connectrpc/connect'
-import { createConnectTransport,  } from '@connectrpc/connect-web'
-// import type { PromiseClient } from '@connectrpc/connect'
-// import { createPromiseClient, createConnectTransport } from '@improbable-eng/grpc-web';
-
-import { AuthService } from '~~/gen/ts/api/services/auth/auth_connect'
+import { createPromiseClient, Interceptor, PromiseClient } from '@connectrpc/connect';
+import { createConnectTransport } from '@connectrpc/connect-web';
 import config from '~/config';
-import {StatsService} from "~~/gen/ts/api/services/stats/stats_connect";
-//import { useAuthStore } from '~/store/auth';
+import { useAuthStore } from '~/store/auth';
+import { useNotificationsStore } from '~/store/notifications';
+import { AuthService } from '~~/gen/ts/api/services/auth/auth_connect';
+import { StatsService } from '~~/gen/ts/api/services/stats/stats_connect';
 
 export default defineNuxtPlugin(() => {
     return {
@@ -16,13 +14,30 @@ export default defineNuxtPlugin(() => {
     };
 });
 
+const authInterceptor: Interceptor = (next) => async (req) => {
+    const authStore = useAuthStore();
+    if (authStore.accessToken) req.header.set('Authorization', 'Bearer ' + authStore.accessToken);
+    return await next(req);
+};
+
 export class GRPCClients {
     //private authInterceptor: AuthInterceptor;
 
     constructor() {
         //this.authInterceptor = new AuthInterceptor();
-
         //const interceptors: RpcInterceptor[] = [this.authInterceptor];
+    }
+
+    // Handle GRPC errors
+    async handleError(err: Error): Promise<boolean> {
+        const notifications = useNotificationsStore();
+        notifications.dispatchNotification({
+            type: 'error',
+            title: 'Error during API request',
+            content: err.message,
+        });
+
+        return true;
     }
 
     // GRPC Clients ===============================================================
@@ -32,7 +47,16 @@ export class GRPCClients {
             AuthService,
             createConnectTransport({
                 baseUrl: config.baseUrl,
-            })
+            }),
+        );
+    }
+    getAuthClient(): PromiseClient<typeof AuthService> {
+        return createPromiseClient(
+            AuthService,
+            createConnectTransport({
+                baseUrl: config.baseUrl,
+                interceptors: [authInterceptor],
+            }),
         );
     }
 
@@ -41,7 +65,8 @@ export class GRPCClients {
             StatsService,
             createConnectTransport({
                 baseUrl: config.baseUrl,
-            })
+                interceptors: [authInterceptor],
+            }),
         );
     }
 }

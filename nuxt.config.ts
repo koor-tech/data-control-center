@@ -78,13 +78,12 @@ const config = defineNuxtConfig({
             },
             https: true,
             proxy: {
-                '/api': 'http://localhost:8282',
+                '/api': {
+                    target: 'http://localhost:8282',
+                },
             },
         },
         plugins: [mkcert()],
-        optimizeDeps: {
-            exclude: ['vue-demi'],
-        },
     },
     css: [
         // Inter font (all weights)

@@ -3,7 +3,7 @@ type AppConfig = {
 };
 
 const config: AppConfig = {
-    baseUrl: 'http://localhost:8282',
+    baseUrl: '/api',
 };
 
 export default config;

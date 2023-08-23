@@ -3,20 +3,19 @@ package server
 import (
 	"context"
 	"fmt"
-	"go.uber.org/fx/fxevent"
-	"go.uber.org/zap/zapcore"
 	"net"
 	"net/http"
 	"strings"
 	"time"
 
+	"go.uber.org/fx/fxevent"
+	"go.uber.org/zap/zapcore"
+
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-contrib/static"
 	ginzap "github.com/gin-contrib/zap"
-	"github.com/gin-gonic/contrib/gzip"
 	"github.com/gin-gonic/gin"
-	"github.com/koor-tech/data-control-center/gen/go/api/services/auth/authconnect"
 	"github.com/koor-tech/data-control-center/pkg/config"
 	"github.com/koor-tech/data-control-center/pkg/grpc/auth"
 	"github.com/koor-tech/data-control-center/pkg/server/api"
@@ -28,6 +27,7 @@ import (
 
 	// Services
 	serverauth "github.com/koor-tech/data-control-center/server/auth"
+	serverstats "github.com/koor-tech/data-control-center/server/stats"
 )
 
 var HTTPServerModule = fx.Module("httpserver",
@@ -46,7 +46,7 @@ type ServerParams struct {
 	Config   *config.Config
 	TokenMgr *auth.TokenMgr
 
-	// TODO use fx framework
+	Services []Service `group:"connectServices"`
 }
 
 type ServerResult struct {
@@ -106,9 +106,6 @@ func setupHTTPServer(p ServerParams) *gin.Engine {
 	})
 	e.Use(sessions.SessionsMany([]string{"datacontrolcenter_oauth2_state", "datacontrolcenter_token"}, sessStore))
 
-	// GZIP
-	e.Use(gzip.Gzip(gzip.DefaultCompression))
-
 	// Prometheus Metrics endpoint
 	e.GET("/metrics", gin.WrapH(promhttp.InstrumentMetricHandler(
 		prometheus.DefaultRegisterer, promhttp.HandlerFor(prometheus.DefaultGatherer, promhttp.HandlerOpts{
@@ -128,7 +125,7 @@ func setupHTTPServer(p ServerParams) *gin.Engine {
 
 	e.NoRoute(func(c *gin.Context) {
 		requestPath := c.Request.URL.Path
-		if strings.HasPrefix(requestPath, "/api") || requestPath == "/" {
+		if strings.HasPrefix(requestPath, "/api") {
 			return
 		}
 
@@ -146,9 +143,14 @@ func setupHTTPServer(p ServerParams) *gin.Engine {
 	e.Use(static.Serve("/", fs))
 
 	// Register Connect services
-	authSvc := &serverauth.Server{}
-	authPath, authHandler := authconnect.NewAuthServiceHandler(authSvc)
-	e.Any(authPath, gin.WrapH(authHandler))
+	g := e.Group("/api", func(c *gin.Context) {
+		c.Request.URL.Path = strings.TrimPrefix(c.Request.URL.Path, "/api")
+		c.Next()
+	})
+
+	for _, svc := range p.Services {
+		svc.RegisterService(g)
+	}
 
 	return e
 }
@@ -167,6 +169,12 @@ func StartHTTPServer() {
 		HTTPServerModule,
 		auth.AuthModule,
 		auth.TokenMgrModule,
+
+		// Connect Services
+		fx.Provide(
+			AsService(serverauth.New),
+			AsService(serverstats.New),
+		),
 
 		fx.Invoke(func(*http.Server) {}),
 	).Run()

@@ -1,7 +1,3 @@
 <template>
-  <q-avatar square><q-img src="/icons/favicon-128x128.png" /></q-avatar>
+  <img src="/icons/favicon-128x128.png" />
 </template>
-
-<script setup></script>
-
-<style lang="scss" scoped></style>

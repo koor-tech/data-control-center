@@ -2,19 +2,27 @@ package stats
 
 import (
 	"context"
+
+	"connectrpc.com/connect"
+	"github.com/gin-gonic/gin"
 	pb "github.com/koor-tech/data-control-center/gen/go/api/services/stats"
+	"github.com/koor-tech/data-control-center/gen/go/api/services/stats/statsconnect"
 )
 
 // Server is used to implement stats services.
 type Server struct {
-	pb.UnimplementedStatsServiceServer
 }
 
-func NewServer() *Server {
+func New() *Server {
 	return &Server{}
 }
 
-func (s *Server) GetClusterStats(ctx context.Context, _ *pb.EmptyRequest) (*pb.ClusterStatusResponse, error) {
+func (s *Server) RegisterService(g *gin.RouterGroup) {
+	authPath, authHandler := statsconnect.NewStatsServiceHandler(s)
+	g.Any(authPath+"/*path", gin.WrapH(authHandler))
+}
+
+func (s *Server) GetClusterStats(ctx context.Context, _ *connect.Request[pb.EmptyRequest]) (*connect.Response[pb.ClusterStatusResponse], error) {
 
 	daemonCrashes := []*pb.DaemonCrash{
 		{
@@ -81,12 +89,14 @@ func (s *Server) GetClusterStats(ctx context.Context, _ *pb.EmptyRequest) (*pb.C
 		ClientWriteOps: "0 op/s",  // 0 op/s wr
 	}
 
-	return &pb.ClusterStatusResponse{
-		Id:            "60d54b9e-87c1-41ec-bc14-9e9925338e59",
-		Health:        pb.HealthStatus_HEALTH_WARN,
-		DaemonCrashes: daemonCrashes,
-		Services:      &svc,
-		Data:          &data,
-		Io:            &io,
+	return &connect.Response[pb.ClusterStatusResponse]{
+		Msg: &pb.ClusterStatusResponse{
+			Id:            "60d54b9e-87c1-41ec-bc14-9e9925338e59",
+			Health:        pb.HealthStatus_HEALTH_WARN,
+			DaemonCrashes: daemonCrashes,
+			Services:      &svc,
+			Data:          &data,
+			Io:            &io,
+		},
 	}, nil
 }
