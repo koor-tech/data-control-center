@@ -44,8 +44,8 @@ func New(tm *auth.TokenMgr, cfg *config.Config) (*Server, error) {
 }
 
 func (s *Server) RegisterService(g *gin.RouterGroup) {
-	authPath, authHandler := authconnect.NewAuthServiceHandler(s)
-	g.Any(authPath+"/*path", gin.WrapH(authHandler))
+	path, handler := authconnect.NewAuthServiceHandler(s)
+	g.Any(path+"/*path", gin.WrapH(handler))
 }
 
 func (s *Server) Login(ctx context.Context, req *connect.Request[pbauth.LoginRequest]) (*connect.Response[pbauth.LoginResponse], error) {

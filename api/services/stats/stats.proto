@@ -109,6 +109,6 @@ message ClusterStatusResponse {
 
 message EmptyRequest {}
 
-service StatsService  {
+service StatsService {
     rpc GetClusterStats(EmptyRequest) returns (ClusterStatusResponse) {}
 }

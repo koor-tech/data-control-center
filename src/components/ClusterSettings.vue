@@ -54,5 +54,3 @@ const settings = {
   mic: ref(8),
 }
 </script>
-
-<style lang="scss" scoped></style>

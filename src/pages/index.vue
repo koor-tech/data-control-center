@@ -1,8 +1,8 @@
 <template>
-    <q-page padding>
+    <div>
         <div class="row">
             <div class="col-4">
-                <ClusterRadar />
+                <Radar />
             </div>
             <div class="col-8">
                 <StatusDials />
@@ -16,11 +16,11 @@
                 <OSDHealthWidget />
             </div>
         </div>
-    </q-page>
+    </div>
 </template>
   
 <script setup>
-import ClusterRadar from '~/components/ClusterRadar.vue'
+import Radar from '~/components/charts/cluster/Radar.vue'
 import StatusDials from '~/components/StatusDials.vue'
 import NodeSummaryList from '~/components/NodeSummaryList.vue'
 import OSDHealthWidget from '~/components/OSDHealthWidget.vue'

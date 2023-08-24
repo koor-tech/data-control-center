@@ -18,8 +18,8 @@ func New() *Server {
 }
 
 func (s *Server) RegisterService(g *gin.RouterGroup) {
-	authPath, authHandler := statsconnect.NewStatsServiceHandler(s)
-	g.Any(authPath+"/*path", gin.WrapH(authHandler))
+	path, handler := statsconnect.NewStatsServiceHandler(s)
+	g.Any(path+"/*path", gin.WrapH(handler))
 }
 
 func (s *Server) GetClusterStats(ctx context.Context, _ *connect.Request[pb.EmptyRequest]) (*connect.Response[pb.ClusterStatusResponse], error) {

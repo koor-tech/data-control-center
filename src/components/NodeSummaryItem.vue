@@ -1,37 +1,23 @@
 <template>
-  <q-item>
-    <q-item-section>
-      <li>{{ name }}</li>
-      <li caption>{{ description }}</li>
-    </q-item-section>
-
-    <q-item-section side top>
-      <li caption>{{ lastPing }} ago</li>
-      <q-icon name="star" :color="decodeHealth(health)" />
-      <q-badge color="teal" :label="capacity" />
-    </q-item-section>
-  </q-item>
+  <tr>
+    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">{{ node.name }}</td>
+    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ node.description }}</td>
+    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ node.capacity }}</td>
+    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ node.health }}</td>
+    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ node.lastPing }}</td>
+  </tr>
 </template>
 
 <script setup lang="ts">
-defineProps({
-  name: String,
-  description: String,
-  lastPing: String,
-  capacity: String,
-  health: Number,
-})
-
-const decodeHealth = (code?: number) => {
-  switch (code) {
-    case 1:
-      return 'yellow'
-    case 2:
-      return 'red'
-    default:
-      return 'green'
-  }
+type Node = {
+  name: string;
+  description: string;
+  capacity: string;
+  health: number;
+  lastPing: string;
 }
-</script>
 
-<style lang="scss" scoped></style>
+defineProps<{
+  node: Node,
+}>();
+</script>

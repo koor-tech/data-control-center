@@ -63,7 +63,7 @@ type Config struct {
 }
 
 type HTTP struct {
-	Listen   string   `default:":8080" yaml:"listen"`
+	Listen   string   `default:":8282" yaml:"listen"`
 	Sessions Sessions `yaml:"sessions"`
 }
 

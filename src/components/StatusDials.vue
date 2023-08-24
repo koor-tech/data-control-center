@@ -21,5 +21,3 @@ const dials = [
   { value: 4, min: 0, max: 30, caption: 'Fridays per Month', },
 ];
 </script>
-
-<style lang="scss" scoped></style>
