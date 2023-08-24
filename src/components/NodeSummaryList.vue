@@ -16,7 +16,7 @@
   </table>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import NodeSummaryItem from './NodeSummaryItem.vue';
 
 const items = [

@@ -62,5 +62,3 @@ import { ref } from 'vue'
 const emailConsent = ref(true)
 const cookiesConsent = ref(true)
 </script>
-
-<style lang="scss" scoped></style>
