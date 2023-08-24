@@ -14,7 +14,7 @@
   </q-page>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import LineChart from '../components/LineChartWidget.vue';
 import BarChart from '../components/BarChartWidget.vue';
 </script>

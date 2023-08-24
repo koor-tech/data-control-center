@@ -127,6 +127,7 @@ function updateActiveItem(): void {
         sidebarNavigation.value.forEach((e) => {
             if (e.external) return;
 
+            // @ts-ignore future me the href can be a string, but only when external=true, how to type this?
             if (route.name.toLowerCase().includes(e.href.name.toLowerCase())) {
                 e.current = true;
             } else {
