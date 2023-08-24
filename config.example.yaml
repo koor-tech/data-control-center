@@ -2,7 +2,7 @@ logLevel: 'DEBUG'
 # debug or release
 mode: 'debug'
 http:
-  listen: ':8080'
+  listen: ':8282'
   sessions:
     cookieSecret: 'your_generated_cookie_secret'
     domain: 'localhost'

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-knob :min="min" :max="max" v-model="activeValue" show-value size="100px" :thickness="0.22" color="teal"
+    <Knob :min="min" :max="max" v-model="activeValue" show-value size="100px" :thickness="0.22" color="teal"
       track-color="grey-3" class="q-ma-md" readonly />
     <div class="text-caption text-center text-bold">{{ caption }}</div>
   </div>
@@ -22,5 +22,3 @@ onMounted(() => {
   activeValue.value = props.value
 });
 </script>
-
-<style lang="scss" scoped></style>

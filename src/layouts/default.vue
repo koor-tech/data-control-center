@@ -7,7 +7,7 @@ import Sidebar from '~/components/partials/Sidebar.vue';
 <template>
   <NotificationProvider>
     <Sidebar>
-      <div class="h-full">
+      <div class="h-full bg-white">
         <NuxtLoadingIndicator />
         <slot />
       </div>
