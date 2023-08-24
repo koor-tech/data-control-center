@@ -21,6 +21,7 @@
         "@fastify/cors": "^8.3.0",
         "@fontsource/inter": "^5.0.8",
         "@headlessui/vue": "^1.7.16",
+        "@heroicons/vue": "^2.0.18",
         "@improbable-eng/grpc-web": "^0.15.0",
         "@nuxtjs/robots": "^3.0.0",
         "@originjs/vite-plugin-commonjs": "^1.0.3",
@@ -38,7 +39,8 @@
         "uuid": "^9.0.0",
         "vee-validate": "^4.11.2",
         "vue": "^3.3.4",
-        "vue-template-compiler": "^2.7.14"
+        "vue-template-compiler": "^2.7.14",
+        "daisyui": "^2.46.0"
     },
     "devDependencies": {
         "@nuxt/devtools": "^0.8.0",

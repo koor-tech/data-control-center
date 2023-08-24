@@ -11,7 +11,7 @@ module.exports = {
         './src/plugins/**/*.{js,ts}',
         './nuxt.config.{js,ts}',
     ],
-    plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+    plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography'), require('daisyui')],
     theme: {
         extend: {
             fontFamily: {
