@@ -65,9 +65,9 @@ message ObjectStatus {
 }
 
 message UsageStatus {
-    string used = 1;
-    string available = 2;
-    string total = 3;
+  float used = 1;
+  float available = 2;
+  float total = 3;
 }
 
 message IoStatus {

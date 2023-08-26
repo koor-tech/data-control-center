@@ -341,19 +341,19 @@ export declare class ObjectStatus extends Message<ObjectStatus> {
  */
 export declare class UsageStatus extends Message<UsageStatus> {
   /**
-   * @generated from field: string used = 1;
+   * @generated from field: float used = 1;
    */
-  used: string;
+  used: number;
 
   /**
-   * @generated from field: string available = 2;
+   * @generated from field: float available = 2;
    */
-  available: string;
+  available: number;
 
   /**
-   * @generated from field: string total = 3;
+   * @generated from field: float total = 3;
    */
-  total: string;
+  total: number;
 
   constructor(data?: PartialMessage<UsageStatus>);
 

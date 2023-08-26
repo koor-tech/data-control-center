@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="">
         <div class="row">
             <div class="col-4">
                 <ClusterRadar />
@@ -18,7 +18,7 @@
         </div>
     </div>
 </template>
-  
+
 <script setup lang="ts">
 import ClusterRadar from '~/components/ClusterRadar.vue'
 import StatusDials from '~/components/StatusDials.vue'

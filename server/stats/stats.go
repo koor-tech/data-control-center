@@ -74,9 +74,9 @@ func (s *Server) GetClusterStats(ctx context.Context, _ *connect.Request[pb.Empt
 			Size:        "239 MB", //bytes
 		},
 		Usage: &pb.UsageStatus{
-			Used:      "3.3 GiB", //used
-			Available: "117 GiB", // avail
-			Total:     "120 GiB", //total  in bytes
+			Used:      3.3,   //used
+			Available: 176.3, // avail
+			Total:     120,   //total  in bytes
 		},
 		Pgs: &pb.PGs{
 			ActiveClean: 217, //active+clean

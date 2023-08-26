@@ -137,9 +137,9 @@ export const ObjectStatus = proto3.makeMessageType(
 export const UsageStatus = proto3.makeMessageType(
   "stats.UsageStatus",
   () => [
-    { no: 1, name: "used", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "available", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "total", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: "used", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 2, name: "available", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 3, name: "total", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
   ],
 );
 
