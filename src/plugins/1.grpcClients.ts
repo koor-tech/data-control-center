@@ -1,7 +1,7 @@
 import { createPromiseClient, Interceptor, PromiseClient } from '@connectrpc/connect';
 import { createConnectTransport } from '@connectrpc/connect-web';
-import config from '~/config';
 import { useAuthStore } from '~/store/auth';
+import { useConfigStore } from '~/store/config';
 import { useNotificationsStore } from '~/store/notifications';
 import { AuthService } from '~~/gen/ts/api/services/auth/auth_connect';
 import { StatsService } from '~~/gen/ts/api/services/stats/stats_connect';
@@ -46,7 +46,7 @@ export class GRPCClients {
         return createPromiseClient(
             AuthService,
             createConnectTransport({
-                baseUrl: config.baseUrl,
+                baseUrl: useConfigStore().appConfig.baseUrl,
             }),
         );
     }
@@ -54,7 +54,7 @@ export class GRPCClients {
         return createPromiseClient(
             AuthService,
             createConnectTransport({
-                baseUrl: config.baseUrl,
+                baseUrl: useConfigStore().appConfig.baseUrl,
                 interceptors: [authInterceptor],
             }),
         );
@@ -64,7 +64,7 @@ export class GRPCClients {
         return createPromiseClient(
             StatsService,
             createConnectTransport({
-                baseUrl: config.baseUrl,
+                baseUrl: useConfigStore().appConfig.baseUrl,
                 interceptors: [authInterceptor],
             }),
         );

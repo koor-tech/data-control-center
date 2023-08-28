@@ -10,15 +10,14 @@
 import { onMounted, ref } from 'vue'
 
 const activeValue = ref(0);
-const props = defineProps({
-  min: Number,
-  max: Number,
-  innerMin: Number,
-  value: Number,
-  caption: String,
-});
+const props = defineProps<{
+  min: number;
+  max: number;
+  value: number;
+  caption: string;
+}>();
 
 onMounted(() => {
-  activeValue.value = props.value
+  activeValue.value = props.value;
 });
 </script>

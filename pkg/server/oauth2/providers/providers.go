@@ -44,6 +44,6 @@ func (b *BaseProvider) GetRedirect(state string) string {
 }
 
 type UserInfo struct {
-	ID       int64
+	ID       string
 	Username string
 }

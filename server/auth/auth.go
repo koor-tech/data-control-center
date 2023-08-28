@@ -21,7 +21,8 @@ type Server struct {
 
 	tm *auth.TokenMgr
 
-	users []*config.User
+	oauth2Enabled bool
+	users         []*config.User
 }
 
 func New(tm *auth.TokenMgr, cfg *config.Config) (*Server, error) {
@@ -38,8 +39,9 @@ func New(tm *auth.TokenMgr, cfg *config.Config) (*Server, error) {
 	}
 
 	return &Server{
-		tm:    tm,
-		users: users,
+		tm:            tm,
+		oauth2Enabled: len(cfg.OAuth2.Providers) > 0,
+		users:         users,
 	}, nil
 }
 
@@ -49,6 +51,10 @@ func (s *Server) RegisterService(g *gin.RouterGroup) {
 }
 
 func (s *Server) Login(ctx context.Context, req *connect.Request[pbauth.LoginRequest]) (*connect.Response[pbauth.LoginResponse], error) {
+	if s.oauth2Enabled {
+		return nil, status.Error(codes.InvalidArgument, "Password Login disabled because OAuth2 login is enabled. Please use OAuth2 for logging in!")
+	}
+
 	var user *config.User
 	for _, u := range s.users {
 		if req.Msg.Username == u.Username {
@@ -66,7 +72,7 @@ func (s *Server) Login(ctx context.Context, req *connect.Request[pbauth.LoginReq
 		return nil, status.Error(codes.InvalidArgument, "Wrong username or password")
 	}
 
-	claims := auth.BuildTokenClaimsFromAccount(1, user.Username)
+	claims := auth.BuildTokenClaimsFromAccount("data-control-center-user-login-"+user.Username, user.Username)
 	token, err := s.tm.NewWithClaims(claims)
 	if err != nil {
 		return nil, err

@@ -30,9 +30,12 @@ func (p *Generic) GetUserInfo(code string) (*UserInfo, error) {
 	if !ok {
 		return nil, fmt.Errorf("failed to get id from user info")
 	}
-	subId := sub.(float64)
-	if subId <= 0 {
-		return nil, fmt.Errorf("invalid external user id given")
+	if sub == nil {
+		return nil, fmt.Errorf("no (empty/valid) user id found in user info")
+	}
+	subId := sub.(string)
+	if subId == "" {
+		return nil, fmt.Errorf("empty external user/sub id given")
 	}
 
 	usernameRaw, ok := dest[mapping.Username]
@@ -46,7 +49,7 @@ func (p *Generic) GetUserInfo(code string) (*UserInfo, error) {
 	username := usernameRaw.(string)
 
 	user := &UserInfo{
-		ID:       int64(subId),
+		ID:       subId,
 		Username: username,
 	}
 

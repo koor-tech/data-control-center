@@ -2,7 +2,6 @@ package auth
 
 import (
 	"errors"
-	"strconv"
 	"strings"
 	"time"
 
@@ -16,7 +15,7 @@ const (
 )
 
 type UserInfoClaims struct {
-	AccID    uint64 `json:"accid"`
+	AccID    string `json:"accid"`
 	Username string `json:"usr"`
 
 	jwt.RegisteredClaims
@@ -56,14 +55,14 @@ func (t *TokenMgr) ParseWithClaims(tokenString string) (*UserInfoClaims, error) 
 	return nil, errors.New("failed to parse token claims")
 }
 
-func BuildTokenClaimsFromAccount(accountID uint64, username string) *UserInfoClaims {
+func BuildTokenClaimsFromAccount(accountID string, username string) *UserInfoClaims {
 	claims := &UserInfoClaims{
 		AccID:    accountID,
 		Username: username,
 		RegisteredClaims: jwt.RegisteredClaims{
 			Issuer:   "data-control-center",
-			Subject:  strconv.FormatUint(accountID, 10),
-			ID:       strconv.FormatUint(accountID, 10),
+			Subject:  accountID,
+			ID:       accountID,
 			Audience: []string{"data-control-center"},
 		},
 	}

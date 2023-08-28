@@ -210,12 +210,12 @@ func (o *OAuth2) Callback(c *gin.Context) {
 	if userInfo == nil {
 		c.Redirect(http.StatusTemporaryRedirect, LoginRedirBase+"?oauth2Login=failed&reason=unconnected")
 		return
-	} else if userInfo.ID == 0 {
+	} else if userInfo.ID == "" {
 		o.handleRedirect(c, nil, connectOnly, true, "internal_error")
 		return
 	}
 
-	claims := auth.BuildTokenClaimsFromAccount(uint64(userInfo.ID), userInfo.Username)
+	claims := auth.BuildTokenClaimsFromAccount(userInfo.ID, userInfo.Username)
 	newToken, err := o.tm.NewWithClaims(claims)
 	if err != nil {
 		o.handleRedirect(c, err, connectOnly, true, "internal_error")

@@ -25,7 +25,7 @@ export const LoginResponse = proto3.makeMessageType(
   () => [
     { no: 1, name: "token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "expires", kind: "message", T: Timestamp },
-    { no: 3, name: "account_id", kind: "scalar", T: 4 /* ScalarType.UINT64 */ },
+    { no: 3, name: "account_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ],
 );
 

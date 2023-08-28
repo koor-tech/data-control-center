@@ -51,9 +51,9 @@ export declare class LoginResponse extends Message<LoginResponse> {
   expires?: Timestamp;
 
   /**
-   * @generated from field: uint64 account_id = 3;
+   * @generated from field: string account_id = 3;
    */
-  accountId: bigint;
+  accountId: string;
 
   constructor(data?: PartialMessage<LoginResponse>);
 

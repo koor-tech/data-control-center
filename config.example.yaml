@@ -16,13 +16,13 @@ oauth2:
       label: 'Keycloak'
       homepage: 'https://keycloak.example.com'
       type: 'generic'
-      redirectURL: 'https://localhost:3000/api/oauth2/callback/discord'
-      clientID: 'your_discord_oauth2_client_id'
-      clientSecret: 'your_discord_oauth2_client_secret'
+      redirectURL: 'https://localhost:3000/api/oauth2/callback/keycloak'
+      clientID: 'your_keycloak_oauth2_client_id'
+      clientSecret: 'your_keycloak_oauth2_client_secret'
       scopes:
         - openid
-        - identify
       endpoints:
-        authURL: 'https://keycloak.example.com/api/oauth2/authorize'
-        tokenURL: 'https://keycloak.example.com/api/oauth2/token'
+        authURL: 'https://keycloak.example.com/auth/realms/yourrealm/protocol/openid-connect/auth'
+        tokenURL: 'https://keycloak.example.com/auth/realms/yourrealm/protocol/openid-connect/token'
+        userInfoURL: 'https://keycloak.example.com/auth/realms/yourrealm/protocol/openid-connect/userinfo'
 users: []

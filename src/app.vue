@@ -1,6 +1,8 @@
 <script lang="ts" setup>
-import { NuxtError } from 'nuxt/app';
-import { loadConfig } from '~/config';
+import { useConfigStore } from '~/store/config';
+
+const configStore = useConfigStore();
+const { loadConfig } = configStore;
 
 useHead({
     htmlAttrs: {
@@ -15,11 +17,7 @@ useHead({
     },
 });
 
-try {
-    await loadConfig();
-} catch (e) {
-    showError(e as NuxtError);
-}
+await loadConfig();
 </script>
 
 <template>

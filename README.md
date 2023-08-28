@@ -13,7 +13,8 @@ yarn
 ### Requirements
 
 * `make` installed
-* `npm` with a Node version of at least `v16.x`
+* Node version of at least `v16.x`
+* `yarn` for, e.g., `yarn dev` to preview the frontend.
 * [`buf` cli](https://buf.build/docs/installation) installed
 
 ### Tasks

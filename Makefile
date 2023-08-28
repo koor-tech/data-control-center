@@ -18,6 +18,6 @@ protoc-gen-validate: build_dir
 
 	cd $(BUILD_DIR) && ln -sfn validate-$(VALIDATE_VERSION)/ validate
 
-.PHONY: gen-prot
-gen-prot: protoc-gen-validate
+.PHONY: gen-proto
+gen-proto: protoc-gen-validate
 	$(BUF) generate
