@@ -2,9 +2,9 @@ package auth
 
 import (
 	"context"
+	"strings"
 
-	grpc_auth "github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/auth"
-	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/logging"
+	"connectrpc.com/connect"
 	"github.com/koor-tech/data-control-center/pkg/grpc/auth/userinfo"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -18,20 +18,11 @@ const (
 	AuthSubCtxTag                = "auth.sub"
 )
 
-const (
-	PermSuperUser = "SuperUser"
-	PermAny       = "Any"
-)
-
 var UserInfoKey struct{}
 
 var (
-	ErrNoToken          = status.Errorf(codes.Unauthenticated, "errors.pkg-auth.ErrNoToken")
-	ErrInvalidToken     = status.Error(codes.Unauthenticated, "errors.pkg-auth.ErrInvalidToken")
-	ErrCheckToken       = status.Error(codes.Unauthenticated, "errors.pkg-auth.ErrCheckToken")
-	ErrUserNoPerms      = status.Error(codes.PermissionDenied, "errors.pkg-auth.ErrUserNoPerms")
-	ErrNoUserInfo       = status.Error(codes.Unauthenticated, "errors.pkg-auth.ErrNoUserInfo")
-	ErrPermissionDenied = status.Errorf(codes.PermissionDenied, "errors.pkg-auth.ErrPermissionDenied")
+	ErrNoToken      = status.Errorf(codes.Unauthenticated, "No token given, please login!")
+	ErrInvalidToken = status.Error(codes.Unauthenticated, "Invalid token! Please login again.")
 )
 
 type GRPCAuth struct {
@@ -44,71 +35,32 @@ func NewGRPCAuth(tm *TokenMgr) *GRPCAuth {
 	}
 }
 
-func (g *GRPCAuth) GRPCAuthFunc(ctx context.Context, fullMethod string) (context.Context, error) {
-	t, err := GetTokenFromGRPCContext(ctx)
-	if err != nil {
-		return nil, err
+func (g *GRPCAuth) NewAuthInterceptor() connect.UnaryInterceptorFunc {
+	interceptor := func(next connect.UnaryFunc) connect.UnaryFunc {
+		return connect.UnaryFunc(func(
+			ctx context.Context,
+			req connect.AnyRequest,
+		) (connect.AnyResponse, error) {
+			t := req.Header().Get("authorization")
+
+			if t == "" {
+				return nil, ErrNoToken
+			}
+
+			t = strings.TrimPrefix(t, "Bearer ")
+			// Parse token only returns the token info when the token is still valid
+			tInfo, err := g.tm.ParseWithClaims(t)
+			if err != nil {
+				return nil, ErrInvalidToken
+			}
+
+			ctx = context.WithValue(ctx, UserInfoKey, &userinfo.UserInfo{
+				AccId:    tInfo.AccID,
+				Username: tInfo.Username,
+			})
+
+			return next(ctx, req)
+		})
 	}
-
-	if t == "" {
-		return nil, ErrNoToken
-	}
-
-	// Parse token only returns the token info when the token is still valid
-	tInfo, err := g.tm.ParseWithClaims(t)
-	if err != nil {
-		return nil, ErrInvalidToken
-	}
-
-	ctx = logging.InjectFields(ctx, logging.Fields{
-		AuthSubCtxTag, tInfo.Subject,
-		AuthAccIDCtxTag, tInfo.AccID,
-	})
-
-	return context.WithValue(ctx, UserInfoKey, tInfo), nil
-}
-
-func (g *GRPCAuth) GRPCAuthFuncWithoutUserInfo(ctx context.Context, fullMethod string) (context.Context, error) {
-	t, err := GetTokenFromGRPCContext(ctx)
-	if err != nil {
-		return nil, err
-	}
-
-	if t == "" {
-		return nil, ErrNoToken
-	}
-
-	// Parse token only returns the token info when the token is still valid
-	tInfo, err := g.tm.ParseWithClaims(t)
-	if err != nil {
-		return nil, ErrInvalidToken
-	}
-
-	ctx = logging.InjectFields(ctx, logging.Fields{
-		AuthSubCtxTag, tInfo.Subject,
-		AuthAccIDCtxTag, tInfo.AccID,
-	})
-
-	return ctx, nil
-}
-
-func FromContext(ctx context.Context) (*userinfo.UserInfo, bool) {
-	c, ok := ctx.Value(UserInfoKey).(*userinfo.UserInfo)
-	return c, ok
-}
-
-func GetTokenFromGRPCContext(ctx context.Context) (string, error) {
-	return grpc_auth.AuthFromMD(ctx, "bearer")
-}
-
-func GetUserInfoFromContext(ctx context.Context) (*userinfo.UserInfo, bool) {
-	return FromContext(ctx)
-}
-
-func MustGetUserInfoFromContext(ctx context.Context) *userinfo.UserInfo {
-	userInfo, ok := FromContext(ctx)
-	if !ok {
-		panic(ErrNoUserInfo)
-	}
-	return userInfo
+	return connect.UnaryInterceptorFunc(interceptor)
 }

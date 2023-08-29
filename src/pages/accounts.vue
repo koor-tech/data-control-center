@@ -1,8 +1,8 @@
 <template>
   <q-page padding>
-    <div v-if="authStore.accessToken">
+    <div v-if="accessToken">
       <div class="flex">
-        <KoorAccount v-if="authStore.accessToken" :accessToken="authStore.accessToken" />
+        <KoorAccount v-if="accessToken" :accessToken="accessToken" />
         <AccountSettings />
       </div>
       <hr />
@@ -23,6 +23,7 @@ import AccountSignIn from '../components/AccountSignIn.vue';
 import { useAuthStore } from '~/store/auth';
 
 const authStore = useAuthStore();
+const { accessToken } = storeToRefs(authStore);
 
 async function signOut() {
   authStore.signOut();

@@ -2,43 +2,53 @@ package stats
 
 import (
 	"context"
-	"fmt"
-	"github.com/koor-tech/data-control-center/pkg/ceph"
+
+	//"github.com/koor-tech/data-control-center/pkg/ceph"
 
 	"connectrpc.com/connect"
 	"github.com/gin-gonic/gin"
 	pb "github.com/koor-tech/data-control-center/gen/go/api/services/stats"
 	"github.com/koor-tech/data-control-center/gen/go/api/services/stats/statsconnect"
+	"github.com/koor-tech/data-control-center/pkg/grpc/auth"
 )
 
 // Server is used to implement stats services.
 type Server struct {
-	cephRados *ceph.Rados
+	//cephRados *ceph.Rados
+	auth *auth.GRPCAuth
 }
 
-func New() *Server {
+func New(grpcAuth *auth.GRPCAuth) (*Server, error) {
+	/*rados, err := ceph.NewRadosConnection()
+	if err != nil {
+		return nil, err
+	}*/
+
 	return &Server{
-		cephRados: ceph.NewRadosConnection(),
-	}
+		auth: grpcAuth,
+		//cephRados: rados,
+	}, nil
 }
 
 func (s *Server) RegisterService(g *gin.RouterGroup) {
-	path, handler := statsconnect.NewStatsServiceHandler(s)
+	path, handler := statsconnect.NewStatsServiceHandler(s, connect.WithInterceptors(
+		s.auth.NewAuthInterceptor(),
+	))
 	g.Any(path+"/*path", gin.WrapH(handler))
 }
 
-func (s *Server) GetClusterStats(ctx context.Context, _ *connect.Request[pb.EmptyRequest]) (*connect.Response[pb.ClusterStatusResponse], error) {
-
-	st, err := s.cephRados.Cluster()
-	if err != nil {
-		fmt.Println("===============")
-		fmt.Println(err)
-		fmt.Println("===============")
-	} else {
-		fmt.Println("===============")
-		fmt.Printf("stats: %+v\n", st)
-		fmt.Println("===============")
-	}
+func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[pb.EmptyRequest]) (*connect.Response[pb.ClusterStatusResponse], error) {
+	/*
+		st, err := s.cephRados.Cluster()
+		if err != nil {
+			fmt.Println("===============")
+			fmt.Println(err)
+			fmt.Println("===============")
+		} else {
+			fmt.Println("===============")
+			fmt.Printf("stats: %+v\n", st)
+			fmt.Println("===============")
+		}*/
 
 	daemonCrashes := []*pb.DaemonCrash{
 		{

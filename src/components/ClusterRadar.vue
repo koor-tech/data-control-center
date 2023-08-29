@@ -20,17 +20,19 @@
                         <p class="text-gray-700 text-sm">
                             HEALTH WARN
                         </p>
-                        <div class="order-last flex w-full gap-x-8 text-sm font-semibold leading-6 sm:order-none sm:w-auto sm:border-l sm:border-gray-200 sm:pl-6 sm:leading-7">
-                            <a v-for="item in secondaryNavigation" :key="item.name" :href="item.href" :class="item.current ? 'text-indigo-600' : 'text-gray-700'">{{ item.name }}</a>
+                        <div
+                            class="order-last flex w-full gap-x-8 text-sm font-semibold leading-6 sm:order-none sm:w-auto sm:border-l sm:border-gray-200 sm:pl-6 sm:leading-7">
+                            <a v-for="item in secondaryNavigation" :key="item.name" :href="item.href"
+                                :class="item.current ? 'text-indigo-600' : 'text-gray-700'">{{ item.name }}</a>
                         </div>
                     </div>
                 </header>
 
                 <!-- Stats -->
                 <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5 px-2">
-                    <HealthServices v-if="clusterStats" v-for="item in clusterStats.stats"  :statsContainer="item" />
+                    <HealthServices v-if="clusterStats" v-for="item in clusterStats.stats" :statsContainer="item" />
 
-<!--                    <Doughnut :data="data" :options="options" />-->
+                    <!-- <Doughnut :data="data" :options="options" /> -->
                 </dl>
 
             </div>
@@ -41,7 +43,6 @@
 const { $grpc } = useNuxtApp();
 
 const { data: clusterStats } = useLazyAsyncData('clusterStats', async () => transformData(await $grpc.getStatsClient().getClusterStats({})));
-
 
 type TransformedData = {
     title: string;
@@ -120,7 +121,6 @@ const meta: ServiceInfo = {
     },
 }
 
-
 function transformDescriptions(title: string, data: any): TransformedData[] {
     return Object.keys(data).map(serviceName => {
         const serviceData = data[serviceName];
@@ -145,13 +145,12 @@ function transformDescriptions(title: string, data: any): TransformedData[] {
 function transformData(clusterStats: any): ClusterStats {
     const transformedArray: TransformedData[] = [];
 
-
     transformedArray.push({
         title: 'Alerts',
         icon: meta['Alerts'].icon,
         color: meta['Alerts']?.color,
 
-        description: clusterStats.daemonCrashes.map((daemon: any) => daemon.description )
+        description: clusterStats.daemonCrashes.map((daemon: any) => daemon.description)
     });
 
     transformedArray.push(...transformDescriptions('services', clusterStats.services));
@@ -168,7 +167,6 @@ function transformData(clusterStats: any): ClusterStats {
     });
 
     console.log(clusterStats);
-
 
     return {
         id: clusterStats.id, stats: transformedArray

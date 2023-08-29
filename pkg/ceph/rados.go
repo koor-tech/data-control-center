@@ -1,7 +1,7 @@
 package ceph
 
 import (
-	"log"
+	"fmt"
 
 	"github.com/ceph/go-ceph/rados"
 )
@@ -10,21 +10,19 @@ type Rados struct {
 	conn *rados.Conn
 }
 
-func NewRadosConnection() *Rados {
+func NewRadosConnection() (*Rados, error) {
 	conn, _ := rados.NewConn()
 	err := conn.ReadDefaultConfigFile()
 	if err != nil {
-		log.Println("error reading the configuration")
-		log.Fatal(err)
+		return nil, fmt.Errorf("error reading the configuration: %w", err)
 	}
 	err = conn.Connect()
 	if err != nil {
-		log.Println("error during the connection")
-		log.Fatal(err)
+		return nil, fmt.Errorf("error during the connection")
 	}
 	return &Rados{
 		conn: conn,
-	}
+	}, nil
 }
 
 func (r *Rados) Cluster() (*rados.ClusterStat, error) {

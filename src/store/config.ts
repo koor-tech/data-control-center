@@ -61,6 +61,7 @@ export const useConfigStore = defineStore('config', {
                         });
                     }
                     const data = (await resp.json()) as AppConfig;
+                    data.baseUrl = '/api';
                     this.appConfig = data;
 
                     this.fetched = true;

@@ -1,6 +1,6 @@
 package userinfo
 
 type UserInfo struct {
-	AccId    uint64
+	AccId    string
 	Username string
 }

@@ -104,7 +104,7 @@ func setupHTTPServer(p ServerParams) *gin.Engine {
 		HttpOnly: true,
 		Secure:   true,
 	})
-	e.Use(sessions.SessionsMany([]string{"datacontrolcenter_oauth2_state", "datacontrolcenter_token"}, sessStore))
+	e.Use(sessions.SessionsMany([]string{"datacontrolcenter_oauth2_state"}, sessStore))
 
 	// Prometheus Metrics endpoint
 	e.GET("/metrics", gin.WrapH(promhttp.InstrumentMetricHandler(
