@@ -1,29 +1,27 @@
 FROM golang:1.20-bullseye AS builder
 
-RUN apt update && apt install -y libcephfs-dev librbd-dev librados-dev
-
-RUN adduser \
-  --disabled-password \
-  --gecos "" \
-  --home "/nonexistent" \
-  --shell "/sbin/nologin" \
-  --no-create-home \
-  --uid 65532 \
-  koor-data-user
+RUN apt update && \
+  apt install -y lsb-release && \
+  wget -q -O- 'https://download.ceph.com/keys/release.asc' | apt-key add - && \
+  echo deb https://download.ceph.com/debian-quincy/ $(lsb_release -sc) main | tee /etc/apt/sources.list.d/ceph.list && \
+  apt update && \
+  apt install -y libcephfs-dev librbd-dev librados-dev
 
 WORKDIR /app
 
 COPY . .
 
-RUN  go mod download
+RUN  go mod download && \
+  go build -o /data-control-center .
 
-RUN go build -o /api .
+FROM quay.io/ceph/ceph:v17.2.6-20230826
 
+COPY --from=builder /data-control-center /data-control-center
 
-FROM scratch
+USER nobody
 
-COPY --from=builder main .
+COPY config.example.yaml /config/config.yaml
 
-USER koor-data-user:koor-data-user
+VOLUME /config
 
-CMD ["./main"]
+CMD ["/data-control-center"]

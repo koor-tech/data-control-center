@@ -1,8 +1,9 @@
 package ceph
 
 import (
-	"github.com/ceph/go-ceph/rados"
 	"log"
+
+	"github.com/ceph/go-ceph/rados"
 )
 
 type Rados struct {
