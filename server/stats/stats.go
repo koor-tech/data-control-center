@@ -2,6 +2,8 @@ package stats
 
 import (
 	"context"
+	"fmt"
+	"github.com/koor-tech/data-control-center/pkg/ceph"
 
 	"connectrpc.com/connect"
 	"github.com/gin-gonic/gin"
@@ -11,10 +13,13 @@ import (
 
 // Server is used to implement stats services.
 type Server struct {
+	cephRados *ceph.Rados
 }
 
 func New() *Server {
-	return &Server{}
+	return &Server{
+		cephRados: ceph.NewRadosConnection(),
+	}
 }
 
 func (s *Server) RegisterService(g *gin.RouterGroup) {
@@ -23,6 +28,17 @@ func (s *Server) RegisterService(g *gin.RouterGroup) {
 }
 
 func (s *Server) GetClusterStats(ctx context.Context, _ *connect.Request[pb.EmptyRequest]) (*connect.Response[pb.ClusterStatusResponse], error) {
+
+	st, err := s.cephRados.Cluster()
+	if err != nil {
+		fmt.Println("===============")
+		fmt.Println(err)
+		fmt.Println("===============")
+	} else {
+		fmt.Println("===============")
+		fmt.Printf("stats: %+v\n", st)
+		fmt.Println("===============")
+	}
 
 	daemonCrashes := []*pb.DaemonCrash{
 		{

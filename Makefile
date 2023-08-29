@@ -21,3 +21,8 @@ protoc-gen-validate: build_dir
 .PHONY: gen-proto
 gen-proto: protoc-gen-validate
 	$(BUF) generate
+
+
+build-image:
+	docker build --force-rm=true -t data-control-center-api -f ./Dockerfile . && \
+	docker tag data-control-center-api:latest data-control-center-api:$(TAG)
