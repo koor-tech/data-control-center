@@ -19,7 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	StatsService_GetClusterStats_FullMethodName = "/stats.StatsService/GetClusterStats"
+	StatsService_GetClusterStats_FullMethodName   = "/stats.StatsService/GetClusterStats"
+	StatsService_ListPodInfo_FullMethodName       = "/stats.StatsService/ListPodInfo"
+	StatsService_ListCephResources_FullMethodName = "/stats.StatsService/ListCephResources"
 )
 
 // StatsServiceClient is the client API for StatsService service.
@@ -27,6 +29,8 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type StatsServiceClient interface {
 	GetClusterStats(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*ClusterStatusResponse, error)
+	ListPodInfo(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*ListPodInfoResponse, error)
+	ListCephResources(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*ListCephResourcesResponse, error)
 }
 
 type statsServiceClient struct {
@@ -46,11 +50,31 @@ func (c *statsServiceClient) GetClusterStats(ctx context.Context, in *EmptyReque
 	return out, nil
 }
 
+func (c *statsServiceClient) ListPodInfo(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*ListPodInfoResponse, error) {
+	out := new(ListPodInfoResponse)
+	err := c.cc.Invoke(ctx, StatsService_ListPodInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *statsServiceClient) ListCephResources(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*ListCephResourcesResponse, error) {
+	out := new(ListCephResourcesResponse)
+	err := c.cc.Invoke(ctx, StatsService_ListCephResources_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // StatsServiceServer is the server API for StatsService service.
 // All implementations should embed UnimplementedStatsServiceServer
 // for forward compatibility
 type StatsServiceServer interface {
 	GetClusterStats(context.Context, *EmptyRequest) (*ClusterStatusResponse, error)
+	ListPodInfo(context.Context, *EmptyRequest) (*ListPodInfoResponse, error)
+	ListCephResources(context.Context, *EmptyRequest) (*ListCephResourcesResponse, error)
 }
 
 // UnimplementedStatsServiceServer should be embedded to have forward compatible implementations.
@@ -59,6 +83,12 @@ type UnimplementedStatsServiceServer struct {
 
 func (UnimplementedStatsServiceServer) GetClusterStats(context.Context, *EmptyRequest) (*ClusterStatusResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetClusterStats not implemented")
+}
+func (UnimplementedStatsServiceServer) ListPodInfo(context.Context, *EmptyRequest) (*ListPodInfoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListPodInfo not implemented")
+}
+func (UnimplementedStatsServiceServer) ListCephResources(context.Context, *EmptyRequest) (*ListCephResourcesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListCephResources not implemented")
 }
 
 // UnsafeStatsServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -90,6 +120,42 @@ func _StatsService_GetClusterStats_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _StatsService_ListPodInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EmptyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StatsServiceServer).ListPodInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: StatsService_ListPodInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StatsServiceServer).ListPodInfo(ctx, req.(*EmptyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _StatsService_ListCephResources_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EmptyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StatsServiceServer).ListCephResources(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: StatsService_ListCephResources_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StatsServiceServer).ListCephResources(ctx, req.(*EmptyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // StatsService_ServiceDesc is the grpc.ServiceDesc for StatsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -100,6 +166,14 @@ var StatsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetClusterStats",
 			Handler:    _StatsService_GetClusterStats_Handler,
+		},
+		{
+			MethodName: "ListPodInfo",
+			Handler:    _StatsService_ListPodInfo_Handler,
+		},
+		{
+			MethodName: "ListCephResources",
+			Handler:    _StatsService_ListCephResources_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -2094,6 +2094,489 @@ var _ interface {
 	ErrorName() string
 } = ClusterStatusResponseValidationError{}
 
+// Validate checks the field values on PodInfo with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *PodInfo) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PodInfo with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in PodInfoMultiError, or nil if none found.
+func (m *PodInfo) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PodInfo) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Namespace
+
+	// no validation rules for Name
+
+	// no validation rules for Status
+
+	if len(errors) > 0 {
+		return PodInfoMultiError(errors)
+	}
+
+	return nil
+}
+
+// PodInfoMultiError is an error wrapping multiple validation errors returned
+// by PodInfo.ValidateAll() if the designated constraints aren't met.
+type PodInfoMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PodInfoMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PodInfoMultiError) AllErrors() []error { return m }
+
+// PodInfoValidationError is the validation error returned by PodInfo.Validate
+// if the designated constraints aren't met.
+type PodInfoValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PodInfoValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PodInfoValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PodInfoValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PodInfoValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PodInfoValidationError) ErrorName() string { return "PodInfoValidationError" }
+
+// Error satisfies the builtin error interface
+func (e PodInfoValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPodInfo.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PodInfoValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PodInfoValidationError{}
+
+// Validate checks the field values on ListPodInfoResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListPodInfoResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListPodInfoResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListPodInfoResponseMultiError, or nil if none found.
+func (m *ListPodInfoResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListPodInfoResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetPods() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ListPodInfoResponseValidationError{
+						field:  fmt.Sprintf("Pods[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ListPodInfoResponseValidationError{
+						field:  fmt.Sprintf("Pods[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ListPodInfoResponseValidationError{
+					field:  fmt.Sprintf("Pods[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ListPodInfoResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListPodInfoResponseMultiError is an error wrapping multiple validation
+// errors returned by ListPodInfoResponse.ValidateAll() if the designated
+// constraints aren't met.
+type ListPodInfoResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListPodInfoResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListPodInfoResponseMultiError) AllErrors() []error { return m }
+
+// ListPodInfoResponseValidationError is the validation error returned by
+// ListPodInfoResponse.Validate if the designated constraints aren't met.
+type ListPodInfoResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListPodInfoResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListPodInfoResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListPodInfoResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListPodInfoResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListPodInfoResponseValidationError) ErrorName() string {
+	return "ListPodInfoResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListPodInfoResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListPodInfoResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListPodInfoResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListPodInfoResponseValidationError{}
+
+// Validate checks the field values on ResourceInfo with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *ResourceInfo) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ResourceInfo with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in ResourceInfoMultiError, or
+// nil if none found.
+func (m *ResourceInfo) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ResourceInfo) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Namespace
+
+	// no validation rules for Name
+
+	// no validation rules for Kind
+
+	// no validation rules for Status
+
+	if len(errors) > 0 {
+		return ResourceInfoMultiError(errors)
+	}
+
+	return nil
+}
+
+// ResourceInfoMultiError is an error wrapping multiple validation errors
+// returned by ResourceInfo.ValidateAll() if the designated constraints aren't met.
+type ResourceInfoMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ResourceInfoMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ResourceInfoMultiError) AllErrors() []error { return m }
+
+// ResourceInfoValidationError is the validation error returned by
+// ResourceInfo.Validate if the designated constraints aren't met.
+type ResourceInfoValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ResourceInfoValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ResourceInfoValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ResourceInfoValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ResourceInfoValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ResourceInfoValidationError) ErrorName() string { return "ResourceInfoValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ResourceInfoValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sResourceInfo.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ResourceInfoValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ResourceInfoValidationError{}
+
+// Validate checks the field values on ListCephResourcesResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListCephResourcesResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListCephResourcesResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListCephResourcesResponseMultiError, or nil if none found.
+func (m *ListCephResourcesResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListCephResourcesResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetResources() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ListCephResourcesResponseValidationError{
+						field:  fmt.Sprintf("Resources[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ListCephResourcesResponseValidationError{
+						field:  fmt.Sprintf("Resources[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ListCephResourcesResponseValidationError{
+					field:  fmt.Sprintf("Resources[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ListCephResourcesResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListCephResourcesResponseMultiError is an error wrapping multiple validation
+// errors returned by ListCephResourcesResponse.ValidateAll() if the
+// designated constraints aren't met.
+type ListCephResourcesResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListCephResourcesResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListCephResourcesResponseMultiError) AllErrors() []error { return m }
+
+// ListCephResourcesResponseValidationError is the validation error returned by
+// ListCephResourcesResponse.Validate if the designated constraints aren't met.
+type ListCephResourcesResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListCephResourcesResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListCephResourcesResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListCephResourcesResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListCephResourcesResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListCephResourcesResponseValidationError) ErrorName() string {
+	return "ListCephResourcesResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListCephResourcesResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListCephResourcesResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListCephResourcesResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListCephResourcesResponseValidationError{}
+
 // Validate checks the field values on EmptyRequest with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.

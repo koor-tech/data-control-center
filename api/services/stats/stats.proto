@@ -107,8 +107,44 @@ message ClusterStatusResponse {
     IoStatus io = 6;
 }
 
+enum PodStatus {
+    POD_UNKNOWN = 0;
+    POD_NOT_RUNNING = 1;
+    POD_RUNNING = 2;
+}
+
+message PodInfo {
+    string namespace = 1;
+    string name = 2;
+    PodStatus status = 3;
+}
+
+message ListPodInfoResponse {
+    repeated PodInfo pods = 1;
+}
+
+message ResourceInfo {
+    string namespace = 1;
+    string name = 2;
+    string kind = 3;
+    ResourceStatus status = 4;
+}
+
+enum ResourceStatus {
+    RESOURCE_UNKNOWN = 0;
+    RESOURCE_READY = 1;
+    RESOURCE_NOT_READY = 2;
+}
+
+message ListCephResourcesResponse {
+    repeated ResourceInfo resources = 1;
+}
+
 message EmptyRequest {}
 
 service StatsService {
-    rpc GetClusterStats(EmptyRequest) returns (ClusterStatusResponse) {}
+    rpc GetClusterStats(EmptyRequest) returns (ClusterStatusResponse) {};
+
+    rpc ListPodInfo(EmptyRequest) returns (ListPodInfoResponse) {};
+    rpc ListCephResources(EmptyRequest) returns (ListCephResourcesResponse) {};
 }

@@ -36,11 +36,19 @@ const (
 	// StatsServiceGetClusterStatsProcedure is the fully-qualified name of the StatsService's
 	// GetClusterStats RPC.
 	StatsServiceGetClusterStatsProcedure = "/stats.StatsService/GetClusterStats"
+	// StatsServiceListPodInfoProcedure is the fully-qualified name of the StatsService's ListPodInfo
+	// RPC.
+	StatsServiceListPodInfoProcedure = "/stats.StatsService/ListPodInfo"
+	// StatsServiceListCephResourcesProcedure is the fully-qualified name of the StatsService's
+	// ListCephResources RPC.
+	StatsServiceListCephResourcesProcedure = "/stats.StatsService/ListCephResources"
 )
 
 // StatsServiceClient is a client for the stats.StatsService service.
 type StatsServiceClient interface {
 	GetClusterStats(context.Context, *connect.Request[stats.EmptyRequest]) (*connect.Response[stats.ClusterStatusResponse], error)
+	ListPodInfo(context.Context, *connect.Request[stats.EmptyRequest]) (*connect.Response[stats.ListPodInfoResponse], error)
+	ListCephResources(context.Context, *connect.Request[stats.EmptyRequest]) (*connect.Response[stats.ListCephResourcesResponse], error)
 }
 
 // NewStatsServiceClient constructs a client for the stats.StatsService service. By default, it uses
@@ -58,12 +66,24 @@ func NewStatsServiceClient(httpClient connect.HTTPClient, baseURL string, opts .
 			baseURL+StatsServiceGetClusterStatsProcedure,
 			opts...,
 		),
+		listPodInfo: connect.NewClient[stats.EmptyRequest, stats.ListPodInfoResponse](
+			httpClient,
+			baseURL+StatsServiceListPodInfoProcedure,
+			opts...,
+		),
+		listCephResources: connect.NewClient[stats.EmptyRequest, stats.ListCephResourcesResponse](
+			httpClient,
+			baseURL+StatsServiceListCephResourcesProcedure,
+			opts...,
+		),
 	}
 }
 
 // statsServiceClient implements StatsServiceClient.
 type statsServiceClient struct {
-	getClusterStats *connect.Client[stats.EmptyRequest, stats.ClusterStatusResponse]
+	getClusterStats   *connect.Client[stats.EmptyRequest, stats.ClusterStatusResponse]
+	listPodInfo       *connect.Client[stats.EmptyRequest, stats.ListPodInfoResponse]
+	listCephResources *connect.Client[stats.EmptyRequest, stats.ListCephResourcesResponse]
 }
 
 // GetClusterStats calls stats.StatsService.GetClusterStats.
@@ -71,9 +91,21 @@ func (c *statsServiceClient) GetClusterStats(ctx context.Context, req *connect.R
 	return c.getClusterStats.CallUnary(ctx, req)
 }
 
+// ListPodInfo calls stats.StatsService.ListPodInfo.
+func (c *statsServiceClient) ListPodInfo(ctx context.Context, req *connect.Request[stats.EmptyRequest]) (*connect.Response[stats.ListPodInfoResponse], error) {
+	return c.listPodInfo.CallUnary(ctx, req)
+}
+
+// ListCephResources calls stats.StatsService.ListCephResources.
+func (c *statsServiceClient) ListCephResources(ctx context.Context, req *connect.Request[stats.EmptyRequest]) (*connect.Response[stats.ListCephResourcesResponse], error) {
+	return c.listCephResources.CallUnary(ctx, req)
+}
+
 // StatsServiceHandler is an implementation of the stats.StatsService service.
 type StatsServiceHandler interface {
 	GetClusterStats(context.Context, *connect.Request[stats.EmptyRequest]) (*connect.Response[stats.ClusterStatusResponse], error)
+	ListPodInfo(context.Context, *connect.Request[stats.EmptyRequest]) (*connect.Response[stats.ListPodInfoResponse], error)
+	ListCephResources(context.Context, *connect.Request[stats.EmptyRequest]) (*connect.Response[stats.ListCephResourcesResponse], error)
 }
 
 // NewStatsServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -87,10 +119,24 @@ func NewStatsServiceHandler(svc StatsServiceHandler, opts ...connect.HandlerOpti
 		svc.GetClusterStats,
 		opts...,
 	)
+	statsServiceListPodInfoHandler := connect.NewUnaryHandler(
+		StatsServiceListPodInfoProcedure,
+		svc.ListPodInfo,
+		opts...,
+	)
+	statsServiceListCephResourcesHandler := connect.NewUnaryHandler(
+		StatsServiceListCephResourcesProcedure,
+		svc.ListCephResources,
+		opts...,
+	)
 	return "/stats.StatsService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case StatsServiceGetClusterStatsProcedure:
 			statsServiceGetClusterStatsHandler.ServeHTTP(w, r)
+		case StatsServiceListPodInfoProcedure:
+			statsServiceListPodInfoHandler.ServeHTTP(w, r)
+		case StatsServiceListCephResourcesProcedure:
+			statsServiceListCephResourcesHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -102,4 +148,12 @@ type UnimplementedStatsServiceHandler struct{}
 
 func (UnimplementedStatsServiceHandler) GetClusterStats(context.Context, *connect.Request[stats.EmptyRequest]) (*connect.Response[stats.ClusterStatusResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("stats.StatsService.GetClusterStats is not implemented"))
+}
+
+func (UnimplementedStatsServiceHandler) ListPodInfo(context.Context, *connect.Request[stats.EmptyRequest]) (*connect.Response[stats.ListPodInfoResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("stats.StatsService.ListPodInfo is not implemented"))
+}
+
+func (UnimplementedStatsServiceHandler) ListCephResources(context.Context, *connect.Request[stats.EmptyRequest]) (*connect.Response[stats.ListCephResourcesResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("stats.StatsService.ListCephResources is not implemented"))
 }

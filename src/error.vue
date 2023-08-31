@@ -6,6 +6,7 @@ useHead({
     title: 'Error occured - Data Control Center',
 });
 
+
 const clipboard = useClipboard();
 
 const props = defineProps<{
@@ -33,7 +34,6 @@ function startButtonTimer(): void {
     setTimeout(() => (buttonDisabled.value = false), 2000);
 }
 
-const appVersion = accessToken ? ' v' + __APP_VERSION__ + (import.meta.env.DEV ? '-dev' : '-prod') : '';
 startButtonTimer();
 </script>
 
@@ -42,7 +42,7 @@ startButtonTimer();
         <HeroFull>
             <NuxtLoadingIndicator />
             <div class="max-w-3xl mx-auto text-center">
-                <KoorLogo class="w-20 h-20" :title="'Koor Data Control Center' + appVersion" />
+                <KoorLogo class="w-20 h-20" title="Koor Data Control Center" />
 
                 <h1 class="text-5xl font-bold text-neutral">
                     Error

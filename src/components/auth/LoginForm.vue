@@ -4,6 +4,7 @@ import { useConfigStore } from '~/store/config';
 import { defineRule } from 'vee-validate';
 import Alert from '~/components/partials/elements/Alert.vue';
 import { useAuthStore } from '~/store/auth';
+import { ConnectError } from '@connectrpc/connect';
 
 const { $grpc } = useNuxtApp();
 
@@ -36,7 +37,7 @@ async function login(values: FormData): Promise<void> {
         } catch (e) {
             loginStop((e as Error).message);
             setAccessToken(null, null);
-            $grpc.handleError(e as Error);
+            if (e instanceof ConnectError) $grpc.handleError(e as ConnectError);
             return rej(e as Error);
         }
     });

@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ClusterStatusResponse, EmptyRequest } from "./stats_pb.js";
+import { ClusterStatusResponse, EmptyRequest, ListCephResourcesResponse, ListPodInfoResponse } from "./stats_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -19,6 +19,24 @@ export const StatsService = {
       name: "GetClusterStats",
       I: EmptyRequest,
       O: ClusterStatusResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc stats.StatsService.ListPodInfo
+     */
+    listPodInfo: {
+      name: "ListPodInfo",
+      I: EmptyRequest,
+      O: ListPodInfoResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc stats.StatsService.ListCephResources
+     */
+    listCephResources: {
+      name: "ListCephResources",
+      I: EmptyRequest,
+      O: ListCephResourcesResponse,
       kind: MethodKind.Unary,
     },
   }

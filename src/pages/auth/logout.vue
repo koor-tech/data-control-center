@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { ConnectError } from '@connectrpc/connect';
 import ContentCenterWrapper from '~/components/partials/ContentCenterWrapper.vue';
 import Footer from '~/components/partials/Footer.vue';
 import HeroFull from '~/components/partials/HeroFull.vue';
@@ -40,7 +41,7 @@ onBeforeMount(async () => {
     try {
         await $grpc.getAuthClient().logout({});
     } catch (e) {
-        $grpc.handleError(e as Error);
+        if (e instanceof ConnectError) $grpc.handleError(e as ConnectError);
     }
 
     redirect();

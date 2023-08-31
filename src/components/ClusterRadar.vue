@@ -40,9 +40,19 @@
     </div>
 </template>
 <script setup lang="ts">
-const { $grpc } = useNuxtApp();
+import { ConnectError } from '@connectrpc/connect';
 
-const { data: clusterStats } = useLazyAsyncData('clusterStats', async () => transformData(await $grpc.getStatsClient().getClusterStats({})));
+const { $grpc } = useNuxtApp();
+const { data: clusterStats, error } = useLazyAsyncData('clusterStats', async () => {
+    try {
+        const stats = await $grpc.getStatsClient().getClusterStats({});
+        return transformData(stats);
+    } catch (e) {
+        if (e instanceof ConnectError) $grpc.handleError(e as ConnectError);
+    }
+});
+
+watch(error, () => console.log("ERR:", error.value));
 
 type TransformedData = {
     title: string;

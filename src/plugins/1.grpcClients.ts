@@ -1,5 +1,6 @@
-import { createPromiseClient, Interceptor, PromiseClient } from '@connectrpc/connect';
+import { Code, ConnectError, createPromiseClient, Interceptor, PromiseClient } from '@connectrpc/connect';
 import { createConnectTransport } from '@connectrpc/connect-web';
+import { Notification } from '~/composables/notification/interfaces/Notification.interface';
 import { useAuthStore } from '~/store/auth';
 import { useConfigStore } from '~/store/config';
 import { useNotificationsStore } from '~/store/notifications';
@@ -21,20 +22,64 @@ const authInterceptor: Interceptor = (next) => async (req) => {
 };
 
 export class GRPCClients {
-    //private authInterceptor: AuthInterceptor;
-
-    constructor() {
-        //this.authInterceptor = new AuthInterceptor();
-        //const interceptors: RpcInterceptor[] = [this.authInterceptor];
-    }
-
     // Handle GRPC errors
-    async handleError(err: Error): Promise<boolean> {
+    async handleError(err: ConnectError): Promise<boolean> {
         const notifications = useNotificationsStore();
-        notifications.dispatchNotification({
+
+        const notification = {
+            id: '',
             type: 'error',
-            title: 'Error during API request',
-            content: err.message,
+            title: 'Internal Error',
+            content: err.message ?? 'Unknown error',
+        } as Notification;
+
+        if (err.code !== undefined) {
+            switch (err.code) {
+                case Code.Internal:
+                    break;
+
+                case Code.Unavailable:
+                    notification.title = '';
+                    notification.content = 'Unavailable content';
+                    break;
+
+                case Code.Unauthenticated:
+                    useAuthStore().signOut();
+
+                    notification.type = 'warning';
+                    notification.title = 'Unauthenticated';
+                    notification.content = 'Your request was . Please login again.';
+
+                    // Only update the redirect query param if it isn't already set
+                    const route = useRoute();
+                    const redirect = route.query.redirect ?? route.fullPath;
+                    navigateTo({
+                        name: 'auth-login',
+                        query: { redirect: redirect },
+                        replace: true,
+                        force: true,
+                    });
+                    break;
+
+                case Code.PermissionDenied:
+                    notification.title = 'Permission denied';
+                    break;
+
+                case Code.NotFound:
+                    notification.title = 'Not Found';
+                    break;
+
+                default:
+                    notification.title = 'Error occured';
+                    notification.content = 'Message: ' + err.message + '(Code: ' + err.code.valueOf() + ')';
+                    break;
+            }
+        }
+
+        notifications.dispatchNotification({
+            type: notification.type,
+            title: notification.title,
+            content: notification.content,
         });
 
         return true;
@@ -70,38 +115,3 @@ export class GRPCClients {
         );
     }
 }
-
-/*
-export class AuthInterceptor implements RpcInterceptor {
-    interceptUnary(next: NextUnaryFn, method: MethodInfo, input: object, options: RpcOptions): UnaryCall {
-        if (!options.meta) {
-            options.meta = {};
-        }
-
-        const { accessToken } = useAuthStore();
-        if (accessToken !== null) {
-            options.meta['Authorization'] = 'Bearer ' + accessToken;
-        }
-
-        return next(method, input, options);
-    }
-
-    interceptServerStreaming?(
-        next: NextServerStreamingFn,
-        method: MethodInfo,
-        input: object,
-        options: RpcOptions,
-    ): ServerStreamingCall {
-        if (!options.meta) {
-            options.meta = {};
-        }
-
-        const { accessToken } = useAuthStore();
-        if (accessToken !== null) {
-            options.meta['Authorization'] = 'Bearer ' + accessToken;
-        }
-
-        return next(method, input, options);
-    }
-}
-*/
