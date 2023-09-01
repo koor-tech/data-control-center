@@ -6,64 +6,6 @@
 import { proto3 } from "@bufbuild/protobuf";
 
 /**
- * @generated from enum stats.HealthStatus
- */
-export const HealthStatus = proto3.makeEnum(
-  "stats.HealthStatus",
-  [
-    {no: 0, name: "HEALTH_OK"},
-    {no: 1, name: "HEALTH_WARN"},
-    {no: 2, name: "HEALTH_ERR"},
-  ],
-);
-
-/**
- * @generated from enum stats.PodStatus
- */
-export const PodStatus = proto3.makeEnum(
-  "stats.PodStatus",
-  [
-    {no: 0, name: "POD_UNKNOWN"},
-    {no: 1, name: "POD_NOT_RUNNING"},
-    {no: 2, name: "POD_RUNNING"},
-  ],
-);
-
-/**
- * @generated from enum stats.ResourceStatus
- */
-export const ResourceStatus = proto3.makeEnum(
-  "stats.ResourceStatus",
-  [
-    {no: 0, name: "RESOURCE_UNKNOWN"},
-    {no: 1, name: "RESOURCE_READY"},
-    {no: 2, name: "RESOURCE_NOT_READY"},
-  ],
-);
-
-/**
- * @generated from message stats.DaemonCrash
- */
-export const DaemonCrash = proto3.makeMessageType(
-  "stats.DaemonCrash",
-  () => [
-    { no: 1, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-  ],
-);
-
-/**
- * @generated from message stats.Daemon
- */
-export const Daemon = proto3.makeMessageType(
-  "stats.Daemon",
-  () => [
-    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "status", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-  ],
-);
-
-/**
  * @generated from message stats.MonService
  */
 export const MonService = proto3.makeMessageType(
@@ -124,72 +66,6 @@ export const RgwService = proto3.makeMessageType(
 );
 
 /**
- * @generated from message stats.VolumeStatus
- */
-export const VolumeStatus = proto3.makeMessageType(
-  "stats.VolumeStatus",
-  () => [
-    { no: 1, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-  ],
-);
-
-/**
- * @generated from message stats.PoolStatus
- */
-export const PoolStatus = proto3.makeMessageType(
-  "stats.PoolStatus",
-  () => [
-    { no: 1, name: "pool_count", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
-    { no: 2, name: "pgs", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
-  ],
-);
-
-/**
- * @generated from message stats.ObjectStatus
- */
-export const ObjectStatus = proto3.makeMessageType(
-  "stats.ObjectStatus",
-  () => [
-    { no: 1, name: "object_count", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "size", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-  ],
-);
-
-/**
- * @generated from message stats.UsageStatus
- */
-export const UsageStatus = proto3.makeMessageType(
-  "stats.UsageStatus",
-  () => [
-    { no: 1, name: "used", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
-    { no: 2, name: "available", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
-    { no: 3, name: "total", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
-  ],
-);
-
-/**
- * @generated from message stats.IoStatus
- */
-export const IoStatus = proto3.makeMessageType(
-  "stats.IoStatus",
-  () => [
-    { no: 1, name: "client_read", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "client_read_ops", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "client_write_ops", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-  ],
-);
-
-/**
- * @generated from message stats.PGs
- */
-export const PGs = proto3.makeMessageType(
-  "stats.PGs",
-  () => [
-    { no: 1, name: "active_clean", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
-  ],
-);
-
-/**
  * @generated from message stats.Services
  */
 export const Services = proto3.makeMessageType(
@@ -204,84 +80,14 @@ export const Services = proto3.makeMessageType(
 );
 
 /**
- * @generated from message stats.Data
- */
-export const Data = proto3.makeMessageType(
-  "stats.Data",
-  () => [
-    { no: 1, name: "volumes", kind: "message", T: VolumeStatus },
-    { no: 2, name: "pools", kind: "message", T: PoolStatus },
-    { no: 3, name: "objects", kind: "message", T: ObjectStatus },
-    { no: 4, name: "usage", kind: "message", T: UsageStatus },
-    { no: 5, name: "pgs", kind: "message", T: PGs },
-  ],
-);
-
-/**
  * @generated from message stats.ClusterStatusResponse
  */
 export const ClusterStatusResponse = proto3.makeMessageType(
   "stats.ClusterStatusResponse",
   () => [
     { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "health", kind: "enum", T: proto3.getEnumType(HealthStatus) },
-    { no: 3, name: "daemon_crashes", kind: "message", T: DaemonCrash, repeated: true },
-    { no: 4, name: "services", kind: "message", T: Services },
-    { no: 5, name: "data", kind: "message", T: Data },
-    { no: 6, name: "io", kind: "message", T: IoStatus },
+    { no: 2, name: "status", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "services", kind: "message", T: Services },
   ],
-);
-
-/**
- * @generated from message stats.PodInfo
- */
-export const PodInfo = proto3.makeMessageType(
-  "stats.PodInfo",
-  () => [
-    { no: 1, name: "namespace", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "status", kind: "enum", T: proto3.getEnumType(PodStatus) },
-  ],
-);
-
-/**
- * @generated from message stats.ListPodInfoResponse
- */
-export const ListPodInfoResponse = proto3.makeMessageType(
-  "stats.ListPodInfoResponse",
-  () => [
-    { no: 1, name: "pods", kind: "message", T: PodInfo, repeated: true },
-  ],
-);
-
-/**
- * @generated from message stats.ResourceInfo
- */
-export const ResourceInfo = proto3.makeMessageType(
-  "stats.ResourceInfo",
-  () => [
-    { no: 1, name: "namespace", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "kind", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "status", kind: "enum", T: proto3.getEnumType(ResourceStatus) },
-  ],
-);
-
-/**
- * @generated from message stats.ListCephResourcesResponse
- */
-export const ListCephResourcesResponse = proto3.makeMessageType(
-  "stats.ListCephResourcesResponse",
-  () => [
-    { no: 1, name: "resources", kind: "message", T: ResourceInfo, repeated: true },
-  ],
-);
-
-/**
- * @generated from message stats.EmptyRequest
- */
-export const EmptyRequest = proto3.makeMessageType(
-  "stats.EmptyRequest",
-  [],
 );
 

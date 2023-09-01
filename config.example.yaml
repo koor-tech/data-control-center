@@ -10,6 +10,11 @@ grpc:
   listen: ':9090'
 jwt:
   secret: 'your_generated_jwt_secret'
+ceph:
+  api:
+    url: 'http://localhost:8181/api'
+    username: 'admin'
+    password: 'admin'
 oauth2:
   providers:
     - name: 'keycloak'

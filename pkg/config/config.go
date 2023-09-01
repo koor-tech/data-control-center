@@ -60,6 +60,7 @@ type Config struct {
 	JWT    JWT     `yaml:"jwt"`
 	OAuth2 OAuth2  `yaml:"oauth2"`
 	Users  []*User `yaml:"users"`
+	Ceph   Ceph    `yaml:"ceph"`
 }
 
 type HTTP struct {
@@ -112,6 +113,16 @@ type OAuth2Mapping struct {
 }
 
 type User struct {
+	Username string `yaml:"username"`
+	Password string `yaml:"password"`
+}
+
+type Ceph struct {
+	Api Api `yaml:"api"`
+}
+
+type Api struct {
+	Url      string `yaml:"url"`
 	Username string `yaml:"username"`
 	Password string `yaml:"password"`
 }

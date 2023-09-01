@@ -79,7 +79,7 @@ const config = defineNuxtConfig({
             https: true,
             proxy: {
                 '/api': {
-                    target: 'http://localhost:8282',
+                    target: 'http://localhost:8080',
                 },
             },
         },

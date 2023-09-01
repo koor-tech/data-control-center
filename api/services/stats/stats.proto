@@ -4,6 +4,57 @@ package stats;
 
 option go_package = "github.com/koor-tech/data-control-center/gen/go/api/services/stats";
 
+message MonService {
+  int32 daemon_count = 1;
+  string quorum = 2;
+  string age = 3;
+}
+
+message MgrService {
+  string active = 1;
+  repeated string standbys = 2;
+  string since = 3;
+}
+
+message MdsService {
+  int32 daemons_up = 1;
+  int32 hot_standby_count = 2;
+}
+
+message OsdService {
+  int32 osd_count = 1;
+  int32 osd_up = 2;
+  int32 osd_in = 3;
+  string since = 4;
+}
+
+message RgwService {
+  int32 active_daemon = 1;
+  int32 host_count = 2;
+  int32 zone_count = 3;
+}
+
+message Services {
+  MonService mon = 1;
+  MgrService mgr = 2;
+  MdsService mds = 3;
+  OsdService osd = 4;
+  RgwService rgw = 5;
+}
+
+message ClusterStatusResponse {
+  // define the cluster id
+  string id = 1;
+  string status = 2;
+  Services services = 3;
+
+}
+
+
+
+
+/*
+{"status": "HEALTH_OK", "checks": [], "mutes": []}
 enum HealthStatus {
     HEALTH_OK = 0;
     HEALTH_WARN = 1;
@@ -145,6 +196,8 @@ message EmptyRequest {}
 service StatsService {
     rpc GetClusterStats(EmptyRequest) returns (ClusterStatusResponse) {};
 
-    rpc ListPodInfo(EmptyRequest) returns (ListPodInfoResponse) {};
-    rpc ListCephResources(EmptyRequest) returns (ListCephResourcesResponse) {};
+    //rpc ListPodInfo(EmptyRequest) returns (ListPodInfoResponse) {};
+
+    //rpc ListCephResources(EmptyRequest) returns (ListCephResourcesResponse) {};
 }
+*/

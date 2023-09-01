@@ -14,11 +14,11 @@
                 <header class="w-full border-b border-b-gray-300">
                     <div class="mx-auto flex max-w-7xl flex-wrap items-center gap-6 sm:flex-nowrap">
                         <h1 class="text-base font-semibold leading-7 text-gray-900">Cluster id: {{ clusterStats?.id }}</h1>
-                        <div :class="[statuses['warn'], 'flex-none rounded-full p-1']">
+                        <div v-if="clusterStats" :class="[statuses[clusterStats.health], 'flex-none rounded-full p-1']">
                             <div class="h-2 w-2 rounded-full bg-current" />
                         </div>
-                        <p class="text-gray-700 text-sm">
-                            HEALTH WARN
+                        <p v-if="clusterStats" class="text-gray-700 text-sm">
+                            {{ clusterStats.health }}
                         </p>
                         <div
                             class="order-last flex w-full gap-x-8 text-sm font-semibold leading-6 sm:order-none sm:w-auto sm:border-l sm:border-gray-200 sm:pl-6 sm:leading-7">
@@ -30,7 +30,7 @@
 
                 <!-- Stats -->
                 <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5 px-2">
-                    <HealthServices v-if="clusterStats" v-for="item in clusterStats.stats" :statsContainer="item" />
+<!--                    <HealthServices v-if="clusterStats" v-for="item in clusterStats.stats" :statsContainer="item" />-->
 
                     <!-- <Doughnut :data="data" :options="options" /> -->
                 </dl>
@@ -46,14 +46,41 @@ const { $grpc } = useNuxtApp();
 const { data: clusterStats, error } = useLazyAsyncData('clusterStats', async () => {
     try {
         const stats = await $grpc.getStatsClient().getClusterStats({});
-        return transformData(stats);
+        console.log("reading", stats)
+        return transformData(stats.response.value);
     } catch (e) {
         if (e instanceof ConnectError) $grpc.handleError(e as ConnectError);
     }
 });
 
-watch(error, () => console.log("ERR:", error.value));
+type ClusterStats = {
+    id: string;
+    health: string;
+    // stats: TransformedData[];
+}
 
+watch(error, () => console.log("ERR:", error.value));
+function transformData(clusterStats: any): ClusterStats {
+
+    console.log(clusterStats)
+    return {
+        id: clusterStats.id,
+        health: clusterStats.status,
+    };
+}
+
+const secondaryNavigation = [
+    { name: 'Cluster 2', href: '#', current: true },
+    { name: 'Cluster 3', href: '#', current: false },
+    { name: 'Cluster 4', href: '#', current: false },
+]
+
+const statuses: { [key: string]: string } = {
+    HEALTH_OFFLINE: 'text-gray-500 bg-gray-100/10',
+    HEALTH_OK: 'text-green-400 bg-green-400/10',
+    HEALTH_WARN: 'text-orange-400 bg-orange-400/10',
+};
+/*
 type TransformedData = {
     title: string;
     icon?: string,
@@ -195,5 +222,6 @@ const statuses = {
     health: 'text-green-400 bg-green-400/10',
     warn: 'text-orange-400 bg-orange-400/10',
 }
+*/
 
 </script>
