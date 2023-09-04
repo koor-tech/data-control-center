@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { initFlowbite } from 'flowbite';
+import { onMounted } from 'vue';
 import { useConfigStore } from '~/store/config';
 
 const configStore = useConfigStore();
@@ -15,6 +17,11 @@ useHead({
     titleTemplate: (title?: string) => {
         return title ? `${title} - Koor Data Control Center` : 'Koor Data Control Center';
     },
+});
+
+// Initialize components based on data attribute selectors
+onMounted(() => {
+    initFlowbite();
 });
 
 await loadConfig();

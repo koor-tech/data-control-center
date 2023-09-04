@@ -1,5 +1,5 @@
 <template>
-  <q-page padding>
+  <div class="px-4">
     <div class="text-h2 q-mt-lg text-center">Control Panel</div>
     <div class="flex">
       <div class="control-panel">
@@ -13,7 +13,7 @@
         </div>
       </div>
     </div>
-  </q-page>
+  </div>
 </template>
 
 <script setup lang="ts">

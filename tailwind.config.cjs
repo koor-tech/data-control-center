@@ -10,8 +10,9 @@ module.exports = {
         './src/pages/**/*.vue',
         './src/plugins/**/*.{js,ts}',
         './nuxt.config.{js,ts}',
+        './node_modules/flowbite/**/*.{js,ts}',
     ],
-    plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+    plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography'), require('flowbite/plugin')],
     theme: {
         extend: {
             fontFamily: {

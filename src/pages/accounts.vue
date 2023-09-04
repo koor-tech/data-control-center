@@ -1,5 +1,5 @@
 <template>
-  <q-page padding>
+  <div class="px-4">
     <div v-if="accessToken">
       <div class="flex">
         <KoorAccount v-if="accessToken" :accessToken="accessToken" />
@@ -13,7 +13,7 @@
     <div v-else>
       <AccountSignIn />
     </div>
-  </q-page>
+  </div>
 </template>
 
 <script setup lang="ts">

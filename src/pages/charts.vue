@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <div>
     <div class="text-h2 q-mt-lg text-center">Dashboard</div>
     <div class="flex flex-center">
       <div>
@@ -11,7 +11,7 @@
         <div class="text-center text-caption text-bold">Disc Utilization</div>
       </div>
     </div>
-  </q-page>
+  </div>
 </template>
 
 <script setup lang="ts">
