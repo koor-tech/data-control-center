@@ -1,23 +1,79 @@
 <template>
-  <div>
-    <Knob :min="min" :max="max" v-model="activeValue" show-value size="100px" :thickness="0.22" color="teal"
-      track-color="grey-3" class="q-ma-md" readonly />
-    <div class="text-caption text-center text-bold">{{ caption }}</div>
+  <div class="bg-white rounded-lg shadow dark:bg-gray-800 px-2 py-2">
+    <div class="flex justify-center mb-3 items-center">
+      <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white pr-1">{{ caption }}</h5>
+    </div>
+
+    <!-- Chart -->
+    <div>
+      <VueApexCharts class="flex justify-center py-1" height="150px" width="150px" type="radialBar" :options="options"
+        :series="series">
+      </VueApexCharts>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { ApexOptions } from 'apexcharts';
+import VueApexCharts from 'vue3-apexcharts';
 
-const activeValue = ref(0);
 const props = defineProps<{
   min: number;
   max: number;
   value: number;
   caption: string;
+  label?: string;
+  labels?: string[];
 }>();
 
-onMounted(() => {
-  activeValue.value = props.value;
-});
+const options: ApexOptions = {
+  chart: {
+    type: 'radialBar',
+  },
+  colors: ['#00a77d'],
+  plotOptions: {
+    radialBar: {
+      startAngle: -135,
+      endAngle: 135,
+      track: {
+        background: '#41444e',
+        startAngle: -135,
+        endAngle: 135,
+      },
+      dataLabels: {
+        name: {
+          show: false,
+        },
+        value: {
+          fontSize: '28px',
+          show: true,
+        },
+      },
+    },
+  },
+  fill: {
+    type: 'gradient',
+    gradient: {
+      shade: 'dark',
+      type: 'horizontal',
+      gradientToColors: ['#87D4F9'],
+      stops: [props.min, props.max],
+    },
+  },
+  stroke: {
+    lineCap: 'butt',
+  },
+  yaxis: {
+    min: props.min,
+    max: props.max,
+  },
+  grid: {
+    padding: {
+      left: 0,
+      right: 0,
+    },
+  },
+};
+
+const series = [props.value];
 </script>

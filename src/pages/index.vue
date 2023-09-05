@@ -5,7 +5,7 @@
                 <ClusterRadar />
             </div>
             <div class="col-8">
-                <!-- <StatusDials /> -->
+                <StatusDials />
             </div>
         </div>
         <div class="row">
@@ -13,15 +13,15 @@
                 <!-- <NodeSummaryList />-->
             </div>
             <div class="col-8">
-                <!-- <OSDHealthWidget /> -->
+                <OSDHealthWidget />
             </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import ClusterRadar from '~/components/ClusterRadar.vue'
-//import StatusDials from '~/components/StatusDials.vue'
+import ClusterRadar from '~/components/ClusterRadar.vue';
+import OSDHealthWidget from '~/components/OSDHealthWidget.vue';
+import StatusDials from '~/components/StatusDials.vue';
 //import NodeSummaryList from '~/components/NodeSummaryList.vue'
-//import OSDHealthWidget from '~/components/OSDHealthWidget.vue'
 </script>

@@ -39,6 +39,7 @@
         </div>
     </div>
 </template>
+
 <script setup lang="ts">
 import { ConnectError } from '@connectrpc/connect';
 

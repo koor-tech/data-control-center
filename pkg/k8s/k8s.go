@@ -1,9 +1,14 @@
 package k8s
 
 import (
+	"context"
+	"encoding/json"
 	"os"
 
+	cephv1 "github.com/rook/rook/pkg/apis/ceph.rook.io/v1"
 	corev1 "k8s.io/api/core/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/client-go/dynamic"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
 )
@@ -40,9 +45,21 @@ func (k *K8s) GetPods() ([]*corev1.Pod, error) {
 	return nil, nil
 }
 
-func (k *K8s) GetCephResources() error {
+func GetCephResource[T any](client *kubernetes.Clientset, resource string, name string) (*T, error) {
+	cliSet := dynamic.New(client.RESTClient())
+	obj, err := cliSet.Resource(cephv1.SchemeGroupVersion.WithResource(resource)).Get(context.Background(), name, metav1.GetOptions{})
+	if err != nil {
+		return nil, err
+	}
+	bytes, err := obj.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
 
-	// TODO Get each Ceph resources per namespace
+	var crdObj *T
+	if err := json.Unmarshal(bytes, &crdObj); err != nil {
+		return nil, err
+	}
 
-	return nil
+	return crdObj, nil
 }

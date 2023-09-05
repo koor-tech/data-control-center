@@ -33,7 +33,6 @@ export class GRPCClients {
             content: err.message ?? 'Unknown error',
         } as Notification;
 
-        console.log('ERR:', err, err.code);
         if (err.code !== undefined) {
             switch (err.code) {
                 case Code.Internal:

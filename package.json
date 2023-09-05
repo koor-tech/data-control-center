@@ -30,6 +30,7 @@
         "@vee-validate/nuxt": "^4.11.3",
         "@vee-validate/rules": "^4.11.3",
         "@vueuse/core": "^10.4.1",
+        "apexcharts": "^3.42.0",
         "chart.js": "^4.4.0",
         "d3": "^7.8.5",
         "fastify": "^4.22.2",
@@ -43,7 +44,8 @@
         "vee-validate": "^4.11.3",
         "vue": "^3.3.4",
         "vue-chartjs": "^5.2.0",
-        "vue-template-compiler": "^2.7.14"
+        "vue-template-compiler": "^2.7.14",
+        "vue3-apexcharts": "^1.4.4"
     },
     "devDependencies": {
         "@nuxt/devtools": "^0.8.2",
