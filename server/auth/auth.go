@@ -1,10 +1,9 @@
 package auth
 
 import (
+	"connectrpc.com/connect"
 	"context"
 	"fmt"
-
-	"connectrpc.com/connect"
 	"github.com/gin-gonic/gin"
 	"github.com/koor-tech/data-control-center/gen/go/api/resources/timestamp"
 	pbauth "github.com/koor-tech/data-control-center/gen/go/api/services/auth"

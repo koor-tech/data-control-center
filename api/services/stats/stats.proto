@@ -2,18 +2,20 @@ syntax = "proto3";
 
 package stats;
 
+import "google/protobuf/timestamp.proto";
 option go_package = "github.com/koor-tech/data-control-center/gen/go/api/services/stats";
 
 message MonService {
   int32 daemon_count = 1;
   string quorum = 2;
-  string age = 3;
+  google.protobuf.Timestamp created_at = 3;
+  google.protobuf.Timestamp updated_at = 4;
 }
 
 message MgrService {
   string active = 1;
   repeated string standbys = 2;
-  string since = 3;
+  google.protobuf.Timestamp updated_at = 4;
 }
 
 message MdsService {
@@ -25,7 +27,8 @@ message OsdService {
   int32 osd_count = 1;
   int32 osd_up = 2;
   int32 osd_in = 3;
-  string since = 4;
+  google.protobuf.Timestamp osd_up_updated_at = 4;
+  google.protobuf.Timestamp osd_in_updated_at = 5;
 }
 
 message RgwService {
@@ -42,12 +45,51 @@ message Services {
   RgwService rgw = 5;
 }
 
+message Pgs {
+  int32 active_clean = 1;
+}
+
+message Pools {
+  int32 pools = 1;
+  Pgs pgs = 2;
+}
+
+message Objects {
+  int32 object_count = 1;
+  string size = 2;
+}
+
+message Usage {
+  int64 used = 1;
+  int64 available = 2;
+  int64 total = 3;
+}
+
+message Data {
+  int32 volumes = 1;
+  Pools pools = 2;
+  Objects objects = 3;
+  Usage usage = 4;
+}
+
+message Io {
+  string client_read = 1;
+  string client_read_ops = 2;
+  string client_write_ops = 3;
+}
+
+message Crash {
+  string description = 1;
+}
+
 message ClusterStatusResponse {
-  // define the cluster id
   string id = 1;
   string status = 2;
-  Services services = 3;
-
+  repeated Crash crashes = 3;
+  Services services = 4;
+  Data data = 5;
+  string test = 6;
+  Io io = 7;
 }
 
 

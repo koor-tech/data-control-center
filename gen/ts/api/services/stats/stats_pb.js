@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { proto3 } from "@bufbuild/protobuf";
+import { proto3, Timestamp } from "@bufbuild/protobuf";
 
 /**
  * @generated from message stats.MonService
@@ -13,7 +13,8 @@ export const MonService = proto3.makeMessageType(
   () => [
     { no: 1, name: "daemon_count", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
     { no: 2, name: "quorum", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "age", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "created_at", kind: "message", T: Timestamp },
+    { no: 4, name: "updated_at", kind: "message", T: Timestamp },
   ],
 );
 
@@ -25,7 +26,7 @@ export const MgrService = proto3.makeMessageType(
   () => [
     { no: 1, name: "active", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "standbys", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
-    { no: 3, name: "since", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "updated_at", kind: "message", T: Timestamp },
   ],
 );
 
@@ -49,7 +50,8 @@ export const OsdService = proto3.makeMessageType(
     { no: 1, name: "osd_count", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
     { no: 2, name: "osd_up", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
     { no: 3, name: "osd_in", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
-    { no: 4, name: "since", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "osd_up_updated_at", kind: "message", T: Timestamp },
+    { no: 5, name: "osd_in_updated_at", kind: "message", T: Timestamp },
   ],
 );
 
@@ -80,6 +82,85 @@ export const Services = proto3.makeMessageType(
 );
 
 /**
+ * @generated from message stats.Pgs
+ */
+export const Pgs = proto3.makeMessageType(
+  "stats.Pgs",
+  () => [
+    { no: 1, name: "active_clean", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+  ],
+);
+
+/**
+ * @generated from message stats.Pools
+ */
+export const Pools = proto3.makeMessageType(
+  "stats.Pools",
+  () => [
+    { no: 1, name: "pools", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 2, name: "pgs", kind: "message", T: Pgs },
+  ],
+);
+
+/**
+ * @generated from message stats.Objects
+ */
+export const Objects = proto3.makeMessageType(
+  "stats.Objects",
+  () => [
+    { no: 1, name: "object_count", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 2, name: "size", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
+/**
+ * @generated from message stats.Usage
+ */
+export const Usage = proto3.makeMessageType(
+  "stats.Usage",
+  () => [
+    { no: 1, name: "used", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 2, name: "available", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 3, name: "total", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+  ],
+);
+
+/**
+ * @generated from message stats.Data
+ */
+export const Data = proto3.makeMessageType(
+  "stats.Data",
+  () => [
+    { no: 1, name: "volumes", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 2, name: "pools", kind: "message", T: Pools },
+    { no: 3, name: "objects", kind: "message", T: Objects },
+    { no: 4, name: "usage", kind: "message", T: Usage },
+  ],
+);
+
+/**
+ * @generated from message stats.Io
+ */
+export const Io = proto3.makeMessageType(
+  "stats.Io",
+  () => [
+    { no: 1, name: "client_read", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "client_read_ops", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "client_write_ops", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
+/**
+ * @generated from message stats.Crash
+ */
+export const Crash = proto3.makeMessageType(
+  "stats.Crash",
+  () => [
+    { no: 1, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
+/**
  * @generated from message stats.ClusterStatusResponse
  */
 export const ClusterStatusResponse = proto3.makeMessageType(
@@ -87,7 +168,11 @@ export const ClusterStatusResponse = proto3.makeMessageType(
   () => [
     { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "status", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "services", kind: "message", T: Services },
+    { no: 3, name: "crashes", kind: "message", T: Crash, repeated: true },
+    { no: 4, name: "services", kind: "message", T: Services },
+    { no: 5, name: "data", kind: "message", T: Data },
+    { no: 6, name: "test", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "io", kind: "message", T: Io },
   ],
 );
 

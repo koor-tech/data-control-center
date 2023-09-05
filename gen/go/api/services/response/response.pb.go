@@ -29,6 +29,13 @@ type MdsService = stats.MdsService
 type OsdService = stats.OsdService
 type RgwService = stats.RgwService
 type Services = stats.Services
+type Pgs = stats.Pgs
+type Pools = stats.Pools
+type Objects = stats.Objects
+type Usage = stats.Usage
+type Data = stats.Data
+type Io = stats.Io
+type Crash = stats.Crash
 type ClusterStatusResponse = stats.ClusterStatusResponse
 
 type Response struct {

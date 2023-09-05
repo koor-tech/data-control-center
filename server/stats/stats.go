@@ -7,7 +7,7 @@ import (
 	pb "github.com/koor-tech/data-control-center/gen/go/api/services/response/responseconnect"
 	"github.com/koor-tech/data-control-center/gen/go/api/services/stats"
 	"go.uber.org/zap"
-	"log"
+	"google.golang.org/protobuf/types/known/timestamppb"
 	"strings"
 
 	"github.com/koor-tech/data-control-center/internal/ceph"
@@ -45,89 +45,15 @@ func (s *Server) RegisterService(g *gin.RouterGroup) {
 }
 
 func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[response.EmptyRequest]) (*connect.Response[response.Response], error) {
-
-	//daemonCrashes := []*pb.DaemonCrash{
-	//	{
-	//		Description: "1 daemons have recently crashed",
-	//	},
-	//	{
-	//		Description: "1 mgr modules have recently crashed",
-	//	},
-	//}
-	//
-	//svc := pb.Services{
-	//	Mon: &pb.MonService{
-	//		DaemonCount: 3,
-	//		Quorum:      "a,b,c",
-	//		Age:         "13d",
-	//	},
-	//	Mgr: &pb.MgrService{
-	//		Active:   "a",
-	//		Standbys: []string{"b"},
-	//		Since:    "6h",
-	//	},
-	//	Mds: &pb.MdsService{
-	//		DaemonsUp:       1, // needs change 1/1 daemons up, 1 hot standby
-	//		HotStandbyCount: 1,
-	//	},
-	//	Osd: &pb.OsdService{
-	//		OsdCount: 5,
-	//		OsdUp:    4,    //(since 3d),
-	//		OsdIn:    4,    // 4 in (since 3d) ?
-	//		Since:    "3d", //todo remove this and add in -up and -in
-	//	},
-	//	Rgw: &pb.RgwService{
-	//		ActiveDaemon: 1,
-	//		HostCount:    1,
-	//		ZoneCount:    1,
-	//	},
-	//}
-	//
-	//data := pb.Data{
-	//	Volumes: &pb.VolumeStatus{
-	//		Description: " 1/1 healthy",
-	//	},
-	//	Pools: &pb.PoolStatus{
-	//		PoolCount: 13,
-	//		Pgs:       217,
-	//	},
-	//	Objects: &pb.ObjectStatus{
-	//		ObjectCount: "15.67k", //bytes
-	//		Size:        "239 MB", //bytes
-	//	},
-	//	Usage: &pb.UsageStatus{
-	//		Used:      3.3,   //used
-	//		Available: 176.3, // avail
-	//		Total:     120,   //total  in bytes
-	//	},
-	//	Pgs: &pb.PGs{
-	//		ActiveClean: 217, //active+clean
-	//	},
-	//}
-	//
-	//io := pb.IoStatus{
-	//	ClientRead:     "852 B/s", // 852 B/s rd
-	//	ClientReadOps:  "1 op/s",  // 1 op/s rd
-	//	ClientWriteOps: "0 op/s",  // 0 op/s wr
-	//}
-
-	//Health := pb.HealthStatus_HEALTH_OK
-	//if hs.Health.Status == "HEALTH_WARN" {
-	//	Health = pb.HealthStatus_HEALTH_WARN
-	//}
-
-	//
-	//return &connect.Response[pb.ClusterStatusResponse]{
-	//	Msg: &pb.ClusterStatusResponse{
-	//		Id: "123",
-	//	},
-	//}, nil
-	// *connect.Response[response.Response]
-	//return &connect.Response[connect.Response{}], nil
-
 	st, err := s.cephApiService.GetClusterHealth(context.TODO())
 	if err != nil {
 		return serverResponse.NewFailureResponse(http.StatusInternalServerError, fmt.Errorf("error caused by %w", err)), nil
+	}
+
+	var crashes []*stats.Crash
+
+	for _, check := range st.Health.Checks {
+		crashes = append(crashes, &stats.Crash{Description: check.Summary.Message})
 	}
 
 	daemonCount := len(st.MonStatus.Monmap.Mons)
@@ -146,11 +72,11 @@ func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[respo
 		standbyCountWanted int
 	)
 
-	// TODO check the input to test how works in different scenarios
 	for _, filesystem := range st.FsMap.Filesystems {
 		itemsUp, err := convertMdsItems(filesystem.MdsMap.Up)
 		if err != nil {
-			log.Fatal(err)
+			return serverResponse.NewFailureResponse(http.StatusInternalServerError, fmt.Errorf("error caused by %w", err)), nil
+
 		}
 		daemonsUp = len(itemsUp)
 		standbyCountWanted = filesystem.MdsMap.StandbyCountWanted
@@ -167,50 +93,78 @@ func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[respo
 		osdIn += osd.In
 		osdCount++
 	}
-	/*
-		//	Osd: &pb.OsdService{
-		//		OsdCount: 5,
-		//		OsdUp:    4,    //(since 3d),
-		//		OsdIn:    4,    // 4 in (since 3d) ?
-		//		Since:    "3d", //todo remove this and add in -up and -in
-		//	},
-		//	Rgw: &pb.RgwService{
-		//		ActiveDaemon: 1,
-		//		HostCount:    1,
-		//		ZoneCount:    1,
-		//	},
-	*/
+
+	poolCount := len(st.Pools)
+	activeAndCleanPGs := 0
+	for _, pool := range st.Pools {
+		activeAndCleanPGs += pool.PgStatus.ActiveClean
+	}
+
+	stored := 0
+	for _, pool := range st.DF.Pools {
+		stored += pool.DFPoolStats.Stored
+	}
+
+	clientReadBytes := formatBytes(int64(st.ClientPerf.ReadBytesSec))
+	readOps := st.ClientPerf.ReadOpPerSec
+	writeOps := st.ClientPerf.WriteOpPerSec
 
 	resp := response.Response_ClusterStatusResponse{
 		ClusterStatusResponse: &stats.ClusterStatusResponse{
-			Id:     st.MonStatus.Monmap.Fsid,
-			Status: st.Health.Status,
+			Id:      st.MonStatus.Monmap.Fsid,
+			Status:  st.Health.Status,
+			Crashes: crashes,
 			Services: &stats.Services{
 				Mon: &stats.MonService{
 					DaemonCount: int32(daemonCount),
 					Quorum:      strings.Join(monNames, ","),
-					Age:         "13 d", // TODO how to calculate it
+					CreatedAt:   timestamppb.New(st.MonStatus.Monmap.Created),
+					UpdatedAt:   timestamppb.New(st.MonStatus.Monmap.Modified),
 				},
 				Mgr: &stats.MgrService{
-					Active:   st.MgrMap.ActiveName,
-					Standbys: standBys,
-					Since:    "6h", // TODO how to calculate it
+					Active:    st.MgrMap.ActiveName,
+					Standbys:  standBys,
+					UpdatedAt: timestamppb.New(st.MgrMap.ActiveChange.Time),
 				},
 				Mds: &stats.MdsService{
 					DaemonsUp:       int32(daemonsUp),
 					HotStandbyCount: int32(standbyCountWanted),
 				},
 				Osd: &stats.OsdService{
-					OsdCount: int32(osdCount),
-					OsdUp:    int32(osdUp),
-					OsdIn:    int32(osdIn),
-					Since:    "3d", //TODO how to calculate it
+					OsdCount:       int32(osdCount),
+					OsdUp:          int32(osdUp),
+					OsdIn:          int32(osdIn),
+					OsdInUpdatedAt: timestamppb.New(st.OsdMap.LastInChange.Time),
+					OsdUpUpdatedAt: timestamppb.New(st.OsdMap.LastUpChange.Time),
 				},
 				Rgw: &stats.RgwService{
-					ActiveDaemon: 1,
+					ActiveDaemon: int32(st.Rgw),
 					HostCount:    1,
 					ZoneCount:    1,
 				},
+			},
+			Data: &stats.Data{
+				Volumes: int32(1), // TODO still figuring out
+				Pools: &stats.Pools{
+					Pools: int32(poolCount),
+					Pgs: &stats.Pgs{
+						ActiveClean: int32(activeAndCleanPGs),
+					},
+				},
+				Objects: &stats.Objects{
+					ObjectCount: int32(st.PGInfo.ObjectStats.NumObjects),
+					Size:        formatBytes(int64(stored)),
+				},
+				Usage: &stats.Usage{
+					Used:      st.DF.Stats.TotalUsedBytes,
+					Available: st.DF.Stats.TotalAvailBytes,
+					Total:     st.DF.Stats.TotalBytes,
+				},
+			},
+			Io: &stats.Io{
+				ClientRead:     fmt.Sprintf("%s/s rd", clientReadBytes),
+				ClientReadOps:  fmt.Sprintf("%d ops/s rd", readOps),
+				ClientWriteOps: fmt.Sprintf("%d ops/s wr", writeOps),
 			},
 		},
 	}
@@ -233,8 +187,21 @@ func convertMdsItems(src interface{}) (MdsItems, error) {
 	case map[string]interface{}:
 		items = append(items, src)
 	default:
-		return nil, fmt.Errorf("Unsupported type for MdsItems: %T", src)
+		return nil, fmt.Errorf("unsupported type for MdsItems: %T", src)
 	}
 
 	return items, nil
+}
+
+func formatBytes(n int64) string {
+	units := []string{"B", "KiB", "MiB", "GiB", "TiB", "PiB"}
+
+	var i int
+	size := float64(n)
+
+	for i = 0; size >= 1024 && i < len(units)-1; i++ {
+		size /= 1024
+	}
+
+	return fmt.Sprintf("%.2f %s", size, units[i])
 }

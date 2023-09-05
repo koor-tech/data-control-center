@@ -44,7 +44,6 @@ func (s *Service) GetClusterHealth(ctx context.Context) (*HealthStatus, error) {
 
 	var healthStatus HealthStatus
 	if err := json.NewDecoder(resp.Body).Decode(&healthStatus); err != nil {
-		//log.Fatal(err)
 		s.logger.Error("error decoding response", zap.Error(err))
 		return nil, fmt.Errorf("error decoding response %w", err)
 	}

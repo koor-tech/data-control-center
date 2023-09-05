@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
+import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage, Timestamp } from "@bufbuild/protobuf";
 import { Message, proto3 } from "@bufbuild/protobuf";
 
 /**
@@ -21,9 +21,14 @@ export declare class MonService extends Message<MonService> {
   quorum: string;
 
   /**
-   * @generated from field: string age = 3;
+   * @generated from field: google.protobuf.Timestamp created_at = 3;
    */
-  age: string;
+  createdAt?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp updated_at = 4;
+   */
+  updatedAt?: Timestamp;
 
   constructor(data?: PartialMessage<MonService>);
 
@@ -55,9 +60,9 @@ export declare class MgrService extends Message<MgrService> {
   standbys: string[];
 
   /**
-   * @generated from field: string since = 3;
+   * @generated from field: google.protobuf.Timestamp updated_at = 4;
    */
-  since: string;
+  updatedAt?: Timestamp;
 
   constructor(data?: PartialMessage<MgrService>);
 
@@ -123,9 +128,14 @@ export declare class OsdService extends Message<OsdService> {
   osdIn: number;
 
   /**
-   * @generated from field: string since = 4;
+   * @generated from field: google.protobuf.Timestamp osd_up_updated_at = 4;
    */
-  since: string;
+  osdUpUpdatedAt?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp osd_in_updated_at = 5;
+   */
+  osdInUpdatedAt?: Timestamp;
 
   constructor(data?: PartialMessage<OsdService>);
 
@@ -221,12 +231,223 @@ export declare class Services extends Message<Services> {
 }
 
 /**
+ * @generated from message stats.Pgs
+ */
+export declare class Pgs extends Message<Pgs> {
+  /**
+   * @generated from field: int32 active_clean = 1;
+   */
+  activeClean: number;
+
+  constructor(data?: PartialMessage<Pgs>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "stats.Pgs";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Pgs;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Pgs;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Pgs;
+
+  static equals(a: Pgs | PlainMessage<Pgs> | undefined, b: Pgs | PlainMessage<Pgs> | undefined): boolean;
+}
+
+/**
+ * @generated from message stats.Pools
+ */
+export declare class Pools extends Message<Pools> {
+  /**
+   * @generated from field: int32 pools = 1;
+   */
+  pools: number;
+
+  /**
+   * @generated from field: stats.Pgs pgs = 2;
+   */
+  pgs?: Pgs;
+
+  constructor(data?: PartialMessage<Pools>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "stats.Pools";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Pools;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Pools;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Pools;
+
+  static equals(a: Pools | PlainMessage<Pools> | undefined, b: Pools | PlainMessage<Pools> | undefined): boolean;
+}
+
+/**
+ * @generated from message stats.Objects
+ */
+export declare class Objects extends Message<Objects> {
+  /**
+   * @generated from field: int32 object_count = 1;
+   */
+  objectCount: number;
+
+  /**
+   * @generated from field: string size = 2;
+   */
+  size: string;
+
+  constructor(data?: PartialMessage<Objects>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "stats.Objects";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Objects;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Objects;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Objects;
+
+  static equals(a: Objects | PlainMessage<Objects> | undefined, b: Objects | PlainMessage<Objects> | undefined): boolean;
+}
+
+/**
+ * @generated from message stats.Usage
+ */
+export declare class Usage extends Message<Usage> {
+  /**
+   * @generated from field: int64 used = 1;
+   */
+  used: bigint;
+
+  /**
+   * @generated from field: int64 available = 2;
+   */
+  available: bigint;
+
+  /**
+   * @generated from field: int64 total = 3;
+   */
+  total: bigint;
+
+  constructor(data?: PartialMessage<Usage>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "stats.Usage";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Usage;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Usage;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Usage;
+
+  static equals(a: Usage | PlainMessage<Usage> | undefined, b: Usage | PlainMessage<Usage> | undefined): boolean;
+}
+
+/**
+ * @generated from message stats.Data
+ */
+export declare class Data extends Message<Data> {
+  /**
+   * @generated from field: int32 volumes = 1;
+   */
+  volumes: number;
+
+  /**
+   * @generated from field: stats.Pools pools = 2;
+   */
+  pools?: Pools;
+
+  /**
+   * @generated from field: stats.Objects objects = 3;
+   */
+  objects?: Objects;
+
+  /**
+   * @generated from field: stats.Usage usage = 4;
+   */
+  usage?: Usage;
+
+  constructor(data?: PartialMessage<Data>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "stats.Data";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Data;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Data;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Data;
+
+  static equals(a: Data | PlainMessage<Data> | undefined, b: Data | PlainMessage<Data> | undefined): boolean;
+}
+
+/**
+ * @generated from message stats.Io
+ */
+export declare class Io extends Message<Io> {
+  /**
+   * @generated from field: string client_read = 1;
+   */
+  clientRead: string;
+
+  /**
+   * @generated from field: string client_read_ops = 2;
+   */
+  clientReadOps: string;
+
+  /**
+   * @generated from field: string client_write_ops = 3;
+   */
+  clientWriteOps: string;
+
+  constructor(data?: PartialMessage<Io>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "stats.Io";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Io;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Io;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Io;
+
+  static equals(a: Io | PlainMessage<Io> | undefined, b: Io | PlainMessage<Io> | undefined): boolean;
+}
+
+/**
+ * @generated from message stats.Crash
+ */
+export declare class Crash extends Message<Crash> {
+  /**
+   * @generated from field: string description = 1;
+   */
+  description: string;
+
+  constructor(data?: PartialMessage<Crash>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "stats.Crash";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Crash;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Crash;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Crash;
+
+  static equals(a: Crash | PlainMessage<Crash> | undefined, b: Crash | PlainMessage<Crash> | undefined): boolean;
+}
+
+/**
  * @generated from message stats.ClusterStatusResponse
  */
 export declare class ClusterStatusResponse extends Message<ClusterStatusResponse> {
   /**
-   * define the cluster id
-   *
    * @generated from field: string id = 1;
    */
   id: string;
@@ -237,9 +458,29 @@ export declare class ClusterStatusResponse extends Message<ClusterStatusResponse
   status: string;
 
   /**
-   * @generated from field: stats.Services services = 3;
+   * @generated from field: repeated stats.Crash crashes = 3;
+   */
+  crashes: Crash[];
+
+  /**
+   * @generated from field: stats.Services services = 4;
    */
   services?: Services;
+
+  /**
+   * @generated from field: stats.Data data = 5;
+   */
+  data?: Data;
+
+  /**
+   * @generated from field: string test = 6;
+   */
+  test: string;
+
+  /**
+   * @generated from field: stats.Io io = 7;
+   */
+  io?: Io;
 
   constructor(data?: PartialMessage<ClusterStatusResponse>);
 
