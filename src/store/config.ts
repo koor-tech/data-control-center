@@ -54,7 +54,7 @@ export const useConfigStore = defineStore('config', {
                         const text = await resp.text();
                         throw createError({
                             statusCode: 500,
-                            statusMessage: 'Failed to get FiveNet config from backend',
+                            statusMessage: 'Failed to get Koor data-control-center config from backend',
                             message: text,
                             fatal: true,
                             unhandled: false,

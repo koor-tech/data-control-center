@@ -2,12 +2,11 @@ package auth
 
 import (
 	"context"
+	"fmt"
 	"strings"
 
 	"connectrpc.com/connect"
 	"github.com/koor-tech/data-control-center/pkg/grpc/auth/userinfo"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 const (
@@ -21,8 +20,8 @@ const (
 var UserInfoKey struct{}
 
 var (
-	ErrNoToken      = status.Errorf(codes.Unauthenticated, "No token given, please login!")
-	ErrInvalidToken = status.Error(codes.Unauthenticated, "Invalid token! Please login again.")
+	ErrNoToken      = connect.NewError(connect.CodeUnauthenticated, fmt.Errorf("no token given, please login!"))
+	ErrInvalidToken = connect.NewError(connect.CodeUnauthenticated, fmt.Errorf("invalid token! Please login again."))
 )
 
 type GRPCAuth struct {

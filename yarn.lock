@@ -429,24 +429,24 @@
     "@babel/helper-validator-identifier" "^7.22.5"
     to-fast-properties "^2.0.0"
 
-"@bufbuild/protobuf@1.3.0", "@bufbuild/protobuf@^1.3.0":
-  version "1.3.0"
-  resolved "https://registry.npmjs.org/@bufbuild/protobuf/-/protobuf-1.3.0.tgz"
-  integrity sha512-G372ods0pLt46yxVRsnP/e2btVPuuzArcMPFpIDeIwiGPuuglEs9y75iG0HMvZgncsj5TvbYRWqbVyOe3PLCWQ==
+"@bufbuild/protobuf@1.3.1", "@bufbuild/protobuf@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@bufbuild/protobuf/-/protobuf-1.3.1.tgz#c4de66bacbe7ac97fe054e68314aeba6f45177f9"
+  integrity sha512-BUyJWutgP2S8K/1NphOJokuwDckXS4qI2T1pGZAlkFdZchWae3jm6fCdkcGbLlM1QLOcNFFePd+7Feo4BYGrJQ==
 
-"@bufbuild/protoc-gen-es@^1.3.0":
-  version "1.3.0"
-  resolved "https://registry.npmjs.org/@bufbuild/protoc-gen-es/-/protoc-gen-es-1.3.0.tgz"
-  integrity sha512-XxGZwpXMYlwoSyJwCTFb7SZ2xKmv2iCRM022t1wszhY3kNL7rjpyj+3GbpCOjaM1T7NAoLnW0Hyb/M0b0XDb3Q==
+"@bufbuild/protoc-gen-es@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@bufbuild/protoc-gen-es/-/protoc-gen-es-1.3.1.tgz#1c47fa821b74758fe6d9617796e30ef58c814fa7"
+  integrity sha512-Eyk4T1Wh56WhS6RqC7nfYE9a2egejDAzOl5vv8emzSNfHKm6eGrwTiuE+ottg+G6SmC1hNr3NFbvNJJkI+5aSA==
   dependencies:
-    "@bufbuild/protoplugin" "1.3.0"
+    "@bufbuild/protoplugin" "1.3.1"
 
-"@bufbuild/protoplugin@1.3.0":
-  version "1.3.0"
-  resolved "https://registry.npmjs.org/@bufbuild/protoplugin/-/protoplugin-1.3.0.tgz"
-  integrity sha512-zye8CfJb9VWzaHR/f1qcEkddaRh9De+u6fORsj92Ten8EJUcyhiY5BivET+RMTissAKXKrp/f2zSBCV0dlFxPw==
+"@bufbuild/protoplugin@1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@bufbuild/protoplugin/-/protoplugin-1.3.1.tgz#9784679dc72237045ddc4e07816d01a0a58fb199"
+  integrity sha512-85mSp1FJzjF9uyhzlAS19KNS0CkGUq7dHonRplaTErbuhdBdAVGBPs5SVQpFlYD5j0nMHob8hKsnfA4g8QlrhQ==
   dependencies:
-    "@bufbuild/protobuf" "1.3.0"
+    "@bufbuild/protobuf" "1.3.1"
     "@typescript/vfs" "^1.4.0"
     typescript "4.5.2"
 
@@ -457,34 +457,34 @@
   dependencies:
     mime "^3.0.0"
 
-"@connectrpc/connect-fastify@^0.13.1":
-  version "0.13.1"
-  resolved "https://registry.npmjs.org/@connectrpc/connect-fastify/-/connect-fastify-0.13.1.tgz"
-  integrity sha512-HLQC6f2+dS6mevLo9t14n1DClufruPZjGptj4jsoH+IuHKZxKAhOaN/K86EZphJpOttcSTuzMtkQO03l8cXOwQ==
+"@connectrpc/connect-fastify@^0.13.2":
+  version "0.13.2"
+  resolved "https://registry.yarnpkg.com/@connectrpc/connect-fastify/-/connect-fastify-0.13.2.tgz#1bbb1e6229c8038207371b57203acf2356cb18cf"
+  integrity sha512-te/X3S9BXum5U8AQJJeFoEvIyFrKH66lmqPceY7SPFa7ZEkE8Vd6pXRWg1NzOH7vxoI4G+BKiW4QaG+ehkhzTg==
   dependencies:
-    "@connectrpc/connect" "0.13.1"
-    "@connectrpc/connect-node" "^0.13.1"
+    "@connectrpc/connect" "0.13.2"
+    "@connectrpc/connect-node" "^0.13.2"
     fastify "^4.21.0"
 
-"@connectrpc/connect-node@^0.13.1":
-  version "0.13.1"
-  resolved "https://registry.npmjs.org/@connectrpc/connect-node/-/connect-node-0.13.1.tgz"
-  integrity sha512-SQJyTjlrSVxyp9HBEYyG1Amn9kzAZuBOxHTbCfwgIPgX1FZK8XPW3sDQ1MZckNmktruOaRQflA6AB3t78R6DeA==
+"@connectrpc/connect-node@^0.13.2":
+  version "0.13.2"
+  resolved "https://registry.yarnpkg.com/@connectrpc/connect-node/-/connect-node-0.13.2.tgz#6f5fb37c90634d4d45f6713ea57d9fb6f070764b"
+  integrity sha512-dAoBuQ+fYFw22KYgZXPw1t19i6TRwNmk6c6XsOYLhBl1Y5vzXoMfMX2jm7lmkmLQFIcM9Xc2EYoUKtjNXH5bjw==
   dependencies:
-    "@connectrpc/connect" "0.13.1"
-    headers-polyfill "^3.1.2"
+    "@connectrpc/connect" "0.13.2"
+    undici "^5.23.0"
 
-"@connectrpc/connect-web@^0.13.1":
-  version "0.13.1"
-  resolved "https://registry.npmjs.org/@connectrpc/connect-web/-/connect-web-0.13.1.tgz"
-  integrity sha512-9RbraYunDORgjSBhuidLviYSmgym5cwgEdQIBcgXsdINKK9UElhStMi/LBo7MG0271CH0zZQhbiX1J//HG5QvA==
+"@connectrpc/connect-web@^0.13.2":
+  version "0.13.2"
+  resolved "https://registry.yarnpkg.com/@connectrpc/connect-web/-/connect-web-0.13.2.tgz#14b8f30458196897578ce773f3ab0ec42d114228"
+  integrity sha512-WkI2MbdWpzRCZf612bOa0JEuOx2Hebv7BW0FcfgDgHwFGBOuAFF7BF7XtNw196nmYoli2kXmtIjCZW01jvzDnw==
   dependencies:
-    "@connectrpc/connect" "0.13.1"
+    "@connectrpc/connect" "0.13.2"
 
-"@connectrpc/connect@0.13.1", "@connectrpc/connect@^0.13.1":
-  version "0.13.1"
-  resolved "https://registry.npmjs.org/@connectrpc/connect/-/connect-0.13.1.tgz"
-  integrity sha512-o4QY48x2FjnzDAEIee5yZOJGMSWFp7HS1a+MuonpVFmkLJctCWTWuiY/hFknztGYAQ5DMQtb17nDcEiT2vgpBQ==
+"@connectrpc/connect@0.13.2", "@connectrpc/connect@^0.13.2":
+  version "0.13.2"
+  resolved "https://registry.yarnpkg.com/@connectrpc/connect/-/connect-0.13.2.tgz#491147e3021ac544fa109563e9d23adec0282641"
+  integrity sha512-KZg6EH8gYnQZm/d2IXXMVB2mom/A1dCD8+7JScm2tKN9OQyQSeCJOLqtv/M4M5XVS0Y9JM2/VCbiUwfhl9Rqmg==
 
 "@csstools/cascade-layer-name-parser@^1.0.4":
   version "1.0.4"
@@ -2146,10 +2146,10 @@
   resolved "https://registry.npmjs.org/@types/node/-/node-20.5.4.tgz"
   integrity sha512-Y9vbIAoM31djQZrPYjpTLo0XlaSwOIsrlfE3LpulZeRblttsLQRFRlBAppW0LOxyT3ALj2M5vU1ucQQayQH3jA==
 
-"@types/node@^20.5.7":
-  version "20.5.7"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.5.7.tgz#4b8ecac87fbefbc92f431d09c30e176fc0a7c377"
-  integrity sha512-dP7f3LdZIysZnmvP3ANJYTSwg+wLLl8p7RqniVlV7j+oXSXAbt9h0WIBFmJy5inWZoX9wZN6eXx+YXd9Rh3RBA==
+"@types/node@^20.5.9":
+  version "20.5.9"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.5.9.tgz#a70ec9d8fa0180a314c3ede0e20ea56ff71aed9a"
+  integrity sha512-PcGNd//40kHAS3sTlzKB9C9XL4K0sTup8nbG5lC14kzEteTNuAFh9u5nA0o5TWnSG2r/JNPRXFVcHJIIeRlmqQ==
 
 "@types/parse-json@^4.0.0":
   version "4.0.0"
@@ -2161,10 +2161,10 @@
   resolved "https://registry.npmjs.org/@types/resolve/-/resolve-1.20.2.tgz"
   integrity sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==
 
-"@types/uuid@^9.0.2":
-  version "9.0.2"
-  resolved "https://registry.npmjs.org/@types/uuid/-/uuid-9.0.2.tgz"
-  integrity sha512-kNnC1GFBLuhImSnV7w4njQkUiJi0ZXUycu1rUaouPqiKlXkh77JKgdRnTAp1x5eBwcIwbtI+3otwzuIDEuDoxQ==
+"@types/uuid@^9.0.3":
+  version "9.0.3"
+  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-9.0.3.tgz#6cdd939b4316b4f81625de9f06028d848c4a1533"
+  integrity sha512-taHQQH/3ZyI3zP8M/puluDEIEvtQHVYcC6y3N8ijFtAd28+Ey/G4sg1u2gB01S8MwybLOKAp9/yCMu/uR5l3Ug==
 
 "@types/web-bluetooth@^0.0.17":
   version "0.0.17"
@@ -2186,7 +2186,15 @@
     "@unhead/schema" "1.3.7"
     "@unhead/shared" "1.3.7"
 
-"@unhead/dom@1.3.9", "@unhead/dom@^1.3.7":
+"@unhead/dom@1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@unhead/dom/-/dom-1.5.0.tgz#381f7d33af61bce6cbedd89d0bb804c3bbcf4205"
+  integrity sha512-zJG35T4jz4i+r5t0+tiFgwY4+F+WLqrdZ2PMRaMXn5noSDMm1q+1X3EhTEgCKq20g+ktXUxv5nhQuDblO6L2pg==
+  dependencies:
+    "@unhead/schema" "1.5.0"
+    "@unhead/shared" "1.5.0"
+
+"@unhead/dom@^1.3.7":
   version "1.3.9"
   resolved "https://registry.yarnpkg.com/@unhead/dom/-/dom-1.3.9.tgz#a2d713bd8a0a411ce26e6756d4095e26231f97b6"
   integrity sha512-bTbPFjXjmk8MC0cBC+7Bgf0Mcw62gsE2XqOhMH/qQo6NP4vR2XGxqy054Y7MGurznR1JVAqxUiU3cR/oxWFk3g==
@@ -2210,6 +2218,14 @@
     hookable "^5.5.3"
     zhead "^2.0.10"
 
+"@unhead/schema@1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@unhead/schema/-/schema-1.5.0.tgz#5d978f4438bbd3fe19bf5e2befcf34a86bbbf488"
+  integrity sha512-oalJHsxpcWGXUML62CwpFJaSrbKKbjU3c1eizu7d9/RJS42KKT1LVBXbKrtbR0kNyj4Fbf+MD/DwqZm4cUBcuA==
+  dependencies:
+    hookable "^5.5.3"
+    zhead "^2.0.10"
+
 "@unhead/shared@1.3.7":
   version "1.3.7"
   resolved "https://registry.npmjs.org/@unhead/shared/-/shared-1.3.7.tgz"
@@ -2223,6 +2239,13 @@
   integrity sha512-lBXK1gzsg3XOnsOgYUVTT2RKOvM+AB0myDXkwQb0jsJB3Tc1qVOSz9JAOR+ZGrosSr7+Iv91+Fu/0E+knxaj2Q==
   dependencies:
     "@unhead/schema" "1.3.9"
+
+"@unhead/shared@1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@unhead/shared/-/shared-1.5.0.tgz#1485a1d36e57ce9b1de09c0acc333ef07d403dae"
+  integrity sha512-34qeSrkKz/KfkD/VR2oWpeOydH5M+8NqNBGwdM9vO/SNeBs+ZCEEO57ASJTSRjjve/rzcBhK6nQG6tOCJtAV1g==
+  dependencies:
+    "@unhead/schema" "1.5.0"
 
 "@unhead/ssr@^1.3.7":
   version "1.3.9"
@@ -2242,15 +2265,15 @@
     hookable "^5.5.3"
     unhead "1.3.7"
 
-"@unhead/vue@^1.3.9":
-  version "1.3.9"
-  resolved "https://registry.yarnpkg.com/@unhead/vue/-/vue-1.3.9.tgz#20adeecaf0feb7823be3a91f7f98d0f9ac54f6b9"
-  integrity sha512-rVAsRLBc+3Y//NRmr7vmRs5yhIf65jYSvcj0V5DtDfDwql7BbGgc3VIIEvY0+EjLQuNsS5kxwm78LSPCIl/3Xw==
+"@unhead/vue@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@unhead/vue/-/vue-1.5.0.tgz#1f24b2e8c6a9223d6956f5babdcfb4f41dd193f8"
+  integrity sha512-Xz8asfMiD6BAezQXR8XN7JdVdTqcX4T9iv0TL1zSk6SIpdiARLiQKU8inQRxOAxfxksW1+p3BU6siB2CVOcbwQ==
   dependencies:
-    "@unhead/schema" "1.3.9"
-    "@unhead/shared" "1.3.9"
+    "@unhead/schema" "1.5.0"
+    "@unhead/shared" "1.5.0"
     hookable "^5.5.3"
-    unhead "1.3.9"
+    unhead "1.5.0"
 
 "@vee-validate/nuxt@^4.11.3":
   version "4.11.3"
@@ -4885,10 +4908,10 @@ fastify@^4.21.0:
     semver "^7.5.0"
     tiny-lru "^11.0.1"
 
-fastify@^4.22.0:
-  version "4.22.0"
-  resolved "https://registry.yarnpkg.com/fastify/-/fastify-4.22.0.tgz#aa0ce366eec2d77256807872b6499f021a676bb0"
-  integrity sha512-HLoBmetdQ6zaJohKW6jzUww8NnwHzkbIbUEyAzM+Nnf7cZVSXRuUV+6b2/xLmu6GGkruIFJ/bIQoKWYRx4wnAQ==
+fastify@^4.22.2:
+  version "4.22.2"
+  resolved "https://registry.yarnpkg.com/fastify/-/fastify-4.22.2.tgz#ad5ad555c9612874e8dcd7181a248fe3674142e7"
+  integrity sha512-rK8mF/1mZJHH6H/L22OhmilTgrp5XMkk3RHcSy03LC+TJ6+wLhbq+4U62bjns15VzIbBNgxTqAForBqtGAa0NQ==
   dependencies:
     "@fastify/ajv-compiler" "^3.5.0"
     "@fastify/error" "^3.2.0"
@@ -5507,11 +5530,6 @@ he@^1.2.0:
   version "1.2.0"
   resolved "https://registry.npmjs.org/he/-/he-1.2.0.tgz"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
-
-headers-polyfill@^3.1.2:
-  version "3.1.2"
-  resolved "https://registry.npmjs.org/headers-polyfill/-/headers-polyfill-3.1.2.tgz"
-  integrity sha512-tWCK4biJ6hcLqTviLXVR9DTRfYGQMXEIUj3gwJ2rZ5wO/at3XtkI4g8mCvFdUF9l1KMBNCfmNAdnahm1cgavQA==
 
 hookable@^5.5.3:
   version "5.5.3"
@@ -7081,10 +7099,17 @@ nth-check@^2.0.1, nth-check@^2.1.1:
   dependencies:
     boolbase "^1.0.0"
 
-nuxi@^3.7.0, nuxi@^3.7.2:
+nuxi@^3.7.0:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/nuxi/-/nuxi-3.7.2.tgz#c140eedd9d39185e53280297c226591152076f75"
   integrity sha512-WNczi4X5ms8v63BTlCH+ZZDPzoFI0/V5KW8an4Zv6qOngtONHALw1u6qvtcAqG2tuMDu8gdJuzxMZL2845Dbig==
+  optionalDependencies:
+    fsevents "~2.3.3"
+
+nuxi@^3.7.3:
+  version "3.7.3"
+  resolved "https://registry.yarnpkg.com/nuxi/-/nuxi-3.7.3.tgz#e979601b763cd9c57bec400c265e3879ac907aa4"
+  integrity sha512-Cg+ygRmhonE6PwAtDeKvKU/0VRqEyzmSSoJYfr0MzwIxQYrBSnLvw0z3UgJl/8MgFKjiZ5Y4wBUEiRsUw8O6uw==
   optionalDependencies:
     fsevents "~2.3.3"
 
@@ -7944,6 +7969,15 @@ postcss@^8.1.10, postcss@^8.2.15, postcss@^8.4.23, postcss@^8.4.24, postcss@^8.4
   version "8.4.28"
   resolved "https://registry.npmjs.org/postcss/-/postcss-8.4.28.tgz"
   integrity sha512-Z7V5j0cq8oEKyejIKfpD8b4eBy9cwW2JWPk0+fB1HOAMsfHbnAXLLS+PfVWlzMSLQaWttKDt607I0XHmpE67Vw==
+  dependencies:
+    nanoid "^3.3.6"
+    picocolors "^1.0.0"
+    source-map-js "^1.0.2"
+
+postcss@^8.4.29:
+  version "8.4.29"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.29.tgz#33bc121cf3b3688d4ddef50be869b2a54185a1dd"
+  integrity sha512-cbI+jaqIeu/VGqXEarWkRCCffhjgXc0qjBtXpqJhTBohMUjUQnbBr0xqX3vEKudc4iviTewcJo5ajcec5+wdJw==
   dependencies:
     nanoid "^3.3.6"
     picocolors "^1.0.0"
@@ -9207,14 +9241,14 @@ unhead@1.3.7:
     "@unhead/shared" "1.3.7"
     hookable "^5.5.3"
 
-unhead@1.3.9:
-  version "1.3.9"
-  resolved "https://registry.yarnpkg.com/unhead/-/unhead-1.3.9.tgz#62176866cd852e9b289fcf2534fdfdf3c585fc2a"
-  integrity sha512-vzWZJW8l6dlNM5egJs3c7NMHWZ+iw2x7jCZtU2rrhwFINlKCaA3J42fvOeDxx6t5QR9dfZ96HF2AeNlCcPT+bQ==
+unhead@1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/unhead/-/unhead-1.5.0.tgz#4320570ce698957502e3b2163be727d57539dd2a"
+  integrity sha512-dCbAcYUA5DeYg8+1UrTNhah8OnScuz6Bxc6NmzCl4gWl513aQDzSwRoNEKEhZ/j1vmXVwerUUZdKHTfNcS5NhQ==
   dependencies:
-    "@unhead/dom" "1.3.9"
-    "@unhead/schema" "1.3.9"
-    "@unhead/shared" "1.3.9"
+    "@unhead/dom" "1.5.0"
+    "@unhead/schema" "1.5.0"
+    "@unhead/shared" "1.5.0"
     hookable "^5.5.3"
 
 unimport@^3.0.14:

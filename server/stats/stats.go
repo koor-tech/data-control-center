@@ -3,18 +3,20 @@ package stats
 import (
 	"context"
 	"fmt"
+	"strings"
+
 	"github.com/koor-tech/data-control-center/gen/go/api/services/response"
-	pb "github.com/koor-tech/data-control-center/gen/go/api/services/response/responseconnect"
+	"github.com/koor-tech/data-control-center/gen/go/api/services/response/responseconnect"
 	"github.com/koor-tech/data-control-center/gen/go/api/services/stats"
 	"go.uber.org/zap"
 	"google.golang.org/protobuf/types/known/timestamppb"
-	"strings"
 
 	"github.com/koor-tech/data-control-center/internal/ceph"
 	serverResponse "github.com/koor-tech/data-control-center/server/response"
 
-	"github.com/koor-tech/data-control-center/pkg/config"
 	"net/http"
+
+	"github.com/koor-tech/data-control-center/pkg/config"
 
 	"connectrpc.com/connect"
 	"github.com/gin-gonic/gin"
@@ -23,6 +25,8 @@ import (
 
 // Server is used to implement stats services.
 type Server struct {
+	responseconnect.StatsServiceHandler
+
 	auth           *auth.GRPCAuth
 	cephApiService *ceph.Service
 	logger         *zap.Logger
@@ -38,7 +42,7 @@ func New(logger *zap.Logger, grpcAuth *auth.GRPCAuth, cfg *config.Config) (*Serv
 }
 
 func (s *Server) RegisterService(g *gin.RouterGroup) {
-	path, handler := pb.NewStatsServiceHandler(s, connect.WithInterceptors(
+	path, handler := responseconnect.NewStatsServiceHandler(s, connect.WithInterceptors(
 		s.auth.NewAuthInterceptor(),
 	))
 	g.Any(path+"/*path", gin.WrapH(handler))

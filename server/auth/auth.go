@@ -1,9 +1,10 @@
 package auth
 
 import (
-	"connectrpc.com/connect"
 	"context"
 	"fmt"
+
+	"connectrpc.com/connect"
 	"github.com/gin-gonic/gin"
 	"github.com/koor-tech/data-control-center/gen/go/api/resources/timestamp"
 	pbauth "github.com/koor-tech/data-control-center/gen/go/api/services/auth"
@@ -11,8 +12,6 @@ import (
 	"github.com/koor-tech/data-control-center/pkg/config"
 	"github.com/koor-tech/data-control-center/pkg/grpc/auth"
 	"golang.org/x/crypto/bcrypt"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 type Server struct {
@@ -53,7 +52,7 @@ func (s *Server) Login(ctx context.Context, req *connect.Request[pbauth.LoginReq
 	headers := req.Header()
 	fmt.Println(headers)
 	if s.oauth2Enabled {
-		return nil, status.Error(codes.InvalidArgument, "Password Login disabled because OAuth2 login is enabled. Please use OAuth2 for logging in!")
+		return nil, connect.NewError(connect.CodeInvalidArgument, fmt.Errorf("Password Login disabled because OAuth2 login is enabled. Please use OAuth2 for logging in!"))
 	}
 
 	var user *config.User
@@ -65,12 +64,12 @@ func (s *Server) Login(ctx context.Context, req *connect.Request[pbauth.LoginReq
 	}
 
 	if user == nil {
-		return nil, status.Error(codes.InvalidArgument, "Wrong username or password")
+		return nil, connect.NewError(connect.CodeInvalidArgument, fmt.Errorf("Wrong username or password"))
 	}
 
 	// Password check logic
 	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(req.Msg.Password)); err != nil {
-		return nil, status.Error(codes.InvalidArgument, "Wrong username or password")
+		return nil, connect.NewError(connect.CodeInvalidArgument, fmt.Errorf("Wrong username or password"))
 	}
 
 	claims := auth.BuildTokenClaimsFromAccount("data-control-center-user-login-"+user.Username, user.Username)

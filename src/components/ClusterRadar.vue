@@ -30,7 +30,7 @@
 
                 <!-- Stats -->
                 <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5 px-2">
-<!--                    <HealthServices v-if="clusterStats" v-for="item in clusterStats.stats" :statsContainer="item" />-->
+                    <!--                    <HealthServices v-if="clusterStats" v-for="item in clusterStats.stats" :statsContainer="item" />-->
 
                     <!-- <Doughnut :data="data" :options="options" /> -->
                 </dl>
@@ -59,9 +59,7 @@ type ClusterStats = {
     // stats: TransformedData[];
 }
 
-watch(error, () => console.log("ERR:", error.value));
 function transformData(clusterStats: any): ClusterStats {
-
     console.log(clusterStats)
     return {
         id: clusterStats.id,

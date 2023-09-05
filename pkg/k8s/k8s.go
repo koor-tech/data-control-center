@@ -33,9 +33,16 @@ func New() (*K8s, error) {
 	}, nil
 }
 
-func GetPods() ([]*corev1.Pod, error) {
+func (k *K8s) GetPods() ([]*corev1.Pod, error) {
+
+	// TODO get Rook Ceph daemon deployments
 
 	return nil, nil
 }
 
-// TODO how should we list the daemons? List the Ceph* resources?
+func (k *K8s) GetCephResources() error {
+
+	// TODO Get each Ceph resources per namespace
+
+	return nil
+}
