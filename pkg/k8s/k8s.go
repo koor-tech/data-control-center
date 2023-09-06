@@ -88,14 +88,33 @@ func (k *K8s) GetClusterDeployments(ctx context.Context, namespace string) ([]*s
 	return res, nil
 }
 
-func (k *K8s) GetCephResources(ctx context.Context) ([]*stats.ResourceInfo, error) {
-	list, err := ListCephV1Resources[cephv1.CephCluster](ctx, k.client, "cephcluster", metav1.ListOptions{})
+func (k *K8s) GetCephResources(ctx context.Context, namespace string) ([]*stats.ResourceInfo, error) {
+	list, err := ListCephV1Resources[cephv1.CephCluster](ctx, k.client, "cephclusters", namespace, metav1.ListOptions{})
 	if err != nil {
 		return nil, err
 	}
 
-	_ = list
-	// TODO
+	res := []*stats.ResourceInfo{}
+	for _, obj := range list {
+		status := stats.ResourceStatus_RESOURCE_UNKNOWN
+		if obj.Status.CephStatus != nil {
+			if obj.Status.State == cephv1.ClusterStateCreated || obj.Status.State == cephv1.ClusterStateConnected {
+				status = stats.ResourceStatus_RESOURCE_READY
+			} else {
+				status = stats.ResourceStatus_RESOURCE_NOT_READY
+			}
+		}
 
-	return nil, nil
+		res = append(res, &stats.ResourceInfo{
+			Apiversion: obj.APIVersion,
+			Kind:       obj.Kind,
+			Namespace:  obj.Namespace,
+			Name:       obj.Name,
+			Status:     status,
+		})
+	}
+
+	// TODO iterate over the important ceph cluster resources
+
+	return res, nil
 }

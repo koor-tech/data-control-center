@@ -198,8 +198,20 @@ func convertMdsItems(src interface{}) (MdsItems, error) {
 }
 
 func (s *Server) GetClusterResources(ctx context.Context, req *connect.Request[common.EmptyRequest]) (*connect.Response[statspb.ClusterResourcesResponse], error) {
+	deployments, err := s.k.GetClusterDeployments(ctx, "rook-ceph")
+	if err != nil {
+		return nil, err
+	}
 
-	// TODO
+	resources, err := s.k.GetCephResources(ctx, "rook-ceph")
+	if err != nil {
+		return nil, err
+	}
 
-	return nil, nil
+	return &connect.Response[statspb.ClusterResourcesResponse]{
+		Msg: &statspb.ClusterResourcesResponse{
+			Deployments: deployments,
+			Resources:   resources,
+		},
+	}, nil
 }

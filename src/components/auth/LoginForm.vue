@@ -70,7 +70,7 @@ const onSubmit = handleSubmit(async (values): Promise<void> => await login(value
     </h2>
 
     <form @submit="onSubmit" class="my-2 space-y-6">
-        <template v-if="false">
+        <template v-if="appConfig.login.providers.length === 0">
             <div>
                 <label for="username" class="sr-only">
                     Username

@@ -19,6 +19,9 @@
                 <OSDHealthWidget />
             </div>
         </div>
+        <div class="" v-if="resources">
+            {{ resources?.toJson() }}
+        </div>
     </div>
 </template>
 
@@ -36,4 +39,5 @@ const { data: stats, pending, refresh, error } = useLazyAsyncData(`clusterstats`
 watch(error, () => {
     if (error.value !== null) $grpc.handleError(error.value as ConnectError);
 });
+const { data: resources } = useLazyAsyncData(`clusterresources`, () => $grpc.getStatsClient().getClusterResources({}));
 </script>
