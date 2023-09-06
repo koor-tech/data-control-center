@@ -1,10 +1,11 @@
 syntax = "proto3";
 
 package services.auth;
-option go_package = "github.com/koor-tech/data-control-center/gen/go/api/services/auth;auth";
 
 import "api/resources/timestamp/timestamp.proto";
 import "validate/validate.proto";
+
+option go_package = "github.com/koor-tech/data-control-center/gen/go/api/services/auth;auth";
 
 message LoginRequest {
   string username = 1 [(validate.rules).string = {
@@ -12,7 +13,10 @@ message LoginRequest {
     max_len: 24,
     pattern: "^[a-zA-Z0-9-_]+$",
   }];
-  string password = 2 [(validate.rules).string = {min_len: 6, max_bytes: 70}];
+  string password = 2 [(validate.rules).string = {
+    min_len: 6,
+    max_bytes: 70
+  }];
 }
 
 message LoginResponse {

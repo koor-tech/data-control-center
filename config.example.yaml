@@ -6,13 +6,11 @@ http:
   sessions:
     cookieSecret: 'your_generated_cookie_secret'
     domain: 'localhost'
-grpc:
-  listen: ':9090'
 jwt:
   secret: 'your_generated_jwt_secret'
 ceph:
   api:
-    url: 'http://localhost:8181/api'
+    url: 'http://localhost:8383/api'
     username: 'admin'
     password: 'admin'
 oauth2:
@@ -31,3 +29,5 @@ oauth2:
         tokenURL: 'https://keycloak.example.com/auth/realms/yourrealm/protocol/openid-connect/token'
         userInfoURL: 'https://keycloak.example.com/auth/realms/yourrealm/protocol/openid-connect/userinfo'
 users: []
+kubernetes:
+  kubeconfig: ""

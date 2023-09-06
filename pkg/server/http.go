@@ -16,8 +16,10 @@ import (
 	"github.com/gin-contrib/static"
 	ginzap "github.com/gin-contrib/zap"
 	"github.com/gin-gonic/gin"
+	"github.com/koor-tech/data-control-center/internal/ceph"
 	"github.com/koor-tech/data-control-center/pkg/config"
 	"github.com/koor-tech/data-control-center/pkg/grpc/auth"
+	"github.com/koor-tech/data-control-center/pkg/k8s"
 	"github.com/koor-tech/data-control-center/pkg/server/api"
 	"github.com/koor-tech/data-control-center/pkg/server/oauth2"
 	"github.com/prometheus/client_golang/prometheus"
@@ -164,11 +166,14 @@ func StartHTTPServer() {
 		fx.WithLogger(func(log *zap.Logger) fxevent.Logger {
 			return &fxevent.ZapLogger{Logger: log}
 		}),
+
 		LoggerModule,
 		config.Module,
 		HTTPServerModule,
 		auth.AuthModule,
 		auth.TokenMgrModule,
+		k8s.Module,
+		ceph.Module,
 
 		// Connect Services
 		fx.Provide(

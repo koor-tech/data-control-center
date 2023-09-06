@@ -7,9 +7,10 @@
 package stats
 
 import (
+	common "github.com/koor-tech/data-control-center/gen/go/api/resources/common"
+	stats "github.com/koor-tech/data-control-center/gen/go/api/resources/stats"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
 	sync "sync"
 )
@@ -21,19 +22,17 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type MonService struct {
+type ClusterResourcesResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	DaemonCount int32                  `protobuf:"varint,1,opt,name=daemon_count,json=daemonCount,proto3" json:"daemon_count,omitempty"`
-	Quorum      string                 `protobuf:"bytes,2,opt,name=quorum,proto3" json:"quorum,omitempty"`
-	CreatedAt   *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	UpdatedAt   *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	Resources   []*stats.ResourceInfo `protobuf:"bytes,1,rep,name=resources,proto3" json:"resources,omitempty"`
+	Deployments []*stats.ResourceInfo `protobuf:"bytes,2,rep,name=deployments,proto3" json:"deployments,omitempty"`
 }
 
-func (x *MonService) Reset() {
-	*x = MonService{}
+func (x *ClusterResourcesResponse) Reset() {
+	*x = ClusterResourcesResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_api_services_stats_stats_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -41,13 +40,13 @@ func (x *MonService) Reset() {
 	}
 }
 
-func (x *MonService) String() string {
+func (x *ClusterResourcesResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*MonService) ProtoMessage() {}
+func (*ClusterResourcesResponse) ProtoMessage() {}
 
-func (x *MonService) ProtoReflect() protoreflect.Message {
+func (x *ClusterResourcesResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_api_services_stats_stats_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -59,870 +58,21 @@ func (x *MonService) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use MonService.ProtoReflect.Descriptor instead.
-func (*MonService) Descriptor() ([]byte, []int) {
+// Deprecated: Use ClusterResourcesResponse.ProtoReflect.Descriptor instead.
+func (*ClusterResourcesResponse) Descriptor() ([]byte, []int) {
 	return file_api_services_stats_stats_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *MonService) GetDaemonCount() int32 {
+func (x *ClusterResourcesResponse) GetResources() []*stats.ResourceInfo {
 	if x != nil {
-		return x.DaemonCount
-	}
-	return 0
-}
-
-func (x *MonService) GetQuorum() string {
-	if x != nil {
-		return x.Quorum
-	}
-	return ""
-}
-
-func (x *MonService) GetCreatedAt() *timestamppb.Timestamp {
-	if x != nil {
-		return x.CreatedAt
+		return x.Resources
 	}
 	return nil
 }
 
-func (x *MonService) GetUpdatedAt() *timestamppb.Timestamp {
+func (x *ClusterResourcesResponse) GetDeployments() []*stats.ResourceInfo {
 	if x != nil {
-		return x.UpdatedAt
-	}
-	return nil
-}
-
-type MgrService struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Active    string                 `protobuf:"bytes,1,opt,name=active,proto3" json:"active,omitempty"`
-	Standbys  []string               `protobuf:"bytes,2,rep,name=standbys,proto3" json:"standbys,omitempty"`
-	UpdatedAt *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
-}
-
-func (x *MgrService) Reset() {
-	*x = MgrService{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_stats_stats_proto_msgTypes[1]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *MgrService) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*MgrService) ProtoMessage() {}
-
-func (x *MgrService) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_stats_stats_proto_msgTypes[1]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use MgrService.ProtoReflect.Descriptor instead.
-func (*MgrService) Descriptor() ([]byte, []int) {
-	return file_api_services_stats_stats_proto_rawDescGZIP(), []int{1}
-}
-
-func (x *MgrService) GetActive() string {
-	if x != nil {
-		return x.Active
-	}
-	return ""
-}
-
-func (x *MgrService) GetStandbys() []string {
-	if x != nil {
-		return x.Standbys
-	}
-	return nil
-}
-
-func (x *MgrService) GetUpdatedAt() *timestamppb.Timestamp {
-	if x != nil {
-		return x.UpdatedAt
-	}
-	return nil
-}
-
-type MdsService struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	DaemonsUp       int32 `protobuf:"varint,1,opt,name=daemons_up,json=daemonsUp,proto3" json:"daemons_up,omitempty"`
-	HotStandbyCount int32 `protobuf:"varint,2,opt,name=hot_standby_count,json=hotStandbyCount,proto3" json:"hot_standby_count,omitempty"`
-}
-
-func (x *MdsService) Reset() {
-	*x = MdsService{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_stats_stats_proto_msgTypes[2]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *MdsService) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*MdsService) ProtoMessage() {}
-
-func (x *MdsService) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_stats_stats_proto_msgTypes[2]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use MdsService.ProtoReflect.Descriptor instead.
-func (*MdsService) Descriptor() ([]byte, []int) {
-	return file_api_services_stats_stats_proto_rawDescGZIP(), []int{2}
-}
-
-func (x *MdsService) GetDaemonsUp() int32 {
-	if x != nil {
-		return x.DaemonsUp
-	}
-	return 0
-}
-
-func (x *MdsService) GetHotStandbyCount() int32 {
-	if x != nil {
-		return x.HotStandbyCount
-	}
-	return 0
-}
-
-type OsdService struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	OsdCount       int32                  `protobuf:"varint,1,opt,name=osd_count,json=osdCount,proto3" json:"osd_count,omitempty"`
-	OsdUp          int32                  `protobuf:"varint,2,opt,name=osd_up,json=osdUp,proto3" json:"osd_up,omitempty"`
-	OsdIn          int32                  `protobuf:"varint,3,opt,name=osd_in,json=osdIn,proto3" json:"osd_in,omitempty"`
-	OsdUpUpdatedAt *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=osd_up_updated_at,json=osdUpUpdatedAt,proto3" json:"osd_up_updated_at,omitempty"`
-	OsdInUpdatedAt *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=osd_in_updated_at,json=osdInUpdatedAt,proto3" json:"osd_in_updated_at,omitempty"`
-}
-
-func (x *OsdService) Reset() {
-	*x = OsdService{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_stats_stats_proto_msgTypes[3]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *OsdService) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*OsdService) ProtoMessage() {}
-
-func (x *OsdService) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_stats_stats_proto_msgTypes[3]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use OsdService.ProtoReflect.Descriptor instead.
-func (*OsdService) Descriptor() ([]byte, []int) {
-	return file_api_services_stats_stats_proto_rawDescGZIP(), []int{3}
-}
-
-func (x *OsdService) GetOsdCount() int32 {
-	if x != nil {
-		return x.OsdCount
-	}
-	return 0
-}
-
-func (x *OsdService) GetOsdUp() int32 {
-	if x != nil {
-		return x.OsdUp
-	}
-	return 0
-}
-
-func (x *OsdService) GetOsdIn() int32 {
-	if x != nil {
-		return x.OsdIn
-	}
-	return 0
-}
-
-func (x *OsdService) GetOsdUpUpdatedAt() *timestamppb.Timestamp {
-	if x != nil {
-		return x.OsdUpUpdatedAt
-	}
-	return nil
-}
-
-func (x *OsdService) GetOsdInUpdatedAt() *timestamppb.Timestamp {
-	if x != nil {
-		return x.OsdInUpdatedAt
-	}
-	return nil
-}
-
-type RgwService struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	ActiveDaemon int32 `protobuf:"varint,1,opt,name=active_daemon,json=activeDaemon,proto3" json:"active_daemon,omitempty"`
-	HostCount    int32 `protobuf:"varint,2,opt,name=host_count,json=hostCount,proto3" json:"host_count,omitempty"`
-	ZoneCount    int32 `protobuf:"varint,3,opt,name=zone_count,json=zoneCount,proto3" json:"zone_count,omitempty"`
-}
-
-func (x *RgwService) Reset() {
-	*x = RgwService{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_stats_stats_proto_msgTypes[4]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *RgwService) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*RgwService) ProtoMessage() {}
-
-func (x *RgwService) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_stats_stats_proto_msgTypes[4]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use RgwService.ProtoReflect.Descriptor instead.
-func (*RgwService) Descriptor() ([]byte, []int) {
-	return file_api_services_stats_stats_proto_rawDescGZIP(), []int{4}
-}
-
-func (x *RgwService) GetActiveDaemon() int32 {
-	if x != nil {
-		return x.ActiveDaemon
-	}
-	return 0
-}
-
-func (x *RgwService) GetHostCount() int32 {
-	if x != nil {
-		return x.HostCount
-	}
-	return 0
-}
-
-func (x *RgwService) GetZoneCount() int32 {
-	if x != nil {
-		return x.ZoneCount
-	}
-	return 0
-}
-
-type Services struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Mon *MonService `protobuf:"bytes,1,opt,name=mon,proto3" json:"mon,omitempty"`
-	Mgr *MgrService `protobuf:"bytes,2,opt,name=mgr,proto3" json:"mgr,omitempty"`
-	Mds *MdsService `protobuf:"bytes,3,opt,name=mds,proto3" json:"mds,omitempty"`
-	Osd *OsdService `protobuf:"bytes,4,opt,name=osd,proto3" json:"osd,omitempty"`
-	Rgw *RgwService `protobuf:"bytes,5,opt,name=rgw,proto3" json:"rgw,omitempty"`
-}
-
-func (x *Services) Reset() {
-	*x = Services{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_stats_stats_proto_msgTypes[5]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *Services) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Services) ProtoMessage() {}
-
-func (x *Services) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_stats_stats_proto_msgTypes[5]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Services.ProtoReflect.Descriptor instead.
-func (*Services) Descriptor() ([]byte, []int) {
-	return file_api_services_stats_stats_proto_rawDescGZIP(), []int{5}
-}
-
-func (x *Services) GetMon() *MonService {
-	if x != nil {
-		return x.Mon
-	}
-	return nil
-}
-
-func (x *Services) GetMgr() *MgrService {
-	if x != nil {
-		return x.Mgr
-	}
-	return nil
-}
-
-func (x *Services) GetMds() *MdsService {
-	if x != nil {
-		return x.Mds
-	}
-	return nil
-}
-
-func (x *Services) GetOsd() *OsdService {
-	if x != nil {
-		return x.Osd
-	}
-	return nil
-}
-
-func (x *Services) GetRgw() *RgwService {
-	if x != nil {
-		return x.Rgw
-	}
-	return nil
-}
-
-type Pgs struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	ActiveClean int32 `protobuf:"varint,1,opt,name=active_clean,json=activeClean,proto3" json:"active_clean,omitempty"`
-}
-
-func (x *Pgs) Reset() {
-	*x = Pgs{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_stats_stats_proto_msgTypes[6]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *Pgs) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Pgs) ProtoMessage() {}
-
-func (x *Pgs) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_stats_stats_proto_msgTypes[6]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Pgs.ProtoReflect.Descriptor instead.
-func (*Pgs) Descriptor() ([]byte, []int) {
-	return file_api_services_stats_stats_proto_rawDescGZIP(), []int{6}
-}
-
-func (x *Pgs) GetActiveClean() int32 {
-	if x != nil {
-		return x.ActiveClean
-	}
-	return 0
-}
-
-type Pools struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Pools int32 `protobuf:"varint,1,opt,name=pools,proto3" json:"pools,omitempty"`
-	Pgs   *Pgs  `protobuf:"bytes,2,opt,name=pgs,proto3" json:"pgs,omitempty"`
-}
-
-func (x *Pools) Reset() {
-	*x = Pools{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_stats_stats_proto_msgTypes[7]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *Pools) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Pools) ProtoMessage() {}
-
-func (x *Pools) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_stats_stats_proto_msgTypes[7]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Pools.ProtoReflect.Descriptor instead.
-func (*Pools) Descriptor() ([]byte, []int) {
-	return file_api_services_stats_stats_proto_rawDescGZIP(), []int{7}
-}
-
-func (x *Pools) GetPools() int32 {
-	if x != nil {
-		return x.Pools
-	}
-	return 0
-}
-
-func (x *Pools) GetPgs() *Pgs {
-	if x != nil {
-		return x.Pgs
-	}
-	return nil
-}
-
-type Objects struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	ObjectCount int32  `protobuf:"varint,1,opt,name=object_count,json=objectCount,proto3" json:"object_count,omitempty"`
-	Size        string `protobuf:"bytes,2,opt,name=size,proto3" json:"size,omitempty"`
-}
-
-func (x *Objects) Reset() {
-	*x = Objects{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_stats_stats_proto_msgTypes[8]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *Objects) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Objects) ProtoMessage() {}
-
-func (x *Objects) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_stats_stats_proto_msgTypes[8]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Objects.ProtoReflect.Descriptor instead.
-func (*Objects) Descriptor() ([]byte, []int) {
-	return file_api_services_stats_stats_proto_rawDescGZIP(), []int{8}
-}
-
-func (x *Objects) GetObjectCount() int32 {
-	if x != nil {
-		return x.ObjectCount
-	}
-	return 0
-}
-
-func (x *Objects) GetSize() string {
-	if x != nil {
-		return x.Size
-	}
-	return ""
-}
-
-type Usage struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Used      int64 `protobuf:"varint,1,opt,name=used,proto3" json:"used,omitempty"`
-	Available int64 `protobuf:"varint,2,opt,name=available,proto3" json:"available,omitempty"`
-	Total     int64 `protobuf:"varint,3,opt,name=total,proto3" json:"total,omitempty"`
-}
-
-func (x *Usage) Reset() {
-	*x = Usage{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_stats_stats_proto_msgTypes[9]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *Usage) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Usage) ProtoMessage() {}
-
-func (x *Usage) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_stats_stats_proto_msgTypes[9]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Usage.ProtoReflect.Descriptor instead.
-func (*Usage) Descriptor() ([]byte, []int) {
-	return file_api_services_stats_stats_proto_rawDescGZIP(), []int{9}
-}
-
-func (x *Usage) GetUsed() int64 {
-	if x != nil {
-		return x.Used
-	}
-	return 0
-}
-
-func (x *Usage) GetAvailable() int64 {
-	if x != nil {
-		return x.Available
-	}
-	return 0
-}
-
-func (x *Usage) GetTotal() int64 {
-	if x != nil {
-		return x.Total
-	}
-	return 0
-}
-
-type Data struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Volumes int32    `protobuf:"varint,1,opt,name=volumes,proto3" json:"volumes,omitempty"`
-	Pools   *Pools   `protobuf:"bytes,2,opt,name=pools,proto3" json:"pools,omitempty"`
-	Objects *Objects `protobuf:"bytes,3,opt,name=objects,proto3" json:"objects,omitempty"`
-	Usage   *Usage   `protobuf:"bytes,4,opt,name=usage,proto3" json:"usage,omitempty"`
-}
-
-func (x *Data) Reset() {
-	*x = Data{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_stats_stats_proto_msgTypes[10]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *Data) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Data) ProtoMessage() {}
-
-func (x *Data) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_stats_stats_proto_msgTypes[10]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Data.ProtoReflect.Descriptor instead.
-func (*Data) Descriptor() ([]byte, []int) {
-	return file_api_services_stats_stats_proto_rawDescGZIP(), []int{10}
-}
-
-func (x *Data) GetVolumes() int32 {
-	if x != nil {
-		return x.Volumes
-	}
-	return 0
-}
-
-func (x *Data) GetPools() *Pools {
-	if x != nil {
-		return x.Pools
-	}
-	return nil
-}
-
-func (x *Data) GetObjects() *Objects {
-	if x != nil {
-		return x.Objects
-	}
-	return nil
-}
-
-func (x *Data) GetUsage() *Usage {
-	if x != nil {
-		return x.Usage
-	}
-	return nil
-}
-
-type Io struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	ClientRead     string `protobuf:"bytes,1,opt,name=client_read,json=clientRead,proto3" json:"client_read,omitempty"`
-	ClientReadOps  string `protobuf:"bytes,2,opt,name=client_read_ops,json=clientReadOps,proto3" json:"client_read_ops,omitempty"`
-	ClientWriteOps string `protobuf:"bytes,3,opt,name=client_write_ops,json=clientWriteOps,proto3" json:"client_write_ops,omitempty"`
-}
-
-func (x *Io) Reset() {
-	*x = Io{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_stats_stats_proto_msgTypes[11]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *Io) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Io) ProtoMessage() {}
-
-func (x *Io) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_stats_stats_proto_msgTypes[11]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Io.ProtoReflect.Descriptor instead.
-func (*Io) Descriptor() ([]byte, []int) {
-	return file_api_services_stats_stats_proto_rawDescGZIP(), []int{11}
-}
-
-func (x *Io) GetClientRead() string {
-	if x != nil {
-		return x.ClientRead
-	}
-	return ""
-}
-
-func (x *Io) GetClientReadOps() string {
-	if x != nil {
-		return x.ClientReadOps
-	}
-	return ""
-}
-
-func (x *Io) GetClientWriteOps() string {
-	if x != nil {
-		return x.ClientWriteOps
-	}
-	return ""
-}
-
-type Crash struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Description string `protobuf:"bytes,1,opt,name=description,proto3" json:"description,omitempty"`
-}
-
-func (x *Crash) Reset() {
-	*x = Crash{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_stats_stats_proto_msgTypes[12]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *Crash) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Crash) ProtoMessage() {}
-
-func (x *Crash) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_stats_stats_proto_msgTypes[12]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Crash.ProtoReflect.Descriptor instead.
-func (*Crash) Descriptor() ([]byte, []int) {
-	return file_api_services_stats_stats_proto_rawDescGZIP(), []int{12}
-}
-
-func (x *Crash) GetDescription() string {
-	if x != nil {
-		return x.Description
-	}
-	return ""
-}
-
-type ClusterStatusResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Id       string    `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Status   string    `protobuf:"bytes,2,opt,name=status,proto3" json:"status,omitempty"`
-	Crashes  []*Crash  `protobuf:"bytes,3,rep,name=crashes,proto3" json:"crashes,omitempty"`
-	Services *Services `protobuf:"bytes,4,opt,name=services,proto3" json:"services,omitempty"`
-	Data     *Data     `protobuf:"bytes,5,opt,name=data,proto3" json:"data,omitempty"`
-	Test     string    `protobuf:"bytes,6,opt,name=test,proto3" json:"test,omitempty"`
-	Io       *Io       `protobuf:"bytes,7,opt,name=io,proto3" json:"io,omitempty"`
-}
-
-func (x *ClusterStatusResponse) Reset() {
-	*x = ClusterStatusResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_services_stats_stats_proto_msgTypes[13]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *ClusterStatusResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ClusterStatusResponse) ProtoMessage() {}
-
-func (x *ClusterStatusResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_services_stats_stats_proto_msgTypes[13]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ClusterStatusResponse.ProtoReflect.Descriptor instead.
-func (*ClusterStatusResponse) Descriptor() ([]byte, []int) {
-	return file_api_services_stats_stats_proto_rawDescGZIP(), []int{13}
-}
-
-func (x *ClusterStatusResponse) GetId() string {
-	if x != nil {
-		return x.Id
-	}
-	return ""
-}
-
-func (x *ClusterStatusResponse) GetStatus() string {
-	if x != nil {
-		return x.Status
-	}
-	return ""
-}
-
-func (x *ClusterStatusResponse) GetCrashes() []*Crash {
-	if x != nil {
-		return x.Crashes
-	}
-	return nil
-}
-
-func (x *ClusterStatusResponse) GetServices() *Services {
-	if x != nil {
-		return x.Services
-	}
-	return nil
-}
-
-func (x *ClusterStatusResponse) GetData() *Data {
-	if x != nil {
-		return x.Data
-	}
-	return nil
-}
-
-func (x *ClusterStatusResponse) GetTest() string {
-	if x != nil {
-		return x.Test
-	}
-	return ""
-}
-
-func (x *ClusterStatusResponse) GetIo() *Io {
-	if x != nil {
-		return x.Io
+		return x.Deployments
 	}
 	return nil
 }
@@ -932,118 +82,33 @@ var File_api_services_stats_stats_proto protoreflect.FileDescriptor
 var file_api_services_stats_stats_proto_rawDesc = []byte{
 	0x0a, 0x1e, 0x61, 0x70, 0x69, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2f, 0x73,
 	0x74, 0x61, 0x74, 0x73, 0x2f, 0x73, 0x74, 0x61, 0x74, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x12, 0x05, 0x73, 0x74, 0x61, 0x74, 0x73, 0x1a, 0x1f, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2f, 0x74, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61,
-	0x6d, 0x70, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0xbd, 0x01, 0x0a, 0x0a, 0x4d, 0x6f, 0x6e,
-	0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x21, 0x0a, 0x0c, 0x64, 0x61, 0x65, 0x6d, 0x6f,
-	0x6e, 0x5f, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0b, 0x64,
-	0x61, 0x65, 0x6d, 0x6f, 0x6e, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x71, 0x75,
-	0x6f, 0x72, 0x75, 0x6d, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x71, 0x75, 0x6f, 0x72,
-	0x75, 0x6d, 0x12, 0x39, 0x0a, 0x0a, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x5f, 0x61, 0x74,
-	0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61,
-	0x6d, 0x70, 0x52, 0x09, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x12, 0x39, 0x0a,
-	0x0a, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x5f, 0x61, 0x74, 0x18, 0x04, 0x20, 0x01, 0x28,
-	0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x52, 0x09, 0x75,
-	0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x22, 0x7b, 0x0a, 0x0a, 0x4d, 0x67, 0x72, 0x53,
-	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x61, 0x63, 0x74, 0x69, 0x76, 0x65,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x61, 0x63, 0x74, 0x69, 0x76, 0x65, 0x12, 0x1a,
-	0x0a, 0x08, 0x73, 0x74, 0x61, 0x6e, 0x64, 0x62, 0x79, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x09,
-	0x52, 0x08, 0x73, 0x74, 0x61, 0x6e, 0x64, 0x62, 0x79, 0x73, 0x12, 0x39, 0x0a, 0x0a, 0x75, 0x70,
-	0x64, 0x61, 0x74, 0x65, 0x64, 0x5f, 0x61, 0x74, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a,
-	0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66,
-	0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x52, 0x09, 0x75, 0x70, 0x64, 0x61,
-	0x74, 0x65, 0x64, 0x41, 0x74, 0x22, 0x57, 0x0a, 0x0a, 0x4d, 0x64, 0x73, 0x53, 0x65, 0x72, 0x76,
-	0x69, 0x63, 0x65, 0x12, 0x1d, 0x0a, 0x0a, 0x64, 0x61, 0x65, 0x6d, 0x6f, 0x6e, 0x73, 0x5f, 0x75,
-	0x70, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x09, 0x64, 0x61, 0x65, 0x6d, 0x6f, 0x6e, 0x73,
-	0x55, 0x70, 0x12, 0x2a, 0x0a, 0x11, 0x68, 0x6f, 0x74, 0x5f, 0x73, 0x74, 0x61, 0x6e, 0x64, 0x62,
-	0x79, 0x5f, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0f, 0x68,
-	0x6f, 0x74, 0x53, 0x74, 0x61, 0x6e, 0x64, 0x62, 0x79, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x22, 0xe5,
-	0x01, 0x0a, 0x0a, 0x4f, 0x73, 0x64, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x1b, 0x0a,
-	0x09, 0x6f, 0x73, 0x64, 0x5f, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05,
-	0x52, 0x08, 0x6f, 0x73, 0x64, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x15, 0x0a, 0x06, 0x6f, 0x73,
-	0x64, 0x5f, 0x75, 0x70, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x6f, 0x73, 0x64, 0x55,
-	0x70, 0x12, 0x15, 0x0a, 0x06, 0x6f, 0x73, 0x64, 0x5f, 0x69, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28,
-	0x05, 0x52, 0x05, 0x6f, 0x73, 0x64, 0x49, 0x6e, 0x12, 0x45, 0x0a, 0x11, 0x6f, 0x73, 0x64, 0x5f,
-	0x75, 0x70, 0x5f, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x5f, 0x61, 0x74, 0x18, 0x04, 0x20,
-	0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x52,
-	0x0e, 0x6f, 0x73, 0x64, 0x55, 0x70, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x12,
-	0x45, 0x0a, 0x11, 0x6f, 0x73, 0x64, 0x5f, 0x69, 0x6e, 0x5f, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65,
-	0x64, 0x5f, 0x61, 0x74, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f,
-	0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d,
-	0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x52, 0x0e, 0x6f, 0x73, 0x64, 0x49, 0x6e, 0x55, 0x70, 0x64,
-	0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x22, 0x6f, 0x0a, 0x0a, 0x52, 0x67, 0x77, 0x53, 0x65, 0x72,
-	0x76, 0x69, 0x63, 0x65, 0x12, 0x23, 0x0a, 0x0d, 0x61, 0x63, 0x74, 0x69, 0x76, 0x65, 0x5f, 0x64,
-	0x61, 0x65, 0x6d, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0c, 0x61, 0x63, 0x74,
-	0x69, 0x76, 0x65, 0x44, 0x61, 0x65, 0x6d, 0x6f, 0x6e, 0x12, 0x1d, 0x0a, 0x0a, 0x68, 0x6f, 0x73,
-	0x74, 0x5f, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x09, 0x68,
-	0x6f, 0x73, 0x74, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x1d, 0x0a, 0x0a, 0x7a, 0x6f, 0x6e, 0x65,
-	0x5f, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x05, 0x52, 0x09, 0x7a, 0x6f,
-	0x6e, 0x65, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x22, 0xc3, 0x01, 0x0a, 0x08, 0x53, 0x65, 0x72, 0x76,
-	0x69, 0x63, 0x65, 0x73, 0x12, 0x23, 0x0a, 0x03, 0x6d, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28,
-	0x0b, 0x32, 0x11, 0x2e, 0x73, 0x74, 0x61, 0x74, 0x73, 0x2e, 0x4d, 0x6f, 0x6e, 0x53, 0x65, 0x72,
-	0x76, 0x69, 0x63, 0x65, 0x52, 0x03, 0x6d, 0x6f, 0x6e, 0x12, 0x23, 0x0a, 0x03, 0x6d, 0x67, 0x72,
-	0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x11, 0x2e, 0x73, 0x74, 0x61, 0x74, 0x73, 0x2e, 0x4d,
-	0x67, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x52, 0x03, 0x6d, 0x67, 0x72, 0x12, 0x23,
-	0x0a, 0x03, 0x6d, 0x64, 0x73, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x11, 0x2e, 0x73, 0x74,
-	0x61, 0x74, 0x73, 0x2e, 0x4d, 0x64, 0x73, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x52, 0x03,
-	0x6d, 0x64, 0x73, 0x12, 0x23, 0x0a, 0x03, 0x6f, 0x73, 0x64, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b,
-	0x32, 0x11, 0x2e, 0x73, 0x74, 0x61, 0x74, 0x73, 0x2e, 0x4f, 0x73, 0x64, 0x53, 0x65, 0x72, 0x76,
-	0x69, 0x63, 0x65, 0x52, 0x03, 0x6f, 0x73, 0x64, 0x12, 0x23, 0x0a, 0x03, 0x72, 0x67, 0x77, 0x18,
-	0x05, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x11, 0x2e, 0x73, 0x74, 0x61, 0x74, 0x73, 0x2e, 0x52, 0x67,
-	0x77, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x52, 0x03, 0x72, 0x67, 0x77, 0x22, 0x28, 0x0a,
-	0x03, 0x50, 0x67, 0x73, 0x12, 0x21, 0x0a, 0x0c, 0x61, 0x63, 0x74, 0x69, 0x76, 0x65, 0x5f, 0x63,
-	0x6c, 0x65, 0x61, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0b, 0x61, 0x63, 0x74, 0x69,
-	0x76, 0x65, 0x43, 0x6c, 0x65, 0x61, 0x6e, 0x22, 0x3b, 0x0a, 0x05, 0x50, 0x6f, 0x6f, 0x6c, 0x73,
-	0x12, 0x14, 0x0a, 0x05, 0x70, 0x6f, 0x6f, 0x6c, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52,
-	0x05, 0x70, 0x6f, 0x6f, 0x6c, 0x73, 0x12, 0x1c, 0x0a, 0x03, 0x70, 0x67, 0x73, 0x18, 0x02, 0x20,
-	0x01, 0x28, 0x0b, 0x32, 0x0a, 0x2e, 0x73, 0x74, 0x61, 0x74, 0x73, 0x2e, 0x50, 0x67, 0x73, 0x52,
-	0x03, 0x70, 0x67, 0x73, 0x22, 0x40, 0x0a, 0x07, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x12,
-	0x21, 0x0a, 0x0c, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x5f, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18,
-	0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0b, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x43, 0x6f, 0x75,
-	0x6e, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x73, 0x69, 0x7a, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x04, 0x73, 0x69, 0x7a, 0x65, 0x22, 0x4f, 0x0a, 0x05, 0x55, 0x73, 0x61, 0x67, 0x65, 0x12,
-	0x12, 0x0a, 0x04, 0x75, 0x73, 0x65, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x04, 0x75,
-	0x73, 0x65, 0x64, 0x12, 0x1c, 0x0a, 0x09, 0x61, 0x76, 0x61, 0x69, 0x6c, 0x61, 0x62, 0x6c, 0x65,
-	0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x09, 0x61, 0x76, 0x61, 0x69, 0x6c, 0x61, 0x62, 0x6c,
-	0x65, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x18, 0x03, 0x20, 0x01, 0x28, 0x03,
-	0x52, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x22, 0x92, 0x01, 0x0a, 0x04, 0x44, 0x61, 0x74, 0x61,
-	0x12, 0x18, 0x0a, 0x07, 0x76, 0x6f, 0x6c, 0x75, 0x6d, 0x65, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28,
-	0x05, 0x52, 0x07, 0x76, 0x6f, 0x6c, 0x75, 0x6d, 0x65, 0x73, 0x12, 0x22, 0x0a, 0x05, 0x70, 0x6f,
-	0x6f, 0x6c, 0x73, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0c, 0x2e, 0x73, 0x74, 0x61, 0x74,
-	0x73, 0x2e, 0x50, 0x6f, 0x6f, 0x6c, 0x73, 0x52, 0x05, 0x70, 0x6f, 0x6f, 0x6c, 0x73, 0x12, 0x28,
-	0x0a, 0x07, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32,
-	0x0e, 0x2e, 0x73, 0x74, 0x61, 0x74, 0x73, 0x2e, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x52,
-	0x07, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x12, 0x22, 0x0a, 0x05, 0x75, 0x73, 0x61, 0x67,
-	0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0c, 0x2e, 0x73, 0x74, 0x61, 0x74, 0x73, 0x2e,
-	0x55, 0x73, 0x61, 0x67, 0x65, 0x52, 0x05, 0x75, 0x73, 0x61, 0x67, 0x65, 0x22, 0x77, 0x0a, 0x02,
-	0x49, 0x6f, 0x12, 0x1f, 0x0a, 0x0b, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x5f, 0x72, 0x65, 0x61,
-	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0a, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x52,
-	0x65, 0x61, 0x64, 0x12, 0x26, 0x0a, 0x0f, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x5f, 0x72, 0x65,
-	0x61, 0x64, 0x5f, 0x6f, 0x70, 0x73, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0d, 0x63, 0x6c,
-	0x69, 0x65, 0x6e, 0x74, 0x52, 0x65, 0x61, 0x64, 0x4f, 0x70, 0x73, 0x12, 0x28, 0x0a, 0x10, 0x63,
-	0x6c, 0x69, 0x65, 0x6e, 0x74, 0x5f, 0x77, 0x72, 0x69, 0x74, 0x65, 0x5f, 0x6f, 0x70, 0x73, 0x18,
-	0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x57, 0x72, 0x69,
-	0x74, 0x65, 0x4f, 0x70, 0x73, 0x22, 0x29, 0x0a, 0x05, 0x43, 0x72, 0x61, 0x73, 0x68, 0x12, 0x20,
-	0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20,
-	0x01, 0x28, 0x09, 0x52, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e,
-	0x22, 0xe4, 0x01, 0x0a, 0x15, 0x43, 0x6c, 0x75, 0x73, 0x74, 0x65, 0x72, 0x53, 0x74, 0x61, 0x74,
-	0x75, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x74,
-	0x61, 0x74, 0x75, 0x73, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74,
-	0x75, 0x73, 0x12, 0x26, 0x0a, 0x07, 0x63, 0x72, 0x61, 0x73, 0x68, 0x65, 0x73, 0x18, 0x03, 0x20,
-	0x03, 0x28, 0x0b, 0x32, 0x0c, 0x2e, 0x73, 0x74, 0x61, 0x74, 0x73, 0x2e, 0x43, 0x72, 0x61, 0x73,
-	0x68, 0x52, 0x07, 0x63, 0x72, 0x61, 0x73, 0x68, 0x65, 0x73, 0x12, 0x2b, 0x0a, 0x08, 0x73, 0x65,
-	0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x73,
-	0x74, 0x61, 0x74, 0x73, 0x2e, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x52, 0x08, 0x73,
-	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x12, 0x1f, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18,
-	0x05, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0b, 0x2e, 0x73, 0x74, 0x61, 0x74, 0x73, 0x2e, 0x44, 0x61,
-	0x74, 0x61, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x12, 0x12, 0x0a, 0x04, 0x74, 0x65, 0x73, 0x74,
-	0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x74, 0x65, 0x73, 0x74, 0x12, 0x19, 0x0a, 0x02,
-	0x69, 0x6f, 0x18, 0x07, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x09, 0x2e, 0x73, 0x74, 0x61, 0x74, 0x73,
-	0x2e, 0x49, 0x6f, 0x52, 0x02, 0x69, 0x6f, 0x42, 0x8f, 0x01, 0x0a, 0x09, 0x63, 0x6f, 0x6d, 0x2e,
+	0x12, 0x05, 0x73, 0x74, 0x61, 0x74, 0x73, 0x1a, 0x23, 0x61, 0x70, 0x69, 0x2f, 0x72, 0x65, 0x73,
+	0x6f, 0x75, 0x72, 0x63, 0x65, 0x73, 0x2f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2f, 0x72, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1f, 0x61, 0x70,
+	0x69, 0x2f, 0x72, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x73, 0x2f, 0x73, 0x74, 0x61, 0x74,
+	0x73, 0x2f, 0x73, 0x74, 0x61, 0x74, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x98, 0x01,
+	0x0a, 0x18, 0x43, 0x6c, 0x75, 0x73, 0x74, 0x65, 0x72, 0x52, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63,
+	0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3b, 0x0a, 0x09, 0x72, 0x65,
+	0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1d, 0x2e,
+	0x72, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x73, 0x2e, 0x73, 0x74, 0x61, 0x74, 0x73, 0x2e,
+	0x52, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x09, 0x72, 0x65,
+	0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x73, 0x12, 0x3f, 0x0a, 0x0b, 0x64, 0x65, 0x70, 0x6c, 0x6f,
+	0x79, 0x6d, 0x65, 0x6e, 0x74, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1d, 0x2e, 0x72,
+	0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x73, 0x2e, 0x73, 0x74, 0x61, 0x74, 0x73, 0x2e, 0x52,
+	0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x0b, 0x64, 0x65, 0x70,
+	0x6c, 0x6f, 0x79, 0x6d, 0x65, 0x6e, 0x74, 0x73, 0x32, 0xbc, 0x01, 0x0a, 0x0c, 0x53, 0x74, 0x61,
+	0x74, 0x73, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x52, 0x0a, 0x0f, 0x47, 0x65, 0x74,
+	0x43, 0x6c, 0x75, 0x73, 0x74, 0x65, 0x72, 0x53, 0x74, 0x61, 0x74, 0x73, 0x12, 0x1e, 0x2e, 0x72,
+	0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x73, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e,
+	0x45, 0x6d, 0x70, 0x74, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1d, 0x2e, 0x72,
+	0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x73, 0x2e, 0x73, 0x74, 0x61, 0x74, 0x73, 0x2e, 0x43,
+	0x6c, 0x75, 0x73, 0x74, 0x65, 0x72, 0x53, 0x74, 0x61, 0x74, 0x73, 0x22, 0x00, 0x12, 0x58, 0x0a,
+	0x13, 0x47, 0x65, 0x74, 0x43, 0x6c, 0x75, 0x73, 0x74, 0x65, 0x72, 0x52, 0x65, 0x73, 0x6f, 0x75,
+	0x72, 0x63, 0x65, 0x73, 0x12, 0x1e, 0x2e, 0x72, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x73,
+	0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x1a, 0x1f, 0x2e, 0x73, 0x74, 0x61, 0x74, 0x73, 0x2e, 0x43, 0x6c, 0x75,
+	0x73, 0x74, 0x65, 0x72, 0x52, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x73, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x42, 0x8f, 0x01, 0x0a, 0x09, 0x63, 0x6f, 0x6d, 0x2e,
 	0x73, 0x74, 0x61, 0x74, 0x73, 0x42, 0x0a, 0x53, 0x74, 0x61, 0x74, 0x73, 0x50, 0x72, 0x6f, 0x74,
 	0x6f, 0x50, 0x01, 0x5a, 0x42, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f,
 	0x6b, 0x6f, 0x6f, 0x72, 0x2d, 0x74, 0x65, 0x63, 0x68, 0x2f, 0x64, 0x61, 0x74, 0x61, 0x2d, 0x63,
@@ -1068,48 +133,25 @@ func file_api_services_stats_stats_proto_rawDescGZIP() []byte {
 	return file_api_services_stats_stats_proto_rawDescData
 }
 
-var file_api_services_stats_stats_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
+var file_api_services_stats_stats_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_api_services_stats_stats_proto_goTypes = []interface{}{
-	(*MonService)(nil),            // 0: stats.MonService
-	(*MgrService)(nil),            // 1: stats.MgrService
-	(*MdsService)(nil),            // 2: stats.MdsService
-	(*OsdService)(nil),            // 3: stats.OsdService
-	(*RgwService)(nil),            // 4: stats.RgwService
-	(*Services)(nil),              // 5: stats.Services
-	(*Pgs)(nil),                   // 6: stats.Pgs
-	(*Pools)(nil),                 // 7: stats.Pools
-	(*Objects)(nil),               // 8: stats.Objects
-	(*Usage)(nil),                 // 9: stats.Usage
-	(*Data)(nil),                  // 10: stats.Data
-	(*Io)(nil),                    // 11: stats.Io
-	(*Crash)(nil),                 // 12: stats.Crash
-	(*ClusterStatusResponse)(nil), // 13: stats.ClusterStatusResponse
-	(*timestamppb.Timestamp)(nil), // 14: google.protobuf.Timestamp
+	(*ClusterResourcesResponse)(nil), // 0: stats.ClusterResourcesResponse
+	(*stats.ResourceInfo)(nil),       // 1: resources.stats.ResourceInfo
+	(*common.EmptyRequest)(nil),      // 2: resources.common.EmptyRequest
+	(*stats.ClusterStats)(nil),       // 3: resources.stats.ClusterStats
 }
 var file_api_services_stats_stats_proto_depIdxs = []int32{
-	14, // 0: stats.MonService.created_at:type_name -> google.protobuf.Timestamp
-	14, // 1: stats.MonService.updated_at:type_name -> google.protobuf.Timestamp
-	14, // 2: stats.MgrService.updated_at:type_name -> google.protobuf.Timestamp
-	14, // 3: stats.OsdService.osd_up_updated_at:type_name -> google.protobuf.Timestamp
-	14, // 4: stats.OsdService.osd_in_updated_at:type_name -> google.protobuf.Timestamp
-	0,  // 5: stats.Services.mon:type_name -> stats.MonService
-	1,  // 6: stats.Services.mgr:type_name -> stats.MgrService
-	2,  // 7: stats.Services.mds:type_name -> stats.MdsService
-	3,  // 8: stats.Services.osd:type_name -> stats.OsdService
-	4,  // 9: stats.Services.rgw:type_name -> stats.RgwService
-	6,  // 10: stats.Pools.pgs:type_name -> stats.Pgs
-	7,  // 11: stats.Data.pools:type_name -> stats.Pools
-	8,  // 12: stats.Data.objects:type_name -> stats.Objects
-	9,  // 13: stats.Data.usage:type_name -> stats.Usage
-	12, // 14: stats.ClusterStatusResponse.crashes:type_name -> stats.Crash
-	5,  // 15: stats.ClusterStatusResponse.services:type_name -> stats.Services
-	10, // 16: stats.ClusterStatusResponse.data:type_name -> stats.Data
-	11, // 17: stats.ClusterStatusResponse.io:type_name -> stats.Io
-	18, // [18:18] is the sub-list for method output_type
-	18, // [18:18] is the sub-list for method input_type
-	18, // [18:18] is the sub-list for extension type_name
-	18, // [18:18] is the sub-list for extension extendee
-	0,  // [0:18] is the sub-list for field type_name
+	1, // 0: stats.ClusterResourcesResponse.resources:type_name -> resources.stats.ResourceInfo
+	1, // 1: stats.ClusterResourcesResponse.deployments:type_name -> resources.stats.ResourceInfo
+	2, // 2: stats.StatsService.GetClusterStats:input_type -> resources.common.EmptyRequest
+	2, // 3: stats.StatsService.GetClusterResources:input_type -> resources.common.EmptyRequest
+	3, // 4: stats.StatsService.GetClusterStats:output_type -> resources.stats.ClusterStats
+	0, // 5: stats.StatsService.GetClusterResources:output_type -> stats.ClusterResourcesResponse
+	4, // [4:6] is the sub-list for method output_type
+	2, // [2:4] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_api_services_stats_stats_proto_init() }
@@ -1119,163 +161,7 @@ func file_api_services_stats_stats_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_api_services_stats_stats_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MonService); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_services_stats_stats_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MgrService); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_services_stats_stats_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MdsService); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_services_stats_stats_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*OsdService); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_services_stats_stats_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RgwService); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_services_stats_stats_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Services); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_services_stats_stats_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Pgs); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_services_stats_stats_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Pools); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_services_stats_stats_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Objects); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_services_stats_stats_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Usage); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_services_stats_stats_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Data); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_services_stats_stats_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Io); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_services_stats_stats_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Crash); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_api_services_stats_stats_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ClusterStatusResponse); i {
+			switch v := v.(*ClusterResourcesResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1293,9 +179,9 @@ func file_api_services_stats_stats_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_api_services_stats_stats_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   14,
+			NumMessages:   1,
 			NumExtensions: 0,
-			NumServices:   0,
+			NumServices:   1,
 		},
 		GoTypes:           file_api_services_stats_stats_proto_goTypes,
 		DependencyIndexes: file_api_services_stats_stats_proto_depIdxs,

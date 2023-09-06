@@ -3,26 +3,19 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { proto3 } from "@bufbuild/protobuf";
-import { ClusterStatusResponse } from "../stats/stats_pb.js";
+import { proto3 } from '@bufbuild/protobuf';
+import { ClusterStatsResponse } from '../stats/stats_pb.js';
 
 /**
  * @generated from message reponse.Response
  */
-export const Response = proto3.makeMessageType(
-  "reponse.Response",
-  () => [
-    { no: 1, name: "status_code", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
-    { no: 2, name: "message", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "cluster_status_response", kind: "message", T: ClusterStatusResponse, oneof: "response" },
-  ],
-);
+export const Response = proto3.makeMessageType('reponse.Response', () => [
+    { no: 1, name: 'status_code', kind: 'scalar', T: 5 /* ScalarType.INT32 */ },
+    { no: 2, name: 'message', kind: 'scalar', T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: 'cluster_status_response', kind: 'message', T: ClusterStatsResponse, oneof: 'response' },
+]);
 
 /**
  * @generated from message reponse.EmptyRequest
  */
-export const EmptyRequest = proto3.makeMessageType(
-  "reponse.EmptyRequest",
-  [],
-);
-
+export const EmptyRequest = proto3.makeMessageType('reponse.EmptyRequest', []);

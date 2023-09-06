@@ -49,8 +49,6 @@ func (s *Server) RegisterService(g *gin.RouterGroup) {
 }
 
 func (s *Server) Login(ctx context.Context, req *connect.Request[pbauth.LoginRequest]) (*connect.Response[pbauth.LoginResponse], error) {
-	headers := req.Header()
-	fmt.Println(headers)
 	if s.oauth2Enabled {
 		return nil, connect.NewError(connect.CodeInvalidArgument, fmt.Errorf("Password Login disabled because OAuth2 login is enabled. Please use OAuth2 for logging in!"))
 	}

@@ -5,17 +5,18 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/koor-tech/data-control-center/pkg/config"
 	"net/http"
+
+	"github.com/koor-tech/data-control-center/pkg/config"
 )
 
 type Client struct {
 	Token         *string
 	defaultClient *http.Client
-	apiConfig     config.Api
+	apiConfig     config.API
 }
 
-func NewClient(ctx context.Context, apiConfig config.Api) *Client {
+func NewClient(ctx context.Context, apiConfig config.API) *Client {
 	return &Client{
 		apiConfig:     apiConfig,
 		defaultClient: http.DefaultClient,
@@ -25,14 +26,14 @@ func NewClient(ctx context.Context, apiConfig config.Api) *Client {
 // Auth method is used to authenticate against ceph mgr api
 // if the authentication is successful we are going to store the token returned by the api
 // in Client.Token, if any error happens this method will return an error
-func (c *Client) Auth() error {
+func (c *Client) Auth(ctx context.Context) error {
 	payload := AuthRequest{
 		Username: c.apiConfig.Username,
 		Password: c.apiConfig.Password,
 	}
 
 	payloadBytes, _ := json.Marshal(payload)
-	resp, err := c.MakeRequest(context.TODO(), http.MethodPost, "/auth", payloadBytes)
+	resp, err := c.MakeRequest(ctx, http.MethodPost, "/auth", payloadBytes)
 	if err != nil {
 		return err
 	}

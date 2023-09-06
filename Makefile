@@ -22,7 +22,9 @@ protoc-gen-validate: build_dir
 gen-proto: protoc-gen-validate
 	$(BUF) generate
 
-
 build-image:
 	docker build --force-rm=true -t data-control-center-api -f ./Dockerfile . && \
 	docker tag data-control-center-api:latest koor/data-control-center-api:$(TAG)
+
+run-cephapidummy:
+	npx ts-node-esm ./node/server.ts

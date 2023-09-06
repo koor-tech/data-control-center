@@ -5,18 +5,17 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/koor-tech/data-control-center/gen/go/api/services/response"
-	"github.com/koor-tech/data-control-center/gen/go/api/services/response/responseconnect"
-	"github.com/koor-tech/data-control-center/gen/go/api/services/stats"
+	"github.com/koor-tech/data-control-center/gen/go/api/resources/common"
+	"github.com/koor-tech/data-control-center/gen/go/api/resources/stats"
+	statspb "github.com/koor-tech/data-control-center/gen/go/api/services/stats"
+	"github.com/koor-tech/data-control-center/gen/go/api/services/stats/statsconnect"
 	"go.uber.org/zap"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
 	"github.com/koor-tech/data-control-center/internal/ceph"
-	serverResponse "github.com/koor-tech/data-control-center/server/response"
 
-	"net/http"
-
-	"github.com/koor-tech/data-control-center/pkg/config"
+	"github.com/koor-tech/data-control-center/pkg/k8s"
+	"github.com/koor-tech/data-control-center/pkg/utils"
 
 	"connectrpc.com/connect"
 	"github.com/gin-gonic/gin"
@@ -25,33 +24,34 @@ import (
 
 // Server is used to implement stats services.
 type Server struct {
-	responseconnect.StatsServiceHandler
+	statsconnect.StatsServiceHandler
 
-	auth           *auth.GRPCAuth
-	cephApiService *ceph.Service
 	logger         *zap.Logger
+	auth           *auth.GRPCAuth
+	cephAPIService *ceph.Service
+	k              *k8s.K8s
 }
 
-func New(logger *zap.Logger, grpcAuth *auth.GRPCAuth, cfg *config.Config) (*Server, error) {
-
+func New(logger *zap.Logger, grpcAuth *auth.GRPCAuth, k *k8s.K8s, cephAPIService *ceph.Service) (*Server, error) {
 	return &Server{
 		logger:         logger,
 		auth:           grpcAuth,
-		cephApiService: ceph.NewService(logger, &cfg.Ceph),
+		cephAPIService: cephAPIService,
+		k:              k,
 	}, nil
 }
 
 func (s *Server) RegisterService(g *gin.RouterGroup) {
-	path, handler := responseconnect.NewStatsServiceHandler(s, connect.WithInterceptors(
+	path, handler := statsconnect.NewStatsServiceHandler(s, connect.WithInterceptors(
 		s.auth.NewAuthInterceptor(),
 	))
 	g.Any(path+"/*path", gin.WrapH(handler))
 }
 
-func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[response.EmptyRequest]) (*connect.Response[response.Response], error) {
-	st, err := s.cephApiService.GetClusterHealth(context.TODO())
+func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[common.EmptyRequest]) (*connect.Response[stats.ClusterStats], error) {
+	st, err := s.cephAPIService.GetClusterHealth(ctx)
 	if err != nil {
-		return serverResponse.NewFailureResponse(http.StatusInternalServerError, fmt.Errorf("error caused by %w", err)), nil
+		return nil, connect.NewError(connect.CodeInternal, fmt.Errorf("error caused by %w", err))
 	}
 
 	var crashes []*stats.Crash
@@ -79,7 +79,7 @@ func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[respo
 	for _, filesystem := range st.FsMap.Filesystems {
 		itemsUp, err := convertMdsItems(filesystem.MdsMap.Up)
 		if err != nil {
-			return serverResponse.NewFailureResponse(http.StatusInternalServerError, fmt.Errorf("error caused by %w", err)), nil
+			return nil, connect.NewError(connect.CodeInternal, fmt.Errorf("error caused by %w", err))
 
 		}
 		daemonsUp = len(itemsUp)
@@ -109,71 +109,71 @@ func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[respo
 		stored += pool.DFPoolStats.Stored
 	}
 
-	clientReadBytes := formatBytes(int64(st.ClientPerf.ReadBytesSec))
+	clientReadBytes := utils.FormatBytes(int64(st.ClientPerf.ReadBytesSec))
 	readOps := st.ClientPerf.ReadOpPerSec
 	writeOps := st.ClientPerf.WriteOpPerSec
 
-	resp := response.Response_ClusterStatusResponse{
-		ClusterStatusResponse: &stats.ClusterStatusResponse{
-			Id:      st.MonStatus.Monmap.Fsid,
-			Status:  st.Health.Status,
-			Crashes: crashes,
-			Services: &stats.Services{
-				Mon: &stats.MonService{
-					DaemonCount: int32(daemonCount),
-					Quorum:      strings.Join(monNames, ","),
-					CreatedAt:   timestamppb.New(st.MonStatus.Monmap.Created),
-					UpdatedAt:   timestamppb.New(st.MonStatus.Monmap.Modified),
-				},
-				Mgr: &stats.MgrService{
-					Active:    st.MgrMap.ActiveName,
-					Standbys:  standBys,
-					UpdatedAt: timestamppb.New(st.MgrMap.ActiveChange.Time),
-				},
-				Mds: &stats.MdsService{
-					DaemonsUp:       int32(daemonsUp),
-					HotStandbyCount: int32(standbyCountWanted),
-				},
-				Osd: &stats.OsdService{
-					OsdCount:       int32(osdCount),
-					OsdUp:          int32(osdUp),
-					OsdIn:          int32(osdIn),
-					OsdInUpdatedAt: timestamppb.New(st.OsdMap.LastInChange.Time),
-					OsdUpUpdatedAt: timestamppb.New(st.OsdMap.LastUpChange.Time),
-				},
-				Rgw: &stats.RgwService{
-					ActiveDaemon: int32(st.Rgw),
-					HostCount:    1,
-					ZoneCount:    1,
+	resp := &stats.ClusterStats{
+		Id:      st.MonStatus.Monmap.Fsid,
+		Status:  st.Health.Status,
+		Crashes: crashes,
+		Services: &stats.Services{
+			Mon: &stats.MonService{
+				DaemonCount: int32(daemonCount),
+				Quorum:      strings.Join(monNames, ","),
+				CreatedAt:   timestamppb.New(st.MonStatus.Monmap.Created),
+				UpdatedAt:   timestamppb.New(st.MonStatus.Monmap.Modified),
+			},
+			Mgr: &stats.MgrService{
+				Active:    st.MgrMap.ActiveName,
+				Standbys:  standBys,
+				UpdatedAt: timestamppb.New(st.MgrMap.ActiveChange.Time),
+			},
+			Mds: &stats.MdsService{
+				DaemonsUp:       int32(daemonsUp),
+				HotStandbyCount: int32(standbyCountWanted),
+			},
+			Osd: &stats.OsdService{
+				OsdCount:       int32(osdCount),
+				OsdUp:          int32(osdUp),
+				OsdIn:          int32(osdIn),
+				OsdInUpdatedAt: timestamppb.New(st.OsdMap.LastInChange.Time),
+				OsdUpUpdatedAt: timestamppb.New(st.OsdMap.LastUpChange.Time),
+			},
+			Rgw: &stats.RgwService{
+				ActiveDaemon: int32(st.Rgw),
+				HostCount:    1,
+				ZoneCount:    1,
+			},
+		},
+		Data: &stats.Data{
+			Volumes: int32(1), // TODO still figuring out
+			Pools: &stats.Pools{
+				Pools: int32(poolCount),
+				Pgs: &stats.Pgs{
+					ActiveClean: int32(activeAndCleanPGs),
 				},
 			},
-			Data: &stats.Data{
-				Volumes: int32(1), // TODO still figuring out
-				Pools: &stats.Pools{
-					Pools: int32(poolCount),
-					Pgs: &stats.Pgs{
-						ActiveClean: int32(activeAndCleanPGs),
-					},
-				},
-				Objects: &stats.Objects{
-					ObjectCount: int32(st.PGInfo.ObjectStats.NumObjects),
-					Size:        formatBytes(int64(stored)),
-				},
-				Usage: &stats.Usage{
-					Used:      st.DF.Stats.TotalUsedBytes,
-					Available: st.DF.Stats.TotalAvailBytes,
-					Total:     st.DF.Stats.TotalBytes,
-				},
+			Objects: &stats.Objects{
+				ObjectCount: int32(st.PGInfo.ObjectStats.NumObjects),
+				Size:        utils.FormatBytes(int64(stored)),
 			},
-			Io: &stats.Io{
-				ClientRead:     fmt.Sprintf("%s/s rd", clientReadBytes),
-				ClientReadOps:  fmt.Sprintf("%d ops/s rd", readOps),
-				ClientWriteOps: fmt.Sprintf("%d ops/s wr", writeOps),
+			Usage: &stats.Usage{
+				Used:      st.DF.Stats.TotalUsedBytes,
+				Available: st.DF.Stats.TotalAvailBytes,
+				Total:     st.DF.Stats.TotalBytes,
 			},
+		},
+		Io: &stats.Io{
+			ClientRead:     fmt.Sprintf("%s/s rd", clientReadBytes),
+			ClientReadOps:  fmt.Sprintf("%d ops/s rd", readOps),
+			ClientWriteOps: fmt.Sprintf("%d ops/s wr", writeOps),
 		},
 	}
 
-	return serverResponse.NewSuccessResponse(http.StatusOK, &resp), nil
+	return &connect.Response[stats.ClusterStats]{
+		Msg: resp,
+	}, nil
 }
 
 type MdsItems []map[string]interface{}
@@ -197,15 +197,9 @@ func convertMdsItems(src interface{}) (MdsItems, error) {
 	return items, nil
 }
 
-func formatBytes(n int64) string {
-	units := []string{"B", "KiB", "MiB", "GiB", "TiB", "PiB"}
+func (s *Server) GetClusterResources(ctx context.Context, req *connect.Request[common.EmptyRequest]) (*connect.Response[statspb.ClusterResourcesResponse], error) {
 
-	var i int
-	size := float64(n)
+	// TODO
 
-	for i = 0; size >= 1024 && i < len(units)-1; i++ {
-		size /= 1024
-	}
-
-	return fmt.Sprintf("%.2f %s", size, units[i])
+	return nil, nil
 }

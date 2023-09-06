@@ -2,15 +2,22 @@ package k8s
 
 import (
 	"context"
-	"encoding/json"
 	"os"
+	"path"
 
+	"github.com/koor-tech/data-control-center/gen/go/api/resources/stats"
+	"github.com/koor-tech/data-control-center/pkg/config"
 	cephv1 "github.com/rook/rook/pkg/apis/ceph.rook.io/v1"
-	corev1 "k8s.io/api/core/v1"
+	"go.uber.org/fx"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/client-go/dynamic"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
+)
+
+var Module = fx.Module("k8s",
+	fx.Provide(
+		New,
+	),
 )
 
 // Retrieve Rook Ceph Pods
@@ -20,17 +27,29 @@ type K8s struct {
 	client *kubernetes.Clientset
 }
 
-func New() (*K8s, error) {
-	// use the current context in kubeconfig
-	config, err := clientcmd.BuildConfigFromFlags("", os.Getenv("KUBECONFIG"))
-	if err != nil {
-		panic(err.Error())
+func New(cfg *config.Config) (*K8s, error) {
+	kubeconfig := os.Getenv("KUBECONFIG")
+	if cfg.Kubernetes.Kubeconfig != "" {
+		kubeconfig = cfg.Kubernetes.Kubeconfig
+	}
+	if kubeconfig == "" {
+		home, err := os.UserHomeDir()
+		if err != nil {
+			return nil, err
+		}
+		kubeconfig = path.Join(home, ".kube/config")
 	}
 
-	// create the clientset
+	// Use the current context from the provided kubeconfig
+	config, err := clientcmd.BuildConfigFromFlags("", kubeconfig)
+	if err != nil {
+		return nil, err
+	}
+
+	// Create the clientset
 	clientset, err := kubernetes.NewForConfig(config)
 	if err != nil {
-		panic(err.Error())
+		return nil, err
 	}
 
 	return &K8s{
@@ -38,28 +57,45 @@ func New() (*K8s, error) {
 	}, nil
 }
 
-func (k *K8s) GetPods() ([]*corev1.Pod, error) {
+var (
+	ImportantDeployPrefixes = []string{"rook-ceph-", "csi-", "extended-ceph-exporter"}
+)
 
-	// TODO get Rook Ceph daemon deployments
+func (k *K8s) GetClusterDeployments(ctx context.Context, namespace string) ([]*stats.ResourceInfo, error) {
+	deployments, err := k.client.AppsV1().Deployments(namespace).List(ctx, metav1.ListOptions{})
+	if err != nil {
+		return nil, err
+	}
 
-	return nil, nil
+	res := []*stats.ResourceInfo{}
+	for _, deployment := range deployments.Items {
+		status := stats.ResourceStatus_RESOURCE_UNKNOWN
+		if deployment.Status.ReadyReplicas >= deployment.Status.Replicas {
+			status = stats.ResourceStatus_RESOURCE_READY
+		} else {
+			status = stats.ResourceStatus_RESOURCE_NOT_READY
+		}
+
+		res = append(res, &stats.ResourceInfo{
+			Apiversion: deployment.APIVersion,
+			Kind:       deployment.Kind,
+			Namespace:  deployment.Namespace,
+			Name:       deployment.Name,
+			Status:     status,
+		})
+	}
+
+	return res, nil
 }
 
-func GetCephResource[T any](client *kubernetes.Clientset, resource string, name string) (*T, error) {
-	cliSet := dynamic.New(client.RESTClient())
-	obj, err := cliSet.Resource(cephv1.SchemeGroupVersion.WithResource(resource)).Get(context.Background(), name, metav1.GetOptions{})
-	if err != nil {
-		return nil, err
-	}
-	bytes, err := obj.MarshalJSON()
+func (k *K8s) GetCephResources(ctx context.Context) ([]*stats.ResourceInfo, error) {
+	list, err := ListCephV1Resources[cephv1.CephCluster](ctx, k.client, "cephcluster", metav1.ListOptions{})
 	if err != nil {
 		return nil, err
 	}
 
-	var crdObj *T
-	if err := json.Unmarshal(bytes, &crdObj); err != nil {
-		return nil, err
-	}
+	_ = list
+	// TODO
 
-	return crdObj, nil
+	return nil, nil
 }

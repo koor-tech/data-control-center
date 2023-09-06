@@ -7,8 +7,7 @@
     <!-- Chart -->
     <div>
       <VueApexCharts class="flex justify-center py-1" height="150px" width="150px" type="radialBar" :options="options"
-        :series="series">
-      </VueApexCharts>
+        :series="series" />
     </div>
   </div>
 </template>
@@ -29,6 +28,9 @@ const props = defineProps<{
 const options: ApexOptions = {
   chart: {
     type: 'radialBar',
+    toolbar: {
+      show: false,
+    },
   },
   colors: ['#00a77d'],
   plotOptions: {

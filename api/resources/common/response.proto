@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package resources.common;
+
+option go_package = "github.com/koor-tech/data-control-center/gen/go/api/resources/common";
+
+message EmptyRequest {}

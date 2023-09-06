@@ -8,7 +8,7 @@ const { loadConfig } = configStore;
 
 useHead({
     htmlAttrs: {
-        class: 'h-full bg-base-900',
+        class: 'h-full bg-white',
         lang: 'en',
     },
     bodyAttrs: {

@@ -2,244 +2,144 @@ syntax = "proto3";
 
 package stats;
 
-import "google/protobuf/timestamp.proto";
+import "api/resources/common/response.proto";
+import "api/resources/stats/stats.proto";
+
 option go_package = "github.com/koor-tech/data-control-center/gen/go/api/services/stats";
 
-message MonService {
-  int32 daemon_count = 1;
-  string quorum = 2;
-  google.protobuf.Timestamp created_at = 3;
-  google.protobuf.Timestamp updated_at = 4;
+message ClusterResourcesResponse {
+  repeated resources.stats.ResourceInfo resources = 1;
+  repeated resources.stats.ResourceInfo deployments = 2;
 }
-
-message MgrService {
-  string active = 1;
-  repeated string standbys = 2;
-  google.protobuf.Timestamp updated_at = 4;
-}
-
-message MdsService {
-  int32 daemons_up = 1;
-  int32 hot_standby_count = 2;
-}
-
-message OsdService {
-  int32 osd_count = 1;
-  int32 osd_up = 2;
-  int32 osd_in = 3;
-  google.protobuf.Timestamp osd_up_updated_at = 4;
-  google.protobuf.Timestamp osd_in_updated_at = 5;
-}
-
-message RgwService {
-  int32 active_daemon = 1;
-  int32 host_count = 2;
-  int32 zone_count = 3;
-}
-
-message Services {
-  MonService mon = 1;
-  MgrService mgr = 2;
-  MdsService mds = 3;
-  OsdService osd = 4;
-  RgwService rgw = 5;
-}
-
-message Pgs {
-  int32 active_clean = 1;
-}
-
-message Pools {
-  int32 pools = 1;
-  Pgs pgs = 2;
-}
-
-message Objects {
-  int32 object_count = 1;
-  string size = 2;
-}
-
-message Usage {
-  int64 used = 1;
-  int64 available = 2;
-  int64 total = 3;
-}
-
-message Data {
-  int32 volumes = 1;
-  Pools pools = 2;
-  Objects objects = 3;
-  Usage usage = 4;
-}
-
-message Io {
-  string client_read = 1;
-  string client_read_ops = 2;
-  string client_write_ops = 3;
-}
-
-message Crash {
-  string description = 1;
-}
-
-message ClusterStatusResponse {
-  string id = 1;
-  string status = 2;
-  repeated Crash crashes = 3;
-  Services services = 4;
-  Data data = 5;
-  string test = 6;
-  Io io = 7;
-}
-
-
-
-
-/*
-{"status": "HEALTH_OK", "checks": [], "mutes": []}
-enum HealthStatus {
-    HEALTH_OK = 0;
-    HEALTH_WARN = 1;
-    HEALTH_ERR = 2;
-}
-
-message DaemonCrash {
-    string description = 1;
-}
-
-message Daemon {
-    string name = 1;
-    string status = 2;
-    string description = 3;
-}
-
-message MonService {
-    int32 daemon_count = 1;
-    string quorum = 2;
-    string age = 3;
-}
-
-message MgrService {
-    string active = 1;
-    repeated string standbys = 2;
-    string since = 3;
-}
-
-message MdsService {
-    int32 daemons_up = 1;
-    int32 hot_standby_count = 2;
-}
-
-message OsdService {
-    int32 osd_count = 1;
-    int32 osd_up = 2;
-    int32 osd_in = 3;
-    string since = 4;
-}
-
-message RgwService {
-    int32 active_daemon = 1;
-    int32 host_count = 2;
-    int32 zone_count = 3;
-}
-
-message VolumeStatus {
-    string description = 1;
-}
-
-message PoolStatus {
-    int32 pool_count = 1;
-    int32 pgs = 2;
-}
-
-message ObjectStatus {
-    string object_count = 1;
-    string size = 2;
-}
-
-message UsageStatus {
-  float used = 1;
-  float available = 2;
-  float total = 3;
-}
-
-message IoStatus {
-    string client_read = 1;
-    string client_read_ops = 2;
-    string client_write_ops = 3;
-}
-
-message PGs {
-    int32 active_clean = 1;
-}
-
-message Services {
-    MonService mon = 1;
-    MgrService mgr = 2;
-    MdsService mds = 3;
-    OsdService osd = 4;
-    RgwService rgw = 5;
-}
-
-message Data {
-    VolumeStatus volumes = 1;
-    PoolStatus pools = 2;
-    ObjectStatus objects = 3;
-    UsageStatus usage = 4;
-    PGs pgs = 5;
-}
-
-message ClusterStatusResponse {
-    string id = 1;
-    HealthStatus health = 2;
-    repeated DaemonCrash daemon_crashes = 3;
-
-    Services services = 4;
-    Data data = 5;
-
-    IoStatus io = 6;
-}
-
-enum PodStatus {
-    POD_UNKNOWN = 0;
-    POD_NOT_RUNNING = 1;
-    POD_RUNNING = 2;
-}
-
-message PodInfo {
-    string namespace = 1;
-    string name = 2;
-    PodStatus status = 3;
-}
-
-message ListPodInfoResponse {
-    repeated PodInfo pods = 1;
-}
-
-message ResourceInfo {
-    string namespace = 1;
-    string name = 2;
-    string kind = 3;
-    ResourceStatus status = 4;
-}
-
-enum ResourceStatus {
-    RESOURCE_UNKNOWN = 0;
-    RESOURCE_READY = 1;
-    RESOURCE_NOT_READY = 2;
-}
-
-message ListCephResourcesResponse {
-    repeated ResourceInfo resources = 1;
-}
-
-message EmptyRequest {}
 
 service StatsService {
-    rpc GetClusterStats(EmptyRequest) returns (ClusterStatusResponse) {};
+  rpc GetClusterStats(resources.common.EmptyRequest) returns (resources.stats.ClusterStats) {}
 
-    //rpc ListPodInfo(EmptyRequest) returns (ListPodInfoResponse) {};
-
-    //rpc ListCephResources(EmptyRequest) returns (ListCephResourcesResponse) {};
+  rpc GetClusterResources(resources.common.EmptyRequest) returns (ClusterResourcesResponse) {}
 }
+
+/*
+   {"status": "HEALTH_OK", "checks": [], "mutes": []}
+   enum HealthStatus {
+       HEALTH_OK = 0;
+       HEALTH_WARN = 1;
+       HEALTH_ERR = 2;
+   }
+
+   message DaemonCrash {
+       string description = 1;
+   }
+
+   message Daemon {
+       string name = 1;
+       string status = 2;
+       string description = 3;
+   }
+
+   message MonService {
+       int32 daemon_count = 1;
+       string quorum = 2;
+       string age = 3;
+   }
+
+   message MgrService {
+       string active = 1;
+       repeated string standbys = 2;
+       string since = 3;
+   }
+
+   message MdsService {
+       int32 daemons_up = 1;
+       int32 hot_standby_count = 2;
+   }
+
+   message OsdService {
+       int32 osd_count = 1;
+       int32 osd_up = 2;
+       int32 osd_in = 3;
+       string since = 4;
+   }
+
+   message RgwService {
+       int32 active_daemon = 1;
+       int32 host_count = 2;
+       int32 zone_count = 3;
+   }
+
+   message VolumeStatus {
+       string description = 1;
+   }
+
+   message PoolStatus {
+       int32 pool_count = 1;
+       int32 pgs = 2;
+   }
+
+   message ObjectStatus {
+       string object_count = 1;
+       string size = 2;
+   }
+
+   message UsageStatus {
+     float used = 1;
+     float available = 2;
+     float total = 3;
+   }
+
+   message IoStatus {
+       string client_read = 1;
+       string client_read_ops = 2;
+       string client_write_ops = 3;
+   }
+
+   message PGs {
+       int32 active_clean = 1;
+   }
+
+   message Services {
+       MonService mon = 1;
+       MgrService mgr = 2;
+       MdsService mds = 3;
+       OsdService osd = 4;
+       RgwService rgw = 5;
+   }
+
+   message Data {
+       VolumeStatus volumes = 1;
+       PoolStatus pools = 2;
+       ObjectStatus objects = 3;
+       UsageStatus usage = 4;
+       PGs pgs = 5;
+   }
+
+   message ClusterStatsResponse {
+       string id = 1;
+       HealthStatus health = 2;
+       repeated DaemonCrash daemon_crashes = 3;
+
+       Services services = 4;
+       Data data = 5;
+
+       IoStatus io = 6;
+   }
+
+   enum PodStatus {
+       POD_UNKNOWN = 0;
+       POD_NOT_RUNNING = 1;
+       POD_RUNNING = 2;
+   }
+
+   message PodInfo {
+       string namespace = 1;
+       string name = 2;
+       PodStatus status = 3;
+   }
+
+   message ListPodInfoResponse {
+       repeated PodInfo pods = 1;
+   }
+
+   message ListCephResourcesResponse {
+       repeated ResourceInfo resources = 1;
+   }
 */

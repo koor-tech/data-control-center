@@ -4,11 +4,24 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net/http"
+
 	"github.com/koor-tech/data-control-center/pkg/ceph/client"
 	"github.com/koor-tech/data-control-center/pkg/config"
+	"go.uber.org/fx"
 	"go.uber.org/zap"
-	"net/http"
 )
+
+var Module = fx.Module("ceph_api",
+	fx.Provide(
+		NewService,
+	),
+	fx.Decorate(wrapLogger),
+)
+
+func wrapLogger(log *zap.Logger) *zap.Logger {
+	return log.Named("ceph_api")
+}
 
 type Service struct {
 	logger *zap.Logger
@@ -16,17 +29,17 @@ type Service struct {
 	apiClient *client.Client
 }
 
-func NewService(logger *zap.Logger, config *config.Ceph) *Service {
+func NewService(logger *zap.Logger, config *config.Config) *Service {
 	return &Service{
 		logger:    logger,
-		apiClient: client.NewClient(context.TODO(), config.Api),
+		apiClient: client.NewClient(context.Background(), config.Ceph.API),
 	}
 }
 
 // GetClusterHealth returns the Health Status of the Ceph Cluster
 // calling - GET /health/full endpoint
 func (s *Service) GetClusterHealth(ctx context.Context) (*HealthStatus, error) {
-	if err := s.apiClient.Auth(); err != nil {
+	if err := s.apiClient.Auth(ctx); err != nil {
 		s.logger.Error(ErrorUnableToAuthenticate.Error(), zap.Error(err))
 		return nil, ErrorUnableToAuthenticate
 	}
@@ -47,10 +60,6 @@ func (s *Service) GetClusterHealth(ctx context.Context) (*HealthStatus, error) {
 		s.logger.Error("error decoding response", zap.Error(err))
 		return nil, fmt.Errorf("error decoding response %w", err)
 	}
-
-	fmt.Println("-------------------------------")
-	fmt.Printf("healthStatus: %+v", healthStatus)
-	fmt.Println("-------------------------------")
 
 	return &healthStatus, nil
 }
