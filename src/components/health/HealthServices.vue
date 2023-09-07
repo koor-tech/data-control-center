@@ -5,29 +5,10 @@
         <dt>
             <div :class="[
                 statsContainer.color ? 'bg-' + statsContainer.color + '-500' : 'bg-blue-500',
-                'absolute rounded-md p-3',
-            ]">
-                <ShieldExclamationIcon v-if="statsContainer.icon == 'ShieldExclamationIcon'" class="h-6 w-6 text-white"
-                    aria-hidden="true" />
-                <ComputerDesktopIcon v-if="statsContainer.icon == 'ComputerDesktopIcon'" class="h-6 w-6 text-white"
-                    aria-hidden="true" />
-                <ClipboardIcon v-if="statsContainer.icon == 'ClipboardIcon'" class="h-6 w-6 text-white"
-                    aria-hidden="true" />
-                <DocumentTextIcon v-if="statsContainer.icon == 'DocumentTextIcon'" class="h-6 w-6 text-white"
-                    aria-hidden="true" />
-                <TableCellsIcon v-if="statsContainer.icon == 'TableCellsIcon'" class="h-6 w-6 text-white"
-                    aria-hidden="true" />
-                <ArchiveBoxArrowDownIcon v-if="statsContainer.icon == 'ArchiveBoxArrowDownIcon'" class="h-6 w-6 text-white"
-                    aria-hidden="true" />
-                <CircleStackIcon v-if="statsContainer.icon == 'CircleStackIcon'" class="h-6 w-6 text-white"
-                    aria-hidden="true" />
-                <Square3Stack3DIcon v-if="statsContainer.icon == 'Square3Stack3DIcon'" class="h-6 w-6 text-white"
-                    aria-hidden="true" />
-                <CubeIcon v-if="statsContainer.icon == 'CubeIcon'" class="h-6 w-6 text-white" aria-hidden="true" />
-                <ArchiveBoxIcon v-if="statsContainer.icon == 'ArchiveBoxIcon'" class="h-6 w-6 text-white"
-                    aria-hidden="true" />
-                <ArrowsUpDownIcon v-if="statsContainer.icon == 'ArrowsUpDownIcon'" class="h-6 w-6 text-white"
-                    aria-hidden="true" />
+                'absolute rounded-md p-3']">
+
+                <component :is="currentIcon" class="h-6 w-6 text-white"
+                           aria-hidden="true"/>
             </div>
             <p class="ml-16 truncate text-sm font-medium text-gray-500">{{ statsContainer.title }}</p>
         </dt>
@@ -48,7 +29,6 @@
         </dd>
     </div>
 </template>
-
 <script setup lang="ts">
 import {
     ArchiveBoxArrowDownIcon,
@@ -63,7 +43,26 @@ import {
     Square3Stack3DIcon,
     TableCellsIcon,
 } from '@heroicons/vue/20/solid';
-defineProps<{
+const props = defineProps<{
     statsContainer: any;
 }>();
+
+
+const currentIcon = computed(() => {
+    const iconName = props.statsContainer.icon;
+    console.log(props.statsContainer.description)
+    return {
+        'ArchiveBoxArrowDownIcon': ArchiveBoxArrowDownIcon,
+        'ArchiveBoxIcon': ArchiveBoxIcon,
+        'ArrowsUpDownIcon': ArrowsUpDownIcon,
+        'CircleStackIcon': CircleStackIcon,
+        'ClipboardIcon': ClipboardIcon,
+        'ComputerDesktopIcon': ComputerDesktopIcon,
+        'CubeIcon': CubeIcon,
+        'DocumentTextIcon': DocumentTextIcon,
+        'ShieldExclamationIcon': ShieldExclamationIcon,
+        'Square3Stack3DIcon': Square3Stack3DIcon,
+        'TableCellsIcon': TableCellsIcon,
+    }[iconName] || null;
+});
 </script>

@@ -40,7 +40,7 @@ func (c *Client) Auth(ctx context.Context) error {
 
 	defer resp.Body.Close()
 
-	if resp.StatusCode != http.StatusOK {
+	if resp.StatusCode != http.StatusCreated {
 		return fmt.Errorf("invalid request %w, status code: %d", err, resp.StatusCode)
 	}
 

@@ -2,7 +2,7 @@
 import { Dialog, DialogPanel, Menu, MenuButton, MenuItem, MenuItems, TransitionChild, TransitionRoot } from '@headlessui/vue';
 
 import {
-    AccountIcon,
+    AccountIcon, AntennaIcon,
     ChartBarIcon,
     ChevronRightIcon,
     CloseIcon,
@@ -41,6 +41,13 @@ const sidebarNavigation = ref<
         name: 'Overview',
         href: { name: 'index' },
         icon: markRaw(GlassesIcon),
+        position: 'top',
+        current: false,
+    },
+    {
+        name: 'Health Stats',
+        href: { name: 'health' },
+        icon: markRaw(AntennaIcon),
         position: 'top',
         current: false,
     },
