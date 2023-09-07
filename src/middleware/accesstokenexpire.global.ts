@@ -2,7 +2,7 @@ import { NavigationGuard, RouteLocationNormalized } from 'vue-router';
 import { useAuthStore } from '~/store/auth';
 
 export default defineNuxtRouteMiddleware(
-    (to: RouteLocationNormalized, from: RouteLocationNormalized): ReturnType<NavigationGuard> => {
+    (to: RouteLocationNormalized, _: RouteLocationNormalized): ReturnType<NavigationGuard> => {
         const authStore = useAuthStore();
         const { getAccessTokenExpiration, setAccessToken } = authStore;
 

@@ -1,3 +1,9 @@
+<script lang="ts" setup>
+import ContentCenterWrapper from '~/components/partials/ContentCenterWrapper.vue';
+import Footer from '~/components/partials/Footer.vue';
+import HeroFull from '~/components/partials/HeroFull.vue';
+</script>
+
 <template>
   <div class="h-full justify-between flex flex-col">
     <HeroFull>
@@ -15,11 +21,3 @@
     <Footer />
   </div>
 </template>
-
-<script lang="ts" setup>
-import ContentCenterWrapper from '~/components/partials/ContentCenterWrapper.vue';
-import Footer from '~/components/partials/Footer.vue';
-import HeroFull from '~/components/partials/HeroFull.vue';
-
-
-</script>

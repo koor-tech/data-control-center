@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import KoorLogo from '~/components/KoorLogo.vue';
-
 </script>
 
 <template>

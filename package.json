@@ -48,7 +48,7 @@
         "vue3-apexcharts": "^1.4.4"
     },
     "devDependencies": {
-        "@nuxt/devtools": "^0.8.2",
+        "@nuxt/devtools": "^0.8.3",
         "@nuxtjs/tailwindcss": "^6.8.0",
         "@pinia-plugin-persistedstate/nuxt": "^1.1.1",
         "@tailwindcss/forms": "^0.5.6",
@@ -57,7 +57,7 @@
         "@types/d3": "^7.4.0",
         "@types/google-protobuf": "^3.15.6",
         "@types/node": "^20.5.9",
-        "@unhead/vue": "^1.5.3",
+        "@unhead/vue": "^1.5.4",
         "@vitejs/plugin-vue": "^4.3.4",
         "@volar/vue-typescript": "^1.6.5",
         "autoprefixer": "^10.4.15",

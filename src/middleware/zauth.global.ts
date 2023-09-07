@@ -2,9 +2,8 @@ import { RouteLocationNormalized } from 'vue-router';
 import { useAuthStore } from '~/store/auth';
 import { useNotificationsStore } from '~/store/notifications';
 import slug from '~/utils/slugify';
-import { toDate } from '~/utils/time';
 
-export default defineNuxtRouteMiddleware(async (to: RouteLocationNormalized, from: RouteLocationNormalized) => {
+export default defineNuxtRouteMiddleware(async (to: RouteLocationNormalized, _: RouteLocationNormalized) => {
     // Default is that a page requires authentication
     if (!to.meta.hasOwnProperty('requiresAuth') || to.meta.requiresAuth) {
         const authStore = useAuthStore();

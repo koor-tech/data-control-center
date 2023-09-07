@@ -1055,6 +1055,93 @@ func (x *ResourceInfo) GetStatus() ResourceStatus {
 	return ResourceStatus_RESOURCE_UNKNOWN
 }
 
+type NodeInfo struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Name       string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Status     ResourceStatus         `protobuf:"varint,2,opt,name=status,proto3,enum=resources.stats.ResourceStatus" json:"status,omitempty"`
+	Roles      []string               `protobuf:"bytes,3,rep,name=roles,proto3" json:"roles,omitempty"`
+	InternalIp string                 `protobuf:"bytes,4,opt,name=internal_ip,json=internalIp,proto3" json:"internal_ip,omitempty"`
+	ExternalIp string                 `protobuf:"bytes,5,opt,name=external_ip,json=externalIp,proto3" json:"external_ip,omitempty"`
+	Age        *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=age,proto3" json:"age,omitempty"`
+}
+
+func (x *NodeInfo) Reset() {
+	*x = NodeInfo{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_api_resources_stats_stats_proto_msgTypes[15]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *NodeInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*NodeInfo) ProtoMessage() {}
+
+func (x *NodeInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_api_resources_stats_stats_proto_msgTypes[15]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use NodeInfo.ProtoReflect.Descriptor instead.
+func (*NodeInfo) Descriptor() ([]byte, []int) {
+	return file_api_resources_stats_stats_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *NodeInfo) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *NodeInfo) GetStatus() ResourceStatus {
+	if x != nil {
+		return x.Status
+	}
+	return ResourceStatus_RESOURCE_UNKNOWN
+}
+
+func (x *NodeInfo) GetRoles() []string {
+	if x != nil {
+		return x.Roles
+	}
+	return nil
+}
+
+func (x *NodeInfo) GetInternalIp() string {
+	if x != nil {
+		return x.InternalIp
+	}
+	return ""
+}
+
+func (x *NodeInfo) GetExternalIp() string {
+	if x != nil {
+		return x.ExternalIp
+	}
+	return ""
+}
+
+func (x *NodeInfo) GetAge() *timestamppb.Timestamp {
+	if x != nil {
+		return x.Age
+	}
+	return nil
+}
+
 var File_api_resources_stats_stats_proto protoreflect.FileDescriptor
 
 var file_api_resources_stats_stats_proto_rawDesc = []byte{
@@ -1190,7 +1277,21 @@ var file_api_resources_stats_stats_proto_rawDesc = []byte{
 	0x6d, 0x65, 0x12, 0x37, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x05, 0x20, 0x01,
 	0x28, 0x0e, 0x32, 0x1f, 0x2e, 0x72, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x73, 0x2e, 0x73,
 	0x74, 0x61, 0x74, 0x73, 0x2e, 0x52, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x53, 0x74, 0x61,
-	0x74, 0x75, 0x73, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x2a, 0x52, 0x0a, 0x0e, 0x52,
+	0x74, 0x75, 0x73, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x22, 0xdd, 0x01, 0x0a, 0x08,
+	0x4e, 0x6f, 0x64, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x37, 0x0a, 0x06,
+	0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x1f, 0x2e, 0x72,
+	0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x73, 0x2e, 0x73, 0x74, 0x61, 0x74, 0x73, 0x2e, 0x52,
+	0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x06, 0x73,
+	0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x14, 0x0a, 0x05, 0x72, 0x6f, 0x6c, 0x65, 0x73, 0x18, 0x03,
+	0x20, 0x03, 0x28, 0x09, 0x52, 0x05, 0x72, 0x6f, 0x6c, 0x65, 0x73, 0x12, 0x1f, 0x0a, 0x0b, 0x69,
+	0x6e, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x5f, 0x69, 0x70, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x0a, 0x69, 0x6e, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x49, 0x70, 0x12, 0x1f, 0x0a, 0x0b,
+	0x65, 0x78, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x5f, 0x69, 0x70, 0x18, 0x05, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x0a, 0x65, 0x78, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x49, 0x70, 0x12, 0x2c, 0x0a,
+	0x03, 0x61, 0x67, 0x65, 0x18, 0x06, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f,
+	0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d,
+	0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x52, 0x03, 0x61, 0x67, 0x65, 0x2a, 0x52, 0x0a, 0x0e, 0x52,
 	0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x14, 0x0a,
 	0x10, 0x52, 0x45, 0x53, 0x4f, 0x55, 0x52, 0x43, 0x45, 0x5f, 0x55, 0x4e, 0x4b, 0x4e, 0x4f, 0x57,
 	0x4e, 0x10, 0x00, 0x12, 0x12, 0x0a, 0x0e, 0x52, 0x45, 0x53, 0x4f, 0x55, 0x52, 0x43, 0x45, 0x5f,
@@ -1224,7 +1325,7 @@ func file_api_resources_stats_stats_proto_rawDescGZIP() []byte {
 }
 
 var file_api_resources_stats_stats_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_api_resources_stats_stats_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
+var file_api_resources_stats_stats_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
 var file_api_resources_stats_stats_proto_goTypes = []interface{}{
 	(ResourceStatus)(0),           // 0: resources.stats.ResourceStatus
 	(*MonService)(nil),            // 1: resources.stats.MonService
@@ -1242,14 +1343,15 @@ var file_api_resources_stats_stats_proto_goTypes = []interface{}{
 	(*Crash)(nil),                 // 13: resources.stats.Crash
 	(*ClusterStats)(nil),          // 14: resources.stats.ClusterStats
 	(*ResourceInfo)(nil),          // 15: resources.stats.ResourceInfo
-	(*timestamppb.Timestamp)(nil), // 16: google.protobuf.Timestamp
+	(*NodeInfo)(nil),              // 16: resources.stats.NodeInfo
+	(*timestamppb.Timestamp)(nil), // 17: google.protobuf.Timestamp
 }
 var file_api_resources_stats_stats_proto_depIdxs = []int32{
-	16, // 0: resources.stats.MonService.created_at:type_name -> google.protobuf.Timestamp
-	16, // 1: resources.stats.MonService.updated_at:type_name -> google.protobuf.Timestamp
-	16, // 2: resources.stats.MgrService.updated_at:type_name -> google.protobuf.Timestamp
-	16, // 3: resources.stats.OsdService.osd_up_updated_at:type_name -> google.protobuf.Timestamp
-	16, // 4: resources.stats.OsdService.osd_in_updated_at:type_name -> google.protobuf.Timestamp
+	17, // 0: resources.stats.MonService.created_at:type_name -> google.protobuf.Timestamp
+	17, // 1: resources.stats.MonService.updated_at:type_name -> google.protobuf.Timestamp
+	17, // 2: resources.stats.MgrService.updated_at:type_name -> google.protobuf.Timestamp
+	17, // 3: resources.stats.OsdService.osd_up_updated_at:type_name -> google.protobuf.Timestamp
+	17, // 4: resources.stats.OsdService.osd_in_updated_at:type_name -> google.protobuf.Timestamp
 	1,  // 5: resources.stats.Services.mon:type_name -> resources.stats.MonService
 	2,  // 6: resources.stats.Services.mgr:type_name -> resources.stats.MgrService
 	3,  // 7: resources.stats.Services.mds:type_name -> resources.stats.MdsService
@@ -1264,11 +1366,13 @@ var file_api_resources_stats_stats_proto_depIdxs = []int32{
 	11, // 16: resources.stats.ClusterStats.data:type_name -> resources.stats.Data
 	12, // 17: resources.stats.ClusterStats.io:type_name -> resources.stats.Io
 	0,  // 18: resources.stats.ResourceInfo.status:type_name -> resources.stats.ResourceStatus
-	19, // [19:19] is the sub-list for method output_type
-	19, // [19:19] is the sub-list for method input_type
-	19, // [19:19] is the sub-list for extension type_name
-	19, // [19:19] is the sub-list for extension extendee
-	0,  // [0:19] is the sub-list for field type_name
+	0,  // 19: resources.stats.NodeInfo.status:type_name -> resources.stats.ResourceStatus
+	17, // 20: resources.stats.NodeInfo.age:type_name -> google.protobuf.Timestamp
+	21, // [21:21] is the sub-list for method output_type
+	21, // [21:21] is the sub-list for method input_type
+	21, // [21:21] is the sub-list for extension type_name
+	21, // [21:21] is the sub-list for extension extendee
+	0,  // [0:21] is the sub-list for field type_name
 }
 
 func init() { file_api_resources_stats_stats_proto_init() }
@@ -1457,6 +1561,18 @@ func file_api_resources_stats_stats_proto_init() {
 				return nil
 			}
 		}
+		file_api_resources_stats_stats_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*NodeInfo); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -1464,7 +1580,7 @@ func file_api_resources_stats_stats_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_api_resources_stats_stats_proto_rawDesc,
 			NumEnums:      1,
-			NumMessages:   15,
+			NumMessages:   16,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

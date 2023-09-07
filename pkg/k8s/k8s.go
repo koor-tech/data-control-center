@@ -77,8 +77,8 @@ func (k *K8s) GetClusterDeployments(ctx context.Context, namespace string) ([]*s
 		}
 
 		res = append(res, &stats.ResourceInfo{
-			Apiversion: deployment.APIVersion,
-			Kind:       deployment.Kind,
+			Apiversion: "apps/v1", // TODO that's not cool but deployment.APIVersion doesn't return that info ...
+			Kind:       "Deployment",
 			Namespace:  deployment.Namespace,
 			Name:       deployment.Name,
 			Status:     status,

@@ -7,6 +7,7 @@ export interface AuthState {
     loggingIn: boolean;
     loginError: null | string;
     permissions: string[];
+    username: null | string;
 }
 
 export const useAuthStore = defineStore('auth', {
@@ -17,6 +18,7 @@ export const useAuthStore = defineStore('auth', {
             loggingIn: false,
             loginError: null,
             permissions: [] as string[],
+            username: null,
         }) as AuthState,
     persist: {
         paths: ['accessToken', 'accessTokenExpiration'],
@@ -42,6 +44,7 @@ export const useAuthStore = defineStore('auth', {
             this.accessTokenExpiration = null;
             this.accountID = 0n;
             this.permissions = [];
+            this.username = null;
         },
     },
 

@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import { proto3 } from "@bufbuild/protobuf";
-import { ResourceInfo } from "../../resources/stats/stats_pb.js";
+import { NodeInfo, ResourceInfo } from "../../resources/stats/stats_pb.js";
 
 /**
  * @generated from message stats.ClusterResourcesResponse
@@ -14,6 +14,16 @@ export const ClusterResourcesResponse = proto3.makeMessageType(
   () => [
     { no: 1, name: "resources", kind: "message", T: ResourceInfo, repeated: true },
     { no: 2, name: "deployments", kind: "message", T: ResourceInfo, repeated: true },
+  ],
+);
+
+/**
+ * @generated from message stats.ClusterNodesResponse
+ */
+export const ClusterNodesResponse = proto3.makeMessageType(
+  "stats.ClusterNodesResponse",
+  () => [
+    { no: 1, name: "nodes", kind: "message", T: NodeInfo, repeated: true },
   ],
 );
 

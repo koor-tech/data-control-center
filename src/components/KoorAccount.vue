@@ -1,29 +1,21 @@
 <template>
-  <div class="q-pa-md" style="width: 350px">
-    <div class="text-h3 text-center">Profile</div>
-    <q-form class="q-gutter-sm" @submit.prevent="updateProfile">
-      <q-input id="email" label="Email" outlined v-model="session.user.email" disable />
-      <q-input id="username" label="Alias" outlined v-model="username" />
-      <q-input id="full_name" label="Full Name" outlined v-model="full_name" />
-      <q-input id="website" label="Website" outlined type="url" v-model="website" />
+  <div>
+    <form class="q-gutter-sm" @submit.prevent="">
+      <h2 class="text-xl">Profile</h2>
       <div>
-        <q-btn type="submit" color="primary" :label="loading ? 'Loading' : 'Update'" :disabled="loading" />
+        <label for="username" class="block text-sm font-medium leading-6 text-gray-900">
+          Username
+        </label>
+        <input id="username" name="username" disabled v-model="username"
+          class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
       </div>
-    </q-form>
+    </form>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { useAuthStore } from '~/store/auth';
 
-defineProps<{
-  accessToken: string | null;
-}>();
-
-const loading = ref(true)
-const username = ref('')
-const full_name = ref('')
-const website = ref('')
+const authStore = useAuthStore();
+const { username } = storeToRefs(authStore);
 </script>
-
-<style lang="scss" scoped></style>

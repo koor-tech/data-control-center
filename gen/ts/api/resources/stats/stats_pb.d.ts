@@ -561,3 +561,52 @@ export declare class ResourceInfo extends Message<ResourceInfo> {
   static equals(a: ResourceInfo | PlainMessage<ResourceInfo> | undefined, b: ResourceInfo | PlainMessage<ResourceInfo> | undefined): boolean;
 }
 
+/**
+ * @generated from message resources.stats.NodeInfo
+ */
+export declare class NodeInfo extends Message<NodeInfo> {
+  /**
+   * @generated from field: string name = 1;
+   */
+  name: string;
+
+  /**
+   * @generated from field: resources.stats.ResourceStatus status = 2;
+   */
+  status: ResourceStatus;
+
+  /**
+   * @generated from field: repeated string roles = 3;
+   */
+  roles: string[];
+
+  /**
+   * @generated from field: string internal_ip = 4;
+   */
+  internalIp: string;
+
+  /**
+   * @generated from field: string external_ip = 5;
+   */
+  externalIp: string;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp age = 6;
+   */
+  age?: Timestamp;
+
+  constructor(data?: PartialMessage<NodeInfo>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "resources.stats.NodeInfo";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): NodeInfo;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): NodeInfo;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): NodeInfo;
+
+  static equals(a: NodeInfo | PlainMessage<NodeInfo> | undefined, b: NodeInfo | PlainMessage<NodeInfo> | undefined): boolean;
+}
+

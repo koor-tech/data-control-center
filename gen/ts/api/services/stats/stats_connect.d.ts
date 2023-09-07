@@ -6,7 +6,7 @@
 import { EmptyRequest } from "../../resources/common/response_pb.js";
 import { ClusterStats } from "../../resources/stats/stats_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
-import { ClusterResourcesResponse } from "./stats_pb.js";
+import { ClusterNodesResponse, ClusterResourcesResponse } from "./stats_pb.js";
 
 /**
  * @generated from service stats.StatsService
@@ -30,6 +30,15 @@ export declare const StatsService: {
       readonly name: "GetClusterResources",
       readonly I: typeof EmptyRequest,
       readonly O: typeof ClusterResourcesResponse,
+      readonly kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc stats.StatsService.GetClusterNodes
+     */
+    readonly getClusterNodes: {
+      readonly name: "GetClusterNodes",
+      readonly I: typeof EmptyRequest,
+      readonly O: typeof ClusterNodesResponse,
       readonly kind: MethodKind.Unary,
     },
   }

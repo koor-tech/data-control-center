@@ -1,3 +1,17 @@
+<script setup lang="ts">
+import LineChart from '../components/LineChartWidget.vue';
+import BarChart from '../components/BarChartWidget.vue';
+
+useHead({
+  title: 'Charts',
+});
+definePageMeta({
+  title: 'Charts',
+  requiresAuth: true,
+});
+</script>
+
+
 <template>
   <div>
     <div class="text-h2 q-mt-lg text-center">Dashboard</div>
@@ -13,8 +27,3 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import LineChart from '../components/LineChartWidget.vue';
-import BarChart from '../components/BarChartWidget.vue';
-</script>

@@ -75,5 +75,3 @@ const rows = [
   },
 ]
 </script>
-
-<style lang="scss" scoped></style>

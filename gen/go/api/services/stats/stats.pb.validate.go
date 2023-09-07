@@ -204,3 +204,139 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ClusterResourcesResponseValidationError{}
+
+// Validate checks the field values on ClusterNodesResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ClusterNodesResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ClusterNodesResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ClusterNodesResponseMultiError, or nil if none found.
+func (m *ClusterNodesResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ClusterNodesResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetNodes() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ClusterNodesResponseValidationError{
+						field:  fmt.Sprintf("Nodes[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ClusterNodesResponseValidationError{
+						field:  fmt.Sprintf("Nodes[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ClusterNodesResponseValidationError{
+					field:  fmt.Sprintf("Nodes[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ClusterNodesResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ClusterNodesResponseMultiError is an error wrapping multiple validation
+// errors returned by ClusterNodesResponse.ValidateAll() if the designated
+// constraints aren't met.
+type ClusterNodesResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ClusterNodesResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ClusterNodesResponseMultiError) AllErrors() []error { return m }
+
+// ClusterNodesResponseValidationError is the validation error returned by
+// ClusterNodesResponse.Validate if the designated constraints aren't met.
+type ClusterNodesResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ClusterNodesResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ClusterNodesResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ClusterNodesResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ClusterNodesResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ClusterNodesResponseValidationError) ErrorName() string {
+	return "ClusterNodesResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ClusterNodesResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sClusterNodesResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ClusterNodesResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ClusterNodesResponseValidationError{}

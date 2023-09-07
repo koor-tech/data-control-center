@@ -5,7 +5,7 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3 } from "@bufbuild/protobuf";
-import type { ResourceInfo } from "../../resources/stats/stats_pb.js";
+import type { NodeInfo, ResourceInfo } from "../../resources/stats/stats_pb.js";
 
 /**
  * @generated from message stats.ClusterResourcesResponse
@@ -34,5 +34,29 @@ export declare class ClusterResourcesResponse extends Message<ClusterResourcesRe
   static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ClusterResourcesResponse;
 
   static equals(a: ClusterResourcesResponse | PlainMessage<ClusterResourcesResponse> | undefined, b: ClusterResourcesResponse | PlainMessage<ClusterResourcesResponse> | undefined): boolean;
+}
+
+/**
+ * @generated from message stats.ClusterNodesResponse
+ */
+export declare class ClusterNodesResponse extends Message<ClusterNodesResponse> {
+  /**
+   * @generated from field: repeated resources.stats.NodeInfo nodes = 1;
+   */
+  nodes: NodeInfo[];
+
+  constructor(data?: PartialMessage<ClusterNodesResponse>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "stats.ClusterNodesResponse";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ClusterNodesResponse;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ClusterNodesResponse;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ClusterNodesResponse;
+
+  static equals(a: ClusterNodesResponse | PlainMessage<ClusterNodesResponse> | undefined, b: ClusterNodesResponse | PlainMessage<ClusterNodesResponse> | undefined): boolean;
 }
 
