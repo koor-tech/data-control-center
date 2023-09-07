@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import { EmptyRequest } from "../../resources/common/response_pb.js";
-import { ClusterStats } from "../../resources/stats/stats_pb.js";
+import { ClusterRadar, ClusterStats } from "../../resources/stats/stats_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 import { ClusterNodesResponse, ClusterResourcesResponse } from "./stats_pb.js";
 
@@ -39,6 +39,15 @@ export const StatsService = {
       name: "GetClusterNodes",
       I: EmptyRequest,
       O: ClusterNodesResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc stats.StatsService.GetClusterRadar
+     */
+    getClusterRadar: {
+      name: "GetClusterRadar",
+      I: EmptyRequest,
+      O: ClusterRadar,
       kind: MethodKind.Unary,
     },
   }

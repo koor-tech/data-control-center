@@ -115,3 +115,11 @@ message NodeInfo {
   string external_ip = 5;
   google.protobuf.Timestamp age = 6;
 }
+
+message ClusterRadar {
+  float cluster_health = 1;
+  float nodes_health = 2;
+  float capacity_used = 3;
+  float stability = 4;
+  float reliability = 5;
+}

@@ -24,6 +24,7 @@ const (
 	StatsService_GetClusterStats_FullMethodName     = "/stats.StatsService/GetClusterStats"
 	StatsService_GetClusterResources_FullMethodName = "/stats.StatsService/GetClusterResources"
 	StatsService_GetClusterNodes_FullMethodName     = "/stats.StatsService/GetClusterNodes"
+	StatsService_GetClusterRadar_FullMethodName     = "/stats.StatsService/GetClusterRadar"
 )
 
 // StatsServiceClient is the client API for StatsService service.
@@ -33,6 +34,7 @@ type StatsServiceClient interface {
 	GetClusterStats(ctx context.Context, in *common.EmptyRequest, opts ...grpc.CallOption) (*stats.ClusterStats, error)
 	GetClusterResources(ctx context.Context, in *common.EmptyRequest, opts ...grpc.CallOption) (*ClusterResourcesResponse, error)
 	GetClusterNodes(ctx context.Context, in *common.EmptyRequest, opts ...grpc.CallOption) (*ClusterNodesResponse, error)
+	GetClusterRadar(ctx context.Context, in *common.EmptyRequest, opts ...grpc.CallOption) (*stats.ClusterRadar, error)
 }
 
 type statsServiceClient struct {
@@ -70,6 +72,15 @@ func (c *statsServiceClient) GetClusterNodes(ctx context.Context, in *common.Emp
 	return out, nil
 }
 
+func (c *statsServiceClient) GetClusterRadar(ctx context.Context, in *common.EmptyRequest, opts ...grpc.CallOption) (*stats.ClusterRadar, error) {
+	out := new(stats.ClusterRadar)
+	err := c.cc.Invoke(ctx, StatsService_GetClusterRadar_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // StatsServiceServer is the server API for StatsService service.
 // All implementations should embed UnimplementedStatsServiceServer
 // for forward compatibility
@@ -77,6 +88,7 @@ type StatsServiceServer interface {
 	GetClusterStats(context.Context, *common.EmptyRequest) (*stats.ClusterStats, error)
 	GetClusterResources(context.Context, *common.EmptyRequest) (*ClusterResourcesResponse, error)
 	GetClusterNodes(context.Context, *common.EmptyRequest) (*ClusterNodesResponse, error)
+	GetClusterRadar(context.Context, *common.EmptyRequest) (*stats.ClusterRadar, error)
 }
 
 // UnimplementedStatsServiceServer should be embedded to have forward compatible implementations.
@@ -91,6 +103,9 @@ func (UnimplementedStatsServiceServer) GetClusterResources(context.Context, *com
 }
 func (UnimplementedStatsServiceServer) GetClusterNodes(context.Context, *common.EmptyRequest) (*ClusterNodesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetClusterNodes not implemented")
+}
+func (UnimplementedStatsServiceServer) GetClusterRadar(context.Context, *common.EmptyRequest) (*stats.ClusterRadar, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetClusterRadar not implemented")
 }
 
 // UnsafeStatsServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -158,6 +173,24 @@ func _StatsService_GetClusterNodes_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _StatsService_GetClusterRadar_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(common.EmptyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StatsServiceServer).GetClusterRadar(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: StatsService_GetClusterRadar_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StatsServiceServer).GetClusterRadar(ctx, req.(*common.EmptyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // StatsService_ServiceDesc is the grpc.ServiceDesc for StatsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -176,6 +209,10 @@ var StatsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetClusterNodes",
 			Handler:    _StatsService_GetClusterNodes_Handler,
+		},
+		{
+			MethodName: "GetClusterRadar",
+			Handler:    _StatsService_GetClusterRadar_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

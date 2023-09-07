@@ -18,8 +18,7 @@ message ClusterNodesResponse {
 
 service StatsService {
   rpc GetClusterStats(resources.common.EmptyRequest) returns (resources.stats.ClusterStats) {}
-
   rpc GetClusterResources(resources.common.EmptyRequest) returns (ClusterResourcesResponse) {}
-
   rpc GetClusterNodes(resources.common.EmptyRequest) returns (ClusterNodesResponse) {}
+  rpc GetClusterRadar(resources.common.EmptyRequest) returns (resources.stats.ClusterRadar) {}
 }

@@ -217,3 +217,17 @@ export const NodeInfo = proto3.makeMessageType(
   ],
 );
 
+/**
+ * @generated from message resources.stats.ClusterRadar
+ */
+export const ClusterRadar = proto3.makeMessageType(
+  "resources.stats.ClusterRadar",
+  () => [
+    { no: 1, name: "cluster_health", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 2, name: "nodes_health", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 3, name: "capacity_used", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 4, name: "stability", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 5, name: "reliability", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+  ],
+);
+

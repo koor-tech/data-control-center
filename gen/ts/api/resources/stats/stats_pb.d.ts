@@ -610,3 +610,47 @@ export declare class NodeInfo extends Message<NodeInfo> {
   static equals(a: NodeInfo | PlainMessage<NodeInfo> | undefined, b: NodeInfo | PlainMessage<NodeInfo> | undefined): boolean;
 }
 
+/**
+ * @generated from message resources.stats.ClusterRadar
+ */
+export declare class ClusterRadar extends Message<ClusterRadar> {
+  /**
+   * @generated from field: float cluster_health = 1;
+   */
+  clusterHealth: number;
+
+  /**
+   * @generated from field: float nodes_health = 2;
+   */
+  nodesHealth: number;
+
+  /**
+   * @generated from field: float capacity_used = 3;
+   */
+  capacityUsed: number;
+
+  /**
+   * @generated from field: float stability = 4;
+   */
+  stability: number;
+
+  /**
+   * @generated from field: float reliability = 5;
+   */
+  reliability: number;
+
+  constructor(data?: PartialMessage<ClusterRadar>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "resources.stats.ClusterRadar";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ClusterRadar;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ClusterRadar;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ClusterRadar;
+
+  static equals(a: ClusterRadar | PlainMessage<ClusterRadar> | undefined, b: ClusterRadar | PlainMessage<ClusterRadar> | undefined): boolean;
+}
+

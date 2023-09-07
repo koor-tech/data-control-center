@@ -1142,6 +1142,85 @@ func (x *NodeInfo) GetAge() *timestamppb.Timestamp {
 	return nil
 }
 
+type ClusterRadar struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ClusterHealth float32 `protobuf:"fixed32,1,opt,name=cluster_health,json=clusterHealth,proto3" json:"cluster_health,omitempty"`
+	NodesHealth   float32 `protobuf:"fixed32,2,opt,name=nodes_health,json=nodesHealth,proto3" json:"nodes_health,omitempty"`
+	CapacityUsed  float32 `protobuf:"fixed32,3,opt,name=capacity_used,json=capacityUsed,proto3" json:"capacity_used,omitempty"`
+	Stability     float32 `protobuf:"fixed32,4,opt,name=stability,proto3" json:"stability,omitempty"`
+	Reliability   float32 `protobuf:"fixed32,5,opt,name=reliability,proto3" json:"reliability,omitempty"`
+}
+
+func (x *ClusterRadar) Reset() {
+	*x = ClusterRadar{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_api_resources_stats_stats_proto_msgTypes[16]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ClusterRadar) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ClusterRadar) ProtoMessage() {}
+
+func (x *ClusterRadar) ProtoReflect() protoreflect.Message {
+	mi := &file_api_resources_stats_stats_proto_msgTypes[16]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ClusterRadar.ProtoReflect.Descriptor instead.
+func (*ClusterRadar) Descriptor() ([]byte, []int) {
+	return file_api_resources_stats_stats_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *ClusterRadar) GetClusterHealth() float32 {
+	if x != nil {
+		return x.ClusterHealth
+	}
+	return 0
+}
+
+func (x *ClusterRadar) GetNodesHealth() float32 {
+	if x != nil {
+		return x.NodesHealth
+	}
+	return 0
+}
+
+func (x *ClusterRadar) GetCapacityUsed() float32 {
+	if x != nil {
+		return x.CapacityUsed
+	}
+	return 0
+}
+
+func (x *ClusterRadar) GetStability() float32 {
+	if x != nil {
+		return x.Stability
+	}
+	return 0
+}
+
+func (x *ClusterRadar) GetReliability() float32 {
+	if x != nil {
+		return x.Reliability
+	}
+	return 0
+}
+
 var File_api_resources_stats_stats_proto protoreflect.FileDescriptor
 
 var file_api_resources_stats_stats_proto_rawDesc = []byte{
@@ -1291,7 +1370,19 @@ var file_api_resources_stats_stats_proto_rawDesc = []byte{
 	0x09, 0x52, 0x0a, 0x65, 0x78, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x49, 0x70, 0x12, 0x2c, 0x0a,
 	0x03, 0x61, 0x67, 0x65, 0x18, 0x06, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f,
 	0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d,
-	0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x52, 0x03, 0x61, 0x67, 0x65, 0x2a, 0x52, 0x0a, 0x0e, 0x52,
+	0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x52, 0x03, 0x61, 0x67, 0x65, 0x22, 0xbd, 0x01, 0x0a, 0x0c,
+	0x43, 0x6c, 0x75, 0x73, 0x74, 0x65, 0x72, 0x52, 0x61, 0x64, 0x61, 0x72, 0x12, 0x25, 0x0a, 0x0e,
+	0x63, 0x6c, 0x75, 0x73, 0x74, 0x65, 0x72, 0x5f, 0x68, 0x65, 0x61, 0x6c, 0x74, 0x68, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x02, 0x52, 0x0d, 0x63, 0x6c, 0x75, 0x73, 0x74, 0x65, 0x72, 0x48, 0x65, 0x61,
+	0x6c, 0x74, 0x68, 0x12, 0x21, 0x0a, 0x0c, 0x6e, 0x6f, 0x64, 0x65, 0x73, 0x5f, 0x68, 0x65, 0x61,
+	0x6c, 0x74, 0x68, 0x18, 0x02, 0x20, 0x01, 0x28, 0x02, 0x52, 0x0b, 0x6e, 0x6f, 0x64, 0x65, 0x73,
+	0x48, 0x65, 0x61, 0x6c, 0x74, 0x68, 0x12, 0x23, 0x0a, 0x0d, 0x63, 0x61, 0x70, 0x61, 0x63, 0x69,
+	0x74, 0x79, 0x5f, 0x75, 0x73, 0x65, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x02, 0x52, 0x0c, 0x63,
+	0x61, 0x70, 0x61, 0x63, 0x69, 0x74, 0x79, 0x55, 0x73, 0x65, 0x64, 0x12, 0x1c, 0x0a, 0x09, 0x73,
+	0x74, 0x61, 0x62, 0x69, 0x6c, 0x69, 0x74, 0x79, 0x18, 0x04, 0x20, 0x01, 0x28, 0x02, 0x52, 0x09,
+	0x73, 0x74, 0x61, 0x62, 0x69, 0x6c, 0x69, 0x74, 0x79, 0x12, 0x20, 0x0a, 0x0b, 0x72, 0x65, 0x6c,
+	0x69, 0x61, 0x62, 0x69, 0x6c, 0x69, 0x74, 0x79, 0x18, 0x05, 0x20, 0x01, 0x28, 0x02, 0x52, 0x0b,
+	0x72, 0x65, 0x6c, 0x69, 0x61, 0x62, 0x69, 0x6c, 0x69, 0x74, 0x79, 0x2a, 0x52, 0x0a, 0x0e, 0x52,
 	0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x14, 0x0a,
 	0x10, 0x52, 0x45, 0x53, 0x4f, 0x55, 0x52, 0x43, 0x45, 0x5f, 0x55, 0x4e, 0x4b, 0x4e, 0x4f, 0x57,
 	0x4e, 0x10, 0x00, 0x12, 0x12, 0x0a, 0x0e, 0x52, 0x45, 0x53, 0x4f, 0x55, 0x52, 0x43, 0x45, 0x5f,
@@ -1325,7 +1416,7 @@ func file_api_resources_stats_stats_proto_rawDescGZIP() []byte {
 }
 
 var file_api_resources_stats_stats_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_api_resources_stats_stats_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
+var file_api_resources_stats_stats_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
 var file_api_resources_stats_stats_proto_goTypes = []interface{}{
 	(ResourceStatus)(0),           // 0: resources.stats.ResourceStatus
 	(*MonService)(nil),            // 1: resources.stats.MonService
@@ -1344,14 +1435,15 @@ var file_api_resources_stats_stats_proto_goTypes = []interface{}{
 	(*ClusterStats)(nil),          // 14: resources.stats.ClusterStats
 	(*ResourceInfo)(nil),          // 15: resources.stats.ResourceInfo
 	(*NodeInfo)(nil),              // 16: resources.stats.NodeInfo
-	(*timestamppb.Timestamp)(nil), // 17: google.protobuf.Timestamp
+	(*ClusterRadar)(nil),          // 17: resources.stats.ClusterRadar
+	(*timestamppb.Timestamp)(nil), // 18: google.protobuf.Timestamp
 }
 var file_api_resources_stats_stats_proto_depIdxs = []int32{
-	17, // 0: resources.stats.MonService.created_at:type_name -> google.protobuf.Timestamp
-	17, // 1: resources.stats.MonService.updated_at:type_name -> google.protobuf.Timestamp
-	17, // 2: resources.stats.MgrService.updated_at:type_name -> google.protobuf.Timestamp
-	17, // 3: resources.stats.OsdService.osd_up_updated_at:type_name -> google.protobuf.Timestamp
-	17, // 4: resources.stats.OsdService.osd_in_updated_at:type_name -> google.protobuf.Timestamp
+	18, // 0: resources.stats.MonService.created_at:type_name -> google.protobuf.Timestamp
+	18, // 1: resources.stats.MonService.updated_at:type_name -> google.protobuf.Timestamp
+	18, // 2: resources.stats.MgrService.updated_at:type_name -> google.protobuf.Timestamp
+	18, // 3: resources.stats.OsdService.osd_up_updated_at:type_name -> google.protobuf.Timestamp
+	18, // 4: resources.stats.OsdService.osd_in_updated_at:type_name -> google.protobuf.Timestamp
 	1,  // 5: resources.stats.Services.mon:type_name -> resources.stats.MonService
 	2,  // 6: resources.stats.Services.mgr:type_name -> resources.stats.MgrService
 	3,  // 7: resources.stats.Services.mds:type_name -> resources.stats.MdsService
@@ -1367,7 +1459,7 @@ var file_api_resources_stats_stats_proto_depIdxs = []int32{
 	12, // 17: resources.stats.ClusterStats.io:type_name -> resources.stats.Io
 	0,  // 18: resources.stats.ResourceInfo.status:type_name -> resources.stats.ResourceStatus
 	0,  // 19: resources.stats.NodeInfo.status:type_name -> resources.stats.ResourceStatus
-	17, // 20: resources.stats.NodeInfo.age:type_name -> google.protobuf.Timestamp
+	18, // 20: resources.stats.NodeInfo.age:type_name -> google.protobuf.Timestamp
 	21, // [21:21] is the sub-list for method output_type
 	21, // [21:21] is the sub-list for method input_type
 	21, // [21:21] is the sub-list for extension type_name
@@ -1573,6 +1665,18 @@ func file_api_resources_stats_stats_proto_init() {
 				return nil
 			}
 		}
+		file_api_resources_stats_stats_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ClusterRadar); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -1580,7 +1684,7 @@ func file_api_resources_stats_stats_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_api_resources_stats_stats_proto_rawDesc,
 			NumEnums:      1,
-			NumMessages:   16,
+			NumMessages:   17,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
