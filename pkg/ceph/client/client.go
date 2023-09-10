@@ -3,6 +3,7 @@ package client
 import (
 	"bytes"
 	"context"
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -11,15 +12,21 @@ import (
 )
 
 type Client struct {
-	Token         *string
-	defaultClient *http.Client
-	apiConfig     config.API
+	Token     *string
+	client    *http.Client
+	apiConfig config.API
 }
 
 func NewClient(ctx context.Context, apiConfig config.API) *Client {
+	customTransport := http.DefaultTransport.(*http.Transport).Clone()
+	if apiConfig.InsecureSSL {
+		customTransport.TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
+	}
+
+	client := &http.Client{Transport: customTransport}
 	return &Client{
-		apiConfig:     apiConfig,
-		defaultClient: http.DefaultClient,
+		apiConfig: apiConfig,
+		client:    client,
 	}
 }
 
@@ -77,7 +84,7 @@ func (c *Client) MakeRequest(ctx context.Context, method, url string, payloadByt
 		req.Header.Set("Authorization", "Bearer "+*c.Token)
 	}
 
-	resp, err := c.defaultClient.Do(req)
+	resp, err := c.client.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("error sending request: %w", err)
 	}

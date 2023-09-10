@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ConnectError } from '@connectrpc/connect';
+import {TransformStats} from "~/composables/stats/transform";
+import {statuses} from "~/composables/stats/types";
 
 useHead({
     title: 'Health Stats',
@@ -13,302 +15,13 @@ const { $grpc } = useNuxtApp();
 const { data: clusterStats, error } = useLazyAsyncData('clusterStats', async () => {
     try {
         const stats = await $grpc.getStatsClient().getClusterStats({});
-        console.log("reading", stats)
-        return transformData(stats);
+        console.log("reading", await stats)
+        const dataStats = new TransformStats(stats);
+        return dataStats.display();
     } catch (e) {
         if (e instanceof ConnectError) $grpc.handleError(e as ConnectError);
     }
 });
-
-type TransformedData = {
-    title: string;
-    icon?: string,
-    color?: string,
-    description: { title: string; description?: string }[];
-};
-
-
-type ClusterHealthStats = {
-    id: string;
-    health: string;
-    stats: TransformedData[];
-}
-
-type ServiceInfo = {
-    [key: string]: {
-        title?: string;
-        color?: string,
-        icon?: string;
-    };
-};
-
-const meta: ServiceInfo = {
-    Alerts: {
-        title: 'Alerts',
-        color: 'orange',
-        icon: 'ShieldExclamationIcon'
-
-    },
-    mon: {
-        title: 'Monitors',
-        color: 'blue',
-        icon: 'ComputerDesktopIcon'
-    },
-    mgr: {
-        title: 'Managers',
-        color: 'blue',
-        icon: 'ClipboardIcon'
-    },
-    mds: {
-        title: 'Metadata',
-        color: 'blue',
-        icon: 'DocumentTextIcon'
-    },
-    osd: {
-        title: 'Object Storage',
-        color: 'blue',
-        icon: 'TableCellsIcon'
-    },
-    rgw: {
-        title: 'RADOS Gateway (RGW)',
-        color: 'blue',
-        icon: 'ArchiveBoxArrowDownIcon'
-    },
-    volumes: {
-        title: 'Volumes',
-        color: 'blue',
-        icon: 'CircleStackIcon'
-    },
-    pools: {
-        title: 'Pools',
-        color: 'blue',
-        icon: 'Square3Stack3DIcon'
-    },
-    objects: {
-        title: 'Objects',
-        color: 'blue',
-        icon: 'CubeIcon'
-    },
-    pgs: {
-        title: 'Placement Groups',
-        icon: 'ArchiveBoxIcon'
-    },
-    io: {
-        title: 'Input/Output',
-        icon: 'ArrowsUpDownIcon'
-    },
-}
-
-function transformDescriptions(title: string, data: any): TransformedData[] {
-    return Object.keys(data).map(serviceName => {
-        const serviceData = data[serviceName];
-        const description = Object.entries(serviceData)
-            .map(([key, value]) => `${key}: ${value}`)
-            .join(', ');
-
-        console.log("-----------------")
-        console.dir(serviceData);
-        console.log("-----------------")
-
-        return {
-            title: meta[serviceName]?.title || serviceName,
-            icon: meta[serviceName]?.icon,
-            color: meta[serviceName]?.color,
-            description: description.split(', ').map(entry => {
-                const [key, value] = entry.split(': ');
-                return { title: key, description: value };
-            }),
-        };
-    });
-}
-watch(error, () => console.log("ERR:", error.value));
-function transformData(clusterStats: any): ClusterHealthStats {
-    const transformedArray: TransformedData[] = [];
-
-    transformedArray.push({
-        title: 'Alerts',
-        icon: meta['Alerts'].icon,
-        color: meta['Alerts']?.color,
-
-        description: clusterStats.crashes.map((daemon: any) => daemon.description)
-    });
-
-    transformedArray.push(...transformDescriptions('services', clusterStats.services));
-    transformedArray.push(...transformDescriptions('data', clusterStats.data));
-
-
-    transformedArray.push({
-        title: 'Input / Output',
-        icon: meta['io'].icon,
-        color: meta['io']?.color,
-        description: Object.keys(clusterStats.io).map(serviceName => ({
-            title: serviceName, description: String(clusterStats.io[serviceName])
-        })),
-    });
-
-    console.log(transformedArray);
-
-    return {
-        id: clusterStats.id,
-        health: clusterStats.status,
-        stats: transformedArray
-    };
-}
-
-// const secondaryNavigation = [
-//     { name: 'Cluster 2', href: '#', current: true },
-//     { name: 'Cluster 3', href: '#', current: false },
-//     { name: 'Cluster 4', href: '#', current: false },
-// ]
-
-const statuses: { [key: string]: string } = {
-    HEALTH_OFFLINE: 'text-gray-500 bg-gray-100/10',
-    HEALTH_OK: 'text-green-400 bg-green-400/10',
-    HEALTH_WARN: 'text-orange-400 bg-orange-400/10',
-};
-/*
-type TransformedData = {
-    title: string;
-    icon?: string,
-    color?: string,
-    description: { title: string; description?: string }[];
-};
-
-type ClusterStats = {
-    id: string;
-    stats: TransformedData[];
-}
-
-type ServiceInfo = {
-    [key: string]: {
-        title?: string;
-        color?: string,
-        icon?: string;
-    };
-};
-
-const meta: ServiceInfo = {
-    Alerts: {
-        title: 'Alerts',
-        color: 'orange',
-        icon: 'ShieldExclamationIcon'
-
-    },
-    mon: {
-        title: 'Monitors',
-        color: 'blue',
-        icon: 'ComputerDesktopIcon'
-    },
-    mgr: {
-        title: 'Managers',
-        color: 'blue',
-        icon: 'ClipboardIcon'
-    },
-    mds: {
-        title: 'Metadata',
-        color: 'blue',
-        icon: 'DocumentTextIcon'
-    },
-    osd: {
-        title: 'Object Storage',
-        color: 'blue',
-        icon: 'TableCellsIcon'
-    },
-    rgw: {
-        title: 'RADOS Gateway (RGW)',
-        color: 'blue',
-        icon: 'ArchiveBoxArrowDownIcon'
-    },
-    volumes: {
-        title: 'Volumes',
-        color: 'blue',
-        icon: 'CircleStackIcon'
-    },
-    pools: {
-        title: 'Pools',
-        color: 'blue',
-        icon: 'Square3Stack3DIcon'
-    },
-    objects: {
-        title: 'Objects',
-        color: 'blue',
-        icon: 'CubeIcon'
-    },
-    pgs: {
-        title: 'Placement Groups',
-        icon: 'ArchiveBoxIcon'
-    },
-    io: {
-        title: 'Input/Output',
-        icon: 'ArrowsUpDownIcon'
-    },
-}
-
-function transformDescriptions(title: string, data: any): TransformedData[] {
-    return Object.keys(data).map(serviceName => {
-        const serviceData = data[serviceName];
-        const description = Object.entries(serviceData)
-            .map(([key, value]) => `${key}: ${value}`)
-            .join(', ');
-
-        console.log(meta[serviceName]?.icon);
-
-        return {
-            title: meta[serviceName]?.title || serviceName,
-            icon: meta[serviceName]?.icon,
-            color: meta[serviceName]?.color,
-            description: description.split(', ').map(entry => {
-                const [key, value] = entry.split(': ');
-                return { title: key, description: value };
-            }),
-        };
-    });
-}
-
-function transformData(clusterStats: any): ClusterStats {
-    const transformedArray: TransformedData[] = [];
-
-    transformedArray.push({
-        title: 'Alerts',
-        icon: meta['Alerts'].icon,
-        color: meta['Alerts']?.color,
-
-        description: clusterStats.daemonCrashes.map((daemon: any) => daemon.description)
-    });
-
-    transformedArray.push(...transformDescriptions('services', clusterStats.services));
-    transformedArray.push(...transformDescriptions('data', clusterStats.data));
-
-
-    transformedArray.push({
-        title: 'Input / Output',
-        icon: meta['io'].icon,
-        color: meta['io']?.color,
-        description: Object.keys(clusterStats.io).map(serviceName => ({
-            title: serviceName, description: String(clusterStats.io[serviceName])
-        })),
-    });
-
-    console.log(clusterStats);
-
-    return {
-        id: clusterStats.id, stats: transformedArray
-    };
-}
-
-const secondaryNavigation = [
-    { name: 'Cluster 2', href: '#', current: true },
-    { name: 'Cluster 3', href: '#', current: false },
-    { name: 'Cluster 4', href: '#', current: false },
-]
-
-
-const statuses = {
-    offline: 'text-gray-500 bg-gray-100/10',
-    health: 'text-green-400 bg-green-400/10',
-    warn: 'text-orange-400 bg-orange-400/10',
-}
-*/
 </script>
 
 <template>
@@ -334,17 +47,14 @@ const statuses = {
                         <p v-if="clusterStats" class="text-gray-700 text-sm">
                             {{ clusterStats.health }}
                         </p>
-                        <div
-                            class="order-last flex w-full gap-x-8 text-sm font-semibold leading-6 sm:order-none sm:w-auto sm:border-l sm:border-gray-200 sm:pl-6 sm:leading-7">
-                            <a v-for="item in secondaryNavigation" :key="item.name" :href="item.href"
-                                :class="item.current ? 'text-indigo-600' : 'text-gray-700'">{{ item.name }}</a>
-                        </div>
                     </div>
                 </header>
 
                 <!-- Stats -->
                 <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5 px-2">
-                    <HealthServices v-if="clusterStats" v-for="item in clusterStats.stats" :statsContainer="item" />
+                    <template v-if="clusterStats && clusterStats.stats && clusterStats.stats.length" v-for="item in clusterStats.stats">
+                        <HealthServices v-if="item.description.length" :statsContainer="item"/>
+                    </template>
                 </dl>
 
             </div>

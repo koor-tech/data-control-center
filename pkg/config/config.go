@@ -123,9 +123,10 @@ type Ceph struct {
 }
 
 type API struct {
-	Url      string `yaml:"url"`
-	Username string `yaml:"username"`
-	Password string `yaml:"password"`
+	Url         string `yaml:"url"`
+	Username    string `yaml:"username"`
+	Password    string `yaml:"password"`
+	InsecureSSL bool   `yaml:"insecureSSL"`
 }
 
 type Kubernetes struct {
