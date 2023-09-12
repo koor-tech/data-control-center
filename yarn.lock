@@ -2232,13 +2232,13 @@
     "@unhead/schema" "1.5.3"
     "@unhead/shared" "1.5.3"
 
-"@unhead/dom@1.5.4":
-  version "1.5.4"
-  resolved "https://registry.yarnpkg.com/@unhead/dom/-/dom-1.5.4.tgz#7963fe7d54862cb661195d43a880de162197c037"
-  integrity sha512-bbqGY9HB1PesBWCXvcH1syZywZw6szQNF14In+Wv+7KkzSuzPP/Ke0Ujxy6libtNtSY1iN5PGNO02TepykwEKw==
+"@unhead/dom@1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@unhead/dom/-/dom-1.6.2.tgz#4f4df6b02fa3d411cc259f731cdc7a51e3486668"
+  integrity sha512-xOFZx0kAYdgXn17G1eNpGXPbClKGuzeFP40LHZG9PDxe8W2OVTAVlhPnamaPumwSYPcif0au6libawtp1bTvxA==
   dependencies:
-    "@unhead/schema" "1.5.4"
-    "@unhead/shared" "1.5.4"
+    "@unhead/schema" "1.6.2"
+    "@unhead/shared" "1.6.2"
 
 "@unhead/schema@1.5.3":
   version "1.5.3"
@@ -2248,13 +2248,13 @@
     hookable "^5.5.3"
     zhead "^2.0.10"
 
-"@unhead/schema@1.5.4":
-  version "1.5.4"
-  resolved "https://registry.yarnpkg.com/@unhead/schema/-/schema-1.5.4.tgz#54dfc10946b86083fbe4b569c2677eafad4d18a3"
-  integrity sha512-0+XS8nduMBfOshviNVzNOLjnlAnNfEZGsO4VAvfHBQLdBKY7AYFHZLfbOURFpWzgyfxGZzankrkmLw76PwxFRg==
+"@unhead/schema@1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@unhead/schema/-/schema-1.6.2.tgz#6aa1e06bf9906f48e8ea66d1b5d432c511b7b3cc"
+  integrity sha512-yOjL4i1nm7xQ8XWOhRnO/Uf66lIJP48D4lT+Fl1tPTw3isYzopKGqkyHRrVL5PqunC37jQnwBb/ZRqZr5uGLAg==
   dependencies:
     hookable "^5.5.3"
-    zhead "^2.0.10"
+    zhead "^2.1.1"
 
 "@unhead/shared@1.5.3":
   version "1.5.3"
@@ -2263,12 +2263,12 @@
   dependencies:
     "@unhead/schema" "1.5.3"
 
-"@unhead/shared@1.5.4":
-  version "1.5.4"
-  resolved "https://registry.yarnpkg.com/@unhead/shared/-/shared-1.5.4.tgz#92e6156b17d63065c175eb847733bce011da1854"
-  integrity sha512-EobYjdKARcGHMNfJ4jWMl/fUQRV8bmB5YiSWrWAcfPf2LH4GTywMlUfdBkU1nH9Fy8gx37rImxHL7EZKC0GLVg==
+"@unhead/shared@1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@unhead/shared/-/shared-1.6.2.tgz#1710365970705899b818214bb87e8eff0d5eabc4"
+  integrity sha512-4+tvNwulccD1f4NOOU1SEpfJ1YepOsetaogZzPhwdHiUud/LV7YI37FAUx4dKfr3pn1/BeFzj4BH/aPOABRdyg==
   dependencies:
-    "@unhead/schema" "1.5.4"
+    "@unhead/schema" "1.6.2"
 
 "@unhead/ssr@^1.5.2":
   version "1.5.3"
@@ -2288,31 +2288,31 @@
     hookable "^5.5.3"
     unhead "1.5.3"
 
-"@unhead/vue@^1.5.4":
-  version "1.5.4"
-  resolved "https://registry.yarnpkg.com/@unhead/vue/-/vue-1.5.4.tgz#c9722635edad3b62c550d63a2e2c6c2416a87487"
-  integrity sha512-PzF5BvlRdYsnaTpDgqdxogyAbXQYb4huwkEDM8x6B8PGknV+ifAn80ZQZH6iu8rKifE2VHLSXuezmArB7erYCQ==
+"@unhead/vue@^1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@unhead/vue/-/vue-1.6.2.tgz#92ec3736c0eab2f5d9e219b01385af8b3a00eca5"
+  integrity sha512-EpcwH+90rLUfYudKYBOphfGoVSzPa2513+I5pAl+OYhZpzSkcvyLUonw+iN0KAKxbl9ELuK0Yu/MAaeOeD2C7g==
   dependencies:
-    "@unhead/schema" "1.5.4"
-    "@unhead/shared" "1.5.4"
+    "@unhead/schema" "1.6.2"
+    "@unhead/shared" "1.6.2"
     hookable "^5.5.3"
-    unhead "1.5.4"
+    unhead "1.6.2"
 
-"@vee-validate/nuxt@^4.11.3":
-  version "4.11.3"
-  resolved "https://registry.npmjs.org/@vee-validate/nuxt/-/nuxt-4.11.3.tgz"
-  integrity sha512-PmrWyLsSLc9swXyY9HSy/0HpcFnLk5R4t6v5aPq7YZAeJwh76MS5qz1U3katAnJxSCTe2HjC1cJksTAOYFdVhA==
+"@vee-validate/nuxt@^4.11.6":
+  version "4.11.6"
+  resolved "https://registry.yarnpkg.com/@vee-validate/nuxt/-/nuxt-4.11.6.tgz#bda4147b0641c56489c4d0d2258e3bafe01cbf02"
+  integrity sha512-XUcmRnk3K0rHLCGVcStA5UzZC8JQ+MAL/t5avw9rx+5IB4enHdGgOk7ToyNs8uPe+jdaO+L66C1sWl01TzDlkQ==
   dependencies:
     "@nuxt/kit" "^3.6.5"
     local-pkg "^0.4.3"
-    vee-validate "4.11.3"
+    vee-validate "4.11.6"
 
-"@vee-validate/rules@^4.11.3":
-  version "4.11.3"
-  resolved "https://registry.npmjs.org/@vee-validate/rules/-/rules-4.11.3.tgz"
-  integrity sha512-MJmQgTXnt0lEOLfF2z+IE1dViu8dISaLa95axjd/rfjGYLQE9kI/eGQOZ0bojuYIVB7cD+K3xkRNdCPg9Bi7fg==
+"@vee-validate/rules@^4.11.6":
+  version "4.11.6"
+  resolved "https://registry.yarnpkg.com/@vee-validate/rules/-/rules-4.11.6.tgz#4e826e61e773dacf6f114bea25c92ff715f0f37d"
+  integrity sha512-w1TgwtPxIEr7BrVbYqYUSkivYr1CzbLKMwL8WtUPWNqD9oFZopUQVVGEDvyzUlIH2wtUhhgeO8MT8OYG5Ws8pg==
   dependencies:
-    vee-validate "4.11.3"
+    vee-validate "4.11.6"
 
 "@vercel/nft@^0.23.1":
   version "0.23.1"
@@ -4944,10 +4944,10 @@ fastify@^4.21.0:
     semver "^7.5.0"
     tiny-lru "^11.0.1"
 
-fastify@^4.22.2:
-  version "4.22.2"
-  resolved "https://registry.yarnpkg.com/fastify/-/fastify-4.22.2.tgz#ad5ad555c9612874e8dcd7181a248fe3674142e7"
-  integrity sha512-rK8mF/1mZJHH6H/L22OhmilTgrp5XMkk3RHcSy03LC+TJ6+wLhbq+4U62bjns15VzIbBNgxTqAForBqtGAa0NQ==
+fastify@^4.23.0:
+  version "4.23.0"
+  resolved "https://registry.yarnpkg.com/fastify/-/fastify-4.23.0.tgz#e49c4e90f0f6f9a2dd40b2443fce24b7bee86a2f"
+  integrity sha512-u4aQUjAqf+GQQI+IeIJtzOKCJHtdwPlGxzopq/Kv6QcEdJ7xuJFSQ5Bi7+uJ+F8990jWECLzRcAyZ4pVsloRpQ==
   dependencies:
     "@fastify/ajv-compiler" "^3.5.0"
     "@fastify/error" "^3.2.0"
@@ -4964,7 +4964,7 @@ fastify@^4.22.2:
     rfdc "^1.3.0"
     secure-json-parse "^2.5.0"
     semver "^7.5.0"
-    tiny-lru "^11.0.1"
+    toad-cache "^3.2.0"
 
 fastq@^1.6.0, fastq@^1.6.1:
   version "1.15.0"
@@ -9159,6 +9159,11 @@ to-regex-range@^5.0.1:
   dependencies:
     is-number "^7.0.0"
 
+toad-cache@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/toad-cache/-/toad-cache-3.2.0.tgz#8221a1906ce7bd18cd56b22f5603bcf9e38b54f9"
+  integrity sha512-Hj5zSqBS6OHbZoQk9IU8VqIr+0JUpwzunnwSlFJhG8aJSInYUMEuzItl3kJsGteTPd1qtflafdRHlRtUazYeqg==
+
 toidentifier@1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/toidentifier/-/toidentifier-1.0.1.tgz"
@@ -9351,14 +9356,14 @@ unhead@1.5.3:
     "@unhead/shared" "1.5.3"
     hookable "^5.5.3"
 
-unhead@1.5.4:
-  version "1.5.4"
-  resolved "https://registry.yarnpkg.com/unhead/-/unhead-1.5.4.tgz#676560c86ee2e97dc357036442a0d469bf2a04a4"
-  integrity sha512-UnPZtL6sfSyLZNhMjjwISviCCTizZmqgbcbv38uoPq3abYlyMlndmEox19wBL9T06QzXJ6TrUzeQLU3XhBYB7A==
+unhead@1.6.2:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/unhead/-/unhead-1.6.2.tgz#901903f9ad85d723224654e1ce8aec7bbf14f82d"
+  integrity sha512-vAkjsjs6SPq/LHzuxOgyNvR4LsGau3CRKke9A6ErQEFm8mNKf50WIyd//ZNEBx8Zg+Iyn7FHyYZdgzpdPwC+Mw==
   dependencies:
-    "@unhead/dom" "1.5.4"
-    "@unhead/schema" "1.5.4"
-    "@unhead/shared" "1.5.4"
+    "@unhead/dom" "1.6.2"
+    "@unhead/schema" "1.6.2"
+    "@unhead/shared" "1.6.2"
     hookable "^5.5.3"
 
 unimport@^3.0.14:
@@ -9575,10 +9580,10 @@ util@^0.12.0:
     is-typed-array "^1.1.3"
     which-typed-array "^1.1.2"
 
-uuid@^9.0.0:
-  version "9.0.0"
-  resolved "https://registry.npmjs.org/uuid/-/uuid-9.0.0.tgz"
-  integrity sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==
+uuid@^9.0.1:
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-9.0.1.tgz#e188d4c8853cc722220392c424cd637f32293f30"
+  integrity sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==
 
 v8-compile-cache-lib@^3.0.1:
   version "3.0.1"
@@ -9605,10 +9610,10 @@ vary@^1.1.2:
   resolved "https://registry.npmjs.org/vary/-/vary-1.1.2.tgz"
   integrity sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==
 
-vee-validate@4.11.3, vee-validate@^4.11.3:
-  version "4.11.3"
-  resolved "https://registry.npmjs.org/vee-validate/-/vee-validate-4.11.3.tgz"
-  integrity sha512-YhWORdZRE1GL6vXKj3r9f+Y8fJH5JMwMUJ4DFS44+WcTtiNXggyE3pyJPlZBqS9AgYGZ47EOv4UczkLxHqufiw==
+vee-validate@4.11.6, vee-validate@^4.11.6:
+  version "4.11.6"
+  resolved "https://registry.yarnpkg.com/vee-validate/-/vee-validate-4.11.6.tgz#4494a6898d25f93369bfbd93895958915c4f5bc3"
+  integrity sha512-DwmNRqYVwX/CrH2ai8RRE1Y0ETmMFkS6X+8JxzC9rmE5cMqBxMiHRiqRABRvtJAbgHFG7LeSzVkPcr/mG5BiSQ==
   dependencies:
     "@vue/devtools-api" "^6.5.0"
     type-fest "^4.2.0"
@@ -10018,6 +10023,11 @@ zhead@^2.0.10:
   version "2.0.10"
   resolved "https://registry.npmjs.org/zhead/-/zhead-2.0.10.tgz"
   integrity sha512-irug8fXNKjqazkA27cFQs7C6/ZD3qNiEzLC56kDyzQART/Z9GMGfg8h2i6fb9c8ZWnIx/QgOgFJxK3A/CYHG0g==
+
+zhead@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/zhead/-/zhead-2.1.1.tgz#42950fbd5468268a07dc5b042a6c0261d340535d"
+  integrity sha512-FRmjAFioi07R+bmL+fqbkXF/pCbC9PwcKQ8RDluC5xTaVbNBgYRQ4eKuS1C8c7Sil//UIxet/AGp7D6royoHhA==
 
 zip-stream@^4.1.0:
   version "4.1.0"

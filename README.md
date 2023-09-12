@@ -1,12 +1,6 @@
-# Dashkoor App (dashkoor-on-quasar)
+# Koor Data Control Center
 
 Nice dashboard and controls for managing Rook Ceph data storage
-
-## Install the dependencies
-
-```bash
-yarn
-```
 
 ## Development
 
@@ -19,4 +13,10 @@ yarn
 
 ### Tasks
 
-* Re-Generate Protobuf generated code: `make gen-proto`
+* Installing the frontend dependencies: `yarn`
+* Run frontend dev server: `yarn dev`
+* Generate Protobuf code: `make gen-proto`
+
+## License
+
+The project is licensed under the [MIT License](/LICENSE).
