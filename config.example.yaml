@@ -13,6 +13,7 @@ ceph:
     url: 'http://localhost:8383/api'
     username: 'admin'
     password: 'admin'
+    insecureSSL: false
 oauth2:
   providers:
     - name: 'keycloak'
