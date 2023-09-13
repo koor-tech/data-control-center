@@ -23,6 +23,15 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
+rbac:
+  # Specifies wheter RBAC roles should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
 podAnnotations: {}
 
 podSecurityContext: {}
@@ -80,3 +89,22 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+# -- Will be put in a Secret and used as env vars
+additionalEnv: {}
+
+dashboard:
+  username: null
+  password: null
+
+postInstallJob:
+  # -- If enabled,  will create a Ceph dashboard user `data-control-center` either
+  # on Rook/Ceph cluster pre upgrade(when having extended-ceph-exporter as a helm
+  # dependency) or on post install of extended-ceph-exporter(needs existing
+  # Rook/Ceph cluster). This user will be used for extended ceph metrics.
+  enabled: true
+  # @ignore
+  image:
+    repository: quay.io/ceph/ceph
+    pullPolicy: IfNotPresent
+    tag: v17.2.6

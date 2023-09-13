@@ -1,0 +1,127 @@
+{{- if .Values.postInstallJob.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: extended-ceph-exporter
+  labels:
+    app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
+    app.kubernetes.io/instance: {{ .Release.Name | quote }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+  annotations:
+    # This is what defines this resource as a hook. Without this line, the
+    # job is considered part of the release.
+    "helm.sh/hook": "post-install,post-upgrade"
+    "helm.sh/hook-weight": "-5"
+    "helm.sh/hook-delete-policy": before-hook-creation
+spec:
+  template:
+    metadata:
+      name: "{{ .Release.Name }}"
+      labels:
+        helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    spec:
+      restartPolicy: Never
+      initContainers:
+        - name: rook-ceph-config
+          image: "{{ .Values.postInstallJob.image.repository }}:{{ .Values.postInstallJob.image.tag }}"
+          imagePullPolicy: {{ .Values.postInstallJob.image.pullPolicy }}
+          command:
+            - /bin/bash
+            - -c
+            - |
+              # Replicate the script from toolbox.sh inline so the ceph image
+              # can be run directly, instead of requiring the rook toolbox
+              CEPH_CONFIG="/etc/ceph/ceph.conf"
+              MON_CONFIG="/etc/rook/mon-endpoints"
+              KEYRING_FILE="/etc/ceph/keyring"
+
+              # create a ceph config file in its default location so ceph/rados tools can be used
+              # without specifying any arguments
+              write_endpoints() {
+                endpoints=$(cat ${MON_CONFIG})
+
+                # filter out the mon names
+                # external cluster can have numbers or hyphens in mon names, handling them in regex
+                # shellcheck disable=SC2001
+                mon_endpoints=$(echo "${endpoints}"| sed 's/[a-z0-9_-]\+=//g')
+
+                DATE=$(date)
+                echo "$DATE writing mon endpoints to ${CEPH_CONFIG}: ${endpoints}"
+                  cat <<EOF > ${CEPH_CONFIG}
+              [global]
+              mon_host = ${mon_endpoints}
+
+              [client.admin]
+              keyring = ${KEYRING_FILE}
+              EOF
+              }
+
+              # create the keyring file
+              cat <<EOF > ${KEYRING_FILE}
+              [${ROOK_CEPH_USERNAME}]
+              key = ${ROOK_CEPH_SECRET}
+              EOF
+
+              # write the initial config file
+              write_endpoints
+          env:
+            - name: ROOK_CEPH_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: rook-ceph-mon
+                  key: ceph-username
+            - name: ROOK_CEPH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: rook-ceph-mon
+                  key: ceph-secret
+          volumeMounts:
+            - mountPath: /etc/ceph
+              name: ceph-config
+            - name: mon-endpoint-volume
+              mountPath: /etc/rook
+      containers:
+        - name: dash-creds-setup
+          image: "{{ .Values.postInstallJob.image.repository }}:{{ .Values.postInstallJob.image.tag }}"
+          imagePullPolicy: {{ .Values.postInstallJob.image.pullPolicy }}
+          env:
+            - name: CEPH_DASHBOARD_USERNAME
+              valueFrom:
+                secretKeyRef:
+                 name: {{ include "extended-ceph-exporter.fullname" . }}
+                 key: CEPH_DASHBOARD_USERNAME
+            - name: CEPH_DASHBOARD_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                 name: {{ include "extended-ceph-exporter.fullname" . }}
+                 key: CEPH_DASHBOARD_PASSWORD
+          command:
+            - /bin/bash
+            - -c
+            - |
+              pw_file=$(mktemp)
+              echo $CEPH_DASHBOARD_PASSWORD > "$pw_file"
+
+              if ceph dashboard ac-user-show $CEPH_DASHBOARD_USERNAME; then
+                echo "Dashboard User exists, updating password ..."
+                ceph dashboard ac-user-set-password --force-password $CEPH_DASHBOARD_USERNAME -i "$pw_file" read-only $CEPH_DASHBOARD_USERNAME
+              else
+                echo "Creating new dashboard user ..."
+                ceph dashboard ac-user-create --enabled --force-password $CEPH_DASHBOARD_USERNAME -i "$pw_file"
+              fi
+
+              echo "Done."
+          volumeMounts:
+            - mountPath: /etc/ceph
+              name: ceph-config
+      volumes:
+        - name: mon-endpoint-volume
+          configMap:
+            name: rook-ceph-mon-endpoints
+            items:
+              - key: data
+                path: mon-endpoints
+        - name: ceph-config
+          emptyDir: {}
+{{- end }}

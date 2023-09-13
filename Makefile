@@ -28,3 +28,8 @@ build-image:
 
 run-cephapidummy:
 	npx ts-node-esm ./node/server.ts
+
+.PHONY: gen-licenses
+gen-licenses:
+	yarn licenses generate-disclaimer > ./src/public/licenses/frontend.txt
+	go-licenses report . --template internal/scripts/licenses-backend.txt.tpl > ./src/public/licenses/backend.txt
