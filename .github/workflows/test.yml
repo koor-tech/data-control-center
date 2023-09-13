@@ -17,5 +17,10 @@ jobs:
         with:
           go-version: '^1.20'
 
+      - name: Install Build Dependencies
+        run: |
+          apt-get update
+          apt-get install -y libcephfs-dev librbd-dev librados-dev
+
       - name: Run Go Tests
         run: go test ./...
