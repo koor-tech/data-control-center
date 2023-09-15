@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/koor-tech/data-control-center/gen/go/api/resources/common"
 	"github.com/koor-tech/data-control-center/gen/go/api/resources/stats"
 	statspb "github.com/koor-tech/data-control-center/gen/go/api/services/stats"
 	"github.com/koor-tech/data-control-center/gen/go/api/services/stats/statsconnect"
@@ -48,7 +47,7 @@ func (s *Server) RegisterService(g *gin.RouterGroup) {
 	g.Any(path+"/*path", gin.WrapH(handler))
 }
 
-func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[common.EmptyRequest]) (*connect.Response[stats.ClusterStats], error) {
+func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[statspb.GetClusterStatsRequest]) (*connect.Response[statspb.GetClusterStatsResponse], error) {
 	st, err := s.cephAPIService.GetClusterHealth(ctx)
 	if err != nil {
 		return nil, connect.NewError(connect.CodeInternal, fmt.Errorf("error caused by %w", err))
@@ -113,65 +112,67 @@ func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[commo
 	readOps := st.ClientPerf.ReadOpPerSec
 	writeOps := st.ClientPerf.WriteOpPerSec
 
-	resp := &stats.ClusterStats{
-		Id:      st.MonStatus.Monmap.Fsid,
-		Status:  st.Health.Status,
-		Crashes: crashes,
-		Services: &stats.Services{
-			Mon: &stats.MonService{
-				DaemonCount: int32(daemonCount),
-				Quorum:      strings.Join(monNames, ","),
-				CreatedAt:   timestamppb.New(st.MonStatus.Monmap.Created),
-				UpdatedAt:   timestamppb.New(st.MonStatus.Monmap.Modified),
-			},
-			Mgr: &stats.MgrService{
-				Active:    st.MgrMap.ActiveName,
-				Standbys:  standBys,
-				UpdatedAt: timestamppb.New(st.MgrMap.ActiveChange.Time),
-			},
-			Mds: &stats.MdsService{
-				DaemonsUp:       int32(daemonsUp),
-				HotStandbyCount: int32(standbyCountWanted),
-			},
-			Osd: &stats.OsdService{
-				OsdCount:       int32(osdCount),
-				OsdUp:          int32(osdUp),
-				OsdIn:          int32(osdIn),
-				OsdInUpdatedAt: timestamppb.New(st.OsdMap.LastInChange.Time),
-				OsdUpUpdatedAt: timestamppb.New(st.OsdMap.LastUpChange.Time),
-			},
-			Rgw: &stats.RgwService{
-				ActiveDaemon: int32(st.Rgw),
-				HostCount:    1,
-				ZoneCount:    1,
-			},
-		},
-		Data: &stats.Data{
-			Volumes: int32(1), // TODO still figuring out
-			Pools: &stats.Pools{
-				Pools: int32(poolCount),
-				Pgs: &stats.Pgs{
-					ActiveClean: int32(activeAndCleanPGs),
+	resp := &statspb.GetClusterStatsResponse{
+		Stats: &stats.ClusterStats{
+			Id:      st.MonStatus.Monmap.Fsid,
+			Status:  st.Health.Status,
+			Crashes: crashes,
+			Services: &stats.Services{
+				Mon: &stats.MonService{
+					DaemonCount: int32(daemonCount),
+					Quorum:      strings.Join(monNames, ","),
+					CreatedAt:   timestamppb.New(st.MonStatus.Monmap.Created),
+					UpdatedAt:   timestamppb.New(st.MonStatus.Monmap.Modified),
+				},
+				Mgr: &stats.MgrService{
+					Active:    st.MgrMap.ActiveName,
+					Standbys:  standBys,
+					UpdatedAt: timestamppb.New(st.MgrMap.ActiveChange.Time),
+				},
+				Mds: &stats.MdsService{
+					DaemonsUp:       int32(daemonsUp),
+					HotStandbyCount: int32(standbyCountWanted),
+				},
+				Osd: &stats.OsdService{
+					OsdCount:       int32(osdCount),
+					OsdUp:          int32(osdUp),
+					OsdIn:          int32(osdIn),
+					OsdInUpdatedAt: timestamppb.New(st.OsdMap.LastInChange.Time),
+					OsdUpUpdatedAt: timestamppb.New(st.OsdMap.LastUpChange.Time),
+				},
+				Rgw: &stats.RgwService{
+					ActiveDaemon: int32(st.Rgw),
+					HostCount:    1,
+					ZoneCount:    1,
 				},
 			},
-			Objects: &stats.Objects{
-				ObjectCount: int32(st.PGInfo.ObjectStats.NumObjects),
-				Size:        utils.FormatBytes(int64(stored)),
+			Data: &stats.Data{
+				Volumes: int32(1), // TODO still figuring out
+				Pools: &stats.Pools{
+					Pools: int32(poolCount),
+					Pgs: &stats.Pgs{
+						ActiveClean: int32(activeAndCleanPGs),
+					},
+				},
+				Objects: &stats.Objects{
+					ObjectCount: int32(st.PGInfo.ObjectStats.NumObjects),
+					Size:        utils.FormatBytes(int64(stored)),
+				},
+				Usage: &stats.Usage{
+					Used:      st.DF.Stats.TotalUsedBytes,
+					Available: st.DF.Stats.TotalAvailBytes,
+					Total:     st.DF.Stats.TotalBytes,
+				},
 			},
-			Usage: &stats.Usage{
-				Used:      st.DF.Stats.TotalUsedBytes,
-				Available: st.DF.Stats.TotalAvailBytes,
-				Total:     st.DF.Stats.TotalBytes,
+			Io: &stats.Io{
+				ClientRead:     fmt.Sprintf("%s/s rd", clientReadBytes),
+				ClientReadOps:  fmt.Sprintf("%d ops/s rd", readOps),
+				ClientWriteOps: fmt.Sprintf("%d ops/s wr", writeOps),
 			},
-		},
-		Io: &stats.Io{
-			ClientRead:     fmt.Sprintf("%s/s rd", clientReadBytes),
-			ClientReadOps:  fmt.Sprintf("%d ops/s rd", readOps),
-			ClientWriteOps: fmt.Sprintf("%d ops/s wr", writeOps),
 		},
 	}
 
-	return &connect.Response[stats.ClusterStats]{
+	return &connect.Response[statspb.GetClusterStatsResponse]{
 		Msg: resp,
 	}, nil
 }
@@ -197,7 +198,7 @@ func convertMdsItems(src interface{}) (MdsItems, error) {
 	return items, nil
 }
 
-func (s *Server) GetClusterResources(ctx context.Context, req *connect.Request[common.EmptyRequest]) (*connect.Response[statspb.ClusterResourcesResponse], error) {
+func (s *Server) GetClusterResources(ctx context.Context, req *connect.Request[statspb.GetClusterResourcesRequest]) (*connect.Response[statspb.GetClusterResourcesResponse], error) {
 	deployments, err := s.k.GetClusterDeployments(ctx, "rook-ceph")
 	if err != nil {
 		return nil, err
@@ -208,10 +209,24 @@ func (s *Server) GetClusterResources(ctx context.Context, req *connect.Request[c
 		return nil, err
 	}
 
-	return &connect.Response[statspb.ClusterResourcesResponse]{
-		Msg: &statspb.ClusterResourcesResponse{
+	return &connect.Response[statspb.GetClusterResourcesResponse]{
+		Msg: &statspb.GetClusterResourcesResponse{
 			Deployments: deployments,
 			Resources:   resources,
 		},
 	}, nil
+}
+
+func (s *Server) GetClusterNodes(ctx context.Context, req *connect.Request[statspb.GetClusterNodesRequest]) (*connect.Response[statspb.GetClusterNodesResponse], error) {
+
+	// TODO
+
+	return nil, nil
+}
+
+func (s *Server) GetClusterRadar(ctx context.Context, req *connect.Request[statspb.GetClusterRadarRequest]) (*connect.Response[statspb.GetClusterRadarResponse], error) {
+
+	// TODO
+
+	return nil, nil
 }

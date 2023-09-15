@@ -3,10 +3,8 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { EmptyRequest } from "../../resources/common/response_pb.js";
-import { ClusterRadar, ClusterStats } from "../../resources/stats/stats_pb.js";
+import { GetClusterNodesRequest, GetClusterNodesResponse, GetClusterRadarRequest, GetClusterRadarResponse, GetClusterResourcesRequest, GetClusterResourcesResponse, GetClusterStatsRequest, GetClusterStatsResponse } from "./stats_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
-import { ClusterNodesResponse, ClusterResourcesResponse } from "./stats_pb.js";
 
 /**
  * @generated from service stats.StatsService
@@ -19,8 +17,8 @@ export const StatsService = {
      */
     getClusterStats: {
       name: "GetClusterStats",
-      I: EmptyRequest,
-      O: ClusterStats,
+      I: GetClusterStatsRequest,
+      O: GetClusterStatsResponse,
       kind: MethodKind.Unary,
     },
     /**
@@ -28,8 +26,8 @@ export const StatsService = {
      */
     getClusterResources: {
       name: "GetClusterResources",
-      I: EmptyRequest,
-      O: ClusterResourcesResponse,
+      I: GetClusterResourcesRequest,
+      O: GetClusterResourcesResponse,
       kind: MethodKind.Unary,
     },
     /**
@@ -37,8 +35,8 @@ export const StatsService = {
      */
     getClusterNodes: {
       name: "GetClusterNodes",
-      I: EmptyRequest,
-      O: ClusterNodesResponse,
+      I: GetClusterNodesRequest,
+      O: GetClusterNodesResponse,
       kind: MethodKind.Unary,
     },
     /**
@@ -46,8 +44,8 @@ export const StatsService = {
      */
     getClusterRadar: {
       name: "GetClusterRadar",
-      I: EmptyRequest,
-      O: ClusterRadar,
+      I: GetClusterRadarRequest,
+      O: GetClusterRadarResponse,
       kind: MethodKind.Unary,
     },
   }

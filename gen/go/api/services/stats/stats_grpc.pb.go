@@ -8,8 +8,6 @@ package stats
 
 import (
 	context "context"
-	common "github.com/koor-tech/data-control-center/gen/go/api/resources/common"
-	stats "github.com/koor-tech/data-control-center/gen/go/api/resources/stats"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -31,10 +29,10 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type StatsServiceClient interface {
-	GetClusterStats(ctx context.Context, in *common.EmptyRequest, opts ...grpc.CallOption) (*stats.ClusterStats, error)
-	GetClusterResources(ctx context.Context, in *common.EmptyRequest, opts ...grpc.CallOption) (*ClusterResourcesResponse, error)
-	GetClusterNodes(ctx context.Context, in *common.EmptyRequest, opts ...grpc.CallOption) (*ClusterNodesResponse, error)
-	GetClusterRadar(ctx context.Context, in *common.EmptyRequest, opts ...grpc.CallOption) (*stats.ClusterRadar, error)
+	GetClusterStats(ctx context.Context, in *GetClusterStatsRequest, opts ...grpc.CallOption) (*GetClusterStatsResponse, error)
+	GetClusterResources(ctx context.Context, in *GetClusterResourcesRequest, opts ...grpc.CallOption) (*GetClusterResourcesResponse, error)
+	GetClusterNodes(ctx context.Context, in *GetClusterNodesRequest, opts ...grpc.CallOption) (*GetClusterNodesResponse, error)
+	GetClusterRadar(ctx context.Context, in *GetClusterRadarRequest, opts ...grpc.CallOption) (*GetClusterRadarResponse, error)
 }
 
 type statsServiceClient struct {
@@ -45,8 +43,8 @@ func NewStatsServiceClient(cc grpc.ClientConnInterface) StatsServiceClient {
 	return &statsServiceClient{cc}
 }
 
-func (c *statsServiceClient) GetClusterStats(ctx context.Context, in *common.EmptyRequest, opts ...grpc.CallOption) (*stats.ClusterStats, error) {
-	out := new(stats.ClusterStats)
+func (c *statsServiceClient) GetClusterStats(ctx context.Context, in *GetClusterStatsRequest, opts ...grpc.CallOption) (*GetClusterStatsResponse, error) {
+	out := new(GetClusterStatsResponse)
 	err := c.cc.Invoke(ctx, StatsService_GetClusterStats_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -54,8 +52,8 @@ func (c *statsServiceClient) GetClusterStats(ctx context.Context, in *common.Emp
 	return out, nil
 }
 
-func (c *statsServiceClient) GetClusterResources(ctx context.Context, in *common.EmptyRequest, opts ...grpc.CallOption) (*ClusterResourcesResponse, error) {
-	out := new(ClusterResourcesResponse)
+func (c *statsServiceClient) GetClusterResources(ctx context.Context, in *GetClusterResourcesRequest, opts ...grpc.CallOption) (*GetClusterResourcesResponse, error) {
+	out := new(GetClusterResourcesResponse)
 	err := c.cc.Invoke(ctx, StatsService_GetClusterResources_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -63,8 +61,8 @@ func (c *statsServiceClient) GetClusterResources(ctx context.Context, in *common
 	return out, nil
 }
 
-func (c *statsServiceClient) GetClusterNodes(ctx context.Context, in *common.EmptyRequest, opts ...grpc.CallOption) (*ClusterNodesResponse, error) {
-	out := new(ClusterNodesResponse)
+func (c *statsServiceClient) GetClusterNodes(ctx context.Context, in *GetClusterNodesRequest, opts ...grpc.CallOption) (*GetClusterNodesResponse, error) {
+	out := new(GetClusterNodesResponse)
 	err := c.cc.Invoke(ctx, StatsService_GetClusterNodes_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -72,8 +70,8 @@ func (c *statsServiceClient) GetClusterNodes(ctx context.Context, in *common.Emp
 	return out, nil
 }
 
-func (c *statsServiceClient) GetClusterRadar(ctx context.Context, in *common.EmptyRequest, opts ...grpc.CallOption) (*stats.ClusterRadar, error) {
-	out := new(stats.ClusterRadar)
+func (c *statsServiceClient) GetClusterRadar(ctx context.Context, in *GetClusterRadarRequest, opts ...grpc.CallOption) (*GetClusterRadarResponse, error) {
+	out := new(GetClusterRadarResponse)
 	err := c.cc.Invoke(ctx, StatsService_GetClusterRadar_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -85,26 +83,26 @@ func (c *statsServiceClient) GetClusterRadar(ctx context.Context, in *common.Emp
 // All implementations should embed UnimplementedStatsServiceServer
 // for forward compatibility
 type StatsServiceServer interface {
-	GetClusterStats(context.Context, *common.EmptyRequest) (*stats.ClusterStats, error)
-	GetClusterResources(context.Context, *common.EmptyRequest) (*ClusterResourcesResponse, error)
-	GetClusterNodes(context.Context, *common.EmptyRequest) (*ClusterNodesResponse, error)
-	GetClusterRadar(context.Context, *common.EmptyRequest) (*stats.ClusterRadar, error)
+	GetClusterStats(context.Context, *GetClusterStatsRequest) (*GetClusterStatsResponse, error)
+	GetClusterResources(context.Context, *GetClusterResourcesRequest) (*GetClusterResourcesResponse, error)
+	GetClusterNodes(context.Context, *GetClusterNodesRequest) (*GetClusterNodesResponse, error)
+	GetClusterRadar(context.Context, *GetClusterRadarRequest) (*GetClusterRadarResponse, error)
 }
 
 // UnimplementedStatsServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedStatsServiceServer struct {
 }
 
-func (UnimplementedStatsServiceServer) GetClusterStats(context.Context, *common.EmptyRequest) (*stats.ClusterStats, error) {
+func (UnimplementedStatsServiceServer) GetClusterStats(context.Context, *GetClusterStatsRequest) (*GetClusterStatsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetClusterStats not implemented")
 }
-func (UnimplementedStatsServiceServer) GetClusterResources(context.Context, *common.EmptyRequest) (*ClusterResourcesResponse, error) {
+func (UnimplementedStatsServiceServer) GetClusterResources(context.Context, *GetClusterResourcesRequest) (*GetClusterResourcesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetClusterResources not implemented")
 }
-func (UnimplementedStatsServiceServer) GetClusterNodes(context.Context, *common.EmptyRequest) (*ClusterNodesResponse, error) {
+func (UnimplementedStatsServiceServer) GetClusterNodes(context.Context, *GetClusterNodesRequest) (*GetClusterNodesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetClusterNodes not implemented")
 }
-func (UnimplementedStatsServiceServer) GetClusterRadar(context.Context, *common.EmptyRequest) (*stats.ClusterRadar, error) {
+func (UnimplementedStatsServiceServer) GetClusterRadar(context.Context, *GetClusterRadarRequest) (*GetClusterRadarResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetClusterRadar not implemented")
 }
 
@@ -120,7 +118,7 @@ func RegisterStatsServiceServer(s grpc.ServiceRegistrar, srv StatsServiceServer)
 }
 
 func _StatsService_GetClusterStats_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(common.EmptyRequest)
+	in := new(GetClusterStatsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -132,13 +130,13 @@ func _StatsService_GetClusterStats_Handler(srv interface{}, ctx context.Context,
 		FullMethod: StatsService_GetClusterStats_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StatsServiceServer).GetClusterStats(ctx, req.(*common.EmptyRequest))
+		return srv.(StatsServiceServer).GetClusterStats(ctx, req.(*GetClusterStatsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _StatsService_GetClusterResources_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(common.EmptyRequest)
+	in := new(GetClusterResourcesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -150,13 +148,13 @@ func _StatsService_GetClusterResources_Handler(srv interface{}, ctx context.Cont
 		FullMethod: StatsService_GetClusterResources_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StatsServiceServer).GetClusterResources(ctx, req.(*common.EmptyRequest))
+		return srv.(StatsServiceServer).GetClusterResources(ctx, req.(*GetClusterResourcesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _StatsService_GetClusterNodes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(common.EmptyRequest)
+	in := new(GetClusterNodesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -168,13 +166,13 @@ func _StatsService_GetClusterNodes_Handler(srv interface{}, ctx context.Context,
 		FullMethod: StatsService_GetClusterNodes_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StatsServiceServer).GetClusterNodes(ctx, req.(*common.EmptyRequest))
+		return srv.(StatsServiceServer).GetClusterNodes(ctx, req.(*GetClusterNodesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _StatsService_GetClusterRadar_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(common.EmptyRequest)
+	in := new(GetClusterRadarRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -186,7 +184,7 @@ func _StatsService_GetClusterRadar_Handler(srv interface{}, ctx context.Context,
 		FullMethod: StatsService_GetClusterRadar_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StatsServiceServer).GetClusterRadar(ctx, req.(*common.EmptyRequest))
+		return srv.(StatsServiceServer).GetClusterRadar(ctx, req.(*GetClusterRadarRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

@@ -3,10 +3,8 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { EmptyRequest } from "../../resources/common/response_pb.js";
-import { ClusterRadar, ClusterStats } from "../../resources/stats/stats_pb.js";
+import { GetClusterNodesRequest, GetClusterNodesResponse, GetClusterRadarRequest, GetClusterRadarResponse, GetClusterResourcesRequest, GetClusterResourcesResponse, GetClusterStatsRequest, GetClusterStatsResponse } from "./stats_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
-import { ClusterNodesResponse, ClusterResourcesResponse } from "./stats_pb.js";
 
 /**
  * @generated from service stats.StatsService
@@ -19,8 +17,8 @@ export declare const StatsService: {
      */
     readonly getClusterStats: {
       readonly name: "GetClusterStats",
-      readonly I: typeof EmptyRequest,
-      readonly O: typeof ClusterStats,
+      readonly I: typeof GetClusterStatsRequest,
+      readonly O: typeof GetClusterStatsResponse,
       readonly kind: MethodKind.Unary,
     },
     /**
@@ -28,8 +26,8 @@ export declare const StatsService: {
      */
     readonly getClusterResources: {
       readonly name: "GetClusterResources",
-      readonly I: typeof EmptyRequest,
-      readonly O: typeof ClusterResourcesResponse,
+      readonly I: typeof GetClusterResourcesRequest,
+      readonly O: typeof GetClusterResourcesResponse,
       readonly kind: MethodKind.Unary,
     },
     /**
@@ -37,8 +35,8 @@ export declare const StatsService: {
      */
     readonly getClusterNodes: {
       readonly name: "GetClusterNodes",
-      readonly I: typeof EmptyRequest,
-      readonly O: typeof ClusterNodesResponse,
+      readonly I: typeof GetClusterNodesRequest,
+      readonly O: typeof GetClusterNodesResponse,
       readonly kind: MethodKind.Unary,
     },
     /**
@@ -46,8 +44,8 @@ export declare const StatsService: {
      */
     readonly getClusterRadar: {
       readonly name: "GetClusterRadar",
-      readonly I: typeof EmptyRequest,
-      readonly O: typeof ClusterRadar,
+      readonly I: typeof GetClusterRadarRequest,
+      readonly O: typeof GetClusterRadarResponse,
       readonly kind: MethodKind.Unary,
     },
   }

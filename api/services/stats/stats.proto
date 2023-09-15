@@ -2,23 +2,38 @@ syntax = "proto3";
 
 package stats;
 
-import "api/resources/common/response.proto";
 import "api/resources/stats/stats.proto";
 
 option go_package = "github.com/koor-tech/data-control-center/gen/go/api/services/stats";
 
-message ClusterResourcesResponse {
+message GetClusterStatsRequest {}
+
+message GetClusterStatsResponse {
+  resources.stats.ClusterStats stats = 1;
+}
+
+message GetClusterResourcesRequest {}
+
+message GetClusterResourcesResponse {
   repeated resources.stats.ResourceInfo resources = 1;
   repeated resources.stats.ResourceInfo deployments = 2;
 }
 
-message ClusterNodesResponse {
+message GetClusterNodesRequest {}
+
+message GetClusterNodesResponse {
   repeated resources.stats.NodeInfo nodes = 1;
 }
 
+message GetClusterRadarRequest {}
+
+message GetClusterRadarResponse {
+  resources.stats.ClusterRadar radar = 1;
+}
+
 service StatsService {
-  rpc GetClusterStats(resources.common.EmptyRequest) returns (resources.stats.ClusterStats) {}
-  rpc GetClusterResources(resources.common.EmptyRequest) returns (ClusterResourcesResponse) {}
-  rpc GetClusterNodes(resources.common.EmptyRequest) returns (ClusterNodesResponse) {}
-  rpc GetClusterRadar(resources.common.EmptyRequest) returns (resources.stats.ClusterRadar) {}
+  rpc GetClusterStats(GetClusterStatsRequest) returns (GetClusterStatsResponse) {}
+  rpc GetClusterResources(GetClusterResourcesRequest) returns (GetClusterResourcesResponse) {}
+  rpc GetClusterNodes(GetClusterNodesRequest) returns (GetClusterNodesResponse) {}
+  rpc GetClusterRadar(GetClusterRadarRequest) returns (GetClusterRadarResponse) {}
 }

@@ -3,9 +3,6 @@
 
 ## Table of Contents
 
-- [api/resources/common/response.proto](#api_resources_common_response-proto)
-    - [EmptyRequest](#resources-common-EmptyRequest)
-  
 - [api/resources/stats/stats.proto](#api_resources_stats_stats-proto)
     - [ClusterRadar](#resources-stats-ClusterRadar)
     - [ClusterStats](#resources-stats-ClusterStats)
@@ -41,38 +38,18 @@
     - [AuthService](#services-auth-AuthService)
   
 - [api/services/stats/stats.proto](#api_services_stats_stats-proto)
-    - [ClusterNodesResponse](#stats-ClusterNodesResponse)
-    - [ClusterResourcesResponse](#stats-ClusterResourcesResponse)
+    - [GetClusterNodesRequest](#stats-GetClusterNodesRequest)
+    - [GetClusterNodesResponse](#stats-GetClusterNodesResponse)
+    - [GetClusterRadarRequest](#stats-GetClusterRadarRequest)
+    - [GetClusterRadarResponse](#stats-GetClusterRadarResponse)
+    - [GetClusterResourcesRequest](#stats-GetClusterResourcesRequest)
+    - [GetClusterResourcesResponse](#stats-GetClusterResourcesResponse)
+    - [GetClusterStatsRequest](#stats-GetClusterStatsRequest)
+    - [GetClusterStatsResponse](#stats-GetClusterStatsResponse)
   
     - [StatsService](#stats-StatsService)
   
 - [Scalar Value Types](#scalar-value-types)
-
-
-
-<a name="api_resources_common_response-proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## api/resources/common/response.proto
-
-
-
-<a name="resources-common-EmptyRequest"></a>
-
-### EmptyRequest
-
-
-
-
-
-
- 
-
- 
-
- 
-
- 
 
 
 
@@ -562,9 +539,19 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 
 
-<a name="stats-ClusterNodesResponse"></a>
+<a name="stats-GetClusterNodesRequest"></a>
 
-### ClusterNodesResponse
+### GetClusterNodesRequest
+
+
+
+
+
+
+
+<a name="stats-GetClusterNodesResponse"></a>
+
+### GetClusterNodesResponse
 
 
 
@@ -577,9 +564,44 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 
 
-<a name="stats-ClusterResourcesResponse"></a>
+<a name="stats-GetClusterRadarRequest"></a>
 
-### ClusterResourcesResponse
+### GetClusterRadarRequest
+
+
+
+
+
+
+
+<a name="stats-GetClusterRadarResponse"></a>
+
+### GetClusterRadarResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| radar | [resources.stats.ClusterRadar](#resources-stats-ClusterRadar) |  |  |
+
+
+
+
+
+
+<a name="stats-GetClusterResourcesRequest"></a>
+
+### GetClusterResourcesRequest
+
+
+
+
+
+
+
+<a name="stats-GetClusterResourcesResponse"></a>
+
+### GetClusterResourcesResponse
 
 
 
@@ -587,6 +609,31 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 | ----- | ---- | ----- | ----------- |
 | resources | [resources.stats.ResourceInfo](#resources-stats-ResourceInfo) | repeated |  |
 | deployments | [resources.stats.ResourceInfo](#resources-stats-ResourceInfo) | repeated |  |
+
+
+
+
+
+
+<a name="stats-GetClusterStatsRequest"></a>
+
+### GetClusterStatsRequest
+
+
+
+
+
+
+
+<a name="stats-GetClusterStatsResponse"></a>
+
+### GetClusterStatsResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| stats | [resources.stats.ClusterStats](#resources-stats-ClusterStats) |  |  |
 
 
 
@@ -606,10 +653,10 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| GetClusterStats | [.resources.common.EmptyRequest](#resources-common-EmptyRequest) | [.resources.stats.ClusterStats](#resources-stats-ClusterStats) |  |
-| GetClusterResources | [.resources.common.EmptyRequest](#resources-common-EmptyRequest) | [ClusterResourcesResponse](#stats-ClusterResourcesResponse) |  |
-| GetClusterNodes | [.resources.common.EmptyRequest](#resources-common-EmptyRequest) | [ClusterNodesResponse](#stats-ClusterNodesResponse) |  |
-| GetClusterRadar | [.resources.common.EmptyRequest](#resources-common-EmptyRequest) | [.resources.stats.ClusterRadar](#resources-stats-ClusterRadar) |  |
+| GetClusterStats | [GetClusterStatsRequest](#stats-GetClusterStatsRequest) | [GetClusterStatsResponse](#stats-GetClusterStatsResponse) |  |
+| GetClusterResources | [GetClusterResourcesRequest](#stats-GetClusterResourcesRequest) | [GetClusterResourcesResponse](#stats-GetClusterResourcesResponse) |  |
+| GetClusterNodes | [GetClusterNodesRequest](#stats-GetClusterNodesRequest) | [GetClusterNodesResponse](#stats-GetClusterNodesResponse) |  |
+| GetClusterRadar | [GetClusterRadarRequest](#stats-GetClusterRadarRequest) | [GetClusterRadarResponse](#stats-GetClusterRadarResponse) |  |
 
  
 

@@ -8,9 +8,7 @@ import (
 	connect "connectrpc.com/connect"
 	context "context"
 	errors "errors"
-	common "github.com/koor-tech/data-control-center/gen/go/api/resources/common"
-	stats "github.com/koor-tech/data-control-center/gen/go/api/resources/stats"
-	stats1 "github.com/koor-tech/data-control-center/gen/go/api/services/stats"
+	stats "github.com/koor-tech/data-control-center/gen/go/api/services/stats"
 	http "net/http"
 	strings "strings"
 )
@@ -51,10 +49,10 @@ const (
 
 // StatsServiceClient is a client for the stats.StatsService service.
 type StatsServiceClient interface {
-	GetClusterStats(context.Context, *connect.Request[common.EmptyRequest]) (*connect.Response[stats.ClusterStats], error)
-	GetClusterResources(context.Context, *connect.Request[common.EmptyRequest]) (*connect.Response[stats1.ClusterResourcesResponse], error)
-	GetClusterNodes(context.Context, *connect.Request[common.EmptyRequest]) (*connect.Response[stats1.ClusterNodesResponse], error)
-	GetClusterRadar(context.Context, *connect.Request[common.EmptyRequest]) (*connect.Response[stats.ClusterRadar], error)
+	GetClusterStats(context.Context, *connect.Request[stats.GetClusterStatsRequest]) (*connect.Response[stats.GetClusterStatsResponse], error)
+	GetClusterResources(context.Context, *connect.Request[stats.GetClusterResourcesRequest]) (*connect.Response[stats.GetClusterResourcesResponse], error)
+	GetClusterNodes(context.Context, *connect.Request[stats.GetClusterNodesRequest]) (*connect.Response[stats.GetClusterNodesResponse], error)
+	GetClusterRadar(context.Context, *connect.Request[stats.GetClusterRadarRequest]) (*connect.Response[stats.GetClusterRadarResponse], error)
 }
 
 // NewStatsServiceClient constructs a client for the stats.StatsService service. By default, it uses
@@ -67,22 +65,22 @@ type StatsServiceClient interface {
 func NewStatsServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...connect.ClientOption) StatsServiceClient {
 	baseURL = strings.TrimRight(baseURL, "/")
 	return &statsServiceClient{
-		getClusterStats: connect.NewClient[common.EmptyRequest, stats.ClusterStats](
+		getClusterStats: connect.NewClient[stats.GetClusterStatsRequest, stats.GetClusterStatsResponse](
 			httpClient,
 			baseURL+StatsServiceGetClusterStatsProcedure,
 			opts...,
 		),
-		getClusterResources: connect.NewClient[common.EmptyRequest, stats1.ClusterResourcesResponse](
+		getClusterResources: connect.NewClient[stats.GetClusterResourcesRequest, stats.GetClusterResourcesResponse](
 			httpClient,
 			baseURL+StatsServiceGetClusterResourcesProcedure,
 			opts...,
 		),
-		getClusterNodes: connect.NewClient[common.EmptyRequest, stats1.ClusterNodesResponse](
+		getClusterNodes: connect.NewClient[stats.GetClusterNodesRequest, stats.GetClusterNodesResponse](
 			httpClient,
 			baseURL+StatsServiceGetClusterNodesProcedure,
 			opts...,
 		),
-		getClusterRadar: connect.NewClient[common.EmptyRequest, stats.ClusterRadar](
+		getClusterRadar: connect.NewClient[stats.GetClusterRadarRequest, stats.GetClusterRadarResponse](
 			httpClient,
 			baseURL+StatsServiceGetClusterRadarProcedure,
 			opts...,
@@ -92,38 +90,38 @@ func NewStatsServiceClient(httpClient connect.HTTPClient, baseURL string, opts .
 
 // statsServiceClient implements StatsServiceClient.
 type statsServiceClient struct {
-	getClusterStats     *connect.Client[common.EmptyRequest, stats.ClusterStats]
-	getClusterResources *connect.Client[common.EmptyRequest, stats1.ClusterResourcesResponse]
-	getClusterNodes     *connect.Client[common.EmptyRequest, stats1.ClusterNodesResponse]
-	getClusterRadar     *connect.Client[common.EmptyRequest, stats.ClusterRadar]
+	getClusterStats     *connect.Client[stats.GetClusterStatsRequest, stats.GetClusterStatsResponse]
+	getClusterResources *connect.Client[stats.GetClusterResourcesRequest, stats.GetClusterResourcesResponse]
+	getClusterNodes     *connect.Client[stats.GetClusterNodesRequest, stats.GetClusterNodesResponse]
+	getClusterRadar     *connect.Client[stats.GetClusterRadarRequest, stats.GetClusterRadarResponse]
 }
 
 // GetClusterStats calls stats.StatsService.GetClusterStats.
-func (c *statsServiceClient) GetClusterStats(ctx context.Context, req *connect.Request[common.EmptyRequest]) (*connect.Response[stats.ClusterStats], error) {
+func (c *statsServiceClient) GetClusterStats(ctx context.Context, req *connect.Request[stats.GetClusterStatsRequest]) (*connect.Response[stats.GetClusterStatsResponse], error) {
 	return c.getClusterStats.CallUnary(ctx, req)
 }
 
 // GetClusterResources calls stats.StatsService.GetClusterResources.
-func (c *statsServiceClient) GetClusterResources(ctx context.Context, req *connect.Request[common.EmptyRequest]) (*connect.Response[stats1.ClusterResourcesResponse], error) {
+func (c *statsServiceClient) GetClusterResources(ctx context.Context, req *connect.Request[stats.GetClusterResourcesRequest]) (*connect.Response[stats.GetClusterResourcesResponse], error) {
 	return c.getClusterResources.CallUnary(ctx, req)
 }
 
 // GetClusterNodes calls stats.StatsService.GetClusterNodes.
-func (c *statsServiceClient) GetClusterNodes(ctx context.Context, req *connect.Request[common.EmptyRequest]) (*connect.Response[stats1.ClusterNodesResponse], error) {
+func (c *statsServiceClient) GetClusterNodes(ctx context.Context, req *connect.Request[stats.GetClusterNodesRequest]) (*connect.Response[stats.GetClusterNodesResponse], error) {
 	return c.getClusterNodes.CallUnary(ctx, req)
 }
 
 // GetClusterRadar calls stats.StatsService.GetClusterRadar.
-func (c *statsServiceClient) GetClusterRadar(ctx context.Context, req *connect.Request[common.EmptyRequest]) (*connect.Response[stats.ClusterRadar], error) {
+func (c *statsServiceClient) GetClusterRadar(ctx context.Context, req *connect.Request[stats.GetClusterRadarRequest]) (*connect.Response[stats.GetClusterRadarResponse], error) {
 	return c.getClusterRadar.CallUnary(ctx, req)
 }
 
 // StatsServiceHandler is an implementation of the stats.StatsService service.
 type StatsServiceHandler interface {
-	GetClusterStats(context.Context, *connect.Request[common.EmptyRequest]) (*connect.Response[stats.ClusterStats], error)
-	GetClusterResources(context.Context, *connect.Request[common.EmptyRequest]) (*connect.Response[stats1.ClusterResourcesResponse], error)
-	GetClusterNodes(context.Context, *connect.Request[common.EmptyRequest]) (*connect.Response[stats1.ClusterNodesResponse], error)
-	GetClusterRadar(context.Context, *connect.Request[common.EmptyRequest]) (*connect.Response[stats.ClusterRadar], error)
+	GetClusterStats(context.Context, *connect.Request[stats.GetClusterStatsRequest]) (*connect.Response[stats.GetClusterStatsResponse], error)
+	GetClusterResources(context.Context, *connect.Request[stats.GetClusterResourcesRequest]) (*connect.Response[stats.GetClusterResourcesResponse], error)
+	GetClusterNodes(context.Context, *connect.Request[stats.GetClusterNodesRequest]) (*connect.Response[stats.GetClusterNodesResponse], error)
+	GetClusterRadar(context.Context, *connect.Request[stats.GetClusterRadarRequest]) (*connect.Response[stats.GetClusterRadarResponse], error)
 }
 
 // NewStatsServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -171,18 +169,18 @@ func NewStatsServiceHandler(svc StatsServiceHandler, opts ...connect.HandlerOpti
 // UnimplementedStatsServiceHandler returns CodeUnimplemented from all methods.
 type UnimplementedStatsServiceHandler struct{}
 
-func (UnimplementedStatsServiceHandler) GetClusterStats(context.Context, *connect.Request[common.EmptyRequest]) (*connect.Response[stats.ClusterStats], error) {
+func (UnimplementedStatsServiceHandler) GetClusterStats(context.Context, *connect.Request[stats.GetClusterStatsRequest]) (*connect.Response[stats.GetClusterStatsResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("stats.StatsService.GetClusterStats is not implemented"))
 }
 
-func (UnimplementedStatsServiceHandler) GetClusterResources(context.Context, *connect.Request[common.EmptyRequest]) (*connect.Response[stats1.ClusterResourcesResponse], error) {
+func (UnimplementedStatsServiceHandler) GetClusterResources(context.Context, *connect.Request[stats.GetClusterResourcesRequest]) (*connect.Response[stats.GetClusterResourcesResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("stats.StatsService.GetClusterResources is not implemented"))
 }
 
-func (UnimplementedStatsServiceHandler) GetClusterNodes(context.Context, *connect.Request[common.EmptyRequest]) (*connect.Response[stats1.ClusterNodesResponse], error) {
+func (UnimplementedStatsServiceHandler) GetClusterNodes(context.Context, *connect.Request[stats.GetClusterNodesRequest]) (*connect.Response[stats.GetClusterNodesResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("stats.StatsService.GetClusterNodes is not implemented"))
 }
 
-func (UnimplementedStatsServiceHandler) GetClusterRadar(context.Context, *connect.Request[common.EmptyRequest]) (*connect.Response[stats.ClusterRadar], error) {
+func (UnimplementedStatsServiceHandler) GetClusterRadar(context.Context, *connect.Request[stats.GetClusterRadarRequest]) (*connect.Response[stats.GetClusterRadarResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("stats.StatsService.GetClusterRadar is not implemented"))
 }

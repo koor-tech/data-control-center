@@ -5,12 +5,74 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3 } from "@bufbuild/protobuf";
-import type { NodeInfo, ResourceInfo } from "../../resources/stats/stats_pb.js";
+import type { ClusterRadar, ClusterStats, NodeInfo, ResourceInfo } from "../../resources/stats/stats_pb.js";
 
 /**
- * @generated from message stats.ClusterResourcesResponse
+ * @generated from message stats.GetClusterStatsRequest
  */
-export declare class ClusterResourcesResponse extends Message<ClusterResourcesResponse> {
+export declare class GetClusterStatsRequest extends Message<GetClusterStatsRequest> {
+  constructor(data?: PartialMessage<GetClusterStatsRequest>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "stats.GetClusterStatsRequest";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetClusterStatsRequest;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetClusterStatsRequest;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetClusterStatsRequest;
+
+  static equals(a: GetClusterStatsRequest | PlainMessage<GetClusterStatsRequest> | undefined, b: GetClusterStatsRequest | PlainMessage<GetClusterStatsRequest> | undefined): boolean;
+}
+
+/**
+ * @generated from message stats.GetClusterStatsResponse
+ */
+export declare class GetClusterStatsResponse extends Message<GetClusterStatsResponse> {
+  /**
+   * @generated from field: resources.stats.ClusterStats stats = 1;
+   */
+  stats?: ClusterStats;
+
+  constructor(data?: PartialMessage<GetClusterStatsResponse>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "stats.GetClusterStatsResponse";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetClusterStatsResponse;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetClusterStatsResponse;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetClusterStatsResponse;
+
+  static equals(a: GetClusterStatsResponse | PlainMessage<GetClusterStatsResponse> | undefined, b: GetClusterStatsResponse | PlainMessage<GetClusterStatsResponse> | undefined): boolean;
+}
+
+/**
+ * @generated from message stats.GetClusterResourcesRequest
+ */
+export declare class GetClusterResourcesRequest extends Message<GetClusterResourcesRequest> {
+  constructor(data?: PartialMessage<GetClusterResourcesRequest>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "stats.GetClusterResourcesRequest";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetClusterResourcesRequest;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetClusterResourcesRequest;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetClusterResourcesRequest;
+
+  static equals(a: GetClusterResourcesRequest | PlainMessage<GetClusterResourcesRequest> | undefined, b: GetClusterResourcesRequest | PlainMessage<GetClusterResourcesRequest> | undefined): boolean;
+}
+
+/**
+ * @generated from message stats.GetClusterResourcesResponse
+ */
+export declare class GetClusterResourcesResponse extends Message<GetClusterResourcesResponse> {
   /**
    * @generated from field: repeated resources.stats.ResourceInfo resources = 1;
    */
@@ -21,42 +83,104 @@ export declare class ClusterResourcesResponse extends Message<ClusterResourcesRe
    */
   deployments: ResourceInfo[];
 
-  constructor(data?: PartialMessage<ClusterResourcesResponse>);
+  constructor(data?: PartialMessage<GetClusterResourcesResponse>);
 
   static readonly runtime: typeof proto3;
-  static readonly typeName = "stats.ClusterResourcesResponse";
+  static readonly typeName = "stats.GetClusterResourcesResponse";
   static readonly fields: FieldList;
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ClusterResourcesResponse;
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetClusterResourcesResponse;
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ClusterResourcesResponse;
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetClusterResourcesResponse;
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ClusterResourcesResponse;
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetClusterResourcesResponse;
 
-  static equals(a: ClusterResourcesResponse | PlainMessage<ClusterResourcesResponse> | undefined, b: ClusterResourcesResponse | PlainMessage<ClusterResourcesResponse> | undefined): boolean;
+  static equals(a: GetClusterResourcesResponse | PlainMessage<GetClusterResourcesResponse> | undefined, b: GetClusterResourcesResponse | PlainMessage<GetClusterResourcesResponse> | undefined): boolean;
 }
 
 /**
- * @generated from message stats.ClusterNodesResponse
+ * @generated from message stats.GetClusterNodesRequest
  */
-export declare class ClusterNodesResponse extends Message<ClusterNodesResponse> {
+export declare class GetClusterNodesRequest extends Message<GetClusterNodesRequest> {
+  constructor(data?: PartialMessage<GetClusterNodesRequest>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "stats.GetClusterNodesRequest";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetClusterNodesRequest;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetClusterNodesRequest;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetClusterNodesRequest;
+
+  static equals(a: GetClusterNodesRequest | PlainMessage<GetClusterNodesRequest> | undefined, b: GetClusterNodesRequest | PlainMessage<GetClusterNodesRequest> | undefined): boolean;
+}
+
+/**
+ * @generated from message stats.GetClusterNodesResponse
+ */
+export declare class GetClusterNodesResponse extends Message<GetClusterNodesResponse> {
   /**
    * @generated from field: repeated resources.stats.NodeInfo nodes = 1;
    */
   nodes: NodeInfo[];
 
-  constructor(data?: PartialMessage<ClusterNodesResponse>);
+  constructor(data?: PartialMessage<GetClusterNodesResponse>);
 
   static readonly runtime: typeof proto3;
-  static readonly typeName = "stats.ClusterNodesResponse";
+  static readonly typeName = "stats.GetClusterNodesResponse";
   static readonly fields: FieldList;
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ClusterNodesResponse;
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetClusterNodesResponse;
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ClusterNodesResponse;
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetClusterNodesResponse;
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ClusterNodesResponse;
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetClusterNodesResponse;
 
-  static equals(a: ClusterNodesResponse | PlainMessage<ClusterNodesResponse> | undefined, b: ClusterNodesResponse | PlainMessage<ClusterNodesResponse> | undefined): boolean;
+  static equals(a: GetClusterNodesResponse | PlainMessage<GetClusterNodesResponse> | undefined, b: GetClusterNodesResponse | PlainMessage<GetClusterNodesResponse> | undefined): boolean;
+}
+
+/**
+ * @generated from message stats.GetClusterRadarRequest
+ */
+export declare class GetClusterRadarRequest extends Message<GetClusterRadarRequest> {
+  constructor(data?: PartialMessage<GetClusterRadarRequest>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "stats.GetClusterRadarRequest";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetClusterRadarRequest;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetClusterRadarRequest;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetClusterRadarRequest;
+
+  static equals(a: GetClusterRadarRequest | PlainMessage<GetClusterRadarRequest> | undefined, b: GetClusterRadarRequest | PlainMessage<GetClusterRadarRequest> | undefined): boolean;
+}
+
+/**
+ * @generated from message stats.GetClusterRadarResponse
+ */
+export declare class GetClusterRadarResponse extends Message<GetClusterRadarResponse> {
+  /**
+   * @generated from field: resources.stats.ClusterRadar radar = 1;
+   */
+  radar?: ClusterRadar;
+
+  constructor(data?: PartialMessage<GetClusterRadarResponse>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "stats.GetClusterRadarResponse";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetClusterRadarResponse;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetClusterRadarResponse;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetClusterRadarResponse;
+
+  static equals(a: GetClusterRadarResponse | PlainMessage<GetClusterRadarResponse> | undefined, b: GetClusterRadarResponse | PlainMessage<GetClusterRadarResponse> | undefined): boolean;
 }
 

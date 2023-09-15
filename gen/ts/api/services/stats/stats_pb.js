@@ -4,13 +4,39 @@
 // @ts-nocheck
 
 import { proto3 } from "@bufbuild/protobuf";
-import { NodeInfo, ResourceInfo } from "../../resources/stats/stats_pb.js";
+import { ClusterRadar, ClusterStats, NodeInfo, ResourceInfo } from "../../resources/stats/stats_pb.js";
 
 /**
- * @generated from message stats.ClusterResourcesResponse
+ * @generated from message stats.GetClusterStatsRequest
  */
-export const ClusterResourcesResponse = proto3.makeMessageType(
-  "stats.ClusterResourcesResponse",
+export const GetClusterStatsRequest = proto3.makeMessageType(
+  "stats.GetClusterStatsRequest",
+  [],
+);
+
+/**
+ * @generated from message stats.GetClusterStatsResponse
+ */
+export const GetClusterStatsResponse = proto3.makeMessageType(
+  "stats.GetClusterStatsResponse",
+  () => [
+    { no: 1, name: "stats", kind: "message", T: ClusterStats },
+  ],
+);
+
+/**
+ * @generated from message stats.GetClusterResourcesRequest
+ */
+export const GetClusterResourcesRequest = proto3.makeMessageType(
+  "stats.GetClusterResourcesRequest",
+  [],
+);
+
+/**
+ * @generated from message stats.GetClusterResourcesResponse
+ */
+export const GetClusterResourcesResponse = proto3.makeMessageType(
+  "stats.GetClusterResourcesResponse",
   () => [
     { no: 1, name: "resources", kind: "message", T: ResourceInfo, repeated: true },
     { no: 2, name: "deployments", kind: "message", T: ResourceInfo, repeated: true },
@@ -18,12 +44,38 @@ export const ClusterResourcesResponse = proto3.makeMessageType(
 );
 
 /**
- * @generated from message stats.ClusterNodesResponse
+ * @generated from message stats.GetClusterNodesRequest
  */
-export const ClusterNodesResponse = proto3.makeMessageType(
-  "stats.ClusterNodesResponse",
+export const GetClusterNodesRequest = proto3.makeMessageType(
+  "stats.GetClusterNodesRequest",
+  [],
+);
+
+/**
+ * @generated from message stats.GetClusterNodesResponse
+ */
+export const GetClusterNodesResponse = proto3.makeMessageType(
+  "stats.GetClusterNodesResponse",
   () => [
     { no: 1, name: "nodes", kind: "message", T: NodeInfo, repeated: true },
+  ],
+);
+
+/**
+ * @generated from message stats.GetClusterRadarRequest
+ */
+export const GetClusterRadarRequest = proto3.makeMessageType(
+  "stats.GetClusterRadarRequest",
+  [],
+);
+
+/**
+ * @generated from message stats.GetClusterRadarResponse
+ */
+export const GetClusterRadarResponse = proto3.makeMessageType(
+  "stats.GetClusterRadarResponse",
+  () => [
+    { no: 1, name: "radar", kind: "message", T: ClusterRadar },
   ],
 );
 
