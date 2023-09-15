@@ -1,7 +1,5 @@
 import fs from 'fs';
 import { defineNuxtConfig } from 'nuxt/config';
-import path from 'path';
-import mkcert from 'vite-plugin-mkcert';
 
 type PackageJson = {
     version: string;
@@ -74,16 +72,15 @@ const config = defineNuxtConfig({
         },
         server: {
             hmr: {
-                protocol: 'wss',
+                protocol: 'ws',
             },
-            https: true,
+            https: false,
             proxy: {
                 '/api': {
                     target: 'http://localhost:8282',
                 },
             },
         },
-        plugins: [mkcert()],
     },
     css: [
         // Inter font (all weights)
@@ -133,13 +130,5 @@ const config = defineNuxtConfig({
         polyfillVueUseHead: false,
     },
 });
-
-if (process.env.NODE_ENV !== 'production') {
-    config.devServer!.https = {
-        // Use vite-mkcert-plugin's cert + key for localhost
-        key: path.resolve(process.env.HOME!, '.vite-plugin-mkcert', 'dev.pem'),
-        cert: path.resolve(process.env.HOME!, '.vite-plugin-mkcert', 'cert.pem'),
-    };
-}
 
 export default config;
