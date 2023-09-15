@@ -2,6 +2,7 @@ package k8s
 
 import (
 	"context"
+	"errors"
 	"os"
 	"path"
 
@@ -11,6 +12,7 @@ import (
 	"go.uber.org/fx"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
+	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 )
 
@@ -28,22 +30,30 @@ type K8s struct {
 }
 
 func New(cfg *config.Config) (*K8s, error) {
-	kubeconfig := os.Getenv("KUBECONFIG")
-	if cfg.Kubernetes.Kubeconfig != "" {
-		kubeconfig = cfg.Kubernetes.Kubeconfig
-	}
-	if kubeconfig == "" {
-		home, err := os.UserHomeDir()
+	// First try the in cluster config
+	config, err := rest.InClusterConfig()
+	if err != nil {
+		if !errors.Is(err, rest.ErrNotInCluster) {
+			return nil, err
+		}
+
+		// Kubeconfig env var -> config -> home dir .kube/config
+		kubeconfig := os.Getenv("KUBECONFIG")
+		if cfg.Kubernetes.Kubeconfig != "" {
+			kubeconfig = cfg.Kubernetes.Kubeconfig
+		}
+		if kubeconfig == "" {
+			home, err := os.UserHomeDir()
+			if err != nil {
+				return nil, err
+			}
+			kubeconfig = path.Join(home, ".kube/config")
+		}
+
+		config, err = clientcmd.BuildConfigFromFlags("", kubeconfig)
 		if err != nil {
 			return nil, err
 		}
-		kubeconfig = path.Join(home, ".kube/config")
-	}
-
-	// Use the current context from the provided kubeconfig
-	config, err := clientcmd.BuildConfigFromFlags("", kubeconfig)
-	if err != nil {
-		return nil, err
 	}
 
 	// Create the clientset
