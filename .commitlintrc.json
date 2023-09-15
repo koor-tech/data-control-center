@@ -15,7 +15,13 @@
                 "refactor",
                 "revert",
                 "style",
-                "test"
+                "test",
+                "k8s",
+                "helm",
+                "stats",
+                "auth",
+                "api",
+                "internal"
             ]
         ]
     }

@@ -9,4 +9,4 @@ title: "Auth"
 
 ## Security Aspects
 
-* For the beginning we'll simply use short lived JWT tokens, in the future as we further explore the buf connect protocol.
+* For the beginning we'll simply use short lived JWT tokens, in the future this might change to utilizing cookies/sessions as we further explore the buf connect protocol.

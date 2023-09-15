@@ -2,9 +2,6 @@ package k8s
 
 import (
 	"context"
-	"errors"
-	"os"
-	"path"
 
 	"github.com/koor-tech/data-control-center/gen/go/api/resources/stats"
 	"github.com/koor-tech/data-control-center/pkg/config"
@@ -12,8 +9,7 @@ import (
 	"go.uber.org/fx"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
-	"k8s.io/client-go/rest"
-	"k8s.io/client-go/tools/clientcmd"
+	cruntimeconfig "sigs.k8s.io/controller-runtime/pkg/client/config"
 )
 
 var Module = fx.Module("k8s",
@@ -30,30 +26,17 @@ type K8s struct {
 }
 
 func New(cfg *config.Config) (*K8s, error) {
-	// First try the in cluster config
-	config, err := rest.InClusterConfig()
+	// Copied from the `GetConfig()` method docs
+	//
+	// > Config precedence:
+	// >
+	// > * --kubeconfig flag pointing at a file
+	// > * KUBECONFIG environment variable pointing at a file
+	// > * In-cluster config if running in cluster
+	// > * $HOME/.kube/config if exists.
+	config, err := cruntimeconfig.GetConfig()
 	if err != nil {
-		if !errors.Is(err, rest.ErrNotInCluster) {
-			return nil, err
-		}
-
-		// Kubeconfig env var -> config -> home dir .kube/config
-		kubeconfig := os.Getenv("KUBECONFIG")
-		if cfg.Kubernetes.Kubeconfig != "" {
-			kubeconfig = cfg.Kubernetes.Kubeconfig
-		}
-		if kubeconfig == "" {
-			home, err := os.UserHomeDir()
-			if err != nil {
-				return nil, err
-			}
-			kubeconfig = path.Join(home, ".kube/config")
-		}
-
-		config, err = clientcmd.BuildConfigFromFlags("", kubeconfig)
-		if err != nil {
-			return nil, err
-		}
+		return nil, err
 	}
 
 	// Create the clientset
@@ -124,7 +107,7 @@ func (k *K8s) GetCephResources(ctx context.Context, namespace string) ([]*stats.
 		})
 	}
 
-	// TODO iterate over the important ceph cluster resources
+	// TODO iterate over all the important ceph cluster resources (e.g., CephCluster, CephStorageBlockPool)
 
 	return res, nil
 }

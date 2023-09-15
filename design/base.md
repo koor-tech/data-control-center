@@ -22,8 +22,8 @@ title: "Flow"
 flowchart LR
     User --> GRPC
     User --> HTTP
-    GRPC --> EnvoyProxy
-    EnvoyProxy --> Backend
+    GRPC --> BufConnect
+    BufConnect --> Backend
     HTTP --> Backend
     Backend --- Kubernetes
     Backend --- CephCluster["Ceph Cluster"]
@@ -47,7 +47,7 @@ flowchart LR
 ### Dashboard
 
 * Cluster Radar
-* Key Indicators.
+* Key Indicators
 * Overview over Storage Nodes
 * Pod Status
 

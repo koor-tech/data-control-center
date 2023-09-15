@@ -56,12 +56,11 @@ type Config struct {
 	LogLevel string `default:"DEBUG" yaml:"logLevel"`
 	Mode     string `default:"debug" yaml:"mode"`
 
-	HTTP       HTTP       `yaml:"http"`
-	JWT        JWT        `yaml:"jwt"`
-	OAuth2     OAuth2     `yaml:"oauth2"`
-	Users      []*User    `yaml:"users"`
-	Ceph       Ceph       `yaml:"ceph"`
-	Kubernetes Kubernetes `yaml:"kubernetes"`
+	HTTP   HTTP    `yaml:"http"`
+	JWT    JWT     `yaml:"jwt"`
+	OAuth2 OAuth2  `yaml:"oauth2"`
+	Users  []*User `yaml:"users"`
+	Ceph   Ceph    `yaml:"ceph"`
 }
 
 type HTTP struct {
@@ -127,8 +126,4 @@ type API struct {
 	Username    string `yaml:"username"`
 	Password    string `yaml:"password"`
 	InsecureSSL bool   `yaml:"insecureSSL"`
-}
-
-type Kubernetes struct {
-	Kubeconfig string `yaml:"kubeconfig"`
 }

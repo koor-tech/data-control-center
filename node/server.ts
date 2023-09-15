@@ -26,6 +26,7 @@ async function main() {
     server.post('/api/auth', (_, reply) => {
         reply.type('application/json');
         reply.type('application/vnd.ceph.api.v1.0+json');
+        reply.code(201);
 
         const responseObject = {
             token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjZXBoLWRhc2hib2FyZCIsImp0aSI6IjI4ZjI1NDk2LTQ1NzktNGQyNC1iOGRlLWNmYjlmNzY0ZGZiNSIsImV4cCI6MTY5MzQ4MDMzNiwiaWF0IjoxNjkzNDUxNTM2LCJ1c2VybmFtZSI6ImFkbWluIn0.7HzGXjhvAqhxXkpPd3TbGbTE-lAxSNavSJD7iJyV6dk"',

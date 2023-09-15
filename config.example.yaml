@@ -30,5 +30,3 @@ oauth2:
         tokenURL: 'https://keycloak.example.com/auth/realms/yourrealm/protocol/openid-connect/token'
         userInfoURL: 'https://keycloak.example.com/auth/realms/yourrealm/protocol/openid-connect/userinfo'
 users: []
-kubernetes:
-  kubeconfig: ""
