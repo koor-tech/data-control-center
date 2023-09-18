@@ -14,7 +14,7 @@ COPY . .
 RUN  go mod download && \
   go build -o /data-control-center .
 
-FROM quay.io/ceph/ceph:v17.2.6-20230826
+FROM quay.io/ceph/ceph:v18.2.0-20230826
 
 COPY --from=builder /data-control-center /data-control-center
 
