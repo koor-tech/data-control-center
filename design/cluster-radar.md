@@ -6,7 +6,7 @@ title: "Cluster Radar"
 
 A simple way to have a balanced view on the cluster state and its data. Each indicator will be calculated into a percentage from 0% to 100%.
 
-![Cluster Radar design example](../public/images/cluster-radar.png)
+![Cluster Radar design example](cluster-radar.png)
 
 ## Key Indicators
 
