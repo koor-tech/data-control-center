@@ -12,7 +12,7 @@ require (
 	github.com/gin-contrib/zap v0.1.0
 	github.com/gin-gonic/gin v1.9.1
 	github.com/golang-jwt/jwt/v5 v5.0.0
-	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.0-rc.5
+	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.0
 	github.com/json-iterator/go v1.1.12
 	github.com/prometheus/client_golang v1.16.0
 	github.com/rook/rook/pkg/apis v0.0.0-20230822134130-9803bd5aa7b5
