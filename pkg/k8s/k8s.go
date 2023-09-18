@@ -70,7 +70,8 @@ func (k *K8s) GetClusterDeployments(ctx context.Context, namespace string) ([]*s
 		}
 
 		res = append(res, &stats.ResourceInfo{
-			Apiversion: "apps/v1", // TODO that's not cool but deployment.APIVersion doesn't return that info ...
+			// Why do we set it manually? https://github.com/kubernetes/client-go/issues/541
+			Apiversion: "apps/v1",
 			Kind:       "Deployment",
 			Namespace:  deployment.Namespace,
 			Name:       deployment.Name,
@@ -107,7 +108,7 @@ func (k *K8s) GetCephResources(ctx context.Context, namespace string) ([]*stats.
 		})
 	}
 
-	// TODO iterate over all the important ceph cluster resources (e.g., CephCluster, CephStorageBlockPool)
+	// TODO iterate over all the important ceph cluster resources (e.g., CephCluster, CephStorageBlockPool, CephFilesystems, CephObjectStores)
 
 	return res, nil
 }

@@ -217,6 +217,7 @@ func (s *Server) GetClusterResources(ctx context.Context, req *connect.Request[s
 	}, nil
 }
 
+// Iterate over every Ceph cluster Pod (not CSI Pods) to collect the nodes used for the storage cluster
 func (s *Server) GetClusterNodes(ctx context.Context, req *connect.Request[statspb.GetClusterNodesRequest]) (*connect.Response[statspb.GetClusterNodesResponse], error) {
 
 	// TODO
