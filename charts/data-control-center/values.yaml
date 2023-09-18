@@ -47,7 +47,7 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 80
+  port: 8282
 
 ingress:
   enabled: false
@@ -93,18 +93,49 @@ affinity: {}
 # -- Will be put in a Secret and used as env vars
 additionalEnv: {}
 
-dashboard:
-  username: null
-  password: null
-
 postInstallJob:
-  # -- If enabled,  will create a Ceph dashboard user `data-control-center` either
-  # on Rook/Ceph cluster pre upgrade(when having extended-ceph-exporter as a helm
-  # dependency) or on post install of extended-ceph-exporter(needs existing
-  # Rook/Ceph cluster). This user will be used for extended ceph metrics.
+  # -- If enabled,  will create a Ceph dashboard admin user `data-control-center`
+  # either on Rook/Ceph cluster pre upgrade(when having data-control-center as
+  # a helm dependency) or on post install of data-control-center (needs existing
+  # Rook/Ceph cluster). This user will be used for retrieving cluster info and
+  # stats.
   enabled: true
   # @ignore
   image:
     repository: quay.io/ceph/ceph
     pullPolicy: IfNotPresent
     tag: v17.2.6
+
+config:
+  logLevel: 'INFO'
+  # debug or release
+  mode: 'release'
+  http:
+    listen: ':8282'
+    sessions:
+      cookieSecret: 'your_generated_cookie_secret'
+      domain: 'localhost'
+  jwt:
+    secret: 'your_generated_jwt_secret'
+  ceph:
+    api:
+      url: 'https://rook-ceph-mgr-dashboard:8443/api'
+      username: 'data-control-center'
+      password: 'data-control-center'
+      insecureSSL: true
+  oauth2:
+    providers: []
+      #- name: 'keycloak'
+      #  label: 'Keycloak'
+      #  homepage: 'https://keycloak.example.com'
+      #  type: 'generic'
+      #  redirectURL: 'https://localhost:3000/api/oauth2/callback/keycloak'
+      #  clientID: 'your_keycloak_oauth2_client_id'
+      #  clientSecret: 'your_keycloak_oauth2_client_secret'
+      #  scopes:
+      #    - openid
+      #  endpoints:
+      #    authURL: 'https://keycloak.example.com/auth/realms/yourrealm/protocol/openid-connect/auth'
+      #    tokenURL: 'https://keycloak.example.com/auth/realms/yourrealm/protocol/openid-connect/token'
+      #    userInfoURL: 'https://keycloak.example.com/auth/realms/yourrealm/protocol/openid-connect/userinfo'
+  users: []
