@@ -3,7 +3,24 @@ BUF ?= buf
 VALIDATE_VERSION ?= v1.0.2
 BUILD_DIR := .build/
 
-.DEFAULT: gen-proto
+.DEFAULT: run-server
+
+# Build, Format, etc., Tools, Dependency checkouts
+
+buf:
+ifeq (, $(shell which buf))
+	go install github.com/bufbuild/buf/cmd/buf@v1.26.1
+endif
+
+protoc-gen-validate: build_dir
+	if test ! -d $(BUILD_DIR)validate-$(VALIDATE_VERSION)/; then \
+		git clone --branch $(VALIDATE_VERSION) https://github.com/bufbuild/protoc-gen-validate.git $(BUILD_DIR)validate-$(VALIDATE_VERSION); \
+	else \
+		git -C $(BUILD_DIR)validate-$(VALIDATE_VERSION)/ pull --all; \
+		git -C $(BUILD_DIR)validate-$(VALIDATE_VERSION)/ checkout $(VALIDATE_VERSION); \
+	fi
+
+	cd $(BUILD_DIR) && ln -sfn validate-$(VALIDATE_VERSION)/ validate
 
 # ====================================================================================
 # Makefile helper functions for helm-docs: https://github.com/norwoodj/helm-docs
@@ -19,32 +36,61 @@ bin-$(HELM_DOCS): ## Installs helm-docs
 build_dir:
 	mkdir -p $(BUILD_DIR)
 
-protoc-gen-validate: build_dir
-	if test ! -d $(BUILD_DIR)validate-$(VALIDATE_VERSION)/; then \
-		git clone --branch $(VALIDATE_VERSION) https://github.com/bufbuild/protoc-gen-validate.git $(BUILD_DIR)validate-$(VALIDATE_VERSION); \
-	else \
-		git -C $(BUILD_DIR)validate-$(VALIDATE_VERSION)/ pull --all; \
-		git -C $(BUILD_DIR)validate-$(VALIDATE_VERSION)/ checkout $(VALIDATE_VERSION); \
-	fi
+.PHONY: clean
+clean:
+	@npx nuxi cleanup
+	rm -rf ./.nuxt/dist/ 
 
-	cd $(BUILD_DIR) && ln -sfn validate-$(VALIDATE_VERSION)/ validate
+.PHONY: watch
+watch:
+	yarn dev
 
 .PHONY: gen-proto
 gen-proto: protoc-gen-validate
 	$(BUF) generate
 
-build-image:
-	docker build --force-rm=true -t data-control-center-api -f ./Dockerfile . && \
-	docker tag data-control-center-api:latest koor/data-control-center-api:$(TAG)
+.PHONY: build-container
+build-container:
+	docker build \
+		--force-rm=true\
+		-t docker.io/koorinc/data-control-center:latest .
+	
+.PHONY: release
+release:
+	docker tag docker.io/koorinc/data-control-center:latest docker.io/koorinc/data-control-center:$(TAG)
 
+.PHONY: build-go
+build-go:
+	CGO_ENABLED=0 go build -a -installsuffix cgo -o data-control-center .
+
+.PHONY: run-cephapidummy
 run-cephapidummy:
 	npx ts-node-esm ./node/server.ts
+
+.PHONY: run-server
+run-server:
+	mkdir -p ./.nuxt/dist/
+	go run . server
+
+.PHONY: fmt
+fmt:
+	$(MAKE) fmt-proto gen-proto
+	$(MAKE) fmt-js
+
+.PHONY: fmt-proto
+fmt-proto: buf
+	buf format --write ./proto
+
+.PHONY: fmt-js
+fmt-js:
+	yarn prettier --write ./src
 
 .PHONY: gen-licenses
 gen-licenses:
 	yarn licenses generate-disclaimer > ./src/public/licenses/frontend.txt
 	go-licenses report . --template internal/scripts/licenses-backend.txt.tpl > ./src/public/licenses/backend.txt
 
+.PHONY: helm-docs
 helm-docs: bin-$(HELM_DOCS) ## Use helm-docs to generate documentation from helm charts
 	$(HELM_DOCS) -c charts/data-control-center \
 		-o README.md \

@@ -1,15 +1,16 @@
 # Koor Data Control Center
 
-Nice dashboard and controls for managing Rook Ceph data storage
+Nice dashboard and controls for managing Rook Ceph data storage.
 
 ## Development
 
 ### Requirements
 
 * `make` installed
+* Golang version `1.21` or higher
 * Node version of at least `v16.x`
 * `yarn` for, e.g., `yarn dev` to preview the frontend.
-* [`buf` cli](https://buf.build/docs/installation) installed
+* [`buf` cli](https://buf.build/docs/installation) installed (you can use `make buf` to install it to your Go bin path)
 * `go-licenses`: Run `go install github.com/google/go-licenses@latest`.
 
 ### Tasks
