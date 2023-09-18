@@ -21,9 +21,39 @@ export declare enum ResourceStatus {
   RESOURCE_READY = 1,
 
   /**
-   * @generated from enum value: RESOURCE_NOT_READY = 2;
+   * @generated from enum value: RESOURCE_PROGRESSING = 2;
    */
-  RESOURCE_NOT_READY = 2,
+  RESOURCE_PROGRESSING = 2,
+
+  /**
+   * @generated from enum value: RESOURCE_NOT_READY = 3;
+   */
+  RESOURCE_NOT_READY = 3,
+}
+
+/**
+ * @generated from enum resources.stats.ReliabilityScore
+ */
+export declare enum ReliabilityScore {
+  /**
+   * @generated from enum value: RELIABILITY_UNKNOWN = 0;
+   */
+  RELIABILITY_UNKNOWN = 0,
+
+  /**
+   * @generated from enum value: RELIABILITY_NONE = 1;
+   */
+  RELIABILITY_NONE = 1,
+
+  /**
+   * @generated from enum value: RELIABILITY_DEGRADED = 2;
+   */
+  RELIABILITY_DEGRADED = 2,
+
+  /**
+   * @generated from enum value: RELIABILITY_OK = 3;
+   */
+  RELIABILITY_OK = 3,
 }
 
 /**
@@ -546,6 +576,16 @@ export declare class ResourceInfo extends Message<ResourceInfo> {
    */
   status: ResourceStatus;
 
+  /**
+   * @generated from field: int32 replicas = 6;
+   */
+  replicas: number;
+
+  /**
+   * @generated from field: resources.stats.ReliabilityScore reliability = 7;
+   */
+  reliability: ReliabilityScore;
+
   constructor(data?: PartialMessage<ResourceInfo>);
 
   static readonly runtime: typeof proto3;
@@ -625,9 +665,9 @@ export declare class ClusterRadar extends Message<ClusterRadar> {
   nodesHealth: number;
 
   /**
-   * @generated from field: float capacity_used = 3;
+   * @generated from field: float capacity_available = 3;
    */
-  capacityUsed: number;
+  capacityAvailable: number;
 
   /**
    * @generated from field: float stability = 4;

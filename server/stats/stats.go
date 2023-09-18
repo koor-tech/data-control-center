@@ -3,6 +3,7 @@ package stats
 import (
 	"context"
 	"fmt"
+	"math"
 	"strings"
 
 	"github.com/koor-tech/data-control-center/gen/go/api/resources/stats"
@@ -20,6 +21,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/koor-tech/data-control-center/pkg/grpc/auth"
 )
+
+const ClusterNamespace = "rook-ceph"
 
 // Server is used to implement stats services.
 type Server struct {
@@ -199,12 +202,12 @@ func convertMdsItems(src interface{}) (MdsItems, error) {
 }
 
 func (s *Server) GetClusterResources(ctx context.Context, req *connect.Request[statspb.GetClusterResourcesRequest]) (*connect.Response[statspb.GetClusterResourcesResponse], error) {
-	deployments, err := s.k.GetClusterDeployments(ctx, "rook-ceph")
+	deployments, err := s.k.GetClusterDeployments(ctx, ClusterNamespace)
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := s.k.GetCephResources(ctx, "rook-ceph")
+	resources, err := s.k.GetCephResources(ctx, ClusterNamespace)
 	if err != nil {
 		return nil, err
 	}
@@ -217,17 +220,72 @@ func (s *Server) GetClusterResources(ctx context.Context, req *connect.Request[s
 	}, nil
 }
 
-// Iterate over every Ceph cluster Pod (not CSI Pods) to collect the nodes used for the storage cluster
+// GetClusterNodes Iterate over every Ceph cluster Pod (not CSI Pods) to collect the nodes used for the storage cluster
 func (s *Server) GetClusterNodes(ctx context.Context, req *connect.Request[statspb.GetClusterNodesRequest]) (*connect.Response[statspb.GetClusterNodesResponse], error) {
 
-	// TODO
+	nodes, err := s.k.GetStorageNodes(ctx, ClusterNamespace)
+	if err != nil {
+		return nil, err
+	}
 
-	return nil, nil
+	return &connect.Response[statspb.GetClusterNodesResponse]{
+		Msg: &statspb.GetClusterNodesResponse{
+			Nodes: nodes,
+		},
+	}, nil
 }
 
 func (s *Server) GetClusterRadar(ctx context.Context, req *connect.Request[statspb.GetClusterRadarRequest]) (*connect.Response[statspb.GetClusterRadarResponse], error) {
+	radar := &stats.ClusterRadar{}
 
-	// TODO
+	// Cluster Health
+	cephStatus, err := s.cephAPIService.GetClusterHealth(ctx)
+	if err != nil {
+		return nil, err
+	}
+	switch cephStatus.Health.Status {
+	case "HEALTH_OKAY":
+		radar.ClusterHealth = 100
+	case "HEALTH_WARN":
+		radar.ClusterHealth = 50
+	case "HEALTH_ERR":
+		fallthrough
+	default:
+		radar.ClusterHealth = 0
+	}
 
-	return nil, nil
+	// Nodes Health
+	nodes, err := s.k.GetStorageNodes(ctx, ClusterNamespace)
+	if err != nil {
+		return nil, err
+	}
+	totalNodes := len(nodes)
+	healthyNodes := 0
+	for _, node := range nodes {
+		if node.Status == stats.ResourceStatus_RESOURCE_READY {
+			healthyNodes++
+		}
+	}
+	radar.NodesHealth = float32(healthyNodes/totalNodes) * 100
+
+	// Storage Capacity
+	// TODO is the total used raw ratio the correct indicator to use?
+	radar.CapacityAvailable = float32(math.Ceil(cephStatus.DF.Stats.TotalUsedRawRatio*100*10) / 10)
+
+	// Stability
+	stabilityReduction := len(cephStatus.Health.Checks) * 10
+	radar.Stability = float32(100 - stabilityReduction)
+	if radar.Stability < 0 {
+		radar.Stability = 0
+	}
+
+	// Reliability
+	// TODO calculate from `Ceph*` CustomResources `.replicated.size`, `replicas`, etc., for the components
+	radar.Reliability = 100
+
+	return &connect.Response[statspb.GetClusterRadarResponse]{
+		Msg: &statspb.GetClusterRadarResponse{
+			Radar: radar,
+		},
+	}, nil
 }

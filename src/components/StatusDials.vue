@@ -1,3 +1,20 @@
+<script setup lang="ts">
+import { ClusterRadar } from '~~/gen/ts/api/resources/stats/stats_pb';
+import DialIndicator from './DialIndicator.vue';
+
+const props = defineProps<{
+  radar: ClusterRadar;
+}>();
+
+const dials = [
+  { value: props.radar.clusterHealth, min: 0, max: 100, caption: 'Cluster Health' },
+  { value: props.radar.nodesHealth, min: 0, max: 100, caption: 'Nodes Health' },
+  { value: props.radar.capacityAvailable, min: 0, max: 100, caption: 'Capacity Available' },
+  { value: props.radar.stability, min: 0, max: 100, caption: 'Stability' },
+  { value: props.radar.reliability, min: 0, max: 100, caption: 'Reliability' },
+];
+</script>
+
 <template>
   <div class="text-h3 text-center">Key Indicators</div>
   <div class="grid grid-cols-5 gap-4">
@@ -5,15 +22,3 @@
       :caption="dial.caption" />
   </div>
 </template>
-
-<script setup lang="ts">
-import DialIndicator from './DialIndicator.vue';
-
-const dials = [
-  { value: 37, min: 0, max: 100, caption: 'Cluster Health', },
-  { value: 9, min: 0, max: 1, caption: 'Nodes Health', },
-  { value: 50, min: -50, max: 50, caption: 'Capacity Used', },
-  { value: 5, min: 0, max: 8, caption: 'Stability', },
-  { value: 3, min: 0, max: 21, caption: 'Reliability', },
-];
-</script>

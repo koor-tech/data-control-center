@@ -26,10 +26,15 @@ func (k *K8s) GetK8SClusterNodes(ctx context.Context) ([]*stats.NodeInfo, error)
 
 func (k *K8s) TransformNodeIntoNodeInfo(node *v1.Node) *stats.NodeInfo {
 	status := stats.ResourceStatus_RESOURCE_UNKNOWN
-	if node.Status.Phase >= v1.NodePhase(v1.NodeReady) {
-		status = stats.ResourceStatus_RESOURCE_READY
-	} else {
-		status = stats.ResourceStatus_RESOURCE_NOT_READY
+	for _, cond := range node.Status.Conditions {
+		if cond.Type == v1.NodeReady {
+			if cond.Status == "True" {
+				status = stats.ResourceStatus_RESOURCE_READY
+			} else {
+				status = stats.ResourceStatus_RESOURCE_NOT_READY
+			}
+			break
+		}
 	}
 
 	internalIP := ""

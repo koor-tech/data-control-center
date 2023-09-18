@@ -13,7 +13,21 @@ export const ResourceStatus = proto3.makeEnum(
   [
     {no: 0, name: "RESOURCE_UNKNOWN"},
     {no: 1, name: "RESOURCE_READY"},
-    {no: 2, name: "RESOURCE_NOT_READY"},
+    {no: 2, name: "RESOURCE_PROGRESSING"},
+    {no: 3, name: "RESOURCE_NOT_READY"},
+  ],
+);
+
+/**
+ * @generated from enum resources.stats.ReliabilityScore
+ */
+export const ReliabilityScore = proto3.makeEnum(
+  "resources.stats.ReliabilityScore",
+  [
+    {no: 0, name: "RELIABILITY_UNKNOWN"},
+    {no: 1, name: "RELIABILITY_NONE"},
+    {no: 2, name: "RELIABILITY_DEGRADED"},
+    {no: 3, name: "RELIABILITY_OK"},
   ],
 );
 
@@ -199,6 +213,8 @@ export const ResourceInfo = proto3.makeMessageType(
     { no: 3, name: "namespace", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 4, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 5, name: "status", kind: "enum", T: proto3.getEnumType(ResourceStatus) },
+    { no: 6, name: "replicas", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 7, name: "reliability", kind: "enum", T: proto3.getEnumType(ReliabilityScore) },
   ],
 );
 
@@ -225,7 +241,7 @@ export const ClusterRadar = proto3.makeMessageType(
   () => [
     { no: 1, name: "cluster_health", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
     { no: 2, name: "nodes_health", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
-    { no: 3, name: "capacity_used", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 3, name: "capacity_available", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
     { no: 4, name: "stability", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
     { no: 5, name: "reliability", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
   ],

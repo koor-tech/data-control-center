@@ -2025,6 +2025,10 @@ func (m *ResourceInfo) validate(all bool) error {
 
 	// no validation rules for Status
 
+	// no validation rules for Replicas
+
+	// no validation rules for Reliability
+
 	if len(errors) > 0 {
 		return ResourceInfoMultiError(errors)
 	}
@@ -2264,7 +2268,7 @@ func (m *ClusterRadar) validate(all bool) error {
 
 	// no validation rules for NodesHealth
 
-	// no validation rules for CapacityUsed
+	// no validation rules for CapacityAvailable
 
 	// no validation rules for Stability
 

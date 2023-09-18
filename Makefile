@@ -3,7 +3,18 @@ BUF ?= buf
 VALIDATE_VERSION ?= v1.0.2
 BUILD_DIR := .build/
 
-.DEFAULT: gen-prot
+.DEFAULT: gen-proto
+
+# ====================================================================================
+# Makefile helper functions for helm-docs: https://github.com/norwoodj/helm-docs
+#
+
+HELM_DOCS_VERSION := v1.11.0
+HELM_DOCS := helm-docs
+HELM_DOCS_REPO := github.com/norwoodj/helm-docs/cmd/helm-docs
+
+bin-$(HELM_DOCS): ## Installs helm-docs
+	@GO111MODULE=on go install $(HELM_DOCS_REPO)@$(HELM_DOCS_VERSION)
 
 build_dir:
 	mkdir -p $(BUILD_DIR)
@@ -33,3 +44,9 @@ run-cephapidummy:
 gen-licenses:
 	yarn licenses generate-disclaimer > ./src/public/licenses/frontend.txt
 	go-licenses report . --template internal/scripts/licenses-backend.txt.tpl > ./src/public/licenses/backend.txt
+
+helm-docs: bin-$(HELM_DOCS) ## Use helm-docs to generate documentation from helm charts
+	$(HELM_DOCS) -c charts/data-control-center \
+		-o README.md \
+		-t README.gotmpl.md \
+		-t _templates.gotmpl

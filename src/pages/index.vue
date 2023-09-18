@@ -19,20 +19,23 @@ const { data: stats, pending, refresh, error } = useLazyAsyncData(`clusterstats`
 watch(error, () => {
     if (error.value !== null) $grpc.handleError(error.value as ConnectError);
 });
+
+const { data: radar } = useLazyAsyncData(`clusterradar`, () => $grpc.getStatsClient().getClusterRadar({}));
+
 const { data: resources } = useLazyAsyncData(`clusterresources`, () => $grpc.getStatsClient().getClusterResources({}));
 </script>
 
 <template>
     <div class="flex flex-col">
         <div class="">
-            <ClusterHealthServices v-if="stats" :stats="stats" />
+            <ClusterHealthServices v-if="stats && stats.stats" :stats="stats.stats" />
         </div>
         <div class="row">
             <div class="col-4">
-                <ClusterRadar />
+                <ClusterRadar v-if="radar && radar.radar" :radar="radar.radar" />
             </div>
             <div class="col-8">
-                <StatusDials />
+                <StatusDials v-if="radar && radar.radar" :radar="radar.radar" />
             </div>
         </div>
         <div class="row">
@@ -43,9 +46,6 @@ const { data: resources } = useLazyAsyncData(`clusterresources`, () => $grpc.get
                 <ResourceInfoList :rows="resources.deployments" />
                 <ResourceInfoList :rows="resources.resources" />
             </div>
-        </div>
-        <div class="" v-if="resources">
-            {{ resources?.toJson() }}
         </div>
     </div>
 </template>

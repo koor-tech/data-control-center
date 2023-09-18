@@ -5,7 +5,6 @@ import (
 
 	"github.com/koor-tech/data-control-center/gen/go/api/resources/stats"
 	"github.com/koor-tech/data-control-center/pkg/config"
-	cephv1 "github.com/rook/rook/pkg/apis/ceph.rook.io/v1"
 	"go.uber.org/fx"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
@@ -78,37 +77,6 @@ func (k *K8s) GetClusterDeployments(ctx context.Context, namespace string) ([]*s
 			Status:     status,
 		})
 	}
-
-	return res, nil
-}
-
-func (k *K8s) GetCephResources(ctx context.Context, namespace string) ([]*stats.ResourceInfo, error) {
-	list, err := ListCephV1Resources[cephv1.CephCluster](ctx, k.client, "cephclusters", namespace, metav1.ListOptions{})
-	if err != nil {
-		return nil, err
-	}
-
-	res := []*stats.ResourceInfo{}
-	for _, obj := range list {
-		status := stats.ResourceStatus_RESOURCE_UNKNOWN
-		if obj.Status.CephStatus != nil {
-			if obj.Status.State == cephv1.ClusterStateCreated || obj.Status.State == cephv1.ClusterStateConnected {
-				status = stats.ResourceStatus_RESOURCE_READY
-			} else {
-				status = stats.ResourceStatus_RESOURCE_NOT_READY
-			}
-		}
-
-		res = append(res, &stats.ResourceInfo{
-			Apiversion: obj.APIVersion,
-			Kind:       obj.Kind,
-			Namespace:  obj.Namespace,
-			Name:       obj.Name,
-			Status:     status,
-		})
-	}
-
-	// TODO iterate over all the important ceph cluster resources (e.g., CephCluster, CephStorageBlockPool, CephFilesystems, CephObjectStores)
 
 	return res, nil
 }

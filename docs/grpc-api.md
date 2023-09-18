@@ -22,6 +22,7 @@
     - [Services](#resources-stats-Services)
     - [Usage](#resources-stats-Usage)
   
+    - [ReliabilityScore](#resources-stats-ReliabilityScore)
     - [ResourceStatus](#resources-stats-ResourceStatus)
   
 - [api/resources/timestamp/timestamp.proto](#api_resources_timestamp_timestamp-proto)
@@ -70,7 +71,7 @@
 | ----- | ---- | ----- | ----------- |
 | cluster_health | [float](#float) |  |  |
 | nodes_health | [float](#float) |  |  |
-| capacity_used | [float](#float) |  |  |
+| capacity_available | [float](#float) |  |  |
 | stability | [float](#float) |  |  |
 | reliability | [float](#float) |  |  |
 
@@ -300,6 +301,8 @@
 | namespace | [string](#string) |  |  |
 | name | [string](#string) |  |  |
 | status | [ResourceStatus](#resources-stats-ResourceStatus) |  |  |
+| replicas | [int32](#int32) |  |  |
+| reliability | [ReliabilityScore](#resources-stats-ReliabilityScore) |  |  |
 
 
 
@@ -361,6 +364,20 @@
  
 
 
+<a name="resources-stats-ReliabilityScore"></a>
+
+### ReliabilityScore
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| RELIABILITY_UNKNOWN | 0 |  |
+| RELIABILITY_NONE | 1 |  |
+| RELIABILITY_DEGRADED | 2 |  |
+| RELIABILITY_OK | 3 |  |
+
+
+
 <a name="resources-stats-ResourceStatus"></a>
 
 ### ResourceStatus
@@ -370,7 +387,8 @@
 | ---- | ------ | ----------- |
 | RESOURCE_UNKNOWN | 0 |  |
 | RESOURCE_READY | 1 |  |
-| RESOURCE_NOT_READY | 2 |  |
+| RESOURCE_PROGRESSING | 2 |  |
+| RESOURCE_NOT_READY | 3 |  |
 
 
  

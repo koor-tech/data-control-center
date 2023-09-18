@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ConnectError } from '@connectrpc/connect';
-import {TransformStats} from "~/composables/stats/transform";
-import {statuses} from "~/composables/stats/types";
+import { TransformStats } from "~/composables/stats/transform";
+import { statuses } from "~/composables/stats/types";
 
 useHead({
     title: 'Health Stats',
@@ -15,7 +15,6 @@ const { $grpc } = useNuxtApp();
 const { data: clusterStats, error } = useLazyAsyncData('clusterStats', async () => {
     try {
         const stats = await $grpc.getStatsClient().getClusterStats({});
-        console.log("reading", await stats)
         const dataStats = new TransformStats(stats);
         return dataStats.display();
     } catch (e) {
@@ -52,8 +51,10 @@ const { data: clusterStats, error } = useLazyAsyncData('clusterStats', async () 
 
                 <!-- Stats -->
                 <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5 px-2">
-                    <template v-if="clusterStats && clusterStats.stats && clusterStats.stats.length" v-for="item in clusterStats.stats">
-                        <HealthServices v-if="item.description.length" :statsContainer="item"/>
+                    <template v-if="clusterStats && clusterStats.stats">
+                        <template v-for="item in clusterStats.stats">
+                            <HealthServices v-if="item.description.length" :statsContainer="item" />
+                        </template>
                     </template>
                 </dl>
 

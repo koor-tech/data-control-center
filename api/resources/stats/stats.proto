@@ -99,12 +99,15 @@ message ResourceInfo {
   string namespace = 3;
   string name = 4;
   ResourceStatus status = 5;
+  int32 replicas = 6;
+  ReliabilityScore reliability = 7;
 }
 
 enum ResourceStatus {
   RESOURCE_UNKNOWN = 0;
   RESOURCE_READY = 1;
-  RESOURCE_NOT_READY = 2;
+  RESOURCE_PROGRESSING = 2;
+  RESOURCE_NOT_READY = 3;
 }
 
 message NodeInfo {
@@ -119,7 +122,14 @@ message NodeInfo {
 message ClusterRadar {
   float cluster_health = 1;
   float nodes_health = 2;
-  float capacity_used = 3;
+  float capacity_available = 3;
   float stability = 4;
   float reliability = 5;
+}
+
+enum ReliabilityScore {
+  RELIABILITY_UNKNOWN = 0;
+  RELIABILITY_NONE = 1;
+  RELIABILITY_DEGRADED = 2;
+  RELIABILITY_OK = 3;
 }

@@ -1,17 +1,3 @@
-<template>
-  <div class="bg-white rounded-lg shadow dark:bg-gray-800 px-2 py-2">
-    <div class="flex justify-center mb-3 items-center">
-      <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white pr-1">{{ caption }}</h5>
-    </div>
-
-    <!-- Chart -->
-    <div>
-      <VueApexCharts class="flex justify-center py-1" height="150px" width="150px" type="radialBar" :options="options"
-        :series="series" />
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { ApexOptions } from 'apexcharts';
 import VueApexCharts from 'vue3-apexcharts';
@@ -47,7 +33,7 @@ const options: ApexOptions = {
           show: false,
         },
         value: {
-          fontSize: '28px',
+          fontSize: '24px',
           show: true,
         },
       },
@@ -79,3 +65,17 @@ const options: ApexOptions = {
 
 const series = [props.value];
 </script>
+
+<template>
+  <div class="bg-white rounded-lg shadow dark:bg-gray-800 px-2 py-2">
+    <div class="flex justify-center mb-3 items-center">
+      <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white pr-1">{{ caption }}</h5>
+    </div>
+
+    <!-- Chart -->
+    <div>
+      <VueApexCharts class="flex justify-center py-1" height="150px" width="150px" type="radialBar" :options="options"
+        :series="series" />
+    </div>
+  </div>
+</template>
