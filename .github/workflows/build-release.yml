@@ -48,7 +48,7 @@ jobs:
           sudo apt-get install -y libcephfs-dev librbd-dev librados-dev
 
       - name: Build and push
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           context: .
           push: true
