@@ -350,14 +350,10 @@
   dependencies:
     mime "^3.0.0"
 
-"@connectrpc/connect-fastify@^0.13.2":
-  version "0.13.2"
-  resolved "https://registry.yarnpkg.com/@connectrpc/connect-fastify/-/connect-fastify-0.13.2.tgz#1bbb1e6229c8038207371b57203acf2356cb18cf"
-  integrity sha512-te/X3S9BXum5U8AQJJeFoEvIyFrKH66lmqPceY7SPFa7ZEkE8Vd6pXRWg1NzOH7vxoI4G+BKiW4QaG+ehkhzTg==
-  dependencies:
-    "@connectrpc/connect" "0.13.2"
-    "@connectrpc/connect-node" "^0.13.2"
-    fastify "^4.21.0"
+"@connectrpc/connect-fastify@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@connectrpc/connect-fastify/-/connect-fastify-1.0.0.tgz#d97ad1e646a146f5b75afcc4beeb4562ba2c76eb"
+  integrity sha512-ZY1yJ0Bhopw/184MxYCxn30awqwkqfhtJz5H3sVT+zz5cnNC8p1dU06HD5KS4exZ7BKrSmUqct7ZdrvcDlqZJA==
 
 "@connectrpc/connect-node@^0.13.2":
   version "0.13.2"
@@ -4581,7 +4577,7 @@ fastify-plugin@^4.0.0:
   resolved "https://registry.yarnpkg.com/fastify-plugin/-/fastify-plugin-4.5.1.tgz#44dc6a3cc2cce0988bc09e13f160120bbd91dbee"
   integrity sha512-stRHYGeuqpEZTL1Ef0Ovr2ltazUT9g844X5z/zEBFLG8RYlpDiOCIG+ATvYEp+/zmc7sN29mcIMp8gvYplYPIQ==
 
-fastify@^4.21.0, fastify@^4.23.2:
+fastify@^4.23.2:
   version "4.23.2"
   resolved "https://registry.yarnpkg.com/fastify/-/fastify-4.23.2.tgz#7072f04b544540d2523afb4a54d4095d187f5444"
   integrity sha512-WFSxsHES115svC7NrerNqZwwM0UOxbC/P6toT9LRHgAAFvG7o2AN5W+H4ihCtOGuYXjZf4z+2jXC89rVEoPWOA==
