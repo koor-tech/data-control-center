@@ -5,7 +5,7 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3 } from "@bufbuild/protobuf";
-import type { ClusterRadar, ClusterStats, NodeInfo, ResourceInfo } from "../../resources/stats/stats_pb.js";
+import type { ClusterRadar, ClusterStats, KoorCluster, NodeInfo, ResourceInfo } from "../../resources/stats/stats_pb.js";
 
 /**
  * @generated from message stats.GetClusterStatsRequest
@@ -182,5 +182,48 @@ export declare class GetClusterRadarResponse extends Message<GetClusterRadarResp
   static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetClusterRadarResponse;
 
   static equals(a: GetClusterRadarResponse | PlainMessage<GetClusterRadarResponse> | undefined, b: GetClusterRadarResponse | PlainMessage<GetClusterRadarResponse> | undefined): boolean;
+}
+
+/**
+ * @generated from message stats.GetKoorClusterRequest
+ */
+export declare class GetKoorClusterRequest extends Message<GetKoorClusterRequest> {
+  constructor(data?: PartialMessage<GetKoorClusterRequest>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "stats.GetKoorClusterRequest";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetKoorClusterRequest;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetKoorClusterRequest;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetKoorClusterRequest;
+
+  static equals(a: GetKoorClusterRequest | PlainMessage<GetKoorClusterRequest> | undefined, b: GetKoorClusterRequest | PlainMessage<GetKoorClusterRequest> | undefined): boolean;
+}
+
+/**
+ * @generated from message stats.GetKoorClusterResponse
+ */
+export declare class GetKoorClusterResponse extends Message<GetKoorClusterResponse> {
+  /**
+   * @generated from field: resources.stats.KoorCluster koor_cluster = 1;
+   */
+  koorCluster?: KoorCluster;
+
+  constructor(data?: PartialMessage<GetKoorClusterResponse>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "stats.GetKoorClusterResponse";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetKoorClusterResponse;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetKoorClusterResponse;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetKoorClusterResponse;
+
+  static equals(a: GetKoorClusterResponse | PlainMessage<GetKoorClusterResponse> | undefined, b: GetKoorClusterResponse | PlainMessage<GetKoorClusterResponse> | undefined): boolean;
 }
 

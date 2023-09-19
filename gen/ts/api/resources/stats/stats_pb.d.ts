@@ -1090,9 +1090,9 @@ export declare class KoorClusterSpec extends Message<KoorClusterSpec> {
 }
 
 /**
- * @generated from message resources.stats.KoorClusterObject
+ * @generated from message resources.stats.KoorCluster
  */
-export declare class KoorClusterObject extends Message<KoorClusterObject> {
+export declare class KoorCluster extends Message<KoorCluster> {
   /**
    * @generated from field: string name = 1;
    */
@@ -1113,18 +1113,18 @@ export declare class KoorClusterObject extends Message<KoorClusterObject> {
    */
   status?: KoorClusterStatus;
 
-  constructor(data?: PartialMessage<KoorClusterObject>);
+  constructor(data?: PartialMessage<KoorCluster>);
 
   static readonly runtime: typeof proto3;
-  static readonly typeName = "resources.stats.KoorClusterObject";
+  static readonly typeName = "resources.stats.KoorCluster";
   static readonly fields: FieldList;
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): KoorClusterObject;
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): KoorCluster;
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): KoorClusterObject;
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): KoorCluster;
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): KoorClusterObject;
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): KoorCluster;
 
-  static equals(a: KoorClusterObject | PlainMessage<KoorClusterObject> | undefined, b: KoorClusterObject | PlainMessage<KoorClusterObject> | undefined): boolean;
+  static equals(a: KoorCluster | PlainMessage<KoorCluster> | undefined, b: KoorCluster | PlainMessage<KoorCluster> | undefined): boolean;
 }
 

@@ -26,6 +26,7 @@ type StatsServiceClient interface {
 	GetClusterResources(ctx context.Context, in *GetClusterResourcesRequest, opts ...grpc.CallOption) (*GetClusterResourcesResponse, error)
 	GetClusterNodes(ctx context.Context, in *GetClusterNodesRequest, opts ...grpc.CallOption) (*GetClusterNodesResponse, error)
 	GetClusterRadar(ctx context.Context, in *GetClusterRadarRequest, opts ...grpc.CallOption) (*GetClusterRadarResponse, error)
+	GetKoorCluster(ctx context.Context, in *GetKoorClusterRequest, opts ...grpc.CallOption) (*GetKoorClusterResponse, error)
 }
 
 type statsServiceClient struct {
@@ -72,6 +73,15 @@ func (c *statsServiceClient) GetClusterRadar(ctx context.Context, in *GetCluster
 	return out, nil
 }
 
+func (c *statsServiceClient) GetKoorCluster(ctx context.Context, in *GetKoorClusterRequest, opts ...grpc.CallOption) (*GetKoorClusterResponse, error) {
+	out := new(GetKoorClusterResponse)
+	err := c.cc.Invoke(ctx, "/stats.StatsService/GetKoorCluster", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // StatsServiceServer is the server API for StatsService service.
 // All implementations should embed UnimplementedStatsServiceServer
 // for forward compatibility
@@ -80,6 +90,7 @@ type StatsServiceServer interface {
 	GetClusterResources(context.Context, *GetClusterResourcesRequest) (*GetClusterResourcesResponse, error)
 	GetClusterNodes(context.Context, *GetClusterNodesRequest) (*GetClusterNodesResponse, error)
 	GetClusterRadar(context.Context, *GetClusterRadarRequest) (*GetClusterRadarResponse, error)
+	GetKoorCluster(context.Context, *GetKoorClusterRequest) (*GetKoorClusterResponse, error)
 }
 
 // UnimplementedStatsServiceServer should be embedded to have forward compatible implementations.
@@ -97,6 +108,9 @@ func (UnimplementedStatsServiceServer) GetClusterNodes(context.Context, *GetClus
 }
 func (UnimplementedStatsServiceServer) GetClusterRadar(context.Context, *GetClusterRadarRequest) (*GetClusterRadarResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetClusterRadar not implemented")
+}
+func (UnimplementedStatsServiceServer) GetKoorCluster(context.Context, *GetKoorClusterRequest) (*GetKoorClusterResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetKoorCluster not implemented")
 }
 
 // UnsafeStatsServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -182,6 +196,24 @@ func _StatsService_GetClusterRadar_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _StatsService_GetKoorCluster_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetKoorClusterRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StatsServiceServer).GetKoorCluster(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/stats.StatsService/GetKoorCluster",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StatsServiceServer).GetKoorCluster(ctx, req.(*GetKoorClusterRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // StatsService_ServiceDesc is the grpc.ServiceDesc for StatsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -204,6 +236,10 @@ var StatsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetClusterRadar",
 			Handler:    _StatsService_GetClusterRadar_Handler,
+		},
+		{
+			MethodName: "GetKoorCluster",
+			Handler:    _StatsService_GetKoorCluster_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

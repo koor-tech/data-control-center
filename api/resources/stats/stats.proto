@@ -226,7 +226,7 @@ message KoorClusterSpec {
   string ksd_cluster_release_name = 7; // The name to use for KSD cluster helm release.
 }
 
-message KoorClusterObject {
+message KoorCluster {
   string name = 1;
   string namespace = 2;
   KoorClusterSpec spec = 3;

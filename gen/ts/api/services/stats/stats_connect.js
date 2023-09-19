@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { GetClusterNodesRequest, GetClusterNodesResponse, GetClusterRadarRequest, GetClusterRadarResponse, GetClusterResourcesRequest, GetClusterResourcesResponse, GetClusterStatsRequest, GetClusterStatsResponse } from "./stats_pb.js";
+import { GetClusterNodesRequest, GetClusterNodesResponse, GetClusterRadarRequest, GetClusterRadarResponse, GetClusterResourcesRequest, GetClusterResourcesResponse, GetClusterStatsRequest, GetClusterStatsResponse, GetKoorClusterRequest, GetKoorClusterResponse } from "./stats_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -46,6 +46,15 @@ export const StatsService = {
       name: "GetClusterRadar",
       I: GetClusterRadarRequest,
       O: GetClusterRadarResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc stats.StatsService.GetKoorCluster
+     */
+    getKoorCluster: {
+      name: "GetKoorCluster",
+      I: GetKoorClusterRequest,
+      O: GetKoorClusterResponse,
       kind: MethodKind.Unary,
     },
   }

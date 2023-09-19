@@ -12,7 +12,7 @@
     - [DetailedProductVersions](#resources-stats-DetailedProductVersions)
     - [DetailedVersion](#resources-stats-DetailedVersion)
     - [IOPS](#resources-stats-IOPS)
-    - [KoorClusterObject](#resources-stats-KoorClusterObject)
+    - [KoorCluster](#resources-stats-KoorCluster)
     - [KoorClusterSpec](#resources-stats-KoorClusterSpec)
     - [KoorClusterStatus](#resources-stats-KoorClusterStatus)
     - [MdsService](#resources-stats-MdsService)
@@ -56,6 +56,8 @@
     - [GetClusterResourcesResponse](#stats-GetClusterResourcesResponse)
     - [GetClusterStatsRequest](#stats-GetClusterStatsRequest)
     - [GetClusterStatsResponse](#stats-GetClusterStatsResponse)
+    - [GetKoorClusterRequest](#stats-GetKoorClusterRequest)
+    - [GetKoorClusterResponse](#stats-GetKoorClusterResponse)
   
     - [StatsService](#stats-StatsService)
   
@@ -215,9 +217,9 @@ Defines a detailed version of a product, which includes a container image or a h
 
 
 
-<a name="resources-stats-KoorClusterObject"></a>
+<a name="resources-stats-KoorCluster"></a>
 
-### KoorClusterObject
+### KoorCluster
 
 
 
@@ -827,6 +829,31 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 
 
+
+<a name="stats-GetKoorClusterRequest"></a>
+
+### GetKoorClusterRequest
+
+
+
+
+
+
+
+<a name="stats-GetKoorClusterResponse"></a>
+
+### GetKoorClusterResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| koor_cluster | [resources.stats.KoorCluster](#resources-stats-KoorCluster) |  |  |
+
+
+
+
+
  
 
  
@@ -845,6 +872,7 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 | GetClusterResources | [GetClusterResourcesRequest](#stats-GetClusterResourcesRequest) | [GetClusterResourcesResponse](#stats-GetClusterResourcesResponse) |  |
 | GetClusterNodes | [GetClusterNodesRequest](#stats-GetClusterNodesRequest) | [GetClusterNodesResponse](#stats-GetClusterNodesResponse) |  |
 | GetClusterRadar | [GetClusterRadarRequest](#stats-GetClusterRadarRequest) | [GetClusterRadarResponse](#stats-GetClusterRadarResponse) |  |
+| GetKoorCluster | [GetKoorClusterRequest](#stats-GetKoorClusterRequest) | [GetKoorClusterResponse](#stats-GetKoorClusterResponse) |  |
 
  
 

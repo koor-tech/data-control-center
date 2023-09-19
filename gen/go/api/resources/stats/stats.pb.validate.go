@@ -3399,22 +3399,22 @@ var _ interface {
 	ErrorName() string
 } = KoorClusterSpecValidationError{}
 
-// Validate checks the field values on KoorClusterObject with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// first error encountered is returned, or nil if there are no violations.
-func (m *KoorClusterObject) Validate() error {
+// Validate checks the field values on KoorCluster with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *KoorCluster) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on KoorClusterObject with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// KoorClusterObjectMultiError, or nil if none found.
-func (m *KoorClusterObject) ValidateAll() error {
+// ValidateAll checks the field values on KoorCluster with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in KoorClusterMultiError, or
+// nil if none found.
+func (m *KoorCluster) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *KoorClusterObject) validate(all bool) error {
+func (m *KoorCluster) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -3429,7 +3429,7 @@ func (m *KoorClusterObject) validate(all bool) error {
 		switch v := interface{}(m.GetSpec()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, KoorClusterObjectValidationError{
+				errors = append(errors, KoorClusterValidationError{
 					field:  "Spec",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -3437,7 +3437,7 @@ func (m *KoorClusterObject) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, KoorClusterObjectValidationError{
+				errors = append(errors, KoorClusterValidationError{
 					field:  "Spec",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -3446,7 +3446,7 @@ func (m *KoorClusterObject) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetSpec()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return KoorClusterObjectValidationError{
+			return KoorClusterValidationError{
 				field:  "Spec",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -3458,7 +3458,7 @@ func (m *KoorClusterObject) validate(all bool) error {
 		switch v := interface{}(m.GetStatus()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, KoorClusterObjectValidationError{
+				errors = append(errors, KoorClusterValidationError{
 					field:  "Status",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -3466,7 +3466,7 @@ func (m *KoorClusterObject) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, KoorClusterObjectValidationError{
+				errors = append(errors, KoorClusterValidationError{
 					field:  "Status",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -3475,7 +3475,7 @@ func (m *KoorClusterObject) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetStatus()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return KoorClusterObjectValidationError{
+			return KoorClusterValidationError{
 				field:  "Status",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -3484,19 +3484,18 @@ func (m *KoorClusterObject) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return KoorClusterObjectMultiError(errors)
+		return KoorClusterMultiError(errors)
 	}
 
 	return nil
 }
 
-// KoorClusterObjectMultiError is an error wrapping multiple validation errors
-// returned by KoorClusterObject.ValidateAll() if the designated constraints
-// aren't met.
-type KoorClusterObjectMultiError []error
+// KoorClusterMultiError is an error wrapping multiple validation errors
+// returned by KoorCluster.ValidateAll() if the designated constraints aren't met.
+type KoorClusterMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m KoorClusterObjectMultiError) Error() string {
+func (m KoorClusterMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -3505,11 +3504,11 @@ func (m KoorClusterObjectMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m KoorClusterObjectMultiError) AllErrors() []error { return m }
+func (m KoorClusterMultiError) AllErrors() []error { return m }
 
-// KoorClusterObjectValidationError is the validation error returned by
-// KoorClusterObject.Validate if the designated constraints aren't met.
-type KoorClusterObjectValidationError struct {
+// KoorClusterValidationError is the validation error returned by
+// KoorCluster.Validate if the designated constraints aren't met.
+type KoorClusterValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -3517,24 +3516,22 @@ type KoorClusterObjectValidationError struct {
 }
 
 // Field function returns field value.
-func (e KoorClusterObjectValidationError) Field() string { return e.field }
+func (e KoorClusterValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e KoorClusterObjectValidationError) Reason() string { return e.reason }
+func (e KoorClusterValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e KoorClusterObjectValidationError) Cause() error { return e.cause }
+func (e KoorClusterValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e KoorClusterObjectValidationError) Key() bool { return e.key }
+func (e KoorClusterValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e KoorClusterObjectValidationError) ErrorName() string {
-	return "KoorClusterObjectValidationError"
-}
+func (e KoorClusterValidationError) ErrorName() string { return "KoorClusterValidationError" }
 
 // Error satisfies the builtin error interface
-func (e KoorClusterObjectValidationError) Error() string {
+func (e KoorClusterValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -3546,14 +3543,14 @@ func (e KoorClusterObjectValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sKoorClusterObject.%s: %s%s",
+		"invalid %sKoorCluster.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = KoorClusterObjectValidationError{}
+var _ error = KoorClusterValidationError{}
 
 var _ interface {
 	Field() string
@@ -3561,4 +3558,4 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = KoorClusterObjectValidationError{}
+} = KoorClusterValidationError{}

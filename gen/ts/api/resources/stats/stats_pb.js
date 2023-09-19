@@ -367,10 +367,10 @@ export const KoorClusterSpec = proto3.makeMessageType(
 );
 
 /**
- * @generated from message resources.stats.KoorClusterObject
+ * @generated from message resources.stats.KoorCluster
  */
-export const KoorClusterObject = proto3.makeMessageType(
-  "resources.stats.KoorClusterObject",
+export const KoorCluster = proto3.makeMessageType(
+  "resources.stats.KoorCluster",
   () => [
     { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "namespace", kind: "scalar", T: 9 /* ScalarType.STRING */ },

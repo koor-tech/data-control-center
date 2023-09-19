@@ -31,9 +31,16 @@ message GetClusterRadarResponse {
   resources.stats.ClusterRadar radar = 1;
 }
 
+message GetKoorClusterRequest {}
+
+message GetKoorClusterResponse {
+  resources.stats.KoorCluster koor_cluster = 1;
+}
+
 service StatsService {
   rpc GetClusterStats(GetClusterStatsRequest) returns (GetClusterStatsResponse) {}
   rpc GetClusterResources(GetClusterResourcesRequest) returns (GetClusterResourcesResponse) {}
   rpc GetClusterNodes(GetClusterNodesRequest) returns (GetClusterNodesResponse) {}
   rpc GetClusterRadar(GetClusterRadarRequest) returns (GetClusterRadarResponse) {}
+  rpc GetKoorCluster(GetKoorClusterRequest) returns (GetKoorClusterResponse) {}
 }

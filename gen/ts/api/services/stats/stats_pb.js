@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import { proto3 } from "@bufbuild/protobuf";
-import { ClusterRadar, ClusterStats, NodeInfo, ResourceInfo } from "../../resources/stats/stats_pb.js";
+import { ClusterRadar, ClusterStats, KoorCluster, NodeInfo, ResourceInfo } from "../../resources/stats/stats_pb.js";
 
 /**
  * @generated from message stats.GetClusterStatsRequest
@@ -76,6 +76,24 @@ export const GetClusterRadarResponse = proto3.makeMessageType(
   "stats.GetClusterRadarResponse",
   () => [
     { no: 1, name: "radar", kind: "message", T: ClusterRadar },
+  ],
+);
+
+/**
+ * @generated from message stats.GetKoorClusterRequest
+ */
+export const GetKoorClusterRequest = proto3.makeMessageType(
+  "stats.GetKoorClusterRequest",
+  [],
+);
+
+/**
+ * @generated from message stats.GetKoorClusterResponse
+ */
+export const GetKoorClusterResponse = proto3.makeMessageType(
+  "stats.GetKoorClusterResponse",
+  () => [
+    { no: 1, name: "koor_cluster", kind: "message", T: KoorCluster },
   ],
 );
 
