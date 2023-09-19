@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: extended-ceph-exporter
+  name: data-control-center
   labels:
     app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
     app.kubernetes.io/instance: {{ .Release.Name | quote }}
@@ -89,12 +89,12 @@ spec:
             - name: CEPH_DASHBOARD_USERNAME
               valueFrom:
                 secretKeyRef:
-                 name: {{ include "extended-ceph-exporter.fullname" . }}
+                 name: {{ include "data-control-center.fullname" . }}
                  key: CEPH_DASHBOARD_USERNAME
             - name: CEPH_DASHBOARD_PASSWORD
               valueFrom:
                 secretKeyRef:
-                 name: {{ include "extended-ceph-exporter.fullname" . }}
+                 name: {{ include "data-control-center.fullname" . }}
                  key: CEPH_DASHBOARD_PASSWORD
           command:
             - /bin/bash
