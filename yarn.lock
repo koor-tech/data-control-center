@@ -350,34 +350,27 @@
   dependencies:
     mime "^3.0.0"
 
-"@connectrpc/connect-fastify@^0.13.2":
-  version "0.13.2"
-  resolved "https://registry.yarnpkg.com/@connectrpc/connect-fastify/-/connect-fastify-0.13.2.tgz#1bbb1e6229c8038207371b57203acf2356cb18cf"
-  integrity sha512-te/X3S9BXum5U8AQJJeFoEvIyFrKH66lmqPceY7SPFa7ZEkE8Vd6pXRWg1NzOH7vxoI4G+BKiW4QaG+ehkhzTg==
-  dependencies:
-    "@connectrpc/connect" "0.13.2"
-    "@connectrpc/connect-node" "^0.13.2"
-    fastify "^4.21.0"
+"@connectrpc/connect-fastify@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@connectrpc/connect-fastify/-/connect-fastify-1.0.0.tgz#d97ad1e646a146f5b75afcc4beeb4562ba2c76eb"
+  integrity sha512-ZY1yJ0Bhopw/184MxYCxn30awqwkqfhtJz5H3sVT+zz5cnNC8p1dU06HD5KS4exZ7BKrSmUqct7ZdrvcDlqZJA==
 
-"@connectrpc/connect-node@^0.13.2":
-  version "0.13.2"
-  resolved "https://registry.yarnpkg.com/@connectrpc/connect-node/-/connect-node-0.13.2.tgz#6f5fb37c90634d4d45f6713ea57d9fb6f070764b"
-  integrity sha512-dAoBuQ+fYFw22KYgZXPw1t19i6TRwNmk6c6XsOYLhBl1Y5vzXoMfMX2jm7lmkmLQFIcM9Xc2EYoUKtjNXH5bjw==
+"@connectrpc/connect-node@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@connectrpc/connect-node/-/connect-node-1.0.0.tgz#307601b6ad9077b6ba6c53eaf8aa67f02694376b"
+  integrity sha512-jYxPSH0k6nHZee1yOnbJXDpSeFuV7ev2IDWamEvs/aOoAqK0DDDAFcywBTWi7+e5anqRY6Fv4siu4+UXxfGmLQ==
   dependencies:
-    "@connectrpc/connect" "0.13.2"
     undici "^5.23.0"
 
-"@connectrpc/connect-web@^0.13.2":
-  version "0.13.2"
-  resolved "https://registry.yarnpkg.com/@connectrpc/connect-web/-/connect-web-0.13.2.tgz#14b8f30458196897578ce773f3ab0ec42d114228"
-  integrity sha512-WkI2MbdWpzRCZf612bOa0JEuOx2Hebv7BW0FcfgDgHwFGBOuAFF7BF7XtNw196nmYoli2kXmtIjCZW01jvzDnw==
-  dependencies:
-    "@connectrpc/connect" "0.13.2"
+"@connectrpc/connect-web@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@connectrpc/connect-web/-/connect-web-1.0.0.tgz#88d54be622be64b1f0f8307fc977cce785590981"
+  integrity sha512-QMoq/KoZG2ZUAJptXqQtFVoZY9avX+11JDFrb+2P7rVOzHifupBPNTp4LJjTPciuUhpNwMCNnNXdddAh/+N2aw==
 
-"@connectrpc/connect@0.13.2", "@connectrpc/connect@^0.13.2":
-  version "0.13.2"
-  resolved "https://registry.yarnpkg.com/@connectrpc/connect/-/connect-0.13.2.tgz#491147e3021ac544fa109563e9d23adec0282641"
-  integrity sha512-KZg6EH8gYnQZm/d2IXXMVB2mom/A1dCD8+7JScm2tKN9OQyQSeCJOLqtv/M4M5XVS0Y9JM2/VCbiUwfhl9Rqmg==
+"@connectrpc/connect@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@connectrpc/connect/-/connect-1.0.0.tgz#d09b766bb2b55327d7565423519a72b1bd8501f2"
+  integrity sha512-eqrCpSoAK8OHlKN3t3BbMGAzLT3rbl8XEgyazDokm5lyhYc68UcxN8ChfWjFzVpXOCMYaEAR/0NV64UOAEko9w==
 
 "@cspotcode/source-map-support@^0.8.0":
   version "0.8.1"
@@ -4581,7 +4574,7 @@ fastify-plugin@^4.0.0:
   resolved "https://registry.yarnpkg.com/fastify-plugin/-/fastify-plugin-4.5.1.tgz#44dc6a3cc2cce0988bc09e13f160120bbd91dbee"
   integrity sha512-stRHYGeuqpEZTL1Ef0Ovr2ltazUT9g844X5z/zEBFLG8RYlpDiOCIG+ATvYEp+/zmc7sN29mcIMp8gvYplYPIQ==
 
-fastify@^4.21.0, fastify@^4.23.2:
+fastify@^4.23.2:
   version "4.23.2"
   resolved "https://registry.yarnpkg.com/fastify/-/fastify-4.23.2.tgz#7072f04b544540d2523afb4a54d4095d187f5444"
   integrity sha512-WFSxsHES115svC7NrerNqZwwM0UOxbC/P6toT9LRHgAAFvG7o2AN5W+H4ihCtOGuYXjZf4z+2jXC89rVEoPWOA==
@@ -7284,10 +7277,20 @@ postcss-convert-values@^6.0.0:
     browserslist "^4.21.4"
     postcss-value-parser "^4.2.0"
 
-postcss-custom-properties@^13.2.0, postcss-custom-properties@^13.3.0:
+postcss-custom-properties@^13.2.0:
   version "13.3.0"
   resolved "https://registry.yarnpkg.com/postcss-custom-properties/-/postcss-custom-properties-13.3.0.tgz#53361280a9ec57c2ac448c0877ba25c4978241ee"
   integrity sha512-q4VgtIKSy5+KcUvQ0WxTjDy9DZjQ5VCXAZ9+tT9+aPMbA0z6s2t1nMw0QHszru1ib5ElkXl9JUpYYU37VVUs7g==
+  dependencies:
+    "@csstools/cascade-layer-name-parser" "^1.0.4"
+    "@csstools/css-parser-algorithms" "^2.3.1"
+    "@csstools/css-tokenizer" "^2.2.0"
+    postcss-value-parser "^4.2.0"
+
+postcss-custom-properties@^13.3.1:
+  version "13.3.1"
+  resolved "https://registry.yarnpkg.com/postcss-custom-properties/-/postcss-custom-properties-13.3.1.tgz#d3058f0d773b8fdcb9a7b6d2b8dd1c28ff441b86"
+  integrity sha512-TAWyOLz95GGMqDK3KJfi+IvY0MDCR72yBtJBAwxSw2iJ8WbBvIo42p7Luie1yRht3ctQlMBG+wDcFqSBtSpGWw==
   dependencies:
     "@csstools/cascade-layer-name-parser" "^1.0.4"
     "@csstools/css-parser-algorithms" "^2.3.1"
@@ -7601,6 +7604,15 @@ postcss@^8.1.10, postcss@^8.2.15, postcss@^8.4.23, postcss@^8.4.24, postcss@^8.4
   version "8.4.29"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.29.tgz#33bc121cf3b3688d4ddef50be869b2a54185a1dd"
   integrity sha512-cbI+jaqIeu/VGqXEarWkRCCffhjgXc0qjBtXpqJhTBohMUjUQnbBr0xqX3vEKudc4iviTewcJo5ajcec5+wdJw==
+  dependencies:
+    nanoid "^3.3.6"
+    picocolors "^1.0.0"
+    source-map-js "^1.0.2"
+
+postcss@^8.4.30:
+  version "8.4.30"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.30.tgz#0e0648d551a606ef2192a26da4cabafcc09c1aa7"
+  integrity sha512-7ZEao1g4kd68l97aWG/etQKPKq07us0ieSZ2TnFDk11i0ZfDW2AwKHYU8qv4MZKqN2fdBfg+7q0ES06UA73C1g==
   dependencies:
     nanoid "^3.3.6"
     picocolors "^1.0.0"
