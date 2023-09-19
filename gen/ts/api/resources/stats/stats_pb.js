@@ -32,6 +32,21 @@ export const ReliabilityScore = proto3.makeEnum(
 );
 
 /**
+ * The mode of the upgrade
+ *
+ * @generated from enum resources.stats.UpgradeMode
+ */
+export const UpgradeMode = proto3.makeEnum(
+  "resources.stats.UpgradeMode",
+  [
+    {no: 0, name: "UPGRADE_MODE_UNSPECIFIED", localName: "UNSPECIFIED"},
+    {no: 1, name: "UPGRADE_MODE_DISABLED", localName: "DISABLED"},
+    {no: 2, name: "UPGRADE_MODE_NOTIFY", localName: "NOTIFY"},
+    {no: 3, name: "UPGRADE_MODE_UPGRADE", localName: "UPGRADE"},
+  ],
+);
+
+/**
  * @generated from message resources.stats.MonService
  */
 export const MonService = proto3.makeMessageType(
@@ -245,6 +260,122 @@ export const ClusterRadar = proto3.makeMessageType(
     { no: 3, name: "capacity_available", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
     { no: 4, name: "stability", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
     { no: 5, name: "reliability", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+  ],
+);
+
+/**
+ * Represents a map of products to version strings.
+ *
+ * @generated from message resources.stats.ProductVersions
+ */
+export const ProductVersions = proto3.makeMessageType(
+  "resources.stats.ProductVersions",
+  () => [
+    { no: 1, name: "kube", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "koor_operator", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "ksd", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "ceph", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
+/**
+ * Defines a detailed version of a product, which includes a container image or a helm chart.
+ *
+ * @generated from message resources.stats.DetailedVersion
+ */
+export const DetailedVersion = proto3.makeMessageType(
+  "resources.stats.DetailedVersion",
+  () => [
+    { no: 1, name: "version", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "image_uri", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "image_hash", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "helm_repository", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "helm_chart", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
+/**
+ * Represents a map of products to detailed versions, which include images or helm charts.
+ *
+ * @generated from message resources.stats.DetailedProductVersions
+ */
+export const DetailedProductVersions = proto3.makeMessageType(
+  "resources.stats.DetailedProductVersions",
+  () => [
+    { no: 1, name: "koor_operator", kind: "message", T: DetailedVersion },
+    { no: 2, name: "ksd", kind: "message", T: DetailedVersion },
+    { no: 3, name: "ceph", kind: "message", T: DetailedVersion },
+  ],
+);
+
+/**
+ * @generated from message resources.stats.ClusterResources
+ */
+export const ClusterResources = proto3.makeMessageType(
+  "resources.stats.ClusterResources",
+  () => [
+    { no: 1, name: "nodes", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "storage", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "cpu", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "memory", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
+/**
+ * Represents the status of the KoorCluster CRD
+ *
+ * @generated from message resources.stats.KoorClusterStatus
+ */
+export const KoorClusterStatus = proto3.makeMessageType(
+  "resources.stats.KoorClusterStatus",
+  () => [
+    { no: 1, name: "total_resources", kind: "message", T: ClusterResources },
+    { no: 2, name: "meets_minimum_resources", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 3, name: "current_versions", kind: "message", T: ProductVersions },
+    { no: 4, name: "latest_versions", kind: "message", T: DetailedProductVersions },
+  ],
+);
+
+/**
+ * @generated from message resources.stats.UpgradeOptions
+ */
+export const UpgradeOptions = proto3.makeMessageType(
+  "resources.stats.UpgradeOptions",
+  () => [
+    { no: 1, name: "mode", kind: "enum", T: proto3.getEnumType(UpgradeMode) },
+    { no: 2, name: "endpoint", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "schedule", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
+/**
+ * Represents the state of KoorCluster
+ *
+ * @generated from message resources.stats.KoorClusterSpec
+ */
+export const KoorClusterSpec = proto3.makeMessageType(
+  "resources.stats.KoorClusterSpec",
+  () => [
+    { no: 1, name: "use_all_devices", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 2, name: "monitoring_enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 3, name: "dashboard_enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 4, name: "toolbox_enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 5, name: "upgrade_options", kind: "message", T: UpgradeOptions },
+    { no: 6, name: "ksd_release_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "ksd_cluster_release_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
+/**
+ * @generated from message resources.stats.KoorClusterObject
+ */
+export const KoorClusterObject = proto3.makeMessageType(
+  "resources.stats.KoorClusterObject",
+  () => [
+    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "namespace", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "spec", kind: "message", T: KoorClusterSpec },
+    { no: 4, name: "status", kind: "message", T: KoorClusterStatus },
   ],
 );
 

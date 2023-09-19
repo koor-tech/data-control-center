@@ -4,6 +4,7 @@ VALIDATE_VERSION ?= v1.0.2
 BUILD_DIR := .build/
 
 .DEFAULT: run-server
+all: gen-proto
 
 # Build, Format, etc., Tools, Dependency checkouts
 
@@ -85,7 +86,7 @@ fmt:
 
 .PHONY: fmt-proto
 fmt-proto: buf
-	buf format --write ./proto
+	$(BUF) format --write ./api
 
 .PHONY: fmt-js
 fmt-js:
@@ -102,3 +103,8 @@ helm-docs: bin-$(HELM_DOCS) ## Use helm-docs to generate documentation from helm
 		-o README.md \
 		-t README.gotmpl.md \
 		-t _templates.gotmpl
+
+.PHONY: lint
+lint:
+	$(BUF) lint
+	$(BUF) breaking --against '.git#branch=main'
