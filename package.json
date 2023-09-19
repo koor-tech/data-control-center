@@ -17,7 +17,7 @@
         "@connectrpc/connect": "^0.13.2",
         "@connectrpc/connect-fastify": "^0.13.2",
         "@connectrpc/connect-node": "^0.13.2",
-        "@connectrpc/connect-web": "^0.13.2",
+        "@connectrpc/connect-web": "^1.0.0",
         "@fastify/cors": "^8.3.0",
         "@fontsource/inter": "^5.0.8",
         "@headlessui/vue": "^1.7.16",

@@ -367,12 +367,10 @@
     "@connectrpc/connect" "0.13.2"
     undici "^5.23.0"
 
-"@connectrpc/connect-web@^0.13.2":
-  version "0.13.2"
-  resolved "https://registry.yarnpkg.com/@connectrpc/connect-web/-/connect-web-0.13.2.tgz#14b8f30458196897578ce773f3ab0ec42d114228"
-  integrity sha512-WkI2MbdWpzRCZf612bOa0JEuOx2Hebv7BW0FcfgDgHwFGBOuAFF7BF7XtNw196nmYoli2kXmtIjCZW01jvzDnw==
-  dependencies:
-    "@connectrpc/connect" "0.13.2"
+"@connectrpc/connect-web@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@connectrpc/connect-web/-/connect-web-1.0.0.tgz#88d54be622be64b1f0f8307fc977cce785590981"
+  integrity sha512-QMoq/KoZG2ZUAJptXqQtFVoZY9avX+11JDFrb+2P7rVOzHifupBPNTp4LJjTPciuUhpNwMCNnNXdddAh/+N2aw==
 
 "@connectrpc/connect@0.13.2", "@connectrpc/connect@^0.13.2":
   version "0.13.2"
