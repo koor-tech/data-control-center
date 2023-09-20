@@ -39,7 +39,7 @@ build_dir:
 .PHONY: clean
 clean:
 	@npx nuxi cleanup
-	rm -rf ./.nuxt/dist/ 
+	rm -rf ./.nuxt/dist/
 
 .PHONY: watch
 watch:
@@ -50,11 +50,11 @@ gen-proto: protoc-gen-validate
 	$(BUF) generate
 
 .PHONY: build-container
-build-container:
+build-container: build-yarn
 	docker build \
 		--force-rm=true\
 		-t docker.io/koorinc/data-control-center:latest .
-	
+
 .PHONY: release
 release:
 	docker tag docker.io/koorinc/data-control-center:latest docker.io/koorinc/data-control-center:$(TAG)
@@ -62,6 +62,12 @@ release:
 .PHONY: build-go
 build-go:
 	CGO_ENABLED=0 go build -a -installsuffix cgo -o data-control-center .
+
+.PHONY: build-yarn
+build-yarn:
+	rm -rf ./.nuxt/dist/
+	yarn build
+	yarn generate
 
 .PHONY: run-cephapidummy
 run-cephapidummy:

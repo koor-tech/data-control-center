@@ -1,11 +1,4 @@
 # syntax=docker/dockerfile:1
-FROM docker.io/library/node:19.9.0-alpine3.17 AS nodebuilder
-WORKDIR /app
-COPY . ./
-RUN rm -rf ./.nuxt/ && \
-    apk add --no-cache git && \
-    yarn && yarn generate
-
 FROM golang:1.21-bullseye AS gobuilder
 RUN apt update && \
   apt install -y lsb-release && \
@@ -20,7 +13,7 @@ RUN  go mod download && \
   go build -o /data-control-center .
 
 FROM quay.io/ceph/ceph:v17.2.6-20230826
-COPY --from=nodebuilder /app/.output/public ./.output/public
+COPY ./.output/public ./.output/public
 COPY --from=gobuilder /data-control-center /data-control-center
 USER nobody
 COPY config.example.yaml /config/config.yaml

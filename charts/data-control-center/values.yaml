@@ -104,7 +104,7 @@ postInstallJob:
   image:
     repository: quay.io/ceph/ceph
     pullPolicy: IfNotPresent
-    tag: v17.2.6
+    tag: v17.2.6-20230826
 
 config:
   logLevel: 'INFO'
@@ -121,7 +121,8 @@ config:
     api:
       url: 'https://rook-ceph-mgr-dashboard:8443/api'
       username: 'data-control-center'
-      password: 'data-control-center'
+      # -- Password is auto generated if not set and retrieved using helm's lookup function
+      password: null
       insecureSSL: true
   oauth2:
     providers: []
@@ -129,7 +130,7 @@ config:
       #  label: 'Keycloak'
       #  homepage: 'https://keycloak.example.com'
       #  type: 'generic'
-      #  redirectURL: 'https://localhost:3000/api/oauth2/callback/keycloak'
+      #  redirectURL: 'https://chart-example.local/api/oauth2/callback/keycloak'
       #  clientID: 'your_keycloak_oauth2_client_id'
       #  clientSecret: 'your_keycloak_oauth2_client_secret'
       #  scopes:
