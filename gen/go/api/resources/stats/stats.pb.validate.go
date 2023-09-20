@@ -3280,13 +3280,121 @@ func (m *KoorClusterSpec) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for UseAllDevices
+	if all {
+		switch v := interface{}(m.GetUseAllDevices()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, KoorClusterSpecValidationError{
+					field:  "UseAllDevices",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, KoorClusterSpecValidationError{
+					field:  "UseAllDevices",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUseAllDevices()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return KoorClusterSpecValidationError{
+				field:  "UseAllDevices",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
-	// no validation rules for MonitoringEnabled
+	if all {
+		switch v := interface{}(m.GetMonitoringEnabled()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, KoorClusterSpecValidationError{
+					field:  "MonitoringEnabled",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, KoorClusterSpecValidationError{
+					field:  "MonitoringEnabled",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetMonitoringEnabled()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return KoorClusterSpecValidationError{
+				field:  "MonitoringEnabled",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
-	// no validation rules for DashboardEnabled
+	if all {
+		switch v := interface{}(m.GetDashboardEnabled()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, KoorClusterSpecValidationError{
+					field:  "DashboardEnabled",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, KoorClusterSpecValidationError{
+					field:  "DashboardEnabled",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetDashboardEnabled()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return KoorClusterSpecValidationError{
+				field:  "DashboardEnabled",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
-	// no validation rules for ToolboxEnabled
+	if all {
+		switch v := interface{}(m.GetToolboxEnabled()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, KoorClusterSpecValidationError{
+					field:  "ToolboxEnabled",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, KoorClusterSpecValidationError{
+					field:  "ToolboxEnabled",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetToolboxEnabled()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return KoorClusterSpecValidationError{
+				field:  "ToolboxEnabled",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if all {
 		switch v := interface{}(m.GetUpgradeOptions()).(type) {

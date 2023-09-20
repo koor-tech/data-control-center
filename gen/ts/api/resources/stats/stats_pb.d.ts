@@ -1028,30 +1028,30 @@ export declare class KoorClusterSpec extends Message<KoorClusterSpec> {
   /**
    * Use all devices on nodes
    *
-   * @generated from field: bool use_all_devices = 1;
+   * @generated from field: google.protobuf.BoolValue use_all_devices = 1;
    */
-  useAllDevices: boolean;
+  useAllDevices?: boolean;
 
   /**
    * Enable monitoring. Requires Prometheus to be pre-installed.
    *
-   * @generated from field: bool monitoring_enabled = 2;
+   * @generated from field: google.protobuf.BoolValue monitoring_enabled = 2;
    */
-  monitoringEnabled: boolean;
+  monitoringEnabled?: boolean;
 
   /**
    * Enable the ceph dashboard for viewing cluster status
    *
-   * @generated from field: bool dashboard_enabled = 3;
+   * @generated from field: google.protobuf.BoolValue dashboard_enabled = 3;
    */
-  dashboardEnabled: boolean;
+  dashboardEnabled?: boolean;
 
   /**
    * Installs a debugging toolbox deployment
    *
-   * @generated from field: bool toolbox_enabled = 4;
+   * @generated from field: google.protobuf.BoolValue toolbox_enabled = 4;
    */
-  toolboxEnabled: boolean;
+  toolboxEnabled?: boolean;
 
   /**
    * Specifies the upgrade options for new ceph versions

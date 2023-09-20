@@ -243,10 +243,10 @@ Represents the state of KoorCluster
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| use_all_devices | [bool](#bool) |  | Use all devices on nodes |
-| monitoring_enabled | [bool](#bool) |  | Enable monitoring. Requires Prometheus to be pre-installed. |
-| dashboard_enabled | [bool](#bool) |  | Enable the ceph dashboard for viewing cluster status |
-| toolbox_enabled | [bool](#bool) |  | Installs a debugging toolbox deployment |
+| use_all_devices | [google.protobuf.BoolValue](#google-protobuf-BoolValue) |  | Use all devices on nodes |
+| monitoring_enabled | [google.protobuf.BoolValue](#google-protobuf-BoolValue) |  | Enable monitoring. Requires Prometheus to be pre-installed. |
+| dashboard_enabled | [google.protobuf.BoolValue](#google-protobuf-BoolValue) |  | Enable the ceph dashboard for viewing cluster status |
+| toolbox_enabled | [google.protobuf.BoolValue](#google-protobuf-BoolValue) |  | Installs a debugging toolbox deployment |
 | upgrade_options | [UpgradeOptions](#resources-stats-UpgradeOptions) |  | Specifies the upgrade options for new ceph versions |
 | ksd_release_name | [string](#string) |  | The name to use for KSD helm release. |
 | ksd_cluster_release_name | [string](#string) |  | The name to use for KSD cluster helm release. |

@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { proto3, Timestamp } from "@bufbuild/protobuf";
+import { BoolValue, proto3, Timestamp } from "@bufbuild/protobuf";
 
 /**
  * @generated from enum resources.stats.ResourceStatus
@@ -356,10 +356,10 @@ export const UpgradeOptions = proto3.makeMessageType(
 export const KoorClusterSpec = proto3.makeMessageType(
   "resources.stats.KoorClusterSpec",
   () => [
-    { no: 1, name: "use_all_devices", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 2, name: "monitoring_enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 3, name: "dashboard_enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 4, name: "toolbox_enabled", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 1, name: "use_all_devices", kind: "message", T: BoolValue },
+    { no: 2, name: "monitoring_enabled", kind: "message", T: BoolValue },
+    { no: 3, name: "dashboard_enabled", kind: "message", T: BoolValue },
+    { no: 4, name: "toolbox_enabled", kind: "message", T: BoolValue },
     { no: 5, name: "upgrade_options", kind: "message", T: UpgradeOptions },
     { no: 6, name: "ksd_release_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 7, name: "ksd_cluster_release_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
