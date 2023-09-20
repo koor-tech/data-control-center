@@ -1,21 +1,38 @@
+import {
+    AlertBoxIcon,
+    ArchiveArrowDownIcon,
+    ClipboardIcon,
+    CubeIcon,
+    FileDocumentIcon,
+    GroupIcon,
+    HarddiskIcon,
+    MonitorIcon,
+    PoolIcon,
+    SwapVerticalIcon,
+    TableIcon,
+} from 'mdi-vue3';
+import { DefineComponent } from 'vue';
+
+export type StatsDescription = { title?: string; description: string };
+
 export type DisplayStatsData = {
     title: string;
-    icon?: string,
-    color?: string,
-    description: { title: string; description: string }[];
+    icon?: DefineComponent;
+    color?: string;
+    description: StatsDescription[];
 };
 
 export type ClusterHealthStats = {
     id: string;
     health: string;
     stats: DisplayStatsData[];
-}
+};
 
 export type ServiceInfo = {
     [key: string]: {
         title?: string;
-        color?: string,
-        icon?: string;
+        color?: string;
+        icon?: DefineComponent;
     };
 };
 
@@ -23,57 +40,57 @@ export const meta: ServiceInfo = {
     alerts: {
         title: 'Alerts',
         color: 'orange',
-        icon: 'ShieldExclamationIcon'
+        icon: AlertBoxIcon,
     },
     mon: {
         title: 'Monitors',
         color: 'blue',
-        icon: 'ComputerDesktopIcon'
+        icon: MonitorIcon,
     },
     mgr: {
         title: 'Managers',
         color: 'blue',
-        icon: 'ClipboardIcon'
+        icon: ClipboardIcon,
     },
     mds: {
         title: 'Metadata',
         color: 'blue',
-        icon: 'DocumentTextIcon'
+        icon: FileDocumentIcon,
     },
     osd: {
         title: 'Object Storage',
         color: 'blue',
-        icon: 'TableCellsIcon'
+        icon: TableIcon,
     },
     rgw: {
         title: 'RADOS Gateway (RGW)',
         color: 'blue',
-        icon: 'ArchiveBoxArrowDownIcon'
+        icon: ArchiveArrowDownIcon,
     },
     volumes: {
         title: 'Volumes',
         color: 'blue',
-        icon: 'CircleStackIcon'
+        icon: HarddiskIcon,
     },
     pools: {
         title: 'Pools',
         color: 'blue',
-        icon: 'Square3Stack3DIcon'
+        icon: PoolIcon,
     },
     objects: {
         title: 'Objects',
         color: 'blue',
-        icon: 'CubeIcon'
+        icon: CubeIcon,
     },
     pgs: {
         title: 'Placement Groups',
-        icon: 'ArchiveBoxIcon'
+        icon: GroupIcon,
     },
     io: {
         title: 'Input/Output',
-        icon: 'ArrowsUpDownIcon'
+        icon: SwapVerticalIcon,
     },
-}
+};
 
 export const statuses: { [key: string]: string } = {
     HEALTH_OFFLINE: 'text-gray-500 bg-gray-100/10',

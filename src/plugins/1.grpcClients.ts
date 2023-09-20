@@ -44,7 +44,7 @@ export class GRPCClients {
                     break;
 
                 case Code.Unauthenticated:
-                    useAuthStore().signOut();
+                    useAuthStore().clearAuthInfo();
 
                     notification.type = 'warning';
                     notification.title = 'Unauthenticated';

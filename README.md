@@ -12,12 +12,17 @@ Nice dashboard and controls for managing Rook Ceph data storage.
 * `yarn` for, e.g., `yarn dev` to preview the frontend.
 * [`buf` cli](https://buf.build/docs/installation) installed (you can use `make buf` to install it to your Go bin path)
 * `go-licenses`: Run `go install github.com/google/go-licenses@latest`.
+* `prettier` is installed when running `yarn`.
 
 ### Tasks
 
 * Installing the frontend dependencies: `yarn`
 * Run frontend dev server: `yarn dev`
 * Generate Protobuf code: `make gen-proto`
+
+### Contributing
+
+* Must run `prettier` format on any changed files. For Codium/VSCode users that should automatically be configured due to the settings in [`.vscode/` folder](.vscode/).
 
 ## License
 

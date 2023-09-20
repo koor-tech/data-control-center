@@ -13,8 +13,10 @@
         <!--                    <div class="radial-progress text-primary" style="&#45;&#45;value:70;">70%</div>-->
         <!--                </div>-->
         <template v-if="stats.services">
-            <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-10 sm:px-6 xl:px-8"
-                v-if="stats.services.mon">
+            <div
+                class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-10 sm:px-6 xl:px-8"
+                v-if="stats.services.mon"
+            >
                 <dt class="text-sm font-medium leading-6 text-or">Mon</dt>
                 <ul role="list" class="divide-y divide-gray-100">
                     <!--                    <li v-for="person in people" :key="person.email" class="flex justify-between gap-x-6 py-5">-->
@@ -35,8 +37,10 @@
                     </li>
                 </ul>
             </div>
-            <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-10 sm:px-6 xl:px-8"
-                v-if="stats.services.mgr">
+            <div
+                class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-10 sm:px-6 xl:px-8"
+                v-if="stats.services.mgr"
+            >
                 <dt class="text-sm font-medium leading-6 text-or">Mgr</dt>
                 <ul role="list" class="divide-y divide-gray-100">
                     <!--                    <li v-for="person in people" :key="person.email" class="flex justify-between gap-x-6 py-5">-->
@@ -57,8 +61,10 @@
                     </li>
                 </ul>
             </div>
-            <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-10 sm:px-6 xl:px-8"
-                v-if="stats.services.mds">
+            <div
+                class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-10 sm:px-6 xl:px-8"
+                v-if="stats.services.mds"
+            >
                 <dt class="text-sm font-medium leading-6 text-or">Mds</dt>
                 <ul role="list" class="divide-y divide-gray-100">
                     <!--                    <li v-for="person in people" :key="person.email" class="flex justify-between gap-x-6 py-5">-->
@@ -75,8 +81,10 @@
                     </li>
                 </ul>
             </div>
-            <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-10 sm:px-6 xl:px-8"
-                v-if="stats.services.osd">
+            <div
+                class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-10 sm:px-6 xl:px-8"
+                v-if="stats.services.osd"
+            >
                 <dt class="text-sm font-medium leading-6 text-or">- Osd -</dt>
                 <ul role="list" class="divide-y divide-gray-100">
                     <li class="flex justify-between gap-x-4">
@@ -91,8 +99,8 @@
                     </li>
                     <li class="flex justify-between gap-x-4">
                         <p class="text-sm leading-6 text-gray-900">
-                            since: <span class="font-bold text-gray-900">{{ stats.services.osd.osdUpUpdatedAt?.toDate()
-                            }}</span>
+                            since:
+                            <span class="font-bold text-gray-900">{{ stats.services.osd.osdUpUpdatedAt?.toDate() }}</span>
                         </p>
                     </li>
                     <li class="flex justify-between gap-x-4">
@@ -107,14 +115,15 @@
                     </li>
                 </ul>
             </div>
-            <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-10 sm:px-6 xl:px-8"
-                v-if="stats.services.rgw">
+            <div
+                class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-10 sm:px-6 xl:px-8"
+                v-if="stats.services.rgw"
+            >
                 <dt class="text-sm font-medium leading-6 text-or">RGW</dt>
                 <ul role="list" class="divide-y divide-gray-100">
                     <li class="flex justify-between gap-x-4">
                         <p class="text-sm leading-6 text-gray-900">
-                            active_daemon: <span class="font-bold text-gray-900">{{ stats.services.rgw.activeDaemon
-                            }}</span>
+                            active_daemon: <span class="font-bold text-gray-900">{{ stats.services.rgw.activeDaemon }}</span>
                         </p>
                     </li>
                     <li class="flex justify-between gap-x-4">

@@ -1,11 +1,9 @@
-import {Timestamp} from "@bufbuild/protobuf";
-import {Pgs} from "~~/gen/ts/api/resources/stats/stats_pb";
-import {ClusterHealthStats, DisplayStatsData, meta, statuses} from "~/composables/stats/types"
+import { Timestamp } from '@bufbuild/protobuf';
+import { ClusterHealthStats, DisplayStatsData, meta } from '~/composables/stats/types';
+import { Pgs } from '~~/gen/ts/api/resources/stats/stats_pb';
 
 export class TransformStats {
-
-    constructor(private clusterStats: any) {
-    }
+    constructor(private clusterStats: any) {}
 
     /**
      * Converts a timestamp to a human-readable string representing time elapsed.
@@ -37,8 +35,8 @@ export class TransformStats {
      * @param {any} data - The data to transform.
      * @returns {DisplayStatsData[]} An array of transformed data.
      */
-    private transformDescriptions(title: string, data: any): DisplayStatsData [] {
-        return Object.keys(data).map(serviceName => {
+    private transformDescriptions(title: string, data: any): DisplayStatsData[] {
+        return Object.keys(data).map((serviceName) => {
             const serviceData = data[serviceName];
 
             if (serviceName === 'volumes') {
@@ -46,7 +44,7 @@ export class TransformStats {
                     title: meta[serviceName]?.title || serviceName,
                     icon: meta[serviceName]?.icon,
                     color: meta[serviceName]?.color,
-                    description: [{title: meta[serviceName]?.title || serviceName, description: serviceData}],
+                    description: [{ title: meta[serviceName]?.title || serviceName, description: serviceData }],
                 };
             }
 
@@ -56,7 +54,7 @@ export class TransformStats {
                         return `${key}: ${this.convertTimestampToAgoString(value)}`;
                     }
                     if (value instanceof Pgs) {
-                        return `active+clean: ${value.activeClean}`
+                        return `active+clean: ${value.activeClean}`;
                     }
                     return `${key}: ${value}`;
                 })
@@ -66,7 +64,7 @@ export class TransformStats {
                 title: meta[serviceName]?.title || serviceName,
                 icon: meta[serviceName]?.icon,
                 color: meta[serviceName]?.color,
-                description: description.split(', ').map(entry => {
+                description: description.split(', ').map((entry) => {
                     const [key, value] = entry.split(': ');
                     return { title: key, description: value };
                 }),
@@ -80,33 +78,33 @@ export class TransformStats {
      */
     public display(): ClusterHealthStats {
         const transformedArray: DisplayStatsData[] = [];
-        const clusterStats = this.clusterStats
+        const clusterStats = this.clusterStats;
 
         transformedArray.push({
             title: 'Alerts',
             icon: meta['alerts'].icon,
             color: meta['alerts']?.color,
 
-            description: clusterStats.crashes.map((daemon: any) => daemon.description)
+            description: clusterStats.crashes.map((daemon: any) => daemon.description),
         });
 
         transformedArray.push(...this.transformDescriptions('services', clusterStats.services));
         transformedArray.push(...this.transformDescriptions('data', clusterStats.data));
 
-
         transformedArray.push({
             title: 'Input / Output',
             icon: meta['io'].icon,
             color: meta['io']?.color,
-            description: Object.keys(clusterStats.io).map(serviceName => ({
-                title: serviceName, description: String(clusterStats.io[serviceName])
+            description: Object.keys(clusterStats.io).map((serviceName) => ({
+                title: serviceName,
+                description: String(clusterStats.io[serviceName]),
             })),
         });
 
         return {
             id: clusterStats.id,
             health: clusterStats.status,
-            stats: transformedArray
+            stats: transformedArray,
         };
     }
 }

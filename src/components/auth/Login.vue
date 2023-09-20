@@ -1,11 +1,11 @@
 <script lang="ts" setup>
+import { useAuthStore } from '~/store/auth';
+import { useNotificationsStore } from '~/store/notifications';
 import LoginForm from './LoginForm.vue';
 
 const authStore = useAuthStore();
 const notifications = useNotificationsStore();
 const route = useRoute();
-import { useAuthStore } from '~/store/auth';
-import { useNotificationsStore } from '~/store/notifications';
 
 const { setAccessToken } = authStore;
 

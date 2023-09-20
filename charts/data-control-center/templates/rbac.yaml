@@ -58,4 +58,23 @@ rules:
       - get
       - list
       - watch
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: {{ include "data-control-center.serviceAccountName" . }}
+  labels:
+    {{- include "data-control-center.labels" . | nindent 4 }}
+  {{- with .Values.rbac.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "data-control-center.serviceAccountName" . }}
+    namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: ClusterRole
+  name: {{ include "data-control-center.serviceAccountName" . }}
+  apiGroup: rbac.authorization.k8s.io
 {{- end }}
