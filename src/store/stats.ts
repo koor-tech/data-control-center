@@ -1,8 +1,6 @@
 import { ConnectError } from '@connectrpc/connect';
 import { defineStore } from 'pinia';
-import { TransformStats } from '~/composables/stats/transform';
-import { ClusterHealthStats } from '~/composables/stats/types';
-import { ClusterRadar, NodeInfo } from '~~/gen/ts/api/resources/stats/stats_pb';
+import { ClusterRadar, ClusterStats, NodeInfo } from '~~/gen/ts/api/resources/stats/stats_pb';
 import { GetClusterResourcesResponse } from '~~/gen/ts/api/services/stats/stats_pb';
 
 export interface StatsState {}
@@ -56,7 +54,7 @@ export const useStatsStore = defineStore('stats', {
                 }
             });
         },
-        async getClusterStats(): Promise<ClusterHealthStats> {
+        async getClusterStats(): Promise<ClusterStats> {
             return new Promise(async (res, rej) => {
                 const { $grpc } = useNuxtApp();
 
@@ -64,9 +62,7 @@ export const useStatsStore = defineStore('stats', {
                     const stats = await $grpc.getStatsClient().getClusterStats({});
                     if (!stats.stats) return rej();
 
-                    const dataStats = new TransformStats(stats.stats);
-
-                    return res(dataStats.display());
+                    return res(stats.stats);
                 } catch (e) {
                     if (e instanceof ConnectError) $grpc.handleError(e as ConnectError);
                     return rej(e);

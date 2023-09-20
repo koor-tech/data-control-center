@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { TransformStats } from '~/composables/stats/transform';
 import { statuses } from '~/composables/stats/types';
 import { useStatsStore } from '~/store/stats';
 
@@ -12,9 +13,13 @@ definePageMeta({
 
 const statsStore = useStatsStore();
 
-const { data: clusterStats, error } = useLazyAsyncData('clusterStats', async () => await statsStore.getClusterStats());
+const { data: clusterStats, error } = useLazyAsyncData('clusterStats', async () => {
+    const stats = await statsStore.getClusterStats();
+    const dataStats = new TransformStats(stats);
+    return dataStats.display();
+});
 
-watch(error, () => console.log(error));
+watch(error, () => console.log(error.value));
 watch(clusterStats, () => console.log(clusterStats.value));
 console.log('HEALTH PAGE');
 </script>
@@ -24,7 +29,7 @@ console.log('HEALTH PAGE');
         <div class="w-full mx-4 my-4 rounded-lg border border-gray-300 py-4">
             <header class="inset-x-0 top-0 z-50 flex h-16 border-b border-gray-900/10">
                 <div class="mx-auto flex w-full max-w-7xl items-center justify-between">
-                    <div class="flex items-center gap-x-6">Cluster Health stats</div>
+                    <div class="flex items-center gap-x-6">Cluster Health Stats</div>
                 </div>
             </header>
             <!-- Your content goes here -->

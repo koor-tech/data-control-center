@@ -6,52 +6,31 @@ export class TransformStats {
     constructor(private clusterStats: ClusterStats) {}
 
     /**
-     * Converts a timestamp to a human-readable string representing time elapsed.
-     * @param {Timestamp} timestamp - The timestamp to convert.
-     * @returns {string} A human-readable string indicating time elapsed.
-     */
-    private convertTimestampToAgoString(timestamp: Timestamp): string {
-        const currentTimestamp = BigInt(Math.floor(Date.now() / 1000));
-        const seconds = timestamp.seconds;
-        const difference = currentTimestamp - seconds;
-
-        if (difference < 60n) {
-            return `${difference.toString()} seconds ago`;
-        } else if (difference < 3600n) {
-            const minutes = difference / 60n;
-            return `${minutes.toString()} minutes ago`;
-        } else if (difference < 86400n) {
-            const hours = difference / 3600n;
-            return `${hours.toString()} hours ago`;
-        } else {
-            const days = difference / 86400n;
-            return `${days.toString()} days ago`;
-        }
-    }
-
-    /**
      * Transforms descriptions for display.
      * @param {string} title - The title of the data.
      * @param {any} data - The data to transform.
      * @returns {DisplayStatsData[]} An array of transformed data.
      */
     private transformDescriptions(title: string, data: any): DisplayStatsData[] {
+        console.log('data', data);
         return Object.keys(data).map((serviceName) => {
+            console.log('serviceName', serviceName);
             const serviceData = data[serviceName];
+            const serviceMeta = meta[serviceName] ?? meta['default'];
 
             if (serviceName === 'volumes') {
                 return {
-                    title: meta[serviceName]?.title || serviceName,
-                    icon: meta[serviceName]?.icon,
-                    color: meta[serviceName]?.color,
-                    description: [{ title: meta[serviceName]?.title || serviceName, description: serviceData }],
+                    title: serviceMeta.title || serviceName,
+                    icon: markRaw(serviceMeta.icon),
+                    color: serviceMeta.color,
+                    description: [{ title: serviceMeta.title || serviceName, description: serviceData }],
                 };
             }
 
             const description = Object.entries(serviceData)
                 .map(([key, value]) => {
                     if (value instanceof Timestamp) {
-                        return `${key}: ${this.convertTimestampToAgoString(value)}`;
+                        return `${key}: ${convertTimestampToAgoString(value)}`;
                     }
                     if (value instanceof PGs) {
                         return `active+clean: ${value.activeClean}`;
@@ -61,9 +40,9 @@ export class TransformStats {
                 .join(', ');
 
             return {
-                title: meta[serviceName]?.title || serviceName,
-                icon: meta[serviceName]?.icon,
-                color: meta[serviceName]?.color,
+                title: serviceMeta.title || serviceName,
+                icon: markRaw(serviceMeta.icon),
+                color: serviceMeta.color,
                 description: description.split(', ').map((entry) => {
                     const [key, value] = entry.split(': ');
                     return { title: key, description: value };
@@ -84,7 +63,9 @@ export class TransformStats {
             icon: meta['alerts'].icon,
             color: meta['alerts']?.color,
 
-            description: this.clusterStats.crashes.map((daemon: any) => daemon.description),
+            description: this.clusterStats.crashes.map((daemon) => ({
+                description: daemon.description,
+            })),
         });
 
         transformedArray.push(...this.transformDescriptions('services', this.clusterStats.services));
@@ -93,19 +74,23 @@ export class TransformStats {
         if (this.clusterStats.iops) {
             transformedArray.push({
                 title: 'Input / Output',
-                icon: meta['io'].icon,
+                icon: markRaw(meta['io'].icon),
                 color: meta['io']?.color,
                 description: [
                     {
-                        title: 'Client Read',
+                        title: 'Read',
                         description: this.clusterStats.iops.clientRead,
                     },
                     {
-                        title: '',
+                        title: 'Read Ops',
                         description: this.clusterStats.iops.clientReadOps,
                     },
                     {
-                        title: '',
+                        title: 'Write',
+                        description: this.clusterStats.iops.clientWrite,
+                    },
+                    {
+                        title: 'Write Ops',
                         description: this.clusterStats.iops.clientWriteOps,
                     },
                 ],

@@ -6,6 +6,7 @@ import {
     FileDocumentIcon,
     GroupIcon,
     HarddiskIcon,
+    HelpIcon,
     MonitorIcon,
     PoolIcon,
     SwapVerticalIcon,
@@ -17,7 +18,7 @@ export type StatsDescription = { title?: string; description: string };
 
 export type DisplayStatsData = {
     title: string;
-    icon?: DefineComponent;
+    icon: DefineComponent;
     color?: string;
     description: StatsDescription[];
 };
@@ -30,65 +31,70 @@ export type ClusterHealthStats = {
 
 export type ServiceInfo = {
     [key: string]: {
-        title?: string;
+        title: string;
         color?: string;
-        icon?: DefineComponent;
+        icon: DefineComponent;
     };
 };
 
 export const meta: ServiceInfo = {
+    default: {
+        title: '',
+        color: 'gray',
+        icon: markRaw(HelpIcon),
+    },
     alerts: {
         title: 'Alerts',
         color: 'orange',
-        icon: AlertBoxIcon,
+        icon: markRaw(AlertBoxIcon),
     },
     mon: {
         title: 'Monitors',
         color: 'blue',
-        icon: MonitorIcon,
+        icon: markRaw(MonitorIcon),
     },
     mgr: {
         title: 'Managers',
         color: 'blue',
-        icon: ClipboardIcon,
+        icon: markRaw(ClipboardIcon),
     },
     mds: {
         title: 'Metadata',
         color: 'blue',
-        icon: FileDocumentIcon,
+        icon: markRaw(FileDocumentIcon),
     },
     osd: {
         title: 'Object Storage',
         color: 'blue',
-        icon: TableIcon,
+        icon: markRaw(TableIcon),
     },
     rgw: {
         title: 'RADOS Gateway (RGW)',
         color: 'blue',
-        icon: ArchiveArrowDownIcon,
+        icon: markRaw(ArchiveArrowDownIcon),
     },
     volumes: {
         title: 'Volumes',
         color: 'blue',
-        icon: HarddiskIcon,
+        icon: markRaw(HarddiskIcon),
     },
     pools: {
         title: 'Pools',
         color: 'blue',
-        icon: PoolIcon,
+        icon: markRaw(PoolIcon),
     },
     objects: {
         title: 'Objects',
         color: 'blue',
-        icon: CubeIcon,
+        icon: markRaw(CubeIcon),
     },
     pgs: {
         title: 'Placement Groups',
-        icon: GroupIcon,
+        icon: markRaw(GroupIcon),
     },
-    io: {
+    iops: {
         title: 'Input/Output',
-        icon: SwapVerticalIcon,
+        icon: markRaw(SwapVerticalIcon),
     },
 };
 

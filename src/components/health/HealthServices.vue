@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { HelpIcon } from 'mdi-vue3';
 import { DisplayStatsData } from '~/composables/stats/types';
+import HealthLiItem from './HealthLiItem.vue';
 
 defineProps<{
     statsContainer: DisplayStatsData;
@@ -24,7 +25,9 @@ defineProps<{
         </dt>
         <dd class="flex items-baseline pb-1 sm:pb-1 pt-10">
             <ul role="list" class="w-full divide-y divide-gray-100">
-                <HealthLiItem v-for="healthStats in statsContainer.description" :healthStats="healthStats" />
+                <template v-for="healthStats in statsContainer.description">
+                    <HealthLiItem :healthStats="healthStats" />
+                </template>
             </ul>
             <div class="absolute inset-x-0 bottom-0 bg-gray-50 px-4 py-4 sm:px-6">
                 <div class="text-sm text-center">
