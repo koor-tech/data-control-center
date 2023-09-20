@@ -4,6 +4,7 @@ go 1.20
 
 require (
 	connectrpc.com/connect v1.11.1
+	github.com/bufbuild/connect-go v1.9.0
 	github.com/creasty/defaults v1.7.0
 	github.com/envoyproxy/protoc-gen-validate v1.0.2
 	github.com/gin-contrib/sessions v0.0.5
@@ -13,6 +14,7 @@ require (
 	github.com/golang-jwt/jwt/v5 v5.0.0
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.0
 	github.com/json-iterator/go v1.1.12
+	github.com/koor-tech/koor-operator v0.3.6
 	github.com/prometheus/client_golang v1.16.0
 	github.com/rook/rook v1.12.4
 	github.com/spf13/cobra v1.7.0
@@ -62,7 +64,6 @@ require (
 	github.com/go-playground/validator/v10 v10.15.3 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
-	github.com/golang-jwt/jwt/v4 v4.5.0 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
@@ -97,7 +98,6 @@ require (
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/k8snetworkplumbingwg/network-attachment-definition-client v1.4.0 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.5 // indirect
-	github.com/koor-tech/koor-operator v0.3.6 // indirect
 	github.com/kube-object-storage/lib-bucket-provisioner v0.0.0-20221122204822-d1a8c34382f1 // indirect
 	github.com/leodido/go-urn v1.2.4 // indirect
 	github.com/libopenstorage/secrets v0.0.0-20230417161723-1022cc4d5aeb // indirect
@@ -133,9 +133,7 @@ require (
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.2.11 // indirect
 	github.com/xlab/treeprint v1.2.0 // indirect
-	go.etcd.io/bbolt v1.3.7 // indirect
 	go.starlark.net v0.0.0-20230814145427-12f4cb8177e4 // indirect
-	go.uber.org/atomic v1.10.0 // indirect
 	go.uber.org/dig v1.17.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/arch v0.5.0 // indirect
