@@ -4,7 +4,6 @@ go 1.20
 
 require (
 	connectrpc.com/connect v1.11.1
-	github.com/ceph/go-ceph v0.23.0
 	github.com/creasty/defaults v1.7.0
 	github.com/envoyproxy/protoc-gen-validate v1.0.2
 	github.com/gin-contrib/sessions v0.0.5

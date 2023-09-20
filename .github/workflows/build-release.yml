@@ -42,11 +42,6 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Install Build Dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libcephfs-dev librbd-dev librados-dev
-
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
