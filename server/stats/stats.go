@@ -291,3 +291,15 @@ func (s *Server) GetClusterRadar(ctx context.Context, req *connect.Request[stats
 		},
 	}, nil
 }
+
+func (s *Server) GetKoorCluster(ctx context.Context, req *connect.Request[statspb.GetKoorClusterRequest]) (*connect.Response[statspb.GetKoorClusterResponse], error) {
+	kc, err := s.k.GetKoorCluster(ctx, ClusterNamespace)
+	if err != nil {
+		return nil, err
+	}
+
+	res := connect.NewResponse(&statspb.GetKoorClusterResponse{
+		KoorCluster: kc,
+	})
+	return res, nil
+}
