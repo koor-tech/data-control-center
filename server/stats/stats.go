@@ -112,6 +112,7 @@ func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[stats
 	}
 
 	clientReadBytes := utils.FormatBytes(int64(st.ClientPerf.ReadBytesSec))
+	clientWriteBytes := utils.FormatBytes(int64(st.ClientPerf.WriteBytesSec))
 	readOps := st.ClientPerf.ReadOpPerSec
 	writeOps := st.ClientPerf.WriteOpPerSec
 
@@ -153,7 +154,7 @@ func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[stats
 				Volumes: int32(1), // TODO still figuring out
 				Pools: &stats.Pools{
 					Pools: int32(poolCount),
-					Pgs: &stats.Pgs{
+					Pgs: &stats.PGs{
 						ActiveClean: int32(activeAndCleanPGs),
 					},
 				},
@@ -167,8 +168,9 @@ func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[stats
 					Total:     st.DF.Stats.TotalBytes,
 				},
 			},
-			Io: &stats.Io{
+			Iops: &stats.IOPS{
 				ClientRead:     fmt.Sprintf("%s/s rd", clientReadBytes),
+				ClientWrite:    fmt.Sprintf("%s/s wr", clientWriteBytes),
 				ClientReadOps:  fmt.Sprintf("%d ops/s rd", readOps),
 				ClientWriteOps: fmt.Sprintf("%d ops/s wr", writeOps),
 			},

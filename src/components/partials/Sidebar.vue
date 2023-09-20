@@ -7,13 +7,14 @@ import {
     ChartBarIcon,
     ChevronRightIcon,
     CloseIcon,
-    CogIcon,
+    GithubIcon,
     GlassesIcon,
     HomeIcon,
     MenuIcon,
     SchoolIcon,
     TuneIcon,
     TwitterIcon,
+    YoutubeIcon,
 } from 'mdi-vue3';
 import { DefineComponent } from 'vue';
 import { useAuthStore } from '~/store/auth';
@@ -85,7 +86,7 @@ const sidebarNavigation = ref<
         name: 'Github',
         href: 'https://github.com/koor-tech',
         external: true,
-        icon: markRaw(CogIcon),
+        icon: markRaw(GithubIcon),
         position: 'bottom',
         current: false,
     },
@@ -101,7 +102,7 @@ const sidebarNavigation = ref<
         name: 'YouTube',
         href: 'https://www.youtube.com/@koor-tech',
         external: true,
-        icon: markRaw(TwitterIcon),
+        icon: markRaw(YoutubeIcon),
         position: 'bottom',
         current: false,
     },
@@ -246,7 +247,7 @@ const appVersion = accessToken ? ' v' + __APP_VERSION__ + (import.meta.env.DEV ?
                             item.current
                                 ? 'bg-accent-100/20 text-neutral font-bold'
                                 : 'text-accent-100 hover:bg-accent-100/10 hover:text-neutral font-medium',
-                            'hover:transition-all group flex w-full flex-col items-center rounded-md p-3 text-xs my-2',
+                            'hover:transition-all group flex w-full flex-col items-center rounded-md p-1 text-xs my-2',
                         ]"
                         :aria-current="item.current ? 'page' : undefined"
                     >

@@ -108,10 +108,10 @@ export const Services = proto3.makeMessageType(
 );
 
 /**
- * @generated from message resources.stats.Pgs
+ * @generated from message resources.stats.PGs
  */
-export const Pgs = proto3.makeMessageType(
-  "resources.stats.Pgs",
+export const PGs = proto3.makeMessageType(
+  "resources.stats.PGs",
   () => [
     { no: 1, name: "active_clean", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
   ],
@@ -124,7 +124,7 @@ export const Pools = proto3.makeMessageType(
   "resources.stats.Pools",
   () => [
     { no: 1, name: "pools", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
-    { no: 2, name: "pgs", kind: "message", T: Pgs },
+    { no: 2, name: "pgs", kind: "message", T: PGs },
   ],
 );
 
@@ -165,14 +165,15 @@ export const Data = proto3.makeMessageType(
 );
 
 /**
- * @generated from message resources.stats.Io
+ * @generated from message resources.stats.IOPS
  */
-export const Io = proto3.makeMessageType(
-  "resources.stats.Io",
+export const IOPS = proto3.makeMessageType(
+  "resources.stats.IOPS",
   () => [
     { no: 1, name: "client_read", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "client_read_ops", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "client_write_ops", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "client_write", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "client_read_ops", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "client_write_ops", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ],
 );
 
@@ -198,7 +199,7 @@ export const ClusterStats = proto3.makeMessageType(
     { no: 4, name: "services", kind: "message", T: Services },
     { no: 5, name: "data", kind: "message", T: Data },
     { no: 6, name: "test", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 7, name: "io", kind: "message", T: Io },
+    { no: 7, name: "iops", kind: "message", T: IOPS },
   ],
 );
 

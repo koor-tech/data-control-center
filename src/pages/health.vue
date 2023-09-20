@@ -13,6 +13,10 @@ definePageMeta({
 const statsStore = useStatsStore();
 
 const { data: clusterStats, error } = useLazyAsyncData('clusterStats', async () => await statsStore.getClusterStats());
+
+watch(error, () => console.log(error));
+watch(clusterStats, () => console.log(clusterStats.value));
+console.log('HEALTH PAGE');
 </script>
 
 <template>
@@ -28,21 +32,21 @@ const { data: clusterStats, error } = useLazyAsyncData('clusterStats', async () 
                 <!-- Secondary navigation -->
                 <header class="w-full border-b border-b-gray-300">
                     <div class="mx-auto flex max-w-7xl flex-wrap items-center gap-6 sm:flex-nowrap">
-                        <h1 v-if="clusterStats" class="text-base font-semibold leading-7 text-gray-900">
-                            Cluster id: {{ clusterStats.id }}
-                        </h1>
-                        <div v-if="clusterStats" :class="[statuses[clusterStats.health], 'flex-none rounded-full p-1']">
-                            <div class="h-2 w-2 rounded-full bg-current" />
-                        </div>
-                        <p v-if="clusterStats" class="text-gray-700 text-sm">
-                            {{ clusterStats.health }}
-                        </p>
+                        <template v-if="clusterStats">
+                            <h1 class="text-base font-semibold leading-7 text-gray-900">Cluster ID: {{ clusterStats.id }}</h1>
+                            <div :class="[statuses[clusterStats.health], 'flex-none rounded-full p-1']">
+                                <div class="h-2 w-2 rounded-full bg-current" />
+                            </div>
+                            <p class="text-gray-700 text-sm">
+                                {{ clusterStats.health }}
+                            </p>
+                        </template>
                     </div>
                 </header>
 
                 <!-- Stats -->
                 <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5 px-2">
-                    <template v-if="clusterStats && clusterStats.stats">
+                    <template v-if="clusterStats?.stats">
                         <template v-for="item in clusterStats.stats">
                             <HealthServices v-if="item.description.length" :statsContainer="item" />
                         </template>

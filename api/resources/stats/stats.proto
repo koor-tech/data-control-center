@@ -46,13 +46,13 @@ message Services {
   RgwService rgw = 5;
 }
 
-message Pgs {
+message PGs {
   int32 active_clean = 1;
 }
 
 message Pools {
   int32 pools = 1;
-  Pgs pgs = 2;
+  PGs pgs = 2;
 }
 
 message Objects {
@@ -73,10 +73,11 @@ message Data {
   Usage usage = 4;
 }
 
-message Io {
+message IOPS {
   string client_read = 1;
-  string client_read_ops = 2;
-  string client_write_ops = 3;
+  string client_write = 2;
+  string client_read_ops = 3;
+  string client_write_ops = 4;
 }
 
 message Crash {
@@ -90,7 +91,7 @@ message ClusterStats {
   Services services = 4;
   Data data = 5;
   string test = 6;
-  Io io = 7;
+  IOPS iops = 7;
 }
 
 message ResourceInfo {

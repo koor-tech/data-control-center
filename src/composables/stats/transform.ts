@@ -1,9 +1,9 @@
 import { Timestamp } from '@bufbuild/protobuf';
 import { ClusterHealthStats, DisplayStatsData, meta } from '~/composables/stats/types';
-import { Pgs } from '~~/gen/ts/api/resources/stats/stats_pb';
+import { ClusterStats, PGs } from '~~/gen/ts/api/resources/stats/stats_pb';
 
 export class TransformStats {
-    constructor(private clusterStats: any) {}
+    constructor(private clusterStats: ClusterStats) {}
 
     /**
      * Converts a timestamp to a human-readable string representing time elapsed.
@@ -53,7 +53,7 @@ export class TransformStats {
                     if (value instanceof Timestamp) {
                         return `${key}: ${this.convertTimestampToAgoString(value)}`;
                     }
-                    if (value instanceof Pgs) {
+                    if (value instanceof PGs) {
                         return `active+clean: ${value.activeClean}`;
                     }
                     return `${key}: ${value}`;
@@ -78,32 +78,43 @@ export class TransformStats {
      */
     public display(): ClusterHealthStats {
         const transformedArray: DisplayStatsData[] = [];
-        const clusterStats = this.clusterStats;
 
         transformedArray.push({
             title: 'Alerts',
             icon: meta['alerts'].icon,
             color: meta['alerts']?.color,
 
-            description: clusterStats.crashes.map((daemon: any) => daemon.description),
+            description: this.clusterStats.crashes.map((daemon: any) => daemon.description),
         });
 
-        transformedArray.push(...this.transformDescriptions('services', clusterStats.services));
-        transformedArray.push(...this.transformDescriptions('data', clusterStats.data));
+        transformedArray.push(...this.transformDescriptions('services', this.clusterStats.services));
+        transformedArray.push(...this.transformDescriptions('data', this.clusterStats.data));
 
-        transformedArray.push({
-            title: 'Input / Output',
-            icon: meta['io'].icon,
-            color: meta['io']?.color,
-            description: Object.keys(clusterStats.io).map((serviceName) => ({
-                title: serviceName,
-                description: String(clusterStats.io[serviceName]),
-            })),
-        });
+        if (this.clusterStats.iops) {
+            transformedArray.push({
+                title: 'Input / Output',
+                icon: meta['io'].icon,
+                color: meta['io']?.color,
+                description: [
+                    {
+                        title: 'Client Read',
+                        description: this.clusterStats.iops.clientRead,
+                    },
+                    {
+                        title: '',
+                        description: this.clusterStats.iops.clientReadOps,
+                    },
+                    {
+                        title: '',
+                        description: this.clusterStats.iops.clientWriteOps,
+                    },
+                ],
+            });
+        }
 
         return {
-            id: clusterStats.id,
-            health: clusterStats.status,
+            id: this.clusterStats.id,
+            health: this.clusterStats.status,
             stats: transformedArray,
         };
     }

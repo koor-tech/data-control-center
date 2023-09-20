@@ -62,7 +62,9 @@ export const useStatsStore = defineStore('stats', {
 
                 try {
                     const stats = await $grpc.getStatsClient().getClusterStats({});
-                    const dataStats = new TransformStats(stats);
+                    if (!stats.stats) return rej();
+
+                    const dataStats = new TransformStats(stats.stats);
 
                     return res(dataStats.display());
                 } catch (e) {
