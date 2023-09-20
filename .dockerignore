@@ -44,5 +44,4 @@ localhost.*
 .nuxt
 .nitro
 .cache
-.output
 .env

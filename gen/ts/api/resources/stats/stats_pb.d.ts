@@ -281,27 +281,27 @@ export declare class Services extends Message<Services> {
 }
 
 /**
- * @generated from message resources.stats.Pgs
+ * @generated from message resources.stats.PGs
  */
-export declare class Pgs extends Message<Pgs> {
+export declare class PGs extends Message<PGs> {
   /**
    * @generated from field: int32 active_clean = 1;
    */
   activeClean: number;
 
-  constructor(data?: PartialMessage<Pgs>);
+  constructor(data?: PartialMessage<PGs>);
 
   static readonly runtime: typeof proto3;
-  static readonly typeName = "resources.stats.Pgs";
+  static readonly typeName = "resources.stats.PGs";
   static readonly fields: FieldList;
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Pgs;
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PGs;
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Pgs;
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PGs;
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Pgs;
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PGs;
 
-  static equals(a: Pgs | PlainMessage<Pgs> | undefined, b: Pgs | PlainMessage<Pgs> | undefined): boolean;
+  static equals(a: PGs | PlainMessage<PGs> | undefined, b: PGs | PlainMessage<PGs> | undefined): boolean;
 }
 
 /**
@@ -314,9 +314,9 @@ export declare class Pools extends Message<Pools> {
   pools: number;
 
   /**
-   * @generated from field: resources.stats.Pgs pgs = 2;
+   * @generated from field: resources.stats.PGs pgs = 2;
    */
-  pgs?: Pgs;
+  pgs?: PGs;
 
   constructor(data?: PartialMessage<Pools>);
 
@@ -436,37 +436,42 @@ export declare class Data extends Message<Data> {
 }
 
 /**
- * @generated from message resources.stats.Io
+ * @generated from message resources.stats.IOPS
  */
-export declare class Io extends Message<Io> {
+export declare class IOPS extends Message<IOPS> {
   /**
    * @generated from field: string client_read = 1;
    */
   clientRead: string;
 
   /**
-   * @generated from field: string client_read_ops = 2;
+   * @generated from field: string client_write = 2;
+   */
+  clientWrite: string;
+
+  /**
+   * @generated from field: string client_read_ops = 3;
    */
   clientReadOps: string;
 
   /**
-   * @generated from field: string client_write_ops = 3;
+   * @generated from field: string client_write_ops = 4;
    */
   clientWriteOps: string;
 
-  constructor(data?: PartialMessage<Io>);
+  constructor(data?: PartialMessage<IOPS>);
 
   static readonly runtime: typeof proto3;
-  static readonly typeName = "resources.stats.Io";
+  static readonly typeName = "resources.stats.IOPS";
   static readonly fields: FieldList;
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Io;
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): IOPS;
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Io;
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): IOPS;
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Io;
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): IOPS;
 
-  static equals(a: Io | PlainMessage<Io> | undefined, b: Io | PlainMessage<Io> | undefined): boolean;
+  static equals(a: IOPS | PlainMessage<IOPS> | undefined, b: IOPS | PlainMessage<IOPS> | undefined): boolean;
 }
 
 /**
@@ -528,9 +533,9 @@ export declare class ClusterStats extends Message<ClusterStats> {
   test: string;
 
   /**
-   * @generated from field: resources.stats.Io io = 7;
+   * @generated from field: resources.stats.IOPS iops = 7;
    */
-  io?: Io;
+  iops?: IOPS;
 
   constructor(data?: PartialMessage<ClusterStats>);
 

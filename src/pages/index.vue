@@ -15,14 +15,20 @@ definePageMeta({
 
 const { $grpc } = useNuxtApp();
 
-const { data: stats, pending, refresh, error } = useLazyAsyncData(`clusterstats`, () => $grpc.getStatsClient().getClusterStats({}));
-watch(error, () => {
-    if (error.value !== null) $grpc.handleError(error.value as ConnectError);
+const { data: stats, pending, refresh, error: statsErr } = useLazyAsyncData(`clusterstats`, () => $grpc.getStatsClient().getClusterStats({}));
+watch(statsErr, () => {
+    if (statsErr.value !== null) $grpc.handleError(statsErr.value as ConnectError);
 });
 
-const { data: radar } = useLazyAsyncData(`clusterradar`, () => $grpc.getStatsClient().getClusterRadar({}));
+const { data: radar, error: radarErr } = useLazyAsyncData(`clusterradar`, () => $grpc.getStatsClient().getClusterRadar({}));
+watch(radarErr, () => {
+    if (radarErr.value !== null) $grpc.handleError(radarErr.value as ConnectError);
+});
 
-const { data: resources } = useLazyAsyncData(`clusterresources`, () => $grpc.getStatsClient().getClusterResources({}));
+const { data: resources, error: resourcesErr } = useLazyAsyncData(`clusterresources`, () => $grpc.getStatsClient().getClusterResources({}));
+watch(resourcesErr, () => {
+    if (resourcesErr.value !== null) $grpc.handleError(resourcesErr.value as ConnectError);
+});
 </script>
 
 <template>

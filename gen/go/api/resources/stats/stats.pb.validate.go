@@ -941,21 +941,21 @@ var _ interface {
 	ErrorName() string
 } = ServicesValidationError{}
 
-// Validate checks the field values on Pgs with the rules defined in the proto
+// Validate checks the field values on PGs with the rules defined in the proto
 // definition for this message. If any rules are violated, the first error
 // encountered is returned, or nil if there are no violations.
-func (m *Pgs) Validate() error {
+func (m *PGs) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on Pgs with the rules defined in the
+// ValidateAll checks the field values on PGs with the rules defined in the
 // proto definition for this message. If any rules are violated, the result is
-// a list of violation errors wrapped in PgsMultiError, or nil if none found.
-func (m *Pgs) ValidateAll() error {
+// a list of violation errors wrapped in PGsMultiError, or nil if none found.
+func (m *PGs) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *Pgs) validate(all bool) error {
+func (m *PGs) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -965,18 +965,18 @@ func (m *Pgs) validate(all bool) error {
 	// no validation rules for ActiveClean
 
 	if len(errors) > 0 {
-		return PgsMultiError(errors)
+		return PGsMultiError(errors)
 	}
 
 	return nil
 }
 
-// PgsMultiError is an error wrapping multiple validation errors returned by
-// Pgs.ValidateAll() if the designated constraints aren't met.
-type PgsMultiError []error
+// PGsMultiError is an error wrapping multiple validation errors returned by
+// PGs.ValidateAll() if the designated constraints aren't met.
+type PGsMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m PgsMultiError) Error() string {
+func (m PGsMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -985,11 +985,11 @@ func (m PgsMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m PgsMultiError) AllErrors() []error { return m }
+func (m PGsMultiError) AllErrors() []error { return m }
 
-// PgsValidationError is the validation error returned by Pgs.Validate if the
+// PGsValidationError is the validation error returned by PGs.Validate if the
 // designated constraints aren't met.
-type PgsValidationError struct {
+type PGsValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -997,22 +997,22 @@ type PgsValidationError struct {
 }
 
 // Field function returns field value.
-func (e PgsValidationError) Field() string { return e.field }
+func (e PGsValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e PgsValidationError) Reason() string { return e.reason }
+func (e PGsValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e PgsValidationError) Cause() error { return e.cause }
+func (e PGsValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e PgsValidationError) Key() bool { return e.key }
+func (e PGsValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e PgsValidationError) ErrorName() string { return "PgsValidationError" }
+func (e PGsValidationError) ErrorName() string { return "PGsValidationError" }
 
 // Error satisfies the builtin error interface
-func (e PgsValidationError) Error() string {
+func (e PGsValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1024,14 +1024,14 @@ func (e PgsValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sPgs.%s: %s%s",
+		"invalid %sPGs.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = PgsValidationError{}
+var _ error = PGsValidationError{}
 
 var _ interface {
 	Field() string
@@ -1039,7 +1039,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = PgsValidationError{}
+} = PGsValidationError{}
 
 // Validate checks the field values on Pools with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
@@ -1563,21 +1563,21 @@ var _ interface {
 	ErrorName() string
 } = DataValidationError{}
 
-// Validate checks the field values on Io with the rules defined in the proto
+// Validate checks the field values on IOPS with the rules defined in the proto
 // definition for this message. If any rules are violated, the first error
 // encountered is returned, or nil if there are no violations.
-func (m *Io) Validate() error {
+func (m *IOPS) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on Io with the rules defined in the
+// ValidateAll checks the field values on IOPS with the rules defined in the
 // proto definition for this message. If any rules are violated, the result is
-// a list of violation errors wrapped in IoMultiError, or nil if none found.
-func (m *Io) ValidateAll() error {
+// a list of violation errors wrapped in IOPSMultiError, or nil if none found.
+func (m *IOPS) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *Io) validate(all bool) error {
+func (m *IOPS) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -1586,23 +1586,25 @@ func (m *Io) validate(all bool) error {
 
 	// no validation rules for ClientRead
 
+	// no validation rules for ClientWrite
+
 	// no validation rules for ClientReadOps
 
 	// no validation rules for ClientWriteOps
 
 	if len(errors) > 0 {
-		return IoMultiError(errors)
+		return IOPSMultiError(errors)
 	}
 
 	return nil
 }
 
-// IoMultiError is an error wrapping multiple validation errors returned by
-// Io.ValidateAll() if the designated constraints aren't met.
-type IoMultiError []error
+// IOPSMultiError is an error wrapping multiple validation errors returned by
+// IOPS.ValidateAll() if the designated constraints aren't met.
+type IOPSMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m IoMultiError) Error() string {
+func (m IOPSMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1611,11 +1613,11 @@ func (m IoMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m IoMultiError) AllErrors() []error { return m }
+func (m IOPSMultiError) AllErrors() []error { return m }
 
-// IoValidationError is the validation error returned by Io.Validate if the
+// IOPSValidationError is the validation error returned by IOPS.Validate if the
 // designated constraints aren't met.
-type IoValidationError struct {
+type IOPSValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1623,22 +1625,22 @@ type IoValidationError struct {
 }
 
 // Field function returns field value.
-func (e IoValidationError) Field() string { return e.field }
+func (e IOPSValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e IoValidationError) Reason() string { return e.reason }
+func (e IOPSValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e IoValidationError) Cause() error { return e.cause }
+func (e IOPSValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e IoValidationError) Key() bool { return e.key }
+func (e IOPSValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e IoValidationError) ErrorName() string { return "IoValidationError" }
+func (e IOPSValidationError) ErrorName() string { return "IOPSValidationError" }
 
 // Error satisfies the builtin error interface
-func (e IoValidationError) Error() string {
+func (e IOPSValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1650,14 +1652,14 @@ func (e IoValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sIo.%s: %s%s",
+		"invalid %sIOPS.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = IoValidationError{}
+var _ error = IOPSValidationError{}
 
 var _ interface {
 	Field() string
@@ -1665,7 +1667,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = IoValidationError{}
+} = IOPSValidationError{}
 
 // Validate checks the field values on Crash with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
@@ -1888,11 +1890,11 @@ func (m *ClusterStats) validate(all bool) error {
 	// no validation rules for Test
 
 	if all {
-		switch v := interface{}(m.GetIo()).(type) {
+		switch v := interface{}(m.GetIops()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
 				errors = append(errors, ClusterStatsValidationError{
-					field:  "Io",
+					field:  "Iops",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
@@ -1900,16 +1902,16 @@ func (m *ClusterStats) validate(all bool) error {
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
 				errors = append(errors, ClusterStatsValidationError{
-					field:  "Io",
+					field:  "Iops",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetIo()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetIops()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ClusterStatsValidationError{
-				field:  "Io",
+				field:  "Iops",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}

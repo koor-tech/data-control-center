@@ -60,8 +60,14 @@ const series = ref([
 
         <!-- Chart -->
         <div>
-            <VueApexCharts class="flex justify-center py-1" height="250px" width="250px" type="radar" :options="options"
-                :series="series" />
+            <VueApexCharts
+                class="flex justify-center py-1"
+                height="250px"
+                width="250px"
+                type="radar"
+                :options="options"
+                :series="series"
+            />
         </div>
     </div>
 </template>

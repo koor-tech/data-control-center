@@ -6,7 +6,6 @@ useHead({
     title: 'Error occured - Data Control Center',
 });
 
-
 const clipboard = useClipboard();
 
 const props = defineProps<{
@@ -15,9 +14,10 @@ const props = defineProps<{
 
 const buttonDisabled = ref(true);
 
-function handleError(): void {
+function handleError(url?: string): void {
     startButtonTimer();
-    clearError({ redirect: '/' });
+    if (url === undefined) url = '/';
+    clearError({ redirect: url });
 }
 
 function copyError(): void {
@@ -44,16 +44,10 @@ startButtonTimer();
             <div class="max-w-3xl mx-auto text-center">
                 <KoorLogo class="w-20 h-20" title="Koor Data Control Center" />
 
-                <h1 class="text-5xl font-bold text-neutral">
-                    Error
-                </h1>
-                <h2 class="text-xl text-neutral">
-                    Critical Error Occured
-                </h2>
+                <h1 class="text-5xl font-bold text-neutral">Error</h1>
+                <h2 class="text-xl text-neutral">Critical Error Occured</h2>
                 <div class="py-2 text-neutral mb-4">
-                    <p class="py-2 font-semibold">
-                        Error Message:
-                    </p>
+                    <p class="py-2 font-semibold">Error Message:</p>
                     <span v-if="error">
                         <pre v-if="error.statusMessage">{{ error.statusMessage }}</pre>
                         <pre v-else-if="error.message">{{ error.message }}</pre>
@@ -65,18 +59,37 @@ startButtonTimer();
                 </div>
 
                 <div class="flex justify-center">
-                    <button @click="handleError" :disabled="buttonDisabled"
+                    <button
+                        @click="handleError"
+                        :disabled="buttonDisabled"
                         class="rounded-md w-60 px-3.5 py-2.5 text-sm font-semibold text-neutral focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                         :class="[
                             buttonDisabled
                                 ? 'disabled bg-base-500 hover:bg-base-400 focus-visible:outline-base-500'
                                 : 'bg-primary-500 hover:bg-primary-400 focus-visible:outline-primary-500',
-                        ]">
+                        ]"
+                    >
                         Home
                     </button>
 
-                    <button @click="copyError" v-if="error && (error.statusMessage || error.message)"
-                        class="rounded-md w-60 bg-base-600 sm:ml-4 px-3.5 py-2.5 text-sm font-semibold text-neutral hover:bg-base-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-base-500">
+                    <button
+                        @click="handleError(useRoute().fullPath)"
+                        :disabled="buttonDisabled"
+                        class="rounded-md w-60 px-3.5 py-2.5 sm:ml-4 text-sm font-semibold text-neutral focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                        :class="[
+                            buttonDisabled
+                                ? 'disabled bg-base-500 hover:bg-base-400 focus-visible:outline-base-500'
+                                : 'bg-secondary-500 hover:bg-secondary-400 focus-visible:outline-secondary-500',
+                        ]"
+                    >
+                        Retry
+                    </button>
+
+                    <button
+                        @click="copyError"
+                        v-if="error && (error.statusMessage || error.message)"
+                        class="rounded-md w-60 bg-base-600 sm:ml-4 px-3.5 py-2.5 text-sm font-semibold text-neutral hover:bg-base-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-base-500"
+                    >
                         Copy Error
                     </button>
                 </div>

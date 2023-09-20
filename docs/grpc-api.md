@@ -8,14 +8,14 @@
     - [ClusterStats](#resources-stats-ClusterStats)
     - [Crash](#resources-stats-Crash)
     - [Data](#resources-stats-Data)
-    - [Io](#resources-stats-Io)
+    - [IOPS](#resources-stats-IOPS)
     - [MdsService](#resources-stats-MdsService)
     - [MgrService](#resources-stats-MgrService)
     - [MonService](#resources-stats-MonService)
     - [NodeInfo](#resources-stats-NodeInfo)
     - [Objects](#resources-stats-Objects)
     - [OsdService](#resources-stats-OsdService)
-    - [Pgs](#resources-stats-Pgs)
+    - [PGs](#resources-stats-PGs)
     - [Pools](#resources-stats-Pools)
     - [ResourceInfo](#resources-stats-ResourceInfo)
     - [RgwService](#resources-stats-RgwService)
@@ -94,7 +94,7 @@
 | services | [Services](#resources-stats-Services) |  |  |
 | data | [Data](#resources-stats-Data) |  |  |
 | test | [string](#string) |  |  |
-| io | [Io](#resources-stats-Io) |  |  |
+| iops | [IOPS](#resources-stats-IOPS) |  |  |
 
 
 
@@ -134,15 +134,16 @@
 
 
 
-<a name="resources-stats-Io"></a>
+<a name="resources-stats-IOPS"></a>
 
-### Io
+### IOPS
 
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | client_read | [string](#string) |  |  |
+| client_write | [string](#string) |  |  |
 | client_read_ops | [string](#string) |  |  |
 | client_write_ops | [string](#string) |  |  |
 
@@ -257,9 +258,9 @@
 
 
 
-<a name="resources-stats-Pgs"></a>
+<a name="resources-stats-PGs"></a>
 
-### Pgs
+### PGs
 
 
 
@@ -281,7 +282,7 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | pools | [int32](#int32) |  |  |
-| pgs | [Pgs](#resources-stats-Pgs) |  |  |
+| pgs | [PGs](#resources-stats-PGs) |  |  |
 
 
 
