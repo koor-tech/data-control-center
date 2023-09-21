@@ -45,6 +45,9 @@ const (
 	// StatsServiceGetClusterRadarProcedure is the fully-qualified name of the StatsService's
 	// GetClusterRadar RPC.
 	StatsServiceGetClusterRadarProcedure = "/stats.StatsService/GetClusterRadar"
+	// StatsServiceGetKoorClusterProcedure is the fully-qualified name of the StatsService's
+	// GetKoorCluster RPC.
+	StatsServiceGetKoorClusterProcedure = "/stats.StatsService/GetKoorCluster"
 )
 
 // StatsServiceClient is a client for the stats.StatsService service.
@@ -53,6 +56,7 @@ type StatsServiceClient interface {
 	GetClusterResources(context.Context, *connect.Request[stats.GetClusterResourcesRequest]) (*connect.Response[stats.GetClusterResourcesResponse], error)
 	GetClusterNodes(context.Context, *connect.Request[stats.GetClusterNodesRequest]) (*connect.Response[stats.GetClusterNodesResponse], error)
 	GetClusterRadar(context.Context, *connect.Request[stats.GetClusterRadarRequest]) (*connect.Response[stats.GetClusterRadarResponse], error)
+	GetKoorCluster(context.Context, *connect.Request[stats.GetKoorClusterRequest]) (*connect.Response[stats.GetKoorClusterResponse], error)
 }
 
 // NewStatsServiceClient constructs a client for the stats.StatsService service. By default, it uses
@@ -85,6 +89,11 @@ func NewStatsServiceClient(httpClient connect.HTTPClient, baseURL string, opts .
 			baseURL+StatsServiceGetClusterRadarProcedure,
 			opts...,
 		),
+		getKoorCluster: connect.NewClient[stats.GetKoorClusterRequest, stats.GetKoorClusterResponse](
+			httpClient,
+			baseURL+StatsServiceGetKoorClusterProcedure,
+			opts...,
+		),
 	}
 }
 
@@ -94,6 +103,7 @@ type statsServiceClient struct {
 	getClusterResources *connect.Client[stats.GetClusterResourcesRequest, stats.GetClusterResourcesResponse]
 	getClusterNodes     *connect.Client[stats.GetClusterNodesRequest, stats.GetClusterNodesResponse]
 	getClusterRadar     *connect.Client[stats.GetClusterRadarRequest, stats.GetClusterRadarResponse]
+	getKoorCluster      *connect.Client[stats.GetKoorClusterRequest, stats.GetKoorClusterResponse]
 }
 
 // GetClusterStats calls stats.StatsService.GetClusterStats.
@@ -116,12 +126,18 @@ func (c *statsServiceClient) GetClusterRadar(ctx context.Context, req *connect.R
 	return c.getClusterRadar.CallUnary(ctx, req)
 }
 
+// GetKoorCluster calls stats.StatsService.GetKoorCluster.
+func (c *statsServiceClient) GetKoorCluster(ctx context.Context, req *connect.Request[stats.GetKoorClusterRequest]) (*connect.Response[stats.GetKoorClusterResponse], error) {
+	return c.getKoorCluster.CallUnary(ctx, req)
+}
+
 // StatsServiceHandler is an implementation of the stats.StatsService service.
 type StatsServiceHandler interface {
 	GetClusterStats(context.Context, *connect.Request[stats.GetClusterStatsRequest]) (*connect.Response[stats.GetClusterStatsResponse], error)
 	GetClusterResources(context.Context, *connect.Request[stats.GetClusterResourcesRequest]) (*connect.Response[stats.GetClusterResourcesResponse], error)
 	GetClusterNodes(context.Context, *connect.Request[stats.GetClusterNodesRequest]) (*connect.Response[stats.GetClusterNodesResponse], error)
 	GetClusterRadar(context.Context, *connect.Request[stats.GetClusterRadarRequest]) (*connect.Response[stats.GetClusterRadarResponse], error)
+	GetKoorCluster(context.Context, *connect.Request[stats.GetKoorClusterRequest]) (*connect.Response[stats.GetKoorClusterResponse], error)
 }
 
 // NewStatsServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -150,6 +166,11 @@ func NewStatsServiceHandler(svc StatsServiceHandler, opts ...connect.HandlerOpti
 		svc.GetClusterRadar,
 		opts...,
 	)
+	statsServiceGetKoorClusterHandler := connect.NewUnaryHandler(
+		StatsServiceGetKoorClusterProcedure,
+		svc.GetKoorCluster,
+		opts...,
+	)
 	return "/stats.StatsService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case StatsServiceGetClusterStatsProcedure:
@@ -160,6 +181,8 @@ func NewStatsServiceHandler(svc StatsServiceHandler, opts ...connect.HandlerOpti
 			statsServiceGetClusterNodesHandler.ServeHTTP(w, r)
 		case StatsServiceGetClusterRadarProcedure:
 			statsServiceGetClusterRadarHandler.ServeHTTP(w, r)
+		case StatsServiceGetKoorClusterProcedure:
+			statsServiceGetKoorClusterHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -183,4 +206,8 @@ func (UnimplementedStatsServiceHandler) GetClusterNodes(context.Context, *connec
 
 func (UnimplementedStatsServiceHandler) GetClusterRadar(context.Context, *connect.Request[stats.GetClusterRadarRequest]) (*connect.Response[stats.GetClusterRadarResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("stats.StatsService.GetClusterRadar is not implemented"))
+}
+
+func (UnimplementedStatsServiceHandler) GetKoorCluster(context.Context, *connect.Request[stats.GetKoorClusterRequest]) (*connect.Response[stats.GetKoorClusterResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("stats.StatsService.GetKoorCluster is not implemented"))
 }
