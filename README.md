@@ -2,6 +2,16 @@
 
 Nice dashboard and controls for managing Rook Ceph data storage.
 
+## Usage
+
+You can install/run the Koor data-control-center as a [binary](https://github.com/koor-tech/data-control-center/releases) or via [the Helm chart](charts/data-control-center/README.md) in Kubernetes.
+
+Using the Helm chart to run in Kubernetes is the recommended way.
+
+### Configuration
+
+Checkout the [configuration documentation here](docs/configuration.md).
+
 ## Development
 
 ### Requirements
@@ -21,7 +31,16 @@ Nice dashboard and controls for managing Rook Ceph data storage.
 * Installing the frontend dependencies: `yarn`
 * Run frontend dev server: `yarn dev`
 
+### VSCode/Codium Users
+
+* You can use the built-in debugger to start the "compound" debug group called "All" to have everything ready to start development.
+
 ### Contributing
+
+To run the server and everything you need to create a copy of the `config.example.yaml` called `config.yaml` in the root of the repository.
+Depending on what you want to develop/contribute to, you might want to update the `config.yaml` as you need. It is recommended to add an user to the `users:` list so you can login.
+
+#### Guidelines
 
 * Must run `prettier` format on any changed files. For Codium/VSCode users that should automatically be configured due to the settings in [`.vscode/` folder](.vscode/).
 

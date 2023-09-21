@@ -16,7 +16,7 @@ if (query.t && query.t !== '' && query.exp) {
 
     notifications.dispatchNotification({
         title: 'OAuth2 Login successful!',
-        content: 'Redirecting you to the Data-Control-Center Overview.',
+        content: 'Redirecting you to the data-control-center Overview.',
         type: 'info',
     });
 

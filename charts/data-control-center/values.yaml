@@ -106,6 +106,7 @@ postInstallJob:
     pullPolicy: IfNotPresent
     tag: v17.2.6-20230826
 
+# -- data-control-center config, documentation here: https://github.com/koor-tech/data-control-center/blob/main/docs/configuration.md#reference
 config:
   logLevel: 'INFO'
   # debug or release
