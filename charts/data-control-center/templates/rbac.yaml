@@ -51,6 +51,14 @@ rules:
       - get
       - list
       - watch
+  # Koor Operator CRDs
+  - apiGroups: ["storage.koor.tech"]
+    resources:
+      - koorclusters
+    verbs:
+      - get
+      - list
+      - watch
 ---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
