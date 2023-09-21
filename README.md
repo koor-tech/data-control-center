@@ -16,9 +16,10 @@ Nice dashboard and controls for managing Rook Ceph data storage.
 
 ### Tasks
 
+* Generate Protobuf code: `make gen-proto`
+* Run server: `make run-server`
 * Installing the frontend dependencies: `yarn`
 * Run frontend dev server: `yarn dev`
-* Generate Protobuf code: `make gen-proto`
 
 ### Contributing
 

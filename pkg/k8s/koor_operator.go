@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/bufbuild/connect-go"
+	"connectrpc.com/connect"
 	kopv1 "github.com/koor-tech/koor-operator/api/v1alpha1"
 	"google.golang.org/protobuf/types/known/wrapperspb"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
