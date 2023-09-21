@@ -18,6 +18,7 @@ A simple way to have a balanced view on the cluster state and its data. Each ind
 * Storage Capacity Available
 * Stability (Crashes)
     * If there are any crashes, we'll try to calculate a percentage based the amount of crashes and on which daemons had the crashes.
+    * Restart Counts should be zero.
 * Reliability
     * Check that all daemons (e.g., MDS, RGW) are running with at least 2 replicas, at least 3 MONs, etc.
     * Every storage pool has at least a replicated `size` of 3 and `min_size` of 2.
