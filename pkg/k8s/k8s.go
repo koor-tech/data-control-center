@@ -25,7 +25,8 @@ type K8s struct {
 }
 
 func New(cfg *config.Config) (*K8s, error) {
-	// Copied from the `GetConfig()` method docs
+	// Copied from the `GetConfig()` method docs of `sigs.k8s.io/controller-runtime`
+	// https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/client/config#GetConfig
 	//
 	// > Config precedence:
 	// >

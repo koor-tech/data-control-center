@@ -3,7 +3,6 @@ title: "Configuration"
 ---
 
 The data-control-center will by default try look for a `config.yaml` file in the working directory and `/config`.
-
 For an example config file, checkout [`config.example.yaml`](/config.example.yaml).
 
 Changes to the config file are not auto detected, they require a (manual) restart of the application.
@@ -47,3 +46,15 @@ List of user logins, an entry looks like this:
 
 * `username`: Username of the user.
 * `password`: Password of the user.
+
+## Kubernetes Cluster Access
+
+The data-control-center also requires access to a Kubernetes cluster to function.
+The data-control-center tries to access a kubeconfig via the following "config precedence":
+
+> * --kubeconfig flag pointing at a file
+> * KUBECONFIG environment variable pointing at a file
+> * In-cluster config if running in cluster
+> * $HOME/.kube/config if exists.
+
+(Copied from the [`GetConfig()` method docs of `sigs.k8s.io/controller-runtime`](https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/client/config#GetConfig))

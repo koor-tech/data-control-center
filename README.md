@@ -40,6 +40,8 @@ Checkout the [configuration documentation here](docs/configuration.md).
 To run the server and everything you need to create a copy of the `config.example.yaml` called `config.yaml` in the root of the repository.
 Depending on what you want to develop/contribute to, you might want to update the `config.yaml` as you need. It is recommended to add an user to the `users:` list so you can login.
 
+For running the data-control-center a kubeconfig file is currently required. A [minikube](https://kubernetes.io/de/docs/tasks/tools/install-minikube/) cluster ([extra configuration might be needed](https://github.com/rook/rook/blob/master/Documentation/Contributing/development-environment.md#minikube)) with a [Rook Ceph test cluster (manifest)](https://github.com/rook/rook/blob/master/deploy/examples/cluster-test.yaml) instealld is enough for simple development and testing.
+
 #### Guidelines
 
 * Must run `prettier` format on any changed files. For Codium/VSCode users that should automatically be configured due to the settings in [`.vscode/` folder](.vscode/).
