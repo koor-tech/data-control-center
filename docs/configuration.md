@@ -18,15 +18,15 @@ Changes to the config file are not auto detected, they require a (manual) restar
 
 ### `ceph` Section
 
-* `api`: Ceph Dashboard API config
-    * `url`: Ceph Dashboard API URL, if run inside the same cluster your Rook/Koor Ceph cluster is running use `https://rook-ceph-mgr-dashboard:8443/api` (assumes that SSL is enabled).
-    * `username`: Username of Ceph Dashboard user to use.
-    * `password`: Password of Ceph Dashboard user to use.
-    * `insecureSSL`: If the certificate of the Ceph Dashboard API should be verified or not.
+* `api`: Ceph dashboard API config
+    * `url`: Ceph dashboard API URL, if run inside the data-control-center in same cluster your Rook/Koor Ceph cluster is running use `https://rook-ceph-mgr-dashboard:8443/api` (assumes that SSL is enabled on the dashboard, if not change `https` to `http`). The Ceph dashboard is part of the Ceph MGR component exposed on the configured port.
+    * `username`: Username of Ceph dashboard user to use.
+    * `password`: Password of Ceph dashboard user to use.
+    * `insecureSSL`: If the certificate of the Ceph dashboard API should be verified or not.
 
 ### `oauth2` Section
 
-* `providers`: List of OAuth2/OpenID providers.
+* `providers`: List of OAuth2/OpenID providers. If one or more providers are given, the user login via password will be disabled.
     * `name`: "Computer"-Name of the provider. E.g., `keycloak`.
     * `label`: Human friendly Label. E.g., `Keycloak`
     * `homepage`: Homepage of the OAuth2/OpenID provider. E.g., `https://keycloak.example.com`
