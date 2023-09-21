@@ -22,7 +22,7 @@ func (k *K8s) GetKoorCluster(ctx context.Context, namespace string) (*stats.Koor
 		return nil, connect.NewError(connect.CodeNotFound, fmt.Errorf("koor cluster Not found"))
 	}
 
-	return convertKoorCluster(koorClusters[1]), nil
+	return convertKoorCluster(koorClusters[0]), nil
 }
 
 func convertKoorCluster(koorCluster *kopv1.KoorCluster) *stats.KoorCluster {
@@ -52,13 +52,16 @@ func convertKoorCluster(koorCluster *kopv1.KoorCluster) *stats.KoorCluster {
 				Ksd:          koorCluster.Status.CurrentVersions.Ksd,
 				Ceph:         koorCluster.Status.CurrentVersions.Ceph,
 			},
-			LatestVersions: &stats.DetailedProductVersions{
-				KoorOperator: convertDetailedVersion(koorCluster.Status.LatestVersions.KoorOperator),
-				Ksd:          convertDetailedVersion(koorCluster.Status.LatestVersions.Ksd),
-				Ceph:         convertDetailedVersion(koorCluster.Status.LatestVersions.Ceph),
-			},
 		},
 	}
+
+    if koorCluster.Status.LatestVersions != nil {
+        res.Status.LatestVersions = &stats.DetailedProductVersions{
+            KoorOperator: convertDetailedVersion(koorCluster.Status.LatestVersions.KoorOperator),
+            Ksd:          convertDetailedVersion(koorCluster.Status.LatestVersions.Ksd),
+            Ceph:         convertDetailedVersion(koorCluster.Status.LatestVersions.Ceph),
+        }
+    }
 	return res
 }
 

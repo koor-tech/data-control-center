@@ -64,7 +64,7 @@ export const useAuthStore = defineStore('auth', {
                     const response = await call;
 
                     this.loginStop(null);
-                    this.setAccessToken(response.token, toDate(response.expires) as null | Date);
+                    this.setAccessToken(response.token, toDate(response.expires?.timestamp));
 
                     await navigateTo({ name: 'index' });
 

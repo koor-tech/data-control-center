@@ -1,6 +1,6 @@
 import { ConnectError } from '@connectrpc/connect';
 import { defineStore } from 'pinia';
-import { ClusterRadar, ClusterStats, NodeInfo } from '~~/gen/ts/api/resources/stats/stats_pb';
+import { ClusterRadar, ClusterStats, KoorCluster, NodeInfo } from '~~/gen/ts/api/resources/stats/stats_pb';
 import { GetClusterResourcesResponse } from '~~/gen/ts/api/services/stats/stats_pb';
 
 export interface StatsState {}
@@ -63,6 +63,21 @@ export const useStatsStore = defineStore('stats', {
                     if (!stats.stats) return rej();
 
                     return res(stats.stats);
+                } catch (e) {
+                    if (e instanceof ConnectError) $grpc.handleError(e as ConnectError);
+                    return rej(e);
+                }
+            });
+        },
+        async getKoorCluster(): Promise<KoorCluster> {
+            return new Promise(async (res, rej) => {
+                const { $grpc } = useNuxtApp();
+
+                try {
+                    const stats = await $grpc.getStatsClient().getKoorCluster({});
+                    if (!stats.koorCluster) return rej();
+
+                    return res(stats.koorCluster);
                 } catch (e) {
                     if (e instanceof ConnectError) $grpc.handleError(e as ConnectError);
                     return rej(e);
