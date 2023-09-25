@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ResourceInfo, ResourceStatus } from '~~/gen/ts/api/resources/stats/stats_pb';
+import { ResourceInfo, ResourceStatus } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
 
 withDefaults(
     defineProps<{
@@ -71,7 +71,7 @@ withDefaults(
                                 </td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ row.name }}</td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                    {{ ResourceStatus[row.status].replace('RESOURCE_', '') }}
+                                    {{ ResourceStatus[row.status].replace('RESOURCE_STATUS_', '') }}
                                 </td>
                             </tr>
                         </tbody>

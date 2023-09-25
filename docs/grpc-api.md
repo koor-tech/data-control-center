@@ -3,76 +3,76 @@
 
 ## Table of Contents
 
-- [api/resources/stats/stats.proto](#api_resources_stats_stats-proto)
-    - [ClusterRadar](#resources-stats-ClusterRadar)
-    - [ClusterResources](#resources-stats-ClusterResources)
-    - [ClusterStats](#resources-stats-ClusterStats)
-    - [Crash](#resources-stats-Crash)
-    - [Data](#resources-stats-Data)
-    - [DetailedProductVersions](#resources-stats-DetailedProductVersions)
-    - [DetailedVersion](#resources-stats-DetailedVersion)
-    - [IOPS](#resources-stats-IOPS)
-    - [KoorCluster](#resources-stats-KoorCluster)
-    - [KoorClusterSpec](#resources-stats-KoorClusterSpec)
-    - [KoorClusterStatus](#resources-stats-KoorClusterStatus)
-    - [MdsService](#resources-stats-MdsService)
-    - [MgrService](#resources-stats-MgrService)
-    - [MonService](#resources-stats-MonService)
-    - [NodeInfo](#resources-stats-NodeInfo)
-    - [Objects](#resources-stats-Objects)
-    - [OsdService](#resources-stats-OsdService)
-    - [PGs](#resources-stats-PGs)
-    - [Pools](#resources-stats-Pools)
-    - [ProductVersions](#resources-stats-ProductVersions)
-    - [ResourceInfo](#resources-stats-ResourceInfo)
-    - [RgwService](#resources-stats-RgwService)
-    - [Services](#resources-stats-Services)
-    - [UpgradeOptions](#resources-stats-UpgradeOptions)
-    - [Usage](#resources-stats-Usage)
+- [api/resources/stats/v1/stats.proto](#api_resources_stats_v1_stats-proto)
+    - [ClusterRadar](#api-resources-stats-v1-ClusterRadar)
+    - [ClusterResources](#api-resources-stats-v1-ClusterResources)
+    - [ClusterStats](#api-resources-stats-v1-ClusterStats)
+    - [Crash](#api-resources-stats-v1-Crash)
+    - [Data](#api-resources-stats-v1-Data)
+    - [DetailedProductVersions](#api-resources-stats-v1-DetailedProductVersions)
+    - [DetailedVersion](#api-resources-stats-v1-DetailedVersion)
+    - [IOPS](#api-resources-stats-v1-IOPS)
+    - [KoorCluster](#api-resources-stats-v1-KoorCluster)
+    - [KoorClusterSpec](#api-resources-stats-v1-KoorClusterSpec)
+    - [KoorClusterStatus](#api-resources-stats-v1-KoorClusterStatus)
+    - [MdsService](#api-resources-stats-v1-MdsService)
+    - [MgrService](#api-resources-stats-v1-MgrService)
+    - [MonService](#api-resources-stats-v1-MonService)
+    - [NodeInfo](#api-resources-stats-v1-NodeInfo)
+    - [Objects](#api-resources-stats-v1-Objects)
+    - [OsdService](#api-resources-stats-v1-OsdService)
+    - [PGs](#api-resources-stats-v1-PGs)
+    - [Pools](#api-resources-stats-v1-Pools)
+    - [ProductVersions](#api-resources-stats-v1-ProductVersions)
+    - [ResourceInfo](#api-resources-stats-v1-ResourceInfo)
+    - [RgwService](#api-resources-stats-v1-RgwService)
+    - [Services](#api-resources-stats-v1-Services)
+    - [UpgradeOptions](#api-resources-stats-v1-UpgradeOptions)
+    - [Usage](#api-resources-stats-v1-Usage)
   
-    - [ReliabilityScore](#resources-stats-ReliabilityScore)
-    - [ResourceStatus](#resources-stats-ResourceStatus)
-    - [UpgradeMode](#resources-stats-UpgradeMode)
+    - [ReliabilityScore](#api-resources-stats-v1-ReliabilityScore)
+    - [ResourceStatus](#api-resources-stats-v1-ResourceStatus)
+    - [UpgradeMode](#api-resources-stats-v1-UpgradeMode)
   
-- [api/resources/timestamp/timestamp.proto](#api_resources_timestamp_timestamp-proto)
-    - [Timestamp](#resources-timestamp-Timestamp)
+- [api/resources/timestamp/v1/timestamp.proto](#api_resources_timestamp_v1_timestamp-proto)
+    - [Timestamp](#api-resources-timestamp-v1-Timestamp)
   
-- [api/services/auth/auth.proto](#api_services_auth_auth-proto)
-    - [CheckTokenRequest](#services-auth-CheckTokenRequest)
-    - [CheckTokenResponse](#services-auth-CheckTokenResponse)
-    - [LoginRequest](#services-auth-LoginRequest)
-    - [LoginResponse](#services-auth-LoginResponse)
-    - [LogoutRequest](#services-auth-LogoutRequest)
-    - [LogoutResponse](#services-auth-LogoutResponse)
+- [api/services/auth/v1/auth.proto](#api_services_auth_v1_auth-proto)
+    - [CheckTokenRequest](#api-services-auth-v1-CheckTokenRequest)
+    - [CheckTokenResponse](#api-services-auth-v1-CheckTokenResponse)
+    - [LoginRequest](#api-services-auth-v1-LoginRequest)
+    - [LoginResponse](#api-services-auth-v1-LoginResponse)
+    - [LogoutRequest](#api-services-auth-v1-LogoutRequest)
+    - [LogoutResponse](#api-services-auth-v1-LogoutResponse)
   
-    - [AuthService](#services-auth-AuthService)
+    - [AuthService](#api-services-auth-v1-AuthService)
   
-- [api/services/stats/stats.proto](#api_services_stats_stats-proto)
-    - [GetClusterNodesRequest](#stats-GetClusterNodesRequest)
-    - [GetClusterNodesResponse](#stats-GetClusterNodesResponse)
-    - [GetClusterRadarRequest](#stats-GetClusterRadarRequest)
-    - [GetClusterRadarResponse](#stats-GetClusterRadarResponse)
-    - [GetClusterResourcesRequest](#stats-GetClusterResourcesRequest)
-    - [GetClusterResourcesResponse](#stats-GetClusterResourcesResponse)
-    - [GetClusterStatsRequest](#stats-GetClusterStatsRequest)
-    - [GetClusterStatsResponse](#stats-GetClusterStatsResponse)
-    - [GetKoorClusterRequest](#stats-GetKoorClusterRequest)
-    - [GetKoorClusterResponse](#stats-GetKoorClusterResponse)
+- [api/services/stats/v1/stats.proto](#api_services_stats_v1_stats-proto)
+    - [GetClusterNodesRequest](#api-services-stats-v1-GetClusterNodesRequest)
+    - [GetClusterNodesResponse](#api-services-stats-v1-GetClusterNodesResponse)
+    - [GetClusterRadarRequest](#api-services-stats-v1-GetClusterRadarRequest)
+    - [GetClusterRadarResponse](#api-services-stats-v1-GetClusterRadarResponse)
+    - [GetClusterResourcesRequest](#api-services-stats-v1-GetClusterResourcesRequest)
+    - [GetClusterResourcesResponse](#api-services-stats-v1-GetClusterResourcesResponse)
+    - [GetClusterStatsRequest](#api-services-stats-v1-GetClusterStatsRequest)
+    - [GetClusterStatsResponse](#api-services-stats-v1-GetClusterStatsResponse)
+    - [GetKoorClusterRequest](#api-services-stats-v1-GetKoorClusterRequest)
+    - [GetKoorClusterResponse](#api-services-stats-v1-GetKoorClusterResponse)
   
-    - [StatsService](#stats-StatsService)
+    - [StatsService](#api-services-stats-v1-StatsService)
   
 - [Scalar Value Types](#scalar-value-types)
 
 
 
-<a name="api_resources_stats_stats-proto"></a>
+<a name="api_resources_stats_v1_stats-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## api/resources/stats/stats.proto
+## api/resources/stats/v1/stats.proto
 
 
 
-<a name="resources-stats-ClusterRadar"></a>
+<a name="api-resources-stats-v1-ClusterRadar"></a>
 
 ### ClusterRadar
 
@@ -91,7 +91,7 @@
 
 
 
-<a name="resources-stats-ClusterResources"></a>
+<a name="api-resources-stats-v1-ClusterResources"></a>
 
 ### ClusterResources
 
@@ -109,7 +109,7 @@
 
 
 
-<a name="resources-stats-ClusterStats"></a>
+<a name="api-resources-stats-v1-ClusterStats"></a>
 
 ### ClusterStats
 
@@ -119,18 +119,18 @@
 | ----- | ---- | ----- | ----------- |
 | id | [string](#string) |  |  |
 | status | [string](#string) |  |  |
-| crashes | [Crash](#resources-stats-Crash) | repeated |  |
-| services | [Services](#resources-stats-Services) |  |  |
-| data | [Data](#resources-stats-Data) |  |  |
+| crashes | [Crash](#api-resources-stats-v1-Crash) | repeated |  |
+| services | [Services](#api-resources-stats-v1-Services) |  |  |
+| data | [Data](#api-resources-stats-v1-Data) |  |  |
 | test | [string](#string) |  |  |
-| iops | [IOPS](#resources-stats-IOPS) |  |  |
+| iops | [IOPS](#api-resources-stats-v1-IOPS) |  |  |
 
 
 
 
 
 
-<a name="resources-stats-Crash"></a>
+<a name="api-resources-stats-v1-Crash"></a>
 
 ### Crash
 
@@ -145,7 +145,7 @@
 
 
 
-<a name="resources-stats-Data"></a>
+<a name="api-resources-stats-v1-Data"></a>
 
 ### Data
 
@@ -154,16 +154,16 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | volumes | [int32](#int32) |  |  |
-| pools | [Pools](#resources-stats-Pools) |  |  |
-| objects | [Objects](#resources-stats-Objects) |  |  |
-| usage | [Usage](#resources-stats-Usage) |  |  |
+| pools | [Pools](#api-resources-stats-v1-Pools) |  |  |
+| objects | [Objects](#api-resources-stats-v1-Objects) |  |  |
+| usage | [Usage](#api-resources-stats-v1-Usage) |  |  |
 
 
 
 
 
 
-<a name="resources-stats-DetailedProductVersions"></a>
+<a name="api-resources-stats-v1-DetailedProductVersions"></a>
 
 ### DetailedProductVersions
 Represents a map of products to detailed versions, which include images or helm charts.
@@ -171,16 +171,16 @@ Represents a map of products to detailed versions, which include images or helm 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| koor_operator | [DetailedVersion](#resources-stats-DetailedVersion) |  | The detailed Koor Operator version. |
-| ksd | [DetailedVersion](#resources-stats-DetailedVersion) |  | The detailed Koor Storage Distribution version. |
-| ceph | [DetailedVersion](#resources-stats-DetailedVersion) |  | The detailed Ceph version. |
+| koor_operator | [DetailedVersion](#api-resources-stats-v1-DetailedVersion) |  | The detailed Koor Operator version. |
+| ksd | [DetailedVersion](#api-resources-stats-v1-DetailedVersion) |  | The detailed Koor Storage Distribution version. |
+| ceph | [DetailedVersion](#api-resources-stats-v1-DetailedVersion) |  | The detailed Ceph version. |
 
 
 
 
 
 
-<a name="resources-stats-DetailedVersion"></a>
+<a name="api-resources-stats-v1-DetailedVersion"></a>
 
 ### DetailedVersion
 Defines a detailed version of a product, which includes a container image or a helm chart.
@@ -199,7 +199,7 @@ Defines a detailed version of a product, which includes a container image or a h
 
 
 
-<a name="resources-stats-IOPS"></a>
+<a name="api-resources-stats-v1-IOPS"></a>
 
 ### IOPS
 
@@ -217,7 +217,7 @@ Defines a detailed version of a product, which includes a container image or a h
 
 
 
-<a name="resources-stats-KoorCluster"></a>
+<a name="api-resources-stats-v1-KoorCluster"></a>
 
 ### KoorCluster
 
@@ -227,15 +227,15 @@ Defines a detailed version of a product, which includes a container image or a h
 | ----- | ---- | ----- | ----------- |
 | name | [string](#string) |  |  |
 | namespace | [string](#string) |  |  |
-| spec | [KoorClusterSpec](#resources-stats-KoorClusterSpec) |  |  |
-| status | [KoorClusterStatus](#resources-stats-KoorClusterStatus) |  |  |
+| spec | [KoorClusterSpec](#api-resources-stats-v1-KoorClusterSpec) |  |  |
+| status | [KoorClusterStatus](#api-resources-stats-v1-KoorClusterStatus) |  |  |
 
 
 
 
 
 
-<a name="resources-stats-KoorClusterSpec"></a>
+<a name="api-resources-stats-v1-KoorClusterSpec"></a>
 
 ### KoorClusterSpec
 Represents the state of KoorCluster
@@ -247,7 +247,7 @@ Represents the state of KoorCluster
 | monitoring_enabled | [google.protobuf.BoolValue](#google-protobuf-BoolValue) |  | Enable monitoring. Requires Prometheus to be pre-installed. |
 | dashboard_enabled | [google.protobuf.BoolValue](#google-protobuf-BoolValue) |  | Enable the ceph dashboard for viewing cluster status |
 | toolbox_enabled | [google.protobuf.BoolValue](#google-protobuf-BoolValue) |  | Installs a debugging toolbox deployment |
-| upgrade_options | [UpgradeOptions](#resources-stats-UpgradeOptions) |  | Specifies the upgrade options for new ceph versions |
+| upgrade_options | [UpgradeOptions](#api-resources-stats-v1-UpgradeOptions) |  | Specifies the upgrade options for new ceph versions |
 | ksd_release_name | [string](#string) |  | The name to use for KSD helm release. |
 | ksd_cluster_release_name | [string](#string) |  | The name to use for KSD cluster helm release. |
 
@@ -256,7 +256,7 @@ Represents the state of KoorCluster
 
 
 
-<a name="resources-stats-KoorClusterStatus"></a>
+<a name="api-resources-stats-v1-KoorClusterStatus"></a>
 
 ### KoorClusterStatus
 Represents the status of the KoorCluster CRD
@@ -264,17 +264,17 @@ Represents the status of the KoorCluster CRD
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| total_resources | [ClusterResources](#resources-stats-ClusterResources) |  | The total resources available in the cluster nodes |
+| total_resources | [ClusterResources](#api-resources-stats-v1-ClusterResources) |  | The total resources available in the cluster nodes |
 | meets_minimum_resources | [bool](#bool) |  | Does the cluster meet the minimum recommended resources |
-| current_versions | [ProductVersions](#resources-stats-ProductVersions) |  | The current versions of rook and ceph |
-| latest_versions | [DetailedProductVersions](#resources-stats-DetailedProductVersions) |  | The latest versions of rook and ceph |
+| current_versions | [ProductVersions](#api-resources-stats-v1-ProductVersions) |  | The current versions of rook and ceph |
+| latest_versions | [DetailedProductVersions](#api-resources-stats-v1-DetailedProductVersions) |  | The latest versions of rook and ceph |
 
 
 
 
 
 
-<a name="resources-stats-MdsService"></a>
+<a name="api-resources-stats-v1-MdsService"></a>
 
 ### MdsService
 
@@ -290,7 +290,7 @@ Represents the status of the KoorCluster CRD
 
 
 
-<a name="resources-stats-MgrService"></a>
+<a name="api-resources-stats-v1-MgrService"></a>
 
 ### MgrService
 
@@ -307,7 +307,7 @@ Represents the status of the KoorCluster CRD
 
 
 
-<a name="resources-stats-MonService"></a>
+<a name="api-resources-stats-v1-MonService"></a>
 
 ### MonService
 
@@ -325,7 +325,7 @@ Represents the status of the KoorCluster CRD
 
 
 
-<a name="resources-stats-NodeInfo"></a>
+<a name="api-resources-stats-v1-NodeInfo"></a>
 
 ### NodeInfo
 
@@ -334,7 +334,7 @@ Represents the status of the KoorCluster CRD
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | name | [string](#string) |  |  |
-| status | [ResourceStatus](#resources-stats-ResourceStatus) |  |  |
+| status | [ResourceStatus](#api-resources-stats-v1-ResourceStatus) |  |  |
 | roles | [string](#string) | repeated |  |
 | internal_ip | [string](#string) |  |  |
 | external_ip | [string](#string) |  |  |
@@ -345,7 +345,7 @@ Represents the status of the KoorCluster CRD
 
 
 
-<a name="resources-stats-Objects"></a>
+<a name="api-resources-stats-v1-Objects"></a>
 
 ### Objects
 
@@ -361,7 +361,7 @@ Represents the status of the KoorCluster CRD
 
 
 
-<a name="resources-stats-OsdService"></a>
+<a name="api-resources-stats-v1-OsdService"></a>
 
 ### OsdService
 
@@ -380,7 +380,7 @@ Represents the status of the KoorCluster CRD
 
 
 
-<a name="resources-stats-PGs"></a>
+<a name="api-resources-stats-v1-PGs"></a>
 
 ### PGs
 
@@ -395,7 +395,7 @@ Represents the status of the KoorCluster CRD
 
 
 
-<a name="resources-stats-Pools"></a>
+<a name="api-resources-stats-v1-Pools"></a>
 
 ### Pools
 
@@ -404,14 +404,14 @@ Represents the status of the KoorCluster CRD
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | pools | [int32](#int32) |  |  |
-| pgs | [PGs](#resources-stats-PGs) |  |  |
+| pgs | [PGs](#api-resources-stats-v1-PGs) |  |  |
 
 
 
 
 
 
-<a name="resources-stats-ProductVersions"></a>
+<a name="api-resources-stats-v1-ProductVersions"></a>
 
 ### ProductVersions
 Represents a map of products to version strings.
@@ -429,7 +429,7 @@ Represents a map of products to version strings.
 
 
 
-<a name="resources-stats-ResourceInfo"></a>
+<a name="api-resources-stats-v1-ResourceInfo"></a>
 
 ### ResourceInfo
 
@@ -441,16 +441,16 @@ Represents a map of products to version strings.
 | kind | [string](#string) |  |  |
 | namespace | [string](#string) |  |  |
 | name | [string](#string) |  |  |
-| status | [ResourceStatus](#resources-stats-ResourceStatus) |  |  |
+| status | [ResourceStatus](#api-resources-stats-v1-ResourceStatus) |  |  |
 | replicas | [int32](#int32) |  |  |
-| reliability | [ReliabilityScore](#resources-stats-ReliabilityScore) |  |  |
+| reliability | [ReliabilityScore](#api-resources-stats-v1-ReliabilityScore) |  |  |
 
 
 
 
 
 
-<a name="resources-stats-RgwService"></a>
+<a name="api-resources-stats-v1-RgwService"></a>
 
 ### RgwService
 
@@ -467,7 +467,7 @@ Represents a map of products to version strings.
 
 
 
-<a name="resources-stats-Services"></a>
+<a name="api-resources-stats-v1-Services"></a>
 
 ### Services
 
@@ -475,18 +475,18 @@ Represents a map of products to version strings.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| mon | [MonService](#resources-stats-MonService) |  |  |
-| mgr | [MgrService](#resources-stats-MgrService) |  |  |
-| mds | [MdsService](#resources-stats-MdsService) |  |  |
-| osd | [OsdService](#resources-stats-OsdService) |  |  |
-| rgw | [RgwService](#resources-stats-RgwService) |  |  |
+| mon | [MonService](#api-resources-stats-v1-MonService) |  |  |
+| mgr | [MgrService](#api-resources-stats-v1-MgrService) |  |  |
+| mds | [MdsService](#api-resources-stats-v1-MdsService) |  |  |
+| osd | [OsdService](#api-resources-stats-v1-OsdService) |  |  |
+| rgw | [RgwService](#api-resources-stats-v1-RgwService) |  |  |
 
 
 
 
 
 
-<a name="resources-stats-UpgradeOptions"></a>
+<a name="api-resources-stats-v1-UpgradeOptions"></a>
 
 ### UpgradeOptions
 
@@ -494,7 +494,7 @@ Represents a map of products to version strings.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| mode | [UpgradeMode](#resources-stats-UpgradeMode) |  | Upgrade mode |
+| mode | [UpgradeMode](#api-resources-stats-v1-UpgradeMode) |  | Upgrade mode |
 | endpoint | [string](#string) |  | The api endpoint used to find the ceph latest version |
 | schedule | [string](#string) |  | The schedule to check for new versions. Uses CRON format as specified by https://github.com/robfig/cron/tree/v3. Defaults to everyday at midnight in the local timezone. To change the timezone, prefix the schedule with CRON_TZ=&lt;Timezone&gt;. For example: &#34;CRON_TZ=UTC 0 0 * * *&#34; is midnight UTC. |
 
@@ -503,7 +503,7 @@ Represents a map of products to version strings.
 
 
 
-<a name="resources-stats-Usage"></a>
+<a name="api-resources-stats-v1-Usage"></a>
 
 ### Usage
 
@@ -522,35 +522,37 @@ Represents a map of products to version strings.
  
 
 
-<a name="resources-stats-ReliabilityScore"></a>
+<a name="api-resources-stats-v1-ReliabilityScore"></a>
 
 ### ReliabilityScore
 
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
-| RELIABILITY_UNKNOWN | 0 |  |
-| RELIABILITY_NONE | 1 |  |
-| RELIABILITY_DEGRADED | 2 |  |
-| RELIABILITY_OK | 3 |  |
+| RELIABILITY_SCORE_UNSPECIFIED | 0 |  |
+| RELIABILITY_SCORE_UNKNOWN | 1 |  |
+| RELIABILITY_SCORE_NONE | 2 |  |
+| RELIABILITY_SCORE_DEGRADED | 3 |  |
+| RELIABILITY_SCORE_OK | 4 |  |
 
 
 
-<a name="resources-stats-ResourceStatus"></a>
+<a name="api-resources-stats-v1-ResourceStatus"></a>
 
 ### ResourceStatus
 
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
-| RESOURCE_UNKNOWN | 0 |  |
-| RESOURCE_READY | 1 |  |
-| RESOURCE_PROGRESSING | 2 |  |
-| RESOURCE_NOT_READY | 3 |  |
+| RESOURCE_STATUS_UNSPECIFIED | 0 |  |
+| RESOURCE_STATUS_UNKNOWN | 1 |  |
+| RESOURCE_STATUS_READY | 2 |  |
+| RESOURCE_STATUS_PROGRESSING | 3 |  |
+| RESOURCE_STATUS_NOT_READY | 4 |  |
 
 
 
-<a name="resources-stats-UpgradeMode"></a>
+<a name="api-resources-stats-v1-UpgradeMode"></a>
 
 ### UpgradeMode
 The mode of the upgrade
@@ -571,14 +573,14 @@ The mode of the upgrade
 
 
 
-<a name="api_resources_timestamp_timestamp-proto"></a>
+<a name="api_resources_timestamp_v1_timestamp-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## api/resources/timestamp/timestamp.proto
+## api/resources/timestamp/v1/timestamp.proto
 
 
 
-<a name="resources-timestamp-Timestamp"></a>
+<a name="api-resources-timestamp-v1-Timestamp"></a>
 
 ### Timestamp
 Timestamp for storage messages.  We&#39;ve defined a new local type wrapper
@@ -606,14 +608,14 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 
 
-<a name="api_services_auth_auth-proto"></a>
+<a name="api_services_auth_v1_auth-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## api/services/auth/auth.proto
+## api/services/auth/v1/auth.proto
 
 
 
-<a name="services-auth-CheckTokenRequest"></a>
+<a name="api-services-auth-v1-CheckTokenRequest"></a>
 
 ### CheckTokenRequest
 
@@ -628,7 +630,7 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 
 
-<a name="services-auth-CheckTokenResponse"></a>
+<a name="api-services-auth-v1-CheckTokenResponse"></a>
 
 ### CheckTokenResponse
 
@@ -643,7 +645,7 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 
 
-<a name="services-auth-LoginRequest"></a>
+<a name="api-services-auth-v1-LoginRequest"></a>
 
 ### LoginRequest
 
@@ -659,7 +661,7 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 
 
-<a name="services-auth-LoginResponse"></a>
+<a name="api-services-auth-v1-LoginResponse"></a>
 
 ### LoginResponse
 
@@ -668,7 +670,7 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | token | [string](#string) |  |  |
-| expires | [resources.timestamp.Timestamp](#resources-timestamp-Timestamp) |  |  |
+| expires | [api.resources.timestamp.v1.Timestamp](#api-resources-timestamp-v1-Timestamp) |  |  |
 | account_id | [string](#string) |  |  |
 
 
@@ -676,7 +678,7 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 
 
-<a name="services-auth-LogoutRequest"></a>
+<a name="api-services-auth-v1-LogoutRequest"></a>
 
 ### LogoutRequest
 
@@ -686,7 +688,7 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 
 
-<a name="services-auth-LogoutResponse"></a>
+<a name="api-services-auth-v1-LogoutResponse"></a>
 
 ### LogoutResponse
 
@@ -707,29 +709,29 @@ https://golang.org/pkg/database/sql/driver/#Valuer
  
 
 
-<a name="services-auth-AuthService"></a>
+<a name="api-services-auth-v1-AuthService"></a>
 
 ### AuthService
 
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| Login | [LoginRequest](#services-auth-LoginRequest) | [LoginResponse](#services-auth-LoginResponse) |  |
-| Logout | [LogoutRequest](#services-auth-LogoutRequest) | [LogoutResponse](#services-auth-LogoutResponse) |  |
-| CheckToken | [CheckTokenRequest](#services-auth-CheckTokenRequest) | [CheckTokenResponse](#services-auth-CheckTokenResponse) |  |
+| Login | [LoginRequest](#api-services-auth-v1-LoginRequest) | [LoginResponse](#api-services-auth-v1-LoginResponse) |  |
+| Logout | [LogoutRequest](#api-services-auth-v1-LogoutRequest) | [LogoutResponse](#api-services-auth-v1-LogoutResponse) |  |
+| CheckToken | [CheckTokenRequest](#api-services-auth-v1-CheckTokenRequest) | [CheckTokenResponse](#api-services-auth-v1-CheckTokenResponse) |  |
 
  
 
 
 
-<a name="api_services_stats_stats-proto"></a>
+<a name="api_services_stats_v1_stats-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## api/services/stats/stats.proto
+## api/services/stats/v1/stats.proto
 
 
 
-<a name="stats-GetClusterNodesRequest"></a>
+<a name="api-services-stats-v1-GetClusterNodesRequest"></a>
 
 ### GetClusterNodesRequest
 
@@ -739,7 +741,7 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 
 
-<a name="stats-GetClusterNodesResponse"></a>
+<a name="api-services-stats-v1-GetClusterNodesResponse"></a>
 
 ### GetClusterNodesResponse
 
@@ -747,14 +749,14 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| nodes | [resources.stats.NodeInfo](#resources-stats-NodeInfo) | repeated |  |
+| nodes | [api.resources.stats.v1.NodeInfo](#api-resources-stats-v1-NodeInfo) | repeated |  |
 
 
 
 
 
 
-<a name="stats-GetClusterRadarRequest"></a>
+<a name="api-services-stats-v1-GetClusterRadarRequest"></a>
 
 ### GetClusterRadarRequest
 
@@ -764,7 +766,7 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 
 
-<a name="stats-GetClusterRadarResponse"></a>
+<a name="api-services-stats-v1-GetClusterRadarResponse"></a>
 
 ### GetClusterRadarResponse
 
@@ -772,14 +774,14 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| radar | [resources.stats.ClusterRadar](#resources-stats-ClusterRadar) |  |  |
+| radar | [api.resources.stats.v1.ClusterRadar](#api-resources-stats-v1-ClusterRadar) |  |  |
 
 
 
 
 
 
-<a name="stats-GetClusterResourcesRequest"></a>
+<a name="api-services-stats-v1-GetClusterResourcesRequest"></a>
 
 ### GetClusterResourcesRequest
 
@@ -789,7 +791,7 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 
 
-<a name="stats-GetClusterResourcesResponse"></a>
+<a name="api-services-stats-v1-GetClusterResourcesResponse"></a>
 
 ### GetClusterResourcesResponse
 
@@ -797,15 +799,15 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resources | [resources.stats.ResourceInfo](#resources-stats-ResourceInfo) | repeated |  |
-| deployments | [resources.stats.ResourceInfo](#resources-stats-ResourceInfo) | repeated |  |
+| resources | [api.resources.stats.v1.ResourceInfo](#api-resources-stats-v1-ResourceInfo) | repeated |  |
+| deployments | [api.resources.stats.v1.ResourceInfo](#api-resources-stats-v1-ResourceInfo) | repeated |  |
 
 
 
 
 
 
-<a name="stats-GetClusterStatsRequest"></a>
+<a name="api-services-stats-v1-GetClusterStatsRequest"></a>
 
 ### GetClusterStatsRequest
 
@@ -815,7 +817,7 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 
 
-<a name="stats-GetClusterStatsResponse"></a>
+<a name="api-services-stats-v1-GetClusterStatsResponse"></a>
 
 ### GetClusterStatsResponse
 
@@ -823,14 +825,14 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| stats | [resources.stats.ClusterStats](#resources-stats-ClusterStats) |  |  |
+| stats | [api.resources.stats.v1.ClusterStats](#api-resources-stats-v1-ClusterStats) |  |  |
 
 
 
 
 
 
-<a name="stats-GetKoorClusterRequest"></a>
+<a name="api-services-stats-v1-GetKoorClusterRequest"></a>
 
 ### GetKoorClusterRequest
 
@@ -840,7 +842,7 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 
 
-<a name="stats-GetKoorClusterResponse"></a>
+<a name="api-services-stats-v1-GetKoorClusterResponse"></a>
 
 ### GetKoorClusterResponse
 
@@ -848,7 +850,7 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| koor_cluster | [resources.stats.KoorCluster](#resources-stats-KoorCluster) |  |  |
+| koor_cluster | [api.resources.stats.v1.KoorCluster](#api-resources-stats-v1-KoorCluster) |  |  |
 
 
 
@@ -861,18 +863,18 @@ https://golang.org/pkg/database/sql/driver/#Valuer
  
 
 
-<a name="stats-StatsService"></a>
+<a name="api-services-stats-v1-StatsService"></a>
 
 ### StatsService
 
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| GetClusterStats | [GetClusterStatsRequest](#stats-GetClusterStatsRequest) | [GetClusterStatsResponse](#stats-GetClusterStatsResponse) |  |
-| GetClusterResources | [GetClusterResourcesRequest](#stats-GetClusterResourcesRequest) | [GetClusterResourcesResponse](#stats-GetClusterResourcesResponse) |  |
-| GetClusterNodes | [GetClusterNodesRequest](#stats-GetClusterNodesRequest) | [GetClusterNodesResponse](#stats-GetClusterNodesResponse) |  |
-| GetClusterRadar | [GetClusterRadarRequest](#stats-GetClusterRadarRequest) | [GetClusterRadarResponse](#stats-GetClusterRadarResponse) |  |
-| GetKoorCluster | [GetKoorClusterRequest](#stats-GetKoorClusterRequest) | [GetKoorClusterResponse](#stats-GetKoorClusterResponse) |  |
+| GetClusterStats | [GetClusterStatsRequest](#api-services-stats-v1-GetClusterStatsRequest) | [GetClusterStatsResponse](#api-services-stats-v1-GetClusterStatsResponse) |  |
+| GetClusterResources | [GetClusterResourcesRequest](#api-services-stats-v1-GetClusterResourcesRequest) | [GetClusterResourcesResponse](#api-services-stats-v1-GetClusterResourcesResponse) |  |
+| GetClusterNodes | [GetClusterNodesRequest](#api-services-stats-v1-GetClusterNodesRequest) | [GetClusterNodesResponse](#api-services-stats-v1-GetClusterNodesResponse) |  |
+| GetClusterRadar | [GetClusterRadarRequest](#api-services-stats-v1-GetClusterRadarRequest) | [GetClusterRadarResponse](#api-services-stats-v1-GetClusterRadarResponse) |  |
+| GetKoorCluster | [GetKoorClusterRequest](#api-services-stats-v1-GetKoorClusterRequest) | [GetKoorClusterResponse](#api-services-stats-v1-GetKoorClusterResponse) |  |
 
  
 

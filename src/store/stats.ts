@@ -1,7 +1,7 @@
 import { ConnectError } from '@connectrpc/connect';
 import { defineStore } from 'pinia';
-import { ClusterRadar, ClusterStats, KoorCluster, NodeInfo } from '~~/gen/ts/api/resources/stats/stats_pb';
-import { GetClusterResourcesResponse } from '~~/gen/ts/api/services/stats/stats_pb';
+import { ClusterRadar, ClusterStats, KoorCluster, NodeInfo } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
+import { GetClusterResourcesResponse } from '~~/gen/ts/api/services/stats/v1/stats_pb';
 
 export interface StatsState {}
 

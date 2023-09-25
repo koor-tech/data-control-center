@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package api.services.stats.v1;
+
+import "api/resources/stats/v1/stats.proto";
+
+option go_package = "github.com/koor-tech/data-control-center/gen/go/api/services/stats";
+
+message GetClusterStatsRequest {}
+
+message GetClusterStatsResponse {
+  api.resources.stats.v1.ClusterStats stats = 1;
+}
+
+message GetClusterResourcesRequest {}
+
+message GetClusterResourcesResponse {
+  repeated api.resources.stats.v1.ResourceInfo resources = 1;
+  repeated api.resources.stats.v1.ResourceInfo deployments = 2;
+}
+
+message GetClusterNodesRequest {}
+
+message GetClusterNodesResponse {
+  repeated api.resources.stats.v1.NodeInfo nodes = 1;
+}
+
+message GetClusterRadarRequest {}
+
+message GetClusterRadarResponse {
+  api.resources.stats.v1.ClusterRadar radar = 1;
+}
+
+message GetKoorClusterRequest {}
+
+message GetKoorClusterResponse {
+  api.resources.stats.v1.KoorCluster koor_cluster = 1;
+}
+
+service StatsService {
+  rpc GetClusterStats(GetClusterStatsRequest) returns (GetClusterStatsResponse) {}
+  rpc GetClusterResources(GetClusterResourcesRequest) returns (GetClusterResourcesResponse) {}
+  rpc GetClusterNodes(GetClusterNodesRequest) returns (GetClusterNodesResponse) {}
+  rpc GetClusterRadar(GetClusterRadarRequest) returns (GetClusterRadarResponse) {}
+  rpc GetKoorCluster(GetKoorClusterRequest) returns (GetKoorClusterResponse) {}
+}

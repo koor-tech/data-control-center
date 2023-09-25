@@ -9,10 +9,10 @@ import (
 	"google.golang.org/protobuf/types/known/wrapperspb"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	"github.com/koor-tech/data-control-center/gen/go/api/resources/stats"
+	statsv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/stats/v1"
 )
 
-func (k *K8s) GetKoorCluster(ctx context.Context, namespace string) (*stats.KoorCluster, error) {
+func (k *K8s) GetKoorCluster(ctx context.Context, namespace string) (*statsv1.KoorCluster, error) {
 	koorClusters, err := ListCustomResource[kopv1.KoorCluster](ctx, k.client, kopv1.GroupVersion.WithResource("koorclusters"), namespace, metav1.ListOptions{})
 	if err != nil {
 		return nil, connect.NewError(connect.CodeInternal, err)
@@ -25,11 +25,11 @@ func (k *K8s) GetKoorCluster(ctx context.Context, namespace string) (*stats.Koor
 	return convertKoorCluster(koorClusters[0]), nil
 }
 
-func convertKoorCluster(koorCluster *kopv1.KoorCluster) *stats.KoorCluster {
-	res := &stats.KoorCluster{
+func convertKoorCluster(koorCluster *kopv1.KoorCluster) *statsv1.KoorCluster {
+	res := &statsv1.KoorCluster{
 		Name:      koorCluster.Name,
 		Namespace: koorCluster.Namespace,
-		Spec: &stats.KoorClusterSpec{
+		Spec: &statsv1.KoorClusterSpec{
 			UseAllDevices:         ConvertBoolValue(koorCluster.Spec.UseAllDevices),
 			MonitoringEnabled:     ConvertBoolValue(koorCluster.Spec.MonitoringEnabled),
 			DashboardEnabled:      ConvertBoolValue(koorCluster.Spec.DashboardEnabled),
@@ -38,15 +38,15 @@ func convertKoorCluster(koorCluster *kopv1.KoorCluster) *stats.KoorCluster {
 			KsdReleaseName:        koorCluster.Spec.KsdReleaseName,
 			KsdClusterReleaseName: koorCluster.Spec.KsdClusterReleaseName,
 		},
-		Status: &stats.KoorClusterStatus{
-			TotalResources: &stats.ClusterResources{
+		Status: &statsv1.KoorClusterStatus{
+			TotalResources: &statsv1.ClusterResources{
 				Nodes:   koorCluster.Status.TotalResources.Nodes.String(),
 				Storage: koorCluster.Status.TotalResources.Storage.String(),
 				Cpu:     koorCluster.Status.TotalResources.Cpu.String(),
 				Memory:  koorCluster.Status.TotalResources.Memory.String(),
 			},
 			MeetsMinimumResources: koorCluster.Status.MeetsMinimumResources,
-			CurrentVersions: &stats.ProductVersions{
+			CurrentVersions: &statsv1.ProductVersions{
 				Kube:         koorCluster.Status.CurrentVersions.Kube,
 				KoorOperator: koorCluster.Status.CurrentVersions.KoorOperator,
 				Ksd:          koorCluster.Status.CurrentVersions.Ksd,
@@ -55,13 +55,13 @@ func convertKoorCluster(koorCluster *kopv1.KoorCluster) *stats.KoorCluster {
 		},
 	}
 
-    if koorCluster.Status.LatestVersions != nil {
-        res.Status.LatestVersions = &stats.DetailedProductVersions{
-            KoorOperator: convertDetailedVersion(koorCluster.Status.LatestVersions.KoorOperator),
-            Ksd:          convertDetailedVersion(koorCluster.Status.LatestVersions.Ksd),
-            Ceph:         convertDetailedVersion(koorCluster.Status.LatestVersions.Ceph),
-        }
-    }
+	if koorCluster.Status.LatestVersions != nil {
+		res.Status.LatestVersions = &statsv1.DetailedProductVersions{
+			KoorOperator: convertDetailedVersion(koorCluster.Status.LatestVersions.KoorOperator),
+			Ksd:          convertDetailedVersion(koorCluster.Status.LatestVersions.Ksd),
+			Ceph:         convertDetailedVersion(koorCluster.Status.LatestVersions.Ceph),
+		}
+	}
 	return res
 }
 
@@ -74,36 +74,36 @@ func ConvertBoolValue(val *bool) *wrapperspb.BoolValue {
 	return nil
 }
 
-func convertUpgradeOptions(upgradeOptions *kopv1.UpgradeOptions) *stats.UpgradeOptions {
+func convertUpgradeOptions(upgradeOptions *kopv1.UpgradeOptions) *statsv1.UpgradeOptions {
 	if upgradeOptions == nil {
 		return nil
 	}
 
-	res := &stats.UpgradeOptions{
+	res := &statsv1.UpgradeOptions{
 		Endpoint: upgradeOptions.Endpoint,
 		Schedule: upgradeOptions.Schedule,
 	}
 
 	switch upgradeOptions.Mode {
 	case kopv1.UpgradeModeDisabled:
-		res.Mode = stats.UpgradeMode_UPGRADE_MODE_DISABLED
+		res.Mode = statsv1.UpgradeMode_UPGRADE_MODE_DISABLED
 	case kopv1.UpgradeModeNotify:
-		res.Mode = stats.UpgradeMode_UPGRADE_MODE_NOTIFY
+		res.Mode = statsv1.UpgradeMode_UPGRADE_MODE_NOTIFY
 	case kopv1.UpgradeModeUpgrade:
-		res.Mode = stats.UpgradeMode_UPGRADE_MODE_UPGRADE
+		res.Mode = statsv1.UpgradeMode_UPGRADE_MODE_UPGRADE
 	default:
-		res.Mode = stats.UpgradeMode_UPGRADE_MODE_UNSPECIFIED
+		res.Mode = statsv1.UpgradeMode_UPGRADE_MODE_UNSPECIFIED
 	}
 
 	return res
 }
 
-func convertDetailedVersion(v *kopv1.DetailedVersion) *stats.DetailedVersion {
+func convertDetailedVersion(v *kopv1.DetailedVersion) *statsv1.DetailedVersion {
 	if v == nil {
 		return nil
 	}
 
-	return &stats.DetailedVersion{
+	return &statsv1.DetailedVersion{
 		Version:        v.Version,
 		ImageUri:       v.ImageUri,
 		ImageHash:      v.ImageHash,
