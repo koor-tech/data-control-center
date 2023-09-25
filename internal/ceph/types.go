@@ -185,6 +185,7 @@ type HealthStatus struct {
 	FsMap      FsMap      `json:"fs_map"`
 	OsdMap     OsdMap     `json:"osd_map"`
 	Rgw        int        `json:"rgw"`
+	Hosts      int        `json:"hosts"`
 	Pools      []Pool     `json:"pools"`
 	PGInfo     PGInfo     `json:"pg_info"`
 	DF         DF         `json:"df"`
