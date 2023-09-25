@@ -16,6 +16,17 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v4
 
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 19.9.0
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Run yarn generate
+        run: yarn generate
+
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
