@@ -100,15 +100,24 @@ spec:
             - /bin/bash
             - -c
             - |
+              set -e
               pw_file=$(mktemp)
-              echo $CEPH_DASHBOARD_PASSWORD > "$pw_file"
+              cleanup() {
+                rm "$pw_file"
+              }
+              trap cleanup EXIT
 
-              if ceph dashboard ac-user-show $CEPH_DASHBOARD_USERNAME; then
+              echo "$CEPH_DASHBOARD_PASSWORD" > "$pw_file"
+
+              if ceph dashboard ac-user-show "$CEPH_DASHBOARD_USERNAME" &> /dev/null; then
                 echo "Dashboard User exists, updating password ..."
-                ceph dashboard ac-user-set-password --force-password $CEPH_DASHBOARD_USERNAME -i "$pw_file" read-only $CEPH_DASHBOARD_USERNAME
+                ceph dashboard ac-user-set-password "$CEPH_DASHBOARD_USERNAME" --force-password -i "$pw_file" &> /dev/null
+                ceph dashboard ac-user-set-roles "$CEPH_DASHBOARD_USERNAME" read-only &> /dev/null
+                echo "Dashboard User password and role set!"
               else
                 echo "Creating new dashboard user ..."
-                ceph dashboard ac-user-create --enabled --force-password $CEPH_DASHBOARD_USERNAME -i "$pw_file"
+                ceph dashboard ac-user-create "$CEPH_DASHBOARD_USERNAME" read-only "$CEPH_DASHBOARD_USERNAME" --enabled --force-password -i "$pw_file" &> /dev/null
+                echo "Created new dashboard user!"
               fi
 
               echo "Done."

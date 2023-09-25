@@ -1,17 +1,24 @@
 {
-  "javascript.preferences.quoteStyle": "single",
-  "typescript.preferences.quoteStyle": "single",
-  "editor.bracketPairColorization.enabled": true,
-  "editor.guides.bracketPairs": true,
-  "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.codeActionsOnSave": ["source.fixAll.eslint"],
-  "eslint.validate": ["javascript", "javascriptreact", "typescript", "vue"],
-  "protoc": {
-    "options": ["--proto_path=./.build/validate", "--proto_path=./"]
-  },
-  "volar.takeOverMode.extension": "Vue.volar",
-  "[go]": {
-    "editor.defaultFormatter": "golang.go"
-  }
+    "javascript.preferences.quoteStyle": "single",
+    "typescript.preferences.quoteStyle": "single",
+    "volar.takeOverMode.extension": "Vue.volar",
+    "protoc": {
+        "options": [
+            "--proto_path=./.build/validate",
+            "--proto_path=./"
+        ]
+    },
+    "inlineFold.maskChar": "...",
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+    "[vue]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.formatOnSave": true
+	}
 }

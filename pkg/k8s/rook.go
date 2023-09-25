@@ -3,12 +3,12 @@ package k8s
 import (
 	"context"
 
-	"github.com/koor-tech/data-control-center/gen/go/api/resources/stats"
+	statsv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/stats/v1"
 	cephv1 "github.com/rook/rook/pkg/apis/ceph.rook.io/v1"
 )
 
-func (k *K8s) GetCephResources(ctx context.Context, namespace string) ([]*stats.ResourceInfo, error) {
-	res := []*stats.ResourceInfo{}
+func (k *K8s) GetCephResources(ctx context.Context, namespace string) ([]*statsv1.ResourceInfo, error) {
+	res := []*statsv1.ResourceInfo{}
 
 	// CephClusters
 	clusters, err := k.ListCephClusters(ctx, namespace)
@@ -17,16 +17,16 @@ func (k *K8s) GetCephResources(ctx context.Context, namespace string) ([]*stats.
 	}
 
 	for _, obj := range clusters {
-		status := stats.ResourceStatus_RESOURCE_UNKNOWN
+		status := statsv1.ResourceStatus_RESOURCE_STATUS_UNKNOWN
 		if obj.Status.CephStatus != nil {
 			if obj.Status.State == cephv1.ClusterStateCreated || obj.Status.State == cephv1.ClusterStateConnected {
-				status = stats.ResourceStatus_RESOURCE_READY
+				status = statsv1.ResourceStatus_RESOURCE_STATUS_READY
 			} else if obj.Status.State == cephv1.ClusterStateConnecting || obj.Status.State == cephv1.ClusterStateCreating || obj.Status.State == cephv1.ClusterStateUpdating {
-				status = stats.ResourceStatus_RESOURCE_NOT_READY
+				status = statsv1.ResourceStatus_RESOURCE_STATUS_NOT_READY
 			}
 		}
 
-		res = append(res, &stats.ResourceInfo{
+		res = append(res, &statsv1.ResourceInfo{
 			Apiversion: obj.APIVersion,
 			Kind:       obj.Kind,
 			Namespace:  obj.Namespace,
@@ -43,16 +43,16 @@ func (k *K8s) GetCephResources(ctx context.Context, namespace string) ([]*stats.
 	}
 
 	for _, obj := range blockPools {
-		status := stats.ResourceStatus_RESOURCE_UNKNOWN
+		status := statsv1.ResourceStatus_RESOURCE_STATUS_UNKNOWN
 		if obj.Status != nil {
 			if obj.Status.Phase == cephv1.ConditionReady || obj.Status.Phase == cephv1.ConditionProgressing {
-				status = stats.ResourceStatus_RESOURCE_READY
+				status = statsv1.ResourceStatus_RESOURCE_STATUS_READY
 			} else {
-				status = stats.ResourceStatus_RESOURCE_NOT_READY
+				status = statsv1.ResourceStatus_RESOURCE_STATUS_NOT_READY
 			}
 		}
 
-		res = append(res, &stats.ResourceInfo{
+		res = append(res, &statsv1.ResourceInfo{
 			Apiversion: obj.APIVersion,
 			Kind:       obj.Kind,
 			Namespace:  obj.Namespace,
@@ -69,16 +69,16 @@ func (k *K8s) GetCephResources(ctx context.Context, namespace string) ([]*stats.
 	}
 
 	for _, obj := range filesystems {
-		status := stats.ResourceStatus_RESOURCE_UNKNOWN
+		status := statsv1.ResourceStatus_RESOURCE_STATUS_UNKNOWN
 		if obj.Status != nil {
 			if obj.Status.Phase == cephv1.ConditionReady || obj.Status.Phase == cephv1.ConditionProgressing {
-				status = stats.ResourceStatus_RESOURCE_READY
+				status = statsv1.ResourceStatus_RESOURCE_STATUS_READY
 			} else {
-				status = stats.ResourceStatus_RESOURCE_NOT_READY
+				status = statsv1.ResourceStatus_RESOURCE_STATUS_NOT_READY
 			}
 		}
 
-		res = append(res, &stats.ResourceInfo{
+		res = append(res, &statsv1.ResourceInfo{
 			Apiversion: obj.APIVersion,
 			Kind:       obj.Kind,
 			Namespace:  obj.Namespace,
@@ -95,16 +95,16 @@ func (k *K8s) GetCephResources(ctx context.Context, namespace string) ([]*stats.
 	}
 
 	for _, obj := range objectStores {
-		status := stats.ResourceStatus_RESOURCE_UNKNOWN
+		status := statsv1.ResourceStatus_RESOURCE_STATUS_UNKNOWN
 		if obj.Status != nil {
 			if obj.Status.Phase == cephv1.ConditionReady || obj.Status.Phase == cephv1.ConditionProgressing {
-				status = stats.ResourceStatus_RESOURCE_READY
+				status = statsv1.ResourceStatus_RESOURCE_STATUS_READY
 			} else {
-				status = stats.ResourceStatus_RESOURCE_NOT_READY
+				status = statsv1.ResourceStatus_RESOURCE_STATUS_NOT_READY
 			}
 		}
 
-		res = append(res, &stats.ResourceInfo{
+		res = append(res, &statsv1.ResourceInfo{
 			Apiversion: obj.APIVersion,
 			Kind:       obj.Kind,
 			Namespace:  obj.Namespace,

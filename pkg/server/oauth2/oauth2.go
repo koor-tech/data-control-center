@@ -1,7 +1,6 @@
 package oauth2
 
 import (
-	"database/sql"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -19,7 +18,6 @@ import (
 
 type OAuth2 struct {
 	logger *zap.Logger
-	db     *sql.DB
 	tm     *auth.TokenMgr
 
 	oauthConfigs map[string]providers.IProvider
@@ -62,6 +60,16 @@ func New(logger *zap.Logger, tm *auth.TokenMgr, oAuth2Providers []*config.OAuth2
 	}
 
 	return o
+}
+
+func (o *OAuth2) Register(e *gin.Engine) {
+	oauth := e.Group("/api/oauth2")
+	{
+		oauth.GET("/login/:provider", o.Login)
+		oauth.POST("/login/:provider", o.Login)
+		oauth.GET("/callback/:provider", o.Callback)
+		oauth.POST("/callback/:provider", o.Callback)
+	}
 }
 
 func (o *OAuth2) GetProvider(c *gin.Context) (providers.IProvider, error) {

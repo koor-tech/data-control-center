@@ -1,18 +1,16 @@
 <script setup lang="ts">
 useHead({
-  title: 'Controls',
+    title: 'Controls',
 });
 definePageMeta({
-  title: 'Controls',
-  requiresAuth: true,
+    title: 'Controls',
+    requiresAuth: true,
 });
 </script>
 
 <template>
-  <div class="px-4">
-    <h2 class="text-xl q-mt-lg text-center">Control Panel</h2>
-    <div class="flex">
-      TODO
+    <div class="px-4">
+        <h2 class="text-xl q-mt-lg text-center">Control Panel</h2>
+        <div class="flex">TODO</div>
     </div>
-  </div>
 </template>

@@ -9,11 +9,11 @@ import (
 )
 
 func GetCephV1Resource[T any](ctx context.Context, client *kubernetes.Clientset, resource string, namespace string, name string, opts metav1.GetOptions) (*T, error) {
-	return GetCustomResource[T](ctx, client, cephv1.SchemeGroupVersion.WithResource(resource), resource, namespace, name, opts)
+	return GetCustomResource[T](ctx, client, cephv1.SchemeGroupVersion.WithResource(resource), namespace, name, opts)
 }
 
 func ListCephV1Resources[T any](ctx context.Context, client *kubernetes.Clientset, resource string, namespace string, opts metav1.ListOptions) ([]*T, error) {
-	return ListCustomResource[T](ctx, client, cephv1.SchemeGroupVersion.WithResource(resource), resource, namespace, opts)
+	return ListCustomResource[T](ctx, client, cephv1.SchemeGroupVersion.WithResource(resource), namespace, opts)
 }
 
 func (k *K8s) ListCephClusters(ctx context.Context, namespace string) ([]*cephv1.CephCluster, error) {

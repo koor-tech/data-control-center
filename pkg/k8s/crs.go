@@ -10,7 +10,7 @@ import (
 	"k8s.io/client-go/kubernetes"
 )
 
-func GetCustomResource[T any](ctx context.Context, client *kubernetes.Clientset, resSchame schema.GroupVersionResource, resource string, namespace string, name string, opts metav1.GetOptions) (*T, error) {
+func GetCustomResource[T any](ctx context.Context, client *kubernetes.Clientset, resSchame schema.GroupVersionResource, namespace string, name string, opts metav1.GetOptions) (*T, error) {
 	cliSet := dynamic.New(client.RESTClient())
 	obj, err := cliSet.Resource(resSchame).Namespace(namespace).Get(ctx, name, opts)
 	if err != nil {
@@ -29,7 +29,7 @@ func GetCustomResource[T any](ctx context.Context, client *kubernetes.Clientset,
 	return &crdObj, nil
 }
 
-func ListCustomResource[T any](ctx context.Context, client *kubernetes.Clientset, resSchame schema.GroupVersionResource, resource string, namespace string, opts metav1.ListOptions) ([]*T, error) {
+func ListCustomResource[T any](ctx context.Context, client *kubernetes.Clientset, resSchame schema.GroupVersionResource, namespace string, opts metav1.ListOptions) ([]*T, error) {
 	cliSet := dynamic.New(client.RESTClient())
 	list, err := cliSet.Resource(resSchame).Namespace(namespace).List(ctx, opts)
 	if err != nil {

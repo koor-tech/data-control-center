@@ -4,6 +4,7 @@ VALIDATE_VERSION ?= v1.0.2
 BUILD_DIR := .build/
 
 .DEFAULT: run-server
+all: gen-proto
 
 # Build, Format, etc., Tools, Dependency checkouts
 
@@ -39,7 +40,7 @@ build_dir:
 .PHONY: clean
 clean:
 	@npx nuxi cleanup
-	rm -rf ./.nuxt/dist/ 
+	rm -rf ./.nuxt/dist/
 
 .PHONY: watch
 watch:
@@ -50,11 +51,11 @@ gen-proto: protoc-gen-validate
 	$(BUF) generate
 
 .PHONY: build-container
-build-container:
+build-container: build-yarn
 	docker build \
 		--force-rm=true\
 		-t docker.io/koorinc/data-control-center:latest .
-	
+
 .PHONY: release
 release:
 	docker tag docker.io/koorinc/data-control-center:latest docker.io/koorinc/data-control-center:$(TAG)
@@ -62,6 +63,12 @@ release:
 .PHONY: build-go
 build-go:
 	CGO_ENABLED=0 go build -a -installsuffix cgo -o data-control-center .
+
+.PHONY: build-yarn
+build-yarn:
+	rm -rf ./.nuxt/dist/
+	yarn build
+	yarn generate
 
 .PHONY: run-cephapidummy
 run-cephapidummy:
@@ -79,7 +86,7 @@ fmt:
 
 .PHONY: fmt-proto
 fmt-proto: buf
-	buf format --write ./proto
+	$(BUF) format --write ./api
 
 .PHONY: fmt-js
 fmt-js:
@@ -96,3 +103,8 @@ helm-docs: bin-$(HELM_DOCS) ## Use helm-docs to generate documentation from helm
 		-o README.md \
 		-t README.gotmpl.md \
 		-t _templates.gotmpl
+
+.PHONY: lint
+lint:
+	$(BUF) lint
+	$(BUF) breaking --against '.git#branch=main'
