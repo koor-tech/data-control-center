@@ -21,20 +21,20 @@ echo "v${VERSION}" > VERSION
 sed \
     --in-place \
     --regexp-extended \
-    --expression 's~"version": "[0-9\.]+"~"version": "'"${VERSION}"'"~' \
+    --expression 's~"version": ".+"~"version": "'"${VERSION}"'"~' \
         ./package.json
 
 # Helm Chart
 sed \
     --in-place \
     --regexp-extended \
-    --expression 's~appVersion: v[0-9\.]+~appVersion: v'"${VERSION}"'~' \
+    --expression 's~appVersion: v.++~appVersion: v'"${VERSION}"'~' \
         ./charts/data-control-center/Chart.yaml
 
 HELM_CHART_VERSION=$(grep \
     --only-matching \
     --perl-regexp \
-    '^version: ([0-9\.]+)' \
+    '^version: (.+)' \
         ./charts/data-control-center/Chart.yaml)
 
 version_rest=$(echo "${HELM_CHART_VERSION}" | cut -d':' -f 2 | cut -d'.' -f 1-2)
@@ -45,7 +45,7 @@ version_patch_new=$(( version_patch + 1 ))
 sed \
     --in-place \
     --regexp-extended \
-    --expression 's~^version: [0-9\.]+~version: '"${version_rest}.${version_patch_new}"'~' \
+    --expression 's~^version: .+~version: '"${version_rest}.${version_patch_new}"'~' \
         ./charts/data-control-center/Chart.yaml
 
 git add --all
@@ -54,6 +54,8 @@ git commit \
     --signoff \
     --gpg-sign \
     --message "version: bump to v${VERSION}"
+
+exit 1
 
 git push
 echo "Pushing the version bump commit and sleeping 60 seconds before"
