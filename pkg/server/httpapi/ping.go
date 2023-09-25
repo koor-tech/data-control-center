@@ -1,4 +1,4 @@
-package api
+package httpapi
 
 var PingResponse = Ping{
 	Message: "Pong",

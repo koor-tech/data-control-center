@@ -1,4 +1,4 @@
-package api
+package httpapi
 
 type ClientConfig struct {
 	Version string      `json:"version"`
