@@ -55,8 +55,6 @@ git commit \
     --gpg-sign \
     --message "version: bump to v${VERSION}"
 
-exit 1
-
 git push
 echo "Pushing the version bump commit and sleeping 60 seconds before"
 echo "creating and pushing the actual version tag"
