@@ -4,8 +4,8 @@ import { Notification } from '~/composables/notification/interfaces/Notification
 import { useAuthStore } from '~/store/auth';
 import { useConfigStore } from '~/store/config';
 import { useNotificationsStore } from '~/store/notifications';
-import { AuthService } from '~~/gen/ts/api/services/auth/auth_connect';
-import { StatsService } from '~~/gen/ts/api/services/stats/stats_connect';
+import { AuthService } from '~~/gen/ts/api/services/auth/v1/auth_connect';
+import { StatsService } from '~~/gen/ts/api/services/stats/v1/stats_connect';
 
 export default defineNuxtPlugin(() => {
     return {

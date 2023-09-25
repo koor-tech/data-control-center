@@ -2,7 +2,7 @@
 title: Release
 ---
 
-Data-Control-Center tries to follow [Semantic Versioning](https://semver.org/).
+data-control-center tries to follow [Semantic Versioning](https://semver.org/).
 
 ## Process
 

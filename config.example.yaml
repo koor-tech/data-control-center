@@ -1,3 +1,6 @@
+# Please refer to the configuration documentation to learn
+# how to setup the config file.
+# https://github.com/koor-tech/data-control-center/blob/main/docs/configuration.md#reference
 logLevel: 'DEBUG'
 # debug or release
 mode: 'debug'

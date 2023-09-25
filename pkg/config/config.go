@@ -53,7 +53,7 @@ func LoadTest() (*Config, error) {
 }
 
 type Config struct {
-	LogLevel string `default:"DEBUG" yaml:"logLevel"`
+	LogLevel string `default:"INFO" yaml:"logLevel"`
 	Mode     string `default:"debug" yaml:"mode"`
 
 	HTTP   HTTP    `yaml:"http"`

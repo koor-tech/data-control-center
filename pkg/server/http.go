@@ -20,7 +20,7 @@ import (
 	"github.com/koor-tech/data-control-center/pkg/config"
 	"github.com/koor-tech/data-control-center/pkg/grpc/auth"
 	"github.com/koor-tech/data-control-center/pkg/k8s"
-	"github.com/koor-tech/data-control-center/pkg/server/api"
+	"github.com/koor-tech/data-control-center/pkg/server/httpapi"
 	"github.com/koor-tech/data-control-center/pkg/server/oauth2"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
@@ -116,11 +116,16 @@ func setupHTTPServer(p ServerParams) *gin.Engine {
 		}),
 	)))
 
-	// Register app routes
-	oauth := oauth2.New(p.Logger.Named("oauth"), p.TokenMgr, p.Config.OAuth2.Providers)
-	rs := api.New(p.Logger, p.Config)
-	rs.Register(e, oauth)
+	// Register HTTP API routes
+	rs := httpapi.New(p.Logger, p.Config)
+	rs.Register(e)
 
+	if len(p.Config.OAuth2.Providers) > 0 {
+		oauth := oauth2.New(p.Logger.Named("oauth"), p.TokenMgr, p.Config.OAuth2.Providers)
+		oauth.Register(e)
+	}
+
+	// Setup nuxt generated files serving
 	fs := static.LocalFile(".output/public/", false)
 	fileserver := http.FileServer(fs)
 	fileserver = http.StripPrefix("/", fileserver)

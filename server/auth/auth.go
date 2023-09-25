@@ -6,16 +6,16 @@ import (
 
 	"connectrpc.com/connect"
 	"github.com/gin-gonic/gin"
-	"github.com/koor-tech/data-control-center/gen/go/api/resources/timestamp"
-	pbauth "github.com/koor-tech/data-control-center/gen/go/api/services/auth"
-	"github.com/koor-tech/data-control-center/gen/go/api/services/auth/authconnect"
+	timestampv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/timestamp/v1"
+	pbauth "github.com/koor-tech/data-control-center/gen/go/api/services/auth/v1"
+	"github.com/koor-tech/data-control-center/gen/go/api/services/auth/v1/authv1connect"
 	"github.com/koor-tech/data-control-center/pkg/config"
 	"github.com/koor-tech/data-control-center/pkg/grpc/auth"
 	"golang.org/x/crypto/bcrypt"
 )
 
 type Server struct {
-	authconnect.AuthServiceHandler
+	authv1connect.AuthServiceHandler
 
 	tm *auth.TokenMgr
 
@@ -44,7 +44,7 @@ func New(tm *auth.TokenMgr, cfg *config.Config) (*Server, error) {
 }
 
 func (s *Server) RegisterService(g *gin.RouterGroup) {
-	path, handler := authconnect.NewAuthServiceHandler(s)
+	path, handler := authv1connect.NewAuthServiceHandler(s)
 	g.Any(path+"/*path", gin.WrapH(handler))
 }
 
@@ -79,7 +79,7 @@ func (s *Server) Login(ctx context.Context, req *connect.Request[pbauth.LoginReq
 	return &connect.Response[pbauth.LoginResponse]{
 		Msg: &pbauth.LoginResponse{
 			Token:     token,
-			Expires:   timestamp.New(claims.ExpiresAt.Time),
+			Expires:   timestampv1.New(claims.ExpiresAt.Time),
 			AccountId: claims.AccID,
 		},
 	}, nil

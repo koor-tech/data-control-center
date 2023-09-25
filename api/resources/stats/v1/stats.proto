@@ -1,0 +1,237 @@
+syntax = "proto3";
+
+package api.resources.stats.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+import "validate/validate.proto";
+
+option go_package = "github.com/koor-tech/data-control-center/gen/go/api/resources/stats;stats";
+
+message MonService {
+  int32 daemon_count = 1;
+  string quorum = 2;
+  google.protobuf.Timestamp created_at = 3;
+  google.protobuf.Timestamp updated_at = 4;
+}
+
+message MgrService {
+  string active = 1;
+  repeated string standbys = 2;
+  google.protobuf.Timestamp updated_at = 4;
+}
+
+message MdsService {
+  int32 daemons_up = 1;
+  int32 hot_standby_count = 2;
+}
+
+message OsdService {
+  int32 osd_count = 1;
+  int32 osd_up = 2;
+  int32 osd_in = 3;
+  google.protobuf.Timestamp osd_up_updated_at = 4;
+  google.protobuf.Timestamp osd_in_updated_at = 5;
+}
+
+message RgwService {
+  int32 active_daemon = 1;
+  int32 host_count = 2;
+  int32 zone_count = 3;
+}
+
+message Services {
+  MonService mon = 1;
+  MgrService mgr = 2;
+  MdsService mds = 3;
+  OsdService osd = 4;
+  RgwService rgw = 5;
+}
+
+message PGs {
+  int32 active_clean = 1;
+}
+
+message Pools {
+  int32 pools = 1;
+  PGs pgs = 2;
+}
+
+message Objects {
+  int32 object_count = 1;
+  string size = 2;
+}
+
+message Usage {
+  int64 used = 1;
+  int64 available = 2;
+  int64 total = 3;
+}
+
+message Data {
+  int32 volumes = 1;
+  Pools pools = 2;
+  Objects objects = 3;
+  Usage usage = 4;
+}
+
+message IOPS {
+  string client_read = 1;
+  string client_write = 2;
+  string client_read_ops = 3;
+  string client_write_ops = 4;
+}
+
+message Crash {
+  string description = 1;
+}
+
+message ClusterStats {
+  string id = 1;
+  string status = 2;
+  repeated Crash crashes = 3;
+  Services services = 4;
+  Data data = 5;
+  string test = 6;
+  IOPS iops = 7;
+}
+
+message ResourceInfo {
+  string apiversion = 1;
+  string kind = 2;
+  string namespace = 3;
+  string name = 4;
+  ResourceStatus status = 5;
+  int32 replicas = 6;
+  ReliabilityScore reliability = 7;
+}
+
+enum ResourceStatus {
+  RESOURCE_STATUS_UNSPECIFIED = 0;
+  RESOURCE_STATUS_UNKNOWN = 1;
+  RESOURCE_STATUS_READY = 2;
+  RESOURCE_STATUS_PROGRESSING = 3;
+  RESOURCE_STATUS_NOT_READY = 4;
+}
+
+message NodeInfo {
+  string name = 1;
+  ResourceStatus status = 2;
+  repeated string roles = 3;
+  string internal_ip = 4;
+  string external_ip = 5;
+  google.protobuf.Timestamp age = 6;
+}
+
+message ClusterRadar {
+  float cluster_health = 1;
+  float nodes_health = 2;
+  float capacity_available = 3;
+  float stability = 4;
+  float reliability = 5;
+}
+
+enum ReliabilityScore {
+  RELIABILITY_SCORE_UNSPECIFIED = 0;
+  RELIABILITY_SCORE_UNKNOWN = 1;
+  RELIABILITY_SCORE_NONE = 2;
+  RELIABILITY_SCORE_DEGRADED = 3;
+  RELIABILITY_SCORE_OK = 4;
+}
+
+/*
+ * Koor Operator Options
+ */
+// Represents a map of products to version strings.
+message ProductVersions {
+  // Kubernetes version, must be a valid semver.
+  string kube = 1 [(validate.rules).string.pattern = "^v?\\d+(?:\\.\\d+){0,2}(?:\\-\\d+)?$"];
+
+  // Koor Operator version, must be a valid semver.
+  string koor_operator = 2 [(validate.rules).string.pattern = "^v?\\d+(?:\\.\\d+){0,2}(?:\\-\\d+)?$"];
+
+  // Koor Storage Distribution version, must be a valid semver.
+  string ksd = 3 [(validate.rules).string.pattern = "^v?\\d+(?:\\.\\d+){0,2}(?:\\-\\d+)?$"];
+
+  // Ceph version, must be a valid semver.
+  string ceph = 4 [(validate.rules).string.pattern = "^v?\\d+(?:\\.\\d+){0,2}(?:\\-\\d+)?$"];
+}
+
+// Defines a detailed version of a product, which includes a container image or a helm chart.
+message DetailedVersion {
+  // The product version, must be a valid semver.
+  string version = 1 [(validate.rules).string.pattern = "^v?\\d+(?:\\.\\d+){0,2}(?:\\-\\d+)?$"];
+
+  // The URI of the container image.
+  string image_uri = 2 [(validate.rules).string.uri = true];
+
+  // The hash of the container image.
+  string image_hash = 3;
+
+  // The URI of the helm repository.
+  string helm_repository = 4 [(validate.rules).string.uri = true];
+
+  // The name of the helm chart in the repository.
+  string helm_chart = 5;
+}
+
+// Represents a map of products to detailed versions, which include images or helm charts.
+message DetailedProductVersions {
+  DetailedVersion koor_operator = 1; // The detailed Koor Operator version.
+  DetailedVersion ksd = 2; // The detailed Koor Storage Distribution version.
+  DetailedVersion ceph = 3; // The detailed Ceph version.
+}
+
+message ClusterResources {
+  string nodes = 1; // The number of nodes in the cluster
+  string storage = 2; // Ephemeral Storage available
+  string cpu = 3; // CPU cores available
+  string memory = 4; // Memory available
+}
+
+// Represents the status of the KoorCluster CRD
+message KoorClusterStatus {
+  ClusterResources total_resources = 1; // The total resources available in the cluster nodes
+  bool meets_minimum_resources = 2; // Does the cluster meet the minimum recommended resources
+  ProductVersions current_versions = 3; // The current versions of rook and ceph
+  DetailedProductVersions latest_versions = 4; // The latest versions of rook and ceph
+}
+
+// The mode of the upgrade
+enum UpgradeMode {
+  UPGRADE_MODE_UNSPECIFIED = 0;
+  UPGRADE_MODE_DISABLED = 1; // Disable upgrades
+  UPGRADE_MODE_NOTIFY = 2; // Notify about new upgrades but do not apply them
+  UPGRADE_MODE_UPGRADE = 3; // Notify about new upgrades and apply them
+}
+
+message UpgradeOptions {
+  UpgradeMode mode = 1; // Upgrade mode
+  string endpoint = 2; // The api endpoint used to find the ceph latest version
+
+  /*
+   * The schedule to check for new versions. Uses CRON format as specified by https://github.com/robfig/cron/tree/v3.
+   * Defaults to everyday at midnight in the local timezone.
+   * To change the timezone, prefix the schedule with CRON_TZ=<Timezone>.
+   * For example: "CRON_TZ=UTC 0 0 * * *" is midnight UTC.
+   */
+  string schedule = 3;
+}
+
+// Represents the state of KoorCluster
+message KoorClusterSpec {
+  google.protobuf.BoolValue use_all_devices = 1; // Use all devices on nodes
+  google.protobuf.BoolValue monitoring_enabled = 2; // Enable monitoring. Requires Prometheus to be pre-installed.
+  google.protobuf.BoolValue dashboard_enabled = 3; // Enable the ceph dashboard for viewing cluster status
+  google.protobuf.BoolValue toolbox_enabled = 4; // Installs a debugging toolbox deployment
+  UpgradeOptions upgrade_options = 5; // Specifies the upgrade options for new ceph versions
+  string ksd_release_name = 6; // The name to use for KSD helm release.
+  string ksd_cluster_release_name = 7; // The name to use for KSD cluster helm release.
+}
+
+message KoorCluster {
+  string name = 1;
+  string namespace = 2;
+  KoorClusterSpec spec = 3;
+  KoorClusterStatus status = 4;
+}

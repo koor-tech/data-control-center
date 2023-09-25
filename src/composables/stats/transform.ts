@@ -1,6 +1,6 @@
 import { Timestamp } from '@bufbuild/protobuf';
 import { ClusterHealthStats, DisplayStatsData, meta } from '~/composables/stats/types';
-import { ClusterStats, PGs } from '~~/gen/ts/api/resources/stats/stats_pb';
+import { ClusterStats, PGs } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
 
 export class TransformStats {
     constructor(private clusterStats: ClusterStats) {}
