@@ -53,8 +53,9 @@ func LoadTest() (*Config, error) {
 }
 
 type Config struct {
-	LogLevel string `default:"INFO" yaml:"logLevel"`
-	Mode     string `default:"debug" yaml:"mode"`
+	Namespace string `default:"rook-ceph" yaml:"namespace"`
+	LogLevel  string `default:"INFO" yaml:"logLevel"`
+	Mode      string `default:"debug" yaml:"mode"`
 
 	HTTP   HTTP    `yaml:"http"`
 	JWT    JWT     `yaml:"jwt"`
