@@ -9,6 +9,7 @@ Changes to the config file are not auto detected, they require a (manual) restar
 
 ## Reference
 
+* `namespace`: The namespace the ceph cluster is running on. E.g. `'rook-ceph'`
 * `logLevel`: Can be `DEBUG`, `INFO`, `WARN` and `ERROR`. Defaults to `INFO`.
 * `mode`: Can be `debug` or `release`. Default: `release`.
 

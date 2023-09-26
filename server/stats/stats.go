@@ -14,6 +14,7 @@ import (
 
 	"github.com/koor-tech/data-control-center/internal/ceph"
 
+	"github.com/koor-tech/data-control-center/pkg/config"
 	"github.com/koor-tech/data-control-center/pkg/k8s"
 	"github.com/koor-tech/data-control-center/pkg/utils"
 
@@ -21,8 +22,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/koor-tech/data-control-center/pkg/grpc/auth"
 )
-
-const ClusterNamespace = "rook-ceph"
 
 // Server is used to implement stats services.
 type Server struct {
@@ -32,14 +31,16 @@ type Server struct {
 	auth           *auth.GRPCAuth
 	cephAPIService *ceph.Service
 	k              *k8s.K8s
+	Namespace      string
 }
 
-func New(logger *zap.Logger, grpcAuth *auth.GRPCAuth, k *k8s.K8s, cephAPIService *ceph.Service) (*Server, error) {
+func New(logger *zap.Logger, grpcAuth *auth.GRPCAuth, k *k8s.K8s, cephAPIService *ceph.Service, cfg *config.Config) (*Server, error) {
 	return &Server{
 		logger:         logger,
 		auth:           grpcAuth,
 		cephAPIService: cephAPIService,
 		k:              k,
+		Namespace:      cfg.Namespace,
 	}, nil
 }
 
@@ -204,12 +205,12 @@ func convertMdsItems(src interface{}) (MdsItems, error) {
 }
 
 func (s *Server) GetClusterResources(ctx context.Context, req *connect.Request[statspb.GetClusterResourcesRequest]) (*connect.Response[statspb.GetClusterResourcesResponse], error) {
-	deployments, err := s.k.GetClusterDeployments(ctx, ClusterNamespace)
+	deployments, err := s.k.GetClusterDeployments(ctx, s.Namespace)
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := s.k.GetCephResources(ctx, ClusterNamespace)
+	resources, err := s.k.GetCephResources(ctx, s.Namespace)
 	if err != nil {
 		return nil, err
 	}
@@ -225,7 +226,7 @@ func (s *Server) GetClusterResources(ctx context.Context, req *connect.Request[s
 // GetClusterNodes Iterate over every Ceph cluster Pod (not CSI Pods) to collect the nodes used for the storage cluster
 func (s *Server) GetClusterNodes(ctx context.Context, req *connect.Request[statspb.GetClusterNodesRequest]) (*connect.Response[statspb.GetClusterNodesResponse], error) {
 
-	nodes, err := s.k.GetStorageNodes(ctx, ClusterNamespace)
+	nodes, err := s.k.GetStorageNodes(ctx, s.Namespace)
 	if err != nil {
 		return nil, err
 	}
@@ -257,7 +258,7 @@ func (s *Server) GetClusterRadar(ctx context.Context, req *connect.Request[stats
 	}
 
 	// Nodes Health
-	nodes, err := s.k.GetStorageNodes(ctx, ClusterNamespace)
+	nodes, err := s.k.GetStorageNodes(ctx, s.Namespace)
 	if err != nil {
 		return nil, err
 	}
@@ -293,7 +294,7 @@ func (s *Server) GetClusterRadar(ctx context.Context, req *connect.Request[stats
 }
 
 func (s *Server) GetKoorCluster(ctx context.Context, req *connect.Request[statspb.GetKoorClusterRequest]) (*connect.Response[statspb.GetKoorClusterResponse], error) {
-	kc, err := s.k.GetKoorCluster(ctx, ClusterNamespace)
+	kc, err := s.k.GetKoorCluster(ctx, s.Namespace)
 	if err != nil {
 		return nil, err
 	}
