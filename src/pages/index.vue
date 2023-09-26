@@ -3,13 +3,13 @@ import { ConnectError } from '@connectrpc/connect';
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue';
 import { ChevronDownIcon } from 'mdi-vue3';
 import ClusterRadar from '~/components/ClusterRadar.vue';
+import NodeSummaryList from '~/components/NodeSummaryList.vue';
 import StatusDials from '~/components/StatusDials.vue';
 import ClusterHealthBar from '~/components/health/ClusterHealthBar.vue';
 import ClusterHealthServices from '~/components/health/ClusterHealthServices.vue';
 import Container from '~/components/partials/Container.vue';
 import { TransformStats } from '~/composables/stats/transform';
 import { useStatsStore } from '~/store/stats';
-//import NodeSummaryList from '~/components/NodeSummaryList.vue';
 
 useHead({
     title: 'Overview',
@@ -63,7 +63,7 @@ const displayHealthServices = computed(() => stats.value?.stats?.filter((s) => h
             </div>
             <div class="grid-cols-2">
                 <div class="col-4">
-                    <!-- <NodeSummaryList /> -->
+                    <NodeSummaryList />
                 </div>
                 <div class="grid grid-cols-1" v-if="resources">
                     <dl class="space-y-2">
