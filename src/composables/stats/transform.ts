@@ -30,7 +30,7 @@ export class TransformStats {
             const description = Object.entries(serviceData)
                 .map(([key, value]) => {
                     if (value instanceof Timestamp) {
-                        return `${key}: ${convertTimestampToAgoString(value)}`;
+                        return `${key}: ${useTimeAgo(value)}`;
                     }
                     if (value instanceof PGs) {
                         return `active+clean: ${value.activeClean}`;

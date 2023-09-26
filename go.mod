@@ -1,8 +1,6 @@
 module github.com/koor-tech/data-control-center
 
-go 1.21
-
-toolchain go1.21.1
+go 1.20
 
 require (
 	connectrpc.com/connect v1.11.1

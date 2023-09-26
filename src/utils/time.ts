@@ -1,4 +1,5 @@
 import { Timestamp } from '@bufbuild/protobuf';
+import { useTimeAgo as vueUseUseTimeAgo } from '@vueuse/core';
 
 export function toDate(ts: Timestamp | undefined): Date {
     if (ts === undefined) {
@@ -21,24 +22,16 @@ export function fromString(time: string): Date {
 
 /**
  * Converts a timestamp to a human-readable string representing time elapsed.
- * @param {Timestamp} timestamp - The timestamp to convert.
- * @returns {string} A human-readable string indicating time elapsed.
+ * @param {Date | Timestamp | undefined} date - The timestamp to convert. If `undefined` the current date will be used.
+ * @returns {ComputedRef<string>} A computed ref string indicating time elapsed (auto updates).
  */
-export function convertTimestampToAgoString(timestamp: Timestamp): string {
-    const currentTimestamp = BigInt(Math.floor(Date.now() / 1000));
-    const seconds = timestamp.seconds;
-    const difference = currentTimestamp - seconds;
-
-    if (difference < 60n) {
-        return `${difference.toString()} seconds ago`;
-    } else if (difference < 3600n) {
-        const minutes = difference / 60n;
-        return `${minutes.toString()} minutes ago`;
-    } else if (difference < 86400n) {
-        const hours = difference / 3600n;
-        return `${hours.toString()} hours ago`;
-    } else {
-        const days = difference / 86400n;
-        return `${days.toString()} days ago`;
+export function useTimeAgo(date: Date | Timestamp | undefined): ComputedRef<string> {
+    if (date === undefined) {
+        date = new Date();
     }
+    if (date instanceof Timestamp) {
+        date = date.toDate();
+    }
+
+    return vueUseUseTimeAgo(date);
 }

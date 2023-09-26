@@ -17,7 +17,7 @@ Checkout the [configuration documentation here](docs/configuration.md).
 ### Requirements
 
 * `make` installed
-* Golang version `1.21` or higher
+* Golang version `1.20` or higher
 * Node version of at least `v16.x`
 * `yarn` for, e.g., `yarn dev` to preview the frontend.
 * [`buf` cli](https://buf.build/docs/installation) installed (you can use `make buf` to install it to your Go bin path)

@@ -16,15 +16,19 @@ const dials = [
 </script>
 
 <template>
-    <div class="text-h3 text-center">Key Indicators</div>
-    <div class="grid grid-cols-5 gap-4">
-        <DialIndicator
-            v-for="dial in dials"
-            :key="dial.caption"
-            :value="dial.value"
-            :min="dial.min"
-            :max="dial.max"
-            :caption="dial.caption"
-        />
+    <div class="bg-white rounded-lg shadow dark:bg-gray-800 px-2 py-2">
+        <div class="flex justify-center mb-3 items-center">
+            <h3 class="text-xl font-bold leading-none text-gray-900 dark:text-white pr-1">Key Indicators</h3>
+        </div>
+        <div class="h-full grid grid-cols-5 gap-4 justify-center justify-items-center content-center">
+            <DialIndicator
+                v-for="dial in dials"
+                :key="dial.caption"
+                :value="dial.value"
+                :min="dial.min"
+                :max="dial.max"
+                :caption="dial.caption"
+            />
+        </div>
     </div>
 </template>
