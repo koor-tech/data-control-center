@@ -108,3 +108,11 @@ helm-docs: bin-$(HELM_DOCS) ## Use helm-docs to generate documentation from helm
 lint:
 	$(BUF) lint
 	$(BUF) breaking --against '.git#branch=main'
+
+.PHONY: kubeconform
+kubeconform:
+	@GO111MODULE=on go install github.com/yannh/kubeconform/cmd/kubeconform@v0.4.13
+
+.PHONY: helm-validate
+helm-validate: kubeconform
+	helm template charts/data-control-center | kubeconform -strict
