@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM golang:1.20-bullseye AS gobuilder
+FROM golang:1.21-bullseye AS gobuilder
 RUN apt update && \
   apt install -y lsb-release && \
   wget -q -O- 'https://download.ceph.com/keys/release.asc' | apt-key add - && \
