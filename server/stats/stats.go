@@ -57,6 +57,18 @@ func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[stats
 		return nil, connect.NewError(connect.CodeInternal, fmt.Errorf("error caused by %w", err))
 	}
 
+	clusterHealthStatus := statsv1.ClusterHealth_CLUSTER_HEALTH_OFFLINE
+	switch st.Health.Status {
+	case "HEALTH_OKAY":
+		clusterHealthStatus = statsv1.ClusterHealth_CLUSTER_HEALTH_OK
+	case "HEALTH_WARN":
+		clusterHealthStatus = statsv1.ClusterHealth_CLUSTER_HEALTH_WARN
+	case "HEALTH_ERR":
+		fallthrough
+	default:
+		clusterHealthStatus = statsv1.ClusterHealth_CLUSTER_HEALTH_ERR
+	}
+
 	var crashes []*statsv1.Crash
 
 	for _, check := range st.Health.Checks {
@@ -120,7 +132,7 @@ func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[stats
 	resp := &statspb.GetClusterStatsResponse{
 		Stats: &statsv1.ClusterStats{
 			Id:      st.MonStatus.Monmap.Fsid,
-			Status:  st.Health.Status,
+			Status:  clusterHealthStatus,
 			Crashes: crashes,
 			Services: &statsv1.Services{
 				Mon: &statsv1.MonService{

@@ -9,7 +9,7 @@ definePageMeta({
 </script>
 
 <template>
-    <div class="px-4">
+    <div class="p-2">
         <h2 class="text-xl q-mt-lg text-center">Control Panel</h2>
         <div class="flex">TODO</div>
     </div>

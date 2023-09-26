@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { ConnectError } from '@connectrpc/connect';
+import ClusterHealthBar from '~/components/health/ClusterHealthBar.vue';
+import ClusterHealthServices from '~/components/health/ClusterHealthServices.vue';
 import { TransformStats } from '~/composables/stats/transform';
-import { statuses } from '~/composables/stats/types';
 import { useStatsStore } from '~/store/stats';
 
 useHead({
@@ -11,53 +13,27 @@ definePageMeta({
     requiresAuth: true,
 });
 
+const { $grpc } = useNuxtApp();
+
 const statsStore = useStatsStore();
 
-const { data: clusterStats, error } = useLazyAsyncData('clusterStats', async () => {
-    const stats = await statsStore.getClusterStats();
-    const dataStats = new TransformStats(stats);
-    return dataStats.display();
+const { data: clusterStats } = useLazyAsyncData('clusterStats', async () => {
+    try {
+        const stats = await statsStore.getClusterStats();
+        const dataStats = new TransformStats(stats);
+        return dataStats.display();
+    } catch (e) {
+        $grpc.handleError(e as ConnectError);
+    }
 });
-
-watch(error, () => console.log(error.value));
-watch(clusterStats, () => console.log(clusterStats.value));
-console.log('HEALTH PAGE');
 </script>
 
 <template>
-    <div class="w-full h-full flex">
-        <div class="w-full mx-4 my-4 rounded-lg border border-gray-300 py-4">
-            <header class="inset-x-0 top-0 z-50 flex h-16 border-b border-gray-900/10">
-                <div class="mx-auto flex w-full max-w-7xl items-center justify-between">
-                    <div class="flex items-center gap-x-6">Cluster Health Stats</div>
-                </div>
-            </header>
-            <!-- Your content goes here -->
-            <div class="w-full relative isolate">
-                <!-- Secondary navigation -->
-                <header class="w-full border-b border-b-gray-300">
-                    <div class="mx-auto flex max-w-7xl flex-wrap items-center gap-6 sm:flex-nowrap">
-                        <template v-if="clusterStats">
-                            <h1 class="text-base font-semibold leading-7 text-gray-900">Cluster ID: {{ clusterStats.id }}</h1>
-                            <div :class="[statuses[clusterStats.health], 'flex-none rounded-full p-1']">
-                                <div class="h-2 w-2 rounded-full bg-current" />
-                            </div>
-                            <p class="text-gray-700 text-sm">
-                                {{ clusterStats.health }}
-                            </p>
-                        </template>
-                    </div>
-                </header>
+    <div class="p-2">
+        <div class="flex flex-col gap-2">
+            <ClusterHealthBar v-if="clusterStats" :cluster-stats="clusterStats" />
 
-                <!-- Stats -->
-                <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5 px-2">
-                    <template v-if="clusterStats?.stats">
-                        <template v-for="item in clusterStats.stats">
-                            <HealthServices v-if="item.description.length" :statsContainer="item" />
-                        </template>
-                    </template>
-                </dl>
-            </div>
+            <ClusterHealthServices v-if="clusterStats?.stats" :stats="clusterStats?.stats" />
         </div>
     </div>
 </template>

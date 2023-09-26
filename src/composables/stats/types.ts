@@ -1,6 +1,7 @@
 import {
     AlertBoxIcon,
     ArchiveArrowDownIcon,
+    ChartPieIcon,
     ClipboardIcon,
     CubeIcon,
     FileDocumentIcon,
@@ -13,6 +14,7 @@ import {
     TableIcon,
 } from 'mdi-vue3';
 import { DefineComponent } from 'vue';
+import { ClusterHealth } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
 
 export type StatsDescription = { title?: string; description: string };
 
@@ -25,7 +27,7 @@ export type DisplayStatsData = {
 
 export type ClusterHealthStats = {
     id: string;
-    health: string;
+    health: ClusterHealth;
     stats: DisplayStatsData[];
 };
 
@@ -39,53 +41,45 @@ export type ServiceInfo = {
 
 export const meta: ServiceInfo = {
     default: {
-        title: '',
-        color: 'gray',
+        title: 'Unknown',
+        color: 'bg-gray-500',
         icon: markRaw(HelpIcon),
     },
     alerts: {
         title: 'Alerts',
-        color: 'orange',
+        color: 'bg-warn-500',
         icon: markRaw(AlertBoxIcon),
     },
     mon: {
-        title: 'Monitors',
-        color: 'blue',
+        title: 'MONs',
         icon: markRaw(MonitorIcon),
     },
     mgr: {
-        title: 'Managers',
-        color: 'blue',
+        title: 'MGRs',
         icon: markRaw(ClipboardIcon),
     },
     mds: {
-        title: 'Metadata',
-        color: 'blue',
+        title: 'MDS',
         icon: markRaw(FileDocumentIcon),
     },
     osd: {
-        title: 'Object Storage',
-        color: 'blue',
+        title: 'OSDs',
         icon: markRaw(TableIcon),
     },
     rgw: {
         title: 'RADOS Gateway (RGW)',
-        color: 'blue',
         icon: markRaw(ArchiveArrowDownIcon),
     },
     volumes: {
         title: 'Volumes',
-        color: 'blue',
         icon: markRaw(HarddiskIcon),
     },
     pools: {
         title: 'Pools',
-        color: 'blue',
         icon: markRaw(PoolIcon),
     },
     objects: {
         title: 'Objects',
-        color: 'blue',
         icon: markRaw(CubeIcon),
     },
     pgs: {
@@ -96,10 +90,8 @@ export const meta: ServiceInfo = {
         title: 'Input/Output',
         icon: markRaw(SwapVerticalIcon),
     },
-};
-
-export const statuses: { [key: string]: string } = {
-    HEALTH_OFFLINE: 'text-gray-500 bg-gray-100/10',
-    HEALTH_OK: 'text-green-400 bg-green-400/10',
-    HEALTH_WARN: 'text-orange-400 bg-orange-400/10',
+    usage: {
+        title: 'Usage',
+        icon: markRaw(ChartPieIcon),
+    },
 };

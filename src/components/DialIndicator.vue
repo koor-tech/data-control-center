@@ -78,7 +78,7 @@ const series = [props.value];
     <VueApexCharts
         class="flex justify-center py-1"
         height="150px"
-        width="150px"
+        width="100%"
         type="radialBar"
         :options="options"
         :series="series"

@@ -1,5 +1,6 @@
 import { Timestamp } from '@bufbuild/protobuf';
 import { ClusterHealthStats, DisplayStatsData, meta } from '~/composables/stats/types';
+import { camelCaseToTitleCase, formatBytes } from '~/utils/strings';
 import { ClusterStats, PGs } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
 
 export class TransformStats {
@@ -12,9 +13,7 @@ export class TransformStats {
      * @returns {DisplayStatsData[]} An array of transformed data.
      */
     private transformDescriptions(title: string, data: any): DisplayStatsData[] {
-        console.log('data', data);
         return Object.keys(data).map((serviceName) => {
-            console.log('serviceName', serviceName);
             const serviceData = data[serviceName];
             const serviceMeta = meta[serviceName] ?? meta['default'];
 
@@ -30,14 +29,26 @@ export class TransformStats {
             const description = Object.entries(serviceData)
                 .map(([key, value]) => {
                     if (value instanceof Timestamp) {
-                        return `${key}: ${useTimeAgo(value)}`;
+                        return `${camelCaseToTitleCase(key)}: ${useTimeAgo(value).value}`;
                     }
                     if (value instanceof PGs) {
-                        return `active+clean: ${value.activeClean}`;
+                        return `Active + Clean: ${value.activeClean}`;
                     }
-                    return `${key}: ${value}`;
+                    return `${camelCaseToTitleCase(key)}: ${value}`;
                 })
                 .join(', ');
+
+            if (serviceName === 'usage') {
+                return {
+                    title: serviceMeta.title || serviceName,
+                    icon: markRaw(serviceMeta.icon),
+                    color: serviceMeta.color,
+                    description: description.split(', ').map((entry) => {
+                        const [key, value] = entry.split(': ');
+                        return { title: key, description: formatBytes(parseInt(value)) };
+                    }),
+                };
+            }
 
             return {
                 title: serviceMeta.title || serviceName,
@@ -74,8 +85,8 @@ export class TransformStats {
         if (this.clusterStats.iops) {
             transformedArray.push({
                 title: 'Input / Output',
-                icon: markRaw(meta['io'].icon),
-                color: meta['io']?.color,
+                icon: markRaw(meta['iops'].icon),
+                color: meta['iops']?.color,
                 description: [
                     {
                         title: 'Read',

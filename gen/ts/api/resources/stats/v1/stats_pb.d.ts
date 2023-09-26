@@ -7,6 +7,36 @@ import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialM
 import { Message, proto3 } from "@bufbuild/protobuf";
 
 /**
+ * @generated from enum api.resources.stats.v1.ClusterHealth
+ */
+export declare enum ClusterHealth {
+  /**
+   * @generated from enum value: CLUSTER_HEALTH_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: CLUSTER_HEALTH_OFFLINE = 1;
+   */
+  OFFLINE = 1,
+
+  /**
+   * @generated from enum value: CLUSTER_HEALTH_OK = 2;
+   */
+  OK = 2,
+
+  /**
+   * @generated from enum value: CLUSTER_HEALTH_WARN = 3;
+   */
+  WARN = 3,
+
+  /**
+   * @generated from enum value: CLUSTER_HEALTH_ERR = 4;
+   */
+  ERR = 4,
+}
+
+/**
  * @generated from enum api.resources.stats.v1.ResourceStatus
  */
 export declare enum ResourceStatus {
@@ -64,39 +94,6 @@ export declare enum ReliabilityScore {
    * @generated from enum value: RELIABILITY_SCORE_OK = 4;
    */
   OK = 4,
-}
-
-/**
- * The mode of the upgrade
- *
- * @generated from enum api.resources.stats.v1.UpgradeMode
- */
-export declare enum UpgradeMode {
-  /**
-   * @generated from enum value: UPGRADE_MODE_UNSPECIFIED = 0;
-   */
-  UNSPECIFIED = 0,
-
-  /**
-   * Disable upgrades
-   *
-   * @generated from enum value: UPGRADE_MODE_DISABLED = 1;
-   */
-  DISABLED = 1,
-
-  /**
-   * Notify about new upgrades but do not apply them
-   *
-   * @generated from enum value: UPGRADE_MODE_NOTIFY = 2;
-   */
-  NOTIFY = 2,
-
-  /**
-   * Notify about new upgrades and apply them
-   *
-   * @generated from enum value: UPGRADE_MODE_UPGRADE = 3;
-   */
-  UPGRADE = 3,
 }
 
 /**
@@ -551,9 +548,9 @@ export declare class ClusterStats extends Message<ClusterStats> {
   id: string;
 
   /**
-   * @generated from field: string status = 2;
+   * @generated from field: api.resources.stats.v1.ClusterHealth status = 2;
    */
-  status: string;
+  status: ClusterHealth;
 
   /**
    * @generated from field: repeated api.resources.stats.v1.Crash crashes = 3;
@@ -740,401 +737,5 @@ export declare class ClusterRadar extends Message<ClusterRadar> {
   static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ClusterRadar;
 
   static equals(a: ClusterRadar | PlainMessage<ClusterRadar> | undefined, b: ClusterRadar | PlainMessage<ClusterRadar> | undefined): boolean;
-}
-
-/**
- * Represents a map of products to version strings.
- *
- * @generated from message api.resources.stats.v1.ProductVersions
- */
-export declare class ProductVersions extends Message<ProductVersions> {
-  /**
-   * Kubernetes version, must be a valid semver.
-   *
-   * @generated from field: string kube = 1;
-   */
-  kube: string;
-
-  /**
-   * Koor Operator version, must be a valid semver.
-   *
-   * @generated from field: string koor_operator = 2;
-   */
-  koorOperator: string;
-
-  /**
-   * Koor Storage Distribution version, must be a valid semver.
-   *
-   * @generated from field: string ksd = 3;
-   */
-  ksd: string;
-
-  /**
-   * Ceph version, must be a valid semver.
-   *
-   * @generated from field: string ceph = 4;
-   */
-  ceph: string;
-
-  constructor(data?: PartialMessage<ProductVersions>);
-
-  static readonly runtime: typeof proto3;
-  static readonly typeName = "api.resources.stats.v1.ProductVersions";
-  static readonly fields: FieldList;
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ProductVersions;
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ProductVersions;
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ProductVersions;
-
-  static equals(a: ProductVersions | PlainMessage<ProductVersions> | undefined, b: ProductVersions | PlainMessage<ProductVersions> | undefined): boolean;
-}
-
-/**
- * Defines a detailed version of a product, which includes a container image or a helm chart.
- *
- * @generated from message api.resources.stats.v1.DetailedVersion
- */
-export declare class DetailedVersion extends Message<DetailedVersion> {
-  /**
-   * The product version, must be a valid semver.
-   *
-   * @generated from field: string version = 1;
-   */
-  version: string;
-
-  /**
-   * The URI of the container image.
-   *
-   * @generated from field: string image_uri = 2;
-   */
-  imageUri: string;
-
-  /**
-   * The hash of the container image.
-   *
-   * @generated from field: string image_hash = 3;
-   */
-  imageHash: string;
-
-  /**
-   * The URI of the helm repository.
-   *
-   * @generated from field: string helm_repository = 4;
-   */
-  helmRepository: string;
-
-  /**
-   * The name of the helm chart in the repository.
-   *
-   * @generated from field: string helm_chart = 5;
-   */
-  helmChart: string;
-
-  constructor(data?: PartialMessage<DetailedVersion>);
-
-  static readonly runtime: typeof proto3;
-  static readonly typeName = "api.resources.stats.v1.DetailedVersion";
-  static readonly fields: FieldList;
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DetailedVersion;
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DetailedVersion;
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DetailedVersion;
-
-  static equals(a: DetailedVersion | PlainMessage<DetailedVersion> | undefined, b: DetailedVersion | PlainMessage<DetailedVersion> | undefined): boolean;
-}
-
-/**
- * Represents a map of products to detailed versions, which include images or helm charts.
- *
- * @generated from message api.resources.stats.v1.DetailedProductVersions
- */
-export declare class DetailedProductVersions extends Message<DetailedProductVersions> {
-  /**
-   * The detailed Koor Operator version.
-   *
-   * @generated from field: api.resources.stats.v1.DetailedVersion koor_operator = 1;
-   */
-  koorOperator?: DetailedVersion;
-
-  /**
-   * The detailed Koor Storage Distribution version.
-   *
-   * @generated from field: api.resources.stats.v1.DetailedVersion ksd = 2;
-   */
-  ksd?: DetailedVersion;
-
-  /**
-   * The detailed Ceph version.
-   *
-   * @generated from field: api.resources.stats.v1.DetailedVersion ceph = 3;
-   */
-  ceph?: DetailedVersion;
-
-  constructor(data?: PartialMessage<DetailedProductVersions>);
-
-  static readonly runtime: typeof proto3;
-  static readonly typeName = "api.resources.stats.v1.DetailedProductVersions";
-  static readonly fields: FieldList;
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DetailedProductVersions;
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DetailedProductVersions;
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DetailedProductVersions;
-
-  static equals(a: DetailedProductVersions | PlainMessage<DetailedProductVersions> | undefined, b: DetailedProductVersions | PlainMessage<DetailedProductVersions> | undefined): boolean;
-}
-
-/**
- * @generated from message api.resources.stats.v1.ClusterResources
- */
-export declare class ClusterResources extends Message<ClusterResources> {
-  /**
-   * The number of nodes in the cluster
-   *
-   * @generated from field: string nodes = 1;
-   */
-  nodes: string;
-
-  /**
-   * Ephemeral Storage available
-   *
-   * @generated from field: string storage = 2;
-   */
-  storage: string;
-
-  /**
-   * CPU cores available
-   *
-   * @generated from field: string cpu = 3;
-   */
-  cpu: string;
-
-  /**
-   * Memory available
-   *
-   * @generated from field: string memory = 4;
-   */
-  memory: string;
-
-  constructor(data?: PartialMessage<ClusterResources>);
-
-  static readonly runtime: typeof proto3;
-  static readonly typeName = "api.resources.stats.v1.ClusterResources";
-  static readonly fields: FieldList;
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ClusterResources;
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ClusterResources;
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ClusterResources;
-
-  static equals(a: ClusterResources | PlainMessage<ClusterResources> | undefined, b: ClusterResources | PlainMessage<ClusterResources> | undefined): boolean;
-}
-
-/**
- * Represents the status of the KoorCluster CRD
- *
- * @generated from message api.resources.stats.v1.KoorClusterStatus
- */
-export declare class KoorClusterStatus extends Message<KoorClusterStatus> {
-  /**
-   * The total resources available in the cluster nodes
-   *
-   * @generated from field: api.resources.stats.v1.ClusterResources total_resources = 1;
-   */
-  totalResources?: ClusterResources;
-
-  /**
-   * Does the cluster meet the minimum recommended resources
-   *
-   * @generated from field: bool meets_minimum_resources = 2;
-   */
-  meetsMinimumResources: boolean;
-
-  /**
-   * The current versions of rook and ceph
-   *
-   * @generated from field: api.resources.stats.v1.ProductVersions current_versions = 3;
-   */
-  currentVersions?: ProductVersions;
-
-  /**
-   * The latest versions of rook and ceph
-   *
-   * @generated from field: api.resources.stats.v1.DetailedProductVersions latest_versions = 4;
-   */
-  latestVersions?: DetailedProductVersions;
-
-  constructor(data?: PartialMessage<KoorClusterStatus>);
-
-  static readonly runtime: typeof proto3;
-  static readonly typeName = "api.resources.stats.v1.KoorClusterStatus";
-  static readonly fields: FieldList;
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): KoorClusterStatus;
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): KoorClusterStatus;
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): KoorClusterStatus;
-
-  static equals(a: KoorClusterStatus | PlainMessage<KoorClusterStatus> | undefined, b: KoorClusterStatus | PlainMessage<KoorClusterStatus> | undefined): boolean;
-}
-
-/**
- * @generated from message api.resources.stats.v1.UpgradeOptions
- */
-export declare class UpgradeOptions extends Message<UpgradeOptions> {
-  /**
-   * Upgrade mode
-   *
-   * @generated from field: api.resources.stats.v1.UpgradeMode mode = 1;
-   */
-  mode: UpgradeMode;
-
-  /**
-   * The api endpoint used to find the ceph latest version
-   *
-   * @generated from field: string endpoint = 2;
-   */
-  endpoint: string;
-
-  /**
-   *
-   * The schedule to check for new versions. Uses CRON format as specified by https://github.com/robfig/cron/tree/v3.
-   * Defaults to everyday at midnight in the local timezone.
-   * To change the timezone, prefix the schedule with CRON_TZ=<Timezone>.
-   * For example: "CRON_TZ=UTC 0 0 * * *" is midnight UTC.
-   *
-   * @generated from field: string schedule = 3;
-   */
-  schedule: string;
-
-  constructor(data?: PartialMessage<UpgradeOptions>);
-
-  static readonly runtime: typeof proto3;
-  static readonly typeName = "api.resources.stats.v1.UpgradeOptions";
-  static readonly fields: FieldList;
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpgradeOptions;
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UpgradeOptions;
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UpgradeOptions;
-
-  static equals(a: UpgradeOptions | PlainMessage<UpgradeOptions> | undefined, b: UpgradeOptions | PlainMessage<UpgradeOptions> | undefined): boolean;
-}
-
-/**
- * Represents the state of KoorCluster
- *
- * @generated from message api.resources.stats.v1.KoorClusterSpec
- */
-export declare class KoorClusterSpec extends Message<KoorClusterSpec> {
-  /**
-   * Use all devices on nodes
-   *
-   * @generated from field: google.protobuf.BoolValue use_all_devices = 1;
-   */
-  useAllDevices?: boolean;
-
-  /**
-   * Enable monitoring. Requires Prometheus to be pre-installed.
-   *
-   * @generated from field: google.protobuf.BoolValue monitoring_enabled = 2;
-   */
-  monitoringEnabled?: boolean;
-
-  /**
-   * Enable the ceph dashboard for viewing cluster status
-   *
-   * @generated from field: google.protobuf.BoolValue dashboard_enabled = 3;
-   */
-  dashboardEnabled?: boolean;
-
-  /**
-   * Installs a debugging toolbox deployment
-   *
-   * @generated from field: google.protobuf.BoolValue toolbox_enabled = 4;
-   */
-  toolboxEnabled?: boolean;
-
-  /**
-   * Specifies the upgrade options for new ceph versions
-   *
-   * @generated from field: api.resources.stats.v1.UpgradeOptions upgrade_options = 5;
-   */
-  upgradeOptions?: UpgradeOptions;
-
-  /**
-   * The name to use for KSD helm release.
-   *
-   * @generated from field: string ksd_release_name = 6;
-   */
-  ksdReleaseName: string;
-
-  /**
-   * The name to use for KSD cluster helm release.
-   *
-   * @generated from field: string ksd_cluster_release_name = 7;
-   */
-  ksdClusterReleaseName: string;
-
-  constructor(data?: PartialMessage<KoorClusterSpec>);
-
-  static readonly runtime: typeof proto3;
-  static readonly typeName = "api.resources.stats.v1.KoorClusterSpec";
-  static readonly fields: FieldList;
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): KoorClusterSpec;
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): KoorClusterSpec;
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): KoorClusterSpec;
-
-  static equals(a: KoorClusterSpec | PlainMessage<KoorClusterSpec> | undefined, b: KoorClusterSpec | PlainMessage<KoorClusterSpec> | undefined): boolean;
-}
-
-/**
- * @generated from message api.resources.stats.v1.KoorCluster
- */
-export declare class KoorCluster extends Message<KoorCluster> {
-  /**
-   * @generated from field: string name = 1;
-   */
-  name: string;
-
-  /**
-   * @generated from field: string namespace = 2;
-   */
-  namespace: string;
-
-  /**
-   * @generated from field: api.resources.stats.v1.KoorClusterSpec spec = 3;
-   */
-  spec?: KoorClusterSpec;
-
-  /**
-   * @generated from field: api.resources.stats.v1.KoorClusterStatus status = 4;
-   */
-  status?: KoorClusterStatus;
-
-  constructor(data?: PartialMessage<KoorCluster>);
-
-  static readonly runtime: typeof proto3;
-  static readonly typeName = "api.resources.stats.v1.KoorCluster";
-  static readonly fields: FieldList;
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): KoorCluster;
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): KoorCluster;
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): KoorCluster;
-
-  static equals(a: KoorCluster | PlainMessage<KoorCluster> | undefined, b: KoorCluster | PlainMessage<KoorCluster> | undefined): boolean;
 }
 

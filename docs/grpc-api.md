@@ -3,18 +3,24 @@
 
 ## Table of Contents
 
+- [api/resources/koor/v1/koor.proto](#api_resources_koor_v1_koor-proto)
+    - [ClusterResources](#api-resources-koor-v1-ClusterResources)
+    - [DetailedProductVersions](#api-resources-koor-v1-DetailedProductVersions)
+    - [DetailedVersion](#api-resources-koor-v1-DetailedVersion)
+    - [KoorCluster](#api-resources-koor-v1-KoorCluster)
+    - [KoorClusterSpec](#api-resources-koor-v1-KoorClusterSpec)
+    - [KoorClusterStatus](#api-resources-koor-v1-KoorClusterStatus)
+    - [ProductVersions](#api-resources-koor-v1-ProductVersions)
+    - [UpgradeOptions](#api-resources-koor-v1-UpgradeOptions)
+  
+    - [UpgradeMode](#api-resources-koor-v1-UpgradeMode)
+  
 - [api/resources/stats/v1/stats.proto](#api_resources_stats_v1_stats-proto)
     - [ClusterRadar](#api-resources-stats-v1-ClusterRadar)
-    - [ClusterResources](#api-resources-stats-v1-ClusterResources)
     - [ClusterStats](#api-resources-stats-v1-ClusterStats)
     - [Crash](#api-resources-stats-v1-Crash)
     - [Data](#api-resources-stats-v1-Data)
-    - [DetailedProductVersions](#api-resources-stats-v1-DetailedProductVersions)
-    - [DetailedVersion](#api-resources-stats-v1-DetailedVersion)
     - [IOPS](#api-resources-stats-v1-IOPS)
-    - [KoorCluster](#api-resources-stats-v1-KoorCluster)
-    - [KoorClusterSpec](#api-resources-stats-v1-KoorClusterSpec)
-    - [KoorClusterStatus](#api-resources-stats-v1-KoorClusterStatus)
     - [MdsService](#api-resources-stats-v1-MdsService)
     - [MgrService](#api-resources-stats-v1-MgrService)
     - [MonService](#api-resources-stats-v1-MonService)
@@ -23,16 +29,14 @@
     - [OsdService](#api-resources-stats-v1-OsdService)
     - [PGs](#api-resources-stats-v1-PGs)
     - [Pools](#api-resources-stats-v1-Pools)
-    - [ProductVersions](#api-resources-stats-v1-ProductVersions)
     - [ResourceInfo](#api-resources-stats-v1-ResourceInfo)
     - [RgwService](#api-resources-stats-v1-RgwService)
     - [Services](#api-resources-stats-v1-Services)
-    - [UpgradeOptions](#api-resources-stats-v1-UpgradeOptions)
     - [Usage](#api-resources-stats-v1-Usage)
   
+    - [ClusterHealth](#api-resources-stats-v1-ClusterHealth)
     - [ReliabilityScore](#api-resources-stats-v1-ReliabilityScore)
     - [ResourceStatus](#api-resources-stats-v1-ResourceStatus)
-    - [UpgradeMode](#api-resources-stats-v1-UpgradeMode)
   
 - [api/resources/timestamp/v1/timestamp.proto](#api_resources_timestamp_v1_timestamp-proto)
     - [Timestamp](#api-resources-timestamp-v1-Timestamp)
@@ -65,6 +69,182 @@
 
 
 
+<a name="api_resources_koor_v1_koor-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## api/resources/koor/v1/koor.proto
+
+
+
+<a name="api-resources-koor-v1-ClusterResources"></a>
+
+### ClusterResources
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| nodes | [string](#string) |  | The number of nodes in the cluster |
+| storage | [string](#string) |  | Ephemeral Storage available |
+| cpu | [string](#string) |  | CPU cores available |
+| memory | [string](#string) |  | Memory available |
+
+
+
+
+
+
+<a name="api-resources-koor-v1-DetailedProductVersions"></a>
+
+### DetailedProductVersions
+Represents a map of products to detailed versions, which include images or helm charts.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| koor_operator | [DetailedVersion](#api-resources-koor-v1-DetailedVersion) |  | The detailed Koor Operator version. |
+| ksd | [DetailedVersion](#api-resources-koor-v1-DetailedVersion) |  | The detailed Koor Storage Distribution version. |
+| ceph | [DetailedVersion](#api-resources-koor-v1-DetailedVersion) |  | The detailed Ceph version. |
+
+
+
+
+
+
+<a name="api-resources-koor-v1-DetailedVersion"></a>
+
+### DetailedVersion
+Defines a detailed version of a product, which includes a container image or a helm chart.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| version | [string](#string) |  | The product version, must be a valid semver. |
+| image_uri | [string](#string) |  | The URI of the container image. |
+| image_hash | [string](#string) |  | The hash of the container image. |
+| helm_repository | [string](#string) |  | The URI of the helm repository. |
+| helm_chart | [string](#string) |  | The name of the helm chart in the repository. |
+
+
+
+
+
+
+<a name="api-resources-koor-v1-KoorCluster"></a>
+
+### KoorCluster
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| name | [string](#string) |  |  |
+| namespace | [string](#string) |  |  |
+| spec | [KoorClusterSpec](#api-resources-koor-v1-KoorClusterSpec) |  |  |
+| status | [KoorClusterStatus](#api-resources-koor-v1-KoorClusterStatus) |  |  |
+
+
+
+
+
+
+<a name="api-resources-koor-v1-KoorClusterSpec"></a>
+
+### KoorClusterSpec
+Represents the state of KoorCluster
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| use_all_devices | [google.protobuf.BoolValue](#google-protobuf-BoolValue) |  | Use all devices on nodes |
+| monitoring_enabled | [google.protobuf.BoolValue](#google-protobuf-BoolValue) |  | Enable monitoring. Requires Prometheus to be pre-installed. |
+| dashboard_enabled | [google.protobuf.BoolValue](#google-protobuf-BoolValue) |  | Enable the ceph dashboard for viewing cluster status |
+| toolbox_enabled | [google.protobuf.BoolValue](#google-protobuf-BoolValue) |  | Installs a debugging toolbox deployment |
+| upgrade_options | [UpgradeOptions](#api-resources-koor-v1-UpgradeOptions) |  | Specifies the upgrade options for new ceph versions |
+| ksd_release_name | [string](#string) |  | The name to use for KSD helm release. |
+| ksd_cluster_release_name | [string](#string) |  | The name to use for KSD cluster helm release. |
+
+
+
+
+
+
+<a name="api-resources-koor-v1-KoorClusterStatus"></a>
+
+### KoorClusterStatus
+Represents the status of the KoorCluster CRD
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| total_resources | [ClusterResources](#api-resources-koor-v1-ClusterResources) |  | The total resources available in the cluster nodes |
+| meets_minimum_resources | [bool](#bool) |  | Does the cluster meet the minimum recommended resources |
+| current_versions | [ProductVersions](#api-resources-koor-v1-ProductVersions) |  | The current versions of rook and ceph |
+| latest_versions | [DetailedProductVersions](#api-resources-koor-v1-DetailedProductVersions) |  | The latest versions of rook and ceph |
+
+
+
+
+
+
+<a name="api-resources-koor-v1-ProductVersions"></a>
+
+### ProductVersions
+Represents a map of products to version strings.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| kube | [string](#string) |  | Kubernetes version, must be a valid semver. |
+| koor_operator | [string](#string) |  | Koor Operator version, must be a valid semver. |
+| ksd | [string](#string) |  | Koor Storage Distribution version, must be a valid semver. |
+| ceph | [string](#string) |  | Ceph version, must be a valid semver. |
+
+
+
+
+
+
+<a name="api-resources-koor-v1-UpgradeOptions"></a>
+
+### UpgradeOptions
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| mode | [UpgradeMode](#api-resources-koor-v1-UpgradeMode) |  | Upgrade mode |
+| endpoint | [string](#string) |  | The api endpoint used to find the ceph latest version |
+| schedule | [string](#string) |  | The schedule to check for new versions. Uses CRON format as specified by https://github.com/robfig/cron/tree/v3. Defaults to everyday at midnight in the local timezone. To change the timezone, prefix the schedule with CRON_TZ=&lt;Timezone&gt;. For example: &#34;CRON_TZ=UTC 0 0 * * *&#34; is midnight UTC. |
+
+
+
+
+
+ 
+
+
+<a name="api-resources-koor-v1-UpgradeMode"></a>
+
+### UpgradeMode
+The mode of the upgrade
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| UPGRADE_MODE_UNSPECIFIED | 0 |  |
+| UPGRADE_MODE_DISABLED | 1 | Disable upgrades |
+| UPGRADE_MODE_NOTIFY | 2 | Notify about new upgrades but do not apply them |
+| UPGRADE_MODE_UPGRADE | 3 | Notify about new upgrades and apply them |
+
+
+ 
+
+ 
+
+ 
+
+
+
 <a name="api_resources_stats_v1_stats-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -91,24 +271,6 @@
 
 
 
-<a name="api-resources-stats-v1-ClusterResources"></a>
-
-### ClusterResources
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| nodes | [string](#string) |  | The number of nodes in the cluster |
-| storage | [string](#string) |  | Ephemeral Storage available |
-| cpu | [string](#string) |  | CPU cores available |
-| memory | [string](#string) |  | Memory available |
-
-
-
-
-
-
 <a name="api-resources-stats-v1-ClusterStats"></a>
 
 ### ClusterStats
@@ -118,7 +280,7 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | id | [string](#string) |  |  |
-| status | [string](#string) |  |  |
+| status | [ClusterHealth](#api-resources-stats-v1-ClusterHealth) |  |  |
 | crashes | [Crash](#api-resources-stats-v1-Crash) | repeated |  |
 | services | [Services](#api-resources-stats-v1-Services) |  |  |
 | data | [Data](#api-resources-stats-v1-Data) |  |  |
@@ -163,42 +325,6 @@
 
 
 
-<a name="api-resources-stats-v1-DetailedProductVersions"></a>
-
-### DetailedProductVersions
-Represents a map of products to detailed versions, which include images or helm charts.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| koor_operator | [DetailedVersion](#api-resources-stats-v1-DetailedVersion) |  | The detailed Koor Operator version. |
-| ksd | [DetailedVersion](#api-resources-stats-v1-DetailedVersion) |  | The detailed Koor Storage Distribution version. |
-| ceph | [DetailedVersion](#api-resources-stats-v1-DetailedVersion) |  | The detailed Ceph version. |
-
-
-
-
-
-
-<a name="api-resources-stats-v1-DetailedVersion"></a>
-
-### DetailedVersion
-Defines a detailed version of a product, which includes a container image or a helm chart.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| version | [string](#string) |  | The product version, must be a valid semver. |
-| image_uri | [string](#string) |  | The URI of the container image. |
-| image_hash | [string](#string) |  | The hash of the container image. |
-| helm_repository | [string](#string) |  | The URI of the helm repository. |
-| helm_chart | [string](#string) |  | The name of the helm chart in the repository. |
-
-
-
-
-
-
 <a name="api-resources-stats-v1-IOPS"></a>
 
 ### IOPS
@@ -211,63 +337,6 @@ Defines a detailed version of a product, which includes a container image or a h
 | client_write | [string](#string) |  |  |
 | client_read_ops | [string](#string) |  |  |
 | client_write_ops | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="api-resources-stats-v1-KoorCluster"></a>
-
-### KoorCluster
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| name | [string](#string) |  |  |
-| namespace | [string](#string) |  |  |
-| spec | [KoorClusterSpec](#api-resources-stats-v1-KoorClusterSpec) |  |  |
-| status | [KoorClusterStatus](#api-resources-stats-v1-KoorClusterStatus) |  |  |
-
-
-
-
-
-
-<a name="api-resources-stats-v1-KoorClusterSpec"></a>
-
-### KoorClusterSpec
-Represents the state of KoorCluster
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| use_all_devices | [google.protobuf.BoolValue](#google-protobuf-BoolValue) |  | Use all devices on nodes |
-| monitoring_enabled | [google.protobuf.BoolValue](#google-protobuf-BoolValue) |  | Enable monitoring. Requires Prometheus to be pre-installed. |
-| dashboard_enabled | [google.protobuf.BoolValue](#google-protobuf-BoolValue) |  | Enable the ceph dashboard for viewing cluster status |
-| toolbox_enabled | [google.protobuf.BoolValue](#google-protobuf-BoolValue) |  | Installs a debugging toolbox deployment |
-| upgrade_options | [UpgradeOptions](#api-resources-stats-v1-UpgradeOptions) |  | Specifies the upgrade options for new ceph versions |
-| ksd_release_name | [string](#string) |  | The name to use for KSD helm release. |
-| ksd_cluster_release_name | [string](#string) |  | The name to use for KSD cluster helm release. |
-
-
-
-
-
-
-<a name="api-resources-stats-v1-KoorClusterStatus"></a>
-
-### KoorClusterStatus
-Represents the status of the KoorCluster CRD
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| total_resources | [ClusterResources](#api-resources-stats-v1-ClusterResources) |  | The total resources available in the cluster nodes |
-| meets_minimum_resources | [bool](#bool) |  | Does the cluster meet the minimum recommended resources |
-| current_versions | [ProductVersions](#api-resources-stats-v1-ProductVersions) |  | The current versions of rook and ceph |
-| latest_versions | [DetailedProductVersions](#api-resources-stats-v1-DetailedProductVersions) |  | The latest versions of rook and ceph |
 
 
 
@@ -411,24 +480,6 @@ Represents the status of the KoorCluster CRD
 
 
 
-<a name="api-resources-stats-v1-ProductVersions"></a>
-
-### ProductVersions
-Represents a map of products to version strings.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| kube | [string](#string) |  | Kubernetes version, must be a valid semver. |
-| koor_operator | [string](#string) |  | Koor Operator version, must be a valid semver. |
-| ksd | [string](#string) |  | Koor Storage Distribution version, must be a valid semver. |
-| ceph | [string](#string) |  | Ceph version, must be a valid semver. |
-
-
-
-
-
-
 <a name="api-resources-stats-v1-ResourceInfo"></a>
 
 ### ResourceInfo
@@ -486,23 +537,6 @@ Represents a map of products to version strings.
 
 
 
-<a name="api-resources-stats-v1-UpgradeOptions"></a>
-
-### UpgradeOptions
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| mode | [UpgradeMode](#api-resources-stats-v1-UpgradeMode) |  | Upgrade mode |
-| endpoint | [string](#string) |  | The api endpoint used to find the ceph latest version |
-| schedule | [string](#string) |  | The schedule to check for new versions. Uses CRON format as specified by https://github.com/robfig/cron/tree/v3. Defaults to everyday at midnight in the local timezone. To change the timezone, prefix the schedule with CRON_TZ=&lt;Timezone&gt;. For example: &#34;CRON_TZ=UTC 0 0 * * *&#34; is midnight UTC. |
-
-
-
-
-
-
 <a name="api-resources-stats-v1-Usage"></a>
 
 ### Usage
@@ -520,6 +554,21 @@ Represents a map of products to version strings.
 
 
  
+
+
+<a name="api-resources-stats-v1-ClusterHealth"></a>
+
+### ClusterHealth
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| CLUSTER_HEALTH_UNSPECIFIED | 0 |  |
+| CLUSTER_HEALTH_OFFLINE | 1 |  |
+| CLUSTER_HEALTH_OK | 2 |  |
+| CLUSTER_HEALTH_WARN | 3 |  |
+| CLUSTER_HEALTH_ERR | 4 |  |
+
 
 
 <a name="api-resources-stats-v1-ReliabilityScore"></a>
@@ -549,20 +598,6 @@ Represents a map of products to version strings.
 | RESOURCE_STATUS_READY | 2 |  |
 | RESOURCE_STATUS_PROGRESSING | 3 |  |
 | RESOURCE_STATUS_NOT_READY | 4 |  |
-
-
-
-<a name="api-resources-stats-v1-UpgradeMode"></a>
-
-### UpgradeMode
-The mode of the upgrade
-
-| Name | Number | Description |
-| ---- | ------ | ----------- |
-| UPGRADE_MODE_UNSPECIFIED | 0 |  |
-| UPGRADE_MODE_DISABLED | 1 | Disable upgrades |
-| UPGRADE_MODE_NOTIFY | 2 | Notify about new upgrades but do not apply them |
-| UPGRADE_MODE_UPGRADE | 3 | Notify about new upgrades and apply them |
 
 
  
@@ -850,7 +885,7 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| koor_cluster | [api.resources.stats.v1.KoorCluster](#api-resources-stats-v1-KoorCluster) |  |  |
+| koor_cluster | [api.resources.koor.v1.KoorCluster](#api-resources-koor-v1-KoorCluster) |  |  |
 
 
 

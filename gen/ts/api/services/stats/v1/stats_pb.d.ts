@@ -5,7 +5,8 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3 } from "@bufbuild/protobuf";
-import type { ClusterRadar, ClusterStats, KoorCluster, NodeInfo, ResourceInfo } from "../../../resources/stats/v1/stats_pb.js";
+import type { ClusterRadar, ClusterStats, NodeInfo, ResourceInfo } from "../../../resources/stats/v1/stats_pb.js";
+import type { KoorCluster } from "../../../resources/koor/v1/koor_pb.js";
 
 /**
  * @generated from message api.services.stats.v1.GetClusterStatsRequest
@@ -208,7 +209,7 @@ export declare class GetKoorClusterRequest extends Message<GetKoorClusterRequest
  */
 export declare class GetKoorClusterResponse extends Message<GetKoorClusterResponse> {
   /**
-   * @generated from field: api.resources.stats.v1.KoorCluster koor_cluster = 1;
+   * @generated from field: api.resources.koor.v1.KoorCluster koor_cluster = 1;
    */
   koorCluster?: KoorCluster;
 

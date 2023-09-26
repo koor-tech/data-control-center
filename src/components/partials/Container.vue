@@ -6,7 +6,7 @@
             </h3>
         </div>
         <div>
-            <slot />
+            <slot name="default" />
         </div>
     </div>
 </template>

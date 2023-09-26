@@ -3,14 +3,13 @@ import NotificationProvider from '~/components/partials/notifications/Notificati
 import Sidebar from '~/components/partials/Sidebar.vue';
 </script>
 
-
 <template>
-  <NotificationProvider>
-    <Sidebar>
-      <div class="h-full bg-white">
-        <NuxtLoadingIndicator />
-        <slot />
-      </div>
-    </Sidebar>
-  </NotificationProvider>
+    <NotificationProvider>
+        <Sidebar>
+            <div class="h-full">
+                <NuxtLoadingIndicator />
+                <slot />
+            </div>
+        </Sidebar>
+    </NotificationProvider>
 </template>

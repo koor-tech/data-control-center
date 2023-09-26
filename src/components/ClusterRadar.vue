@@ -14,10 +14,21 @@ const options: ApexOptions = {
         toolbar: {
             show: false,
         },
+        fontFamily: 'Inter var',
     },
     colors: ['#00a77d'],
     dataLabels: {
         enabled: false,
+    },
+    plotOptions: {
+        radar: {
+            polygons: {
+                strokeColors: '#e8e8e8',
+                fill: {
+                    colors: ['#f8f8f8', '#fff'],
+                },
+            },
+        },
     },
     fill: {
         type: 'gradient',
@@ -35,7 +46,7 @@ const options: ApexOptions = {
     yaxis: {
         min: 0,
         max: 100,
-        tickAmount: 4,
+        tickAmount: 5,
     },
 };
 
@@ -51,21 +62,26 @@ const series = ref([
         ],
     },
 ]);
+
+const renderChart = ref(false);
+onMounted(() => (renderChart.value = true));
 </script>
 
 <template>
     <Container>
         <template v-slot:title> Cluster Radar </template>
-        <template>
-            <!-- Chart -->
-            <VueApexCharts
-                class="flex justify-center py-1"
-                height="250px"
-                width="300px"
-                type="radar"
-                :options="options"
-                :series="series"
-            />
+        <template v-slot>
+            <div class="h-[12rem] max-h-[12rem] overflow-hidden">
+                <!-- Chart -->
+                <VueApexCharts
+                    v-if="renderChart"
+                    height="200px"
+                    width="400px"
+                    type="radar"
+                    :options="options"
+                    :series="series"
+                />
+            </div>
         </template>
     </Container>
 </template>
