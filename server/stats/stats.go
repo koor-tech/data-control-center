@@ -146,12 +146,12 @@ func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[stats
 				},
 				Rgw: &statsv1.RgwService{
 					ActiveDaemon: int32(st.Rgw),
-					HostCount:    1,
-					ZoneCount:    1,
+					HostCount:    int32(st.Hosts),
+					ZoneCount:    1, // TODO still figuring out https://linear.app/koorinc/issue/KSD-290/
 				},
 			},
 			Data: &statsv1.Data{
-				Volumes: int32(1), // TODO still figuring out
+				Volumes: int32(1), // TODO still figuring out https://linear.app/koorinc/issue/KSD-290/
 				Pools: &statsv1.Pools{
 					Pools: int32(poolCount),
 					Pgs: &statsv1.PGs{
