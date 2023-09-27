@@ -285,7 +285,7 @@ func (s *Server) GetClusterRadar(ctx context.Context, req *connect.Request[stats
 
 	// Storage Capacity
 	// TODO is the total used raw ratio the correct indicator to use?
-	radar.CapacityAvailable = float32(math.Ceil(cephStatus.DF.Stats.TotalUsedRawRatio*100*10) / 10)
+	radar.CapacityAvailable = float32(math.Ceil((1-cephStatus.DF.Stats.TotalUsedRawRatio)*100*10) / 10)
 
 	// Stability
 	stabilityReduction := len(cephStatus.Health.Checks) * 10
