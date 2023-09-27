@@ -54,9 +54,9 @@ func (k *K8s) TransformNodeIntoNodeInfo(node *v1.Node) *statsv1.NodeInfo {
 	}
 
 	roles := []string{}
-	for _, label := range node.Labels {
-		if strings.HasPrefix(label, kubectldescribe.LabelNodeRolePrefix) {
-			role, found := strings.CutPrefix(label, kubectldescribe.LabelNodeRolePrefix)
+	for key := range node.ObjectMeta.Labels {
+		if strings.HasPrefix(key, kubectldescribe.LabelNodeRolePrefix) {
+			role, found := strings.CutPrefix(key, kubectldescribe.LabelNodeRolePrefix)
 			if found {
 				roles = append(roles, role)
 			}
