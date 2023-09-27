@@ -44,12 +44,14 @@ func (k *K8s) TransformNodeIntoNodeInfo(node *v1.Node) *statsv1.NodeInfo {
 		case v1.NodeExternalIP:
 			fallthrough
 		case v1.NodeExternalDNS:
-			externalIP = &address.Address
+			address := address.Address
+			externalIP = &address
 
 		case v1.NodeInternalIP:
 			fallthrough
 		case v1.NodeInternalDNS:
-			internalIP = &address.Address
+			address := address.Address
+			internalIP = &address
 		}
 	}
 
