@@ -116,7 +116,7 @@ const config = defineNuxtConfig({
         head: {
             charset: 'utf-8',
             viewport: 'width=device-width, initial-scale=1',
-            link: [{ rel: 'icon', type: 'image/png', href: '/images/logo.png' }],
+            link: [{ rel: 'icon', type: 'image/png', href: '/icons/favicon-128x128.png' }],
             htmlAttrs: {
                 class: 'h-full',
             },
@@ -127,7 +127,7 @@ const config = defineNuxtConfig({
         pageTransition: { name: 'page', mode: 'out-in' },
     },
     experimental: {
-        polyfillVueUseHead: false,
+        emitRouteChunkError: 'automatic',
     },
 });
 
