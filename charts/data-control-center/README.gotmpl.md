@@ -34,6 +34,30 @@ helm install --create-namespace --namespace rook-ceph data-control-center data-c
 
 For example settings, see the next section or [values.yaml](/charts/data-control-center/values.yaml).
 
+### Exposing via Ingress
+
+To expose the data-control-center you need to use the `ingress:` config section.
+
+An example for a common Ingress setup with NGINX ingress controller and that uses the cert-manager to retrieve a certificate:
+
+```yaml
+ingress:
+  enabled: true
+  # -- Ingress class name
+  className: "nginx"
+  annotations:
+    cert-manager.io/cluster-issuer: your-cluster-issuer
+  hosts:
+    - host: datacontrolcenter.example.com
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+    - secretName: data-control-center-tls
+      hosts:
+        - datacontrolcenter.example.com
+```
+
 ## Configuration
 
 The following table lists the configurable parameters of the rook-operator chart and their default values.
