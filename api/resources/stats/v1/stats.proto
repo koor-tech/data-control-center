@@ -124,9 +124,9 @@ message NodeInfo {
   string name = 1;
   ResourceStatus status = 2;
   repeated string roles = 3;
-  string internal_ip = 4;
-  string external_ip = 5;
-  google.protobuf.Timestamp age = 6;
+  optional string internal_ip = 4;
+  optional string external_ip = 5;
+  optional google.protobuf.Timestamp age = 6;
 }
 
 message ClusterRadar {

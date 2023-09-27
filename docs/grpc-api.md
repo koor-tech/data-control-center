@@ -405,9 +405,9 @@ The mode of the upgrade
 | name | [string](#string) |  |  |
 | status | [ResourceStatus](#api-resources-stats-v1-ResourceStatus) |  |  |
 | roles | [string](#string) | repeated |  |
-| internal_ip | [string](#string) |  |  |
-| external_ip | [string](#string) |  |  |
-| age | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
+| internal_ip | [string](#string) | optional |  |
+| external_ip | [string](#string) | optional |  |
+| age | [google.protobuf.Timestamp](#google-protobuf-Timestamp) | optional |  |
 
 
 

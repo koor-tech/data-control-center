@@ -37,19 +37,19 @@ func (k *K8s) TransformNodeIntoNodeInfo(node *v1.Node) *statsv1.NodeInfo {
 		}
 	}
 
-	internalIP := ""
-	externalIP := ""
+	var internalIP *string
+	var externalIP *string
 	for _, address := range node.Status.Addresses {
 		switch address.Type {
 		case v1.NodeExternalIP:
 			fallthrough
 		case v1.NodeExternalDNS:
-			externalIP = address.Address
+			externalIP = &address.Address
 
 		case v1.NodeInternalIP:
 			fallthrough
 		case v1.NodeInternalDNS:
-			internalIP = address.Address
+			internalIP = &address.Address
 		}
 	}
 

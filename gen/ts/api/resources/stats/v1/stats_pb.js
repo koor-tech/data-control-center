@@ -244,9 +244,9 @@ export const NodeInfo = proto3.makeMessageType(
     { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "status", kind: "enum", T: proto3.getEnumType(ResourceStatus) },
     { no: 3, name: "roles", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
-    { no: 4, name: "internal_ip", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 5, name: "external_ip", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 6, name: "age", kind: "message", T: Timestamp },
+    { no: 4, name: "internal_ip", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 5, name: "external_ip", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 6, name: "age", kind: "message", T: Timestamp, opt: true },
   ],
 );
 

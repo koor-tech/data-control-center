@@ -666,17 +666,17 @@ export declare class NodeInfo extends Message<NodeInfo> {
   roles: string[];
 
   /**
-   * @generated from field: string internal_ip = 4;
+   * @generated from field: optional string internal_ip = 4;
    */
-  internalIp: string;
+  internalIp?: string;
 
   /**
-   * @generated from field: string external_ip = 5;
+   * @generated from field: optional string external_ip = 5;
    */
-  externalIp: string;
+  externalIp?: string;
 
   /**
-   * @generated from field: google.protobuf.Timestamp age = 6;
+   * @generated from field: optional google.protobuf.Timestamp age = 6;
    */
   age?: Timestamp;
 

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { resourceStatusToTextColor } from '~/components/helpers';
 import { ResourceInfo, ResourceStatus } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
 import DataNoDataBlock from './partials/data/DataNoDataBlock.vue';
 
@@ -68,8 +69,11 @@ const sortedRows = computed(() => props.rows.sort());
                                     {{ row.namespace }}
                                 </td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ row.name }}</td>
-                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                    {{ ResourceStatus[row.status].replace('RESOURCE_STATUS_', '') }}
+                                <td
+                                    class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                                    :class="resourceStatusToTextColor(row.status)"
+                                >
+                                    {{ ResourceStatus[row.status] }}
                                 </td>
                             </tr>
                         </tbody>

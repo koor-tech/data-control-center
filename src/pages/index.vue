@@ -38,7 +38,12 @@ watch(radarErr, () => {
     if (radarErr.value !== null) $grpc.handleError(radarErr.value as ConnectError);
 });
 
-const { data: resources } = useLazyAsyncData(`clusterresources`, async () => {
+const { data: nodes, error: nodesErr } = useLazyAsyncData(`clusterNodes`, () => $grpc.getStatsClient().getClusterNodes({}));
+watch(nodesErr, () => {
+    if (nodesErr.value !== null) $grpc.handleError(nodesErr.value as ConnectError);
+});
+
+const { data: resources } = useLazyAsyncData(`clusterResources`, async () => {
     try {
         return await $grpc.getStatsClient().getClusterResources({});
     } catch (e) {
@@ -63,14 +68,16 @@ const displayHealthServices = computed(() => stats.value?.stats?.filter((s) => h
             </div>
             <div class="grid-cols-2">
                 <div class="col-4">
-                    <NodeSummaryList />
+                    <NodeSummaryList v-if="nodes" :nodes="nodes.nodes" />
                 </div>
                 <div class="grid grid-cols-1" v-if="resources">
                     <dl class="space-y-2">
                         <Container>
                             <Disclosure as="div" v-slot="{ open }">
                                 <dt>
-                                    <DisclosureButton class="flex w-full items-start justify-between text-left text-base">
+                                    <DisclosureButton
+                                        class="flex w-full items-start justify-between text-left text-base border-b border-gray-300"
+                                    >
                                         <span class="text-lg font-semibold leading-7"> Deployment Resources </span>
                                         <span class="ml-6 flex h-7 items-center">
                                             <ChevronDownIcon
@@ -98,7 +105,9 @@ const displayHealthServices = computed(() => stats.value?.stats?.filter((s) => h
                         <Container>
                             <Disclosure as="div" v-slot="{ open }">
                                 <dt>
-                                    <DisclosureButton class="flex w-full items-start justify-between text-left text-base">
+                                    <DisclosureButton
+                                        class="flex w-full items-start justify-between text-left text-base border-b border-gray-300"
+                                    >
                                         <span class="text-lg font-semibold leading-7"> Ceph Resources </span>
                                         <span class="ml-6 flex h-7 items-center">
                                             <ChevronDownIcon
