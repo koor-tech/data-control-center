@@ -37,6 +37,30 @@ helm install --create-namespace --namespace rook-ceph data-control-center data-c
 
 For example settings, see the next section or [values.yaml](/charts/data-control-center/values.yaml).
 
+### Exposing via Ingress
+
+To expose the data-control-center you need to use the `ingress:` config section.
+
+An example for a common Ingress setup with NGINX ingress controller and that uses the cert-manager to retrieve a certificate:
+
+```yaml
+ingress:
+  enabled: true
+  # -- Ingress class name
+  className: "nginx"
+  annotations:
+    cert-manager.io/cluster-issuer: your-cluster-issuer
+  hosts:
+    - host: datacontrolcenter.example.com
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+    - secretName: data-control-center-tls
+      hosts:
+        - datacontrolcenter.example.com
+```
+
 ## Configuration
 
 The following table lists the configurable parameters of the rook-operator chart and their default values.
@@ -49,26 +73,16 @@ The following table lists the configurable parameters of the rook-operator chart
 | `autoscaling.maxReplicas` |  | `100` |
 | `autoscaling.minReplicas` |  | `1` |
 | `autoscaling.targetCPUUtilizationPercentage` |  | `80` |
-| `config.ceph.api.insecureSSL` |  | `true` |
-| `config.ceph.api.password` |  | `"data-control-center"` |
-| `config.ceph.api.url` |  | `"https://rook-ceph-mgr-dashboard:8443/api"` |
-| `config.ceph.api.username` |  | `"data-control-center"` |
-| `config.http.listen` |  | `":8282"` |
-| `config.http.sessions.cookieSecret` |  | `"your_generated_cookie_secret"` |
-| `config.http.sessions.domain` |  | `"localhost"` |
-| `config.jwt.secret` |  | `"your_generated_jwt_secret"` |
-| `config.logLevel` |  | `"INFO"` |
-| `config.mode` |  | `"release"` |
-| `config.oauth2.providers` |  | `[]` |
-| `config.users` |  | `[]` |
+| `config` | data-control-center config, documentation here: https://github.com/koor-tech/data-control-center/blob/main/docs/configuration.md#reference | `{"ceph":{"api":{"insecureSSL":true,"password":null,"url":"https://rook-ceph-mgr-dashboard:8443/api","username":"data-control-center"}},"http":{"listen":":8282","sessions":{"cookieSecret":"your_generated_cookie_secret","domain":"localhost"}},"jwt":{"secret":"your_generated_jwt_secret"},"logLevel":"INFO","mode":"release","namespace":null,"oauth2":{"providers":[]},"users":[]}` |
+| `config.ceph.api.password` | Password is auto generated if not set and retrieved using helm's lookup function | `nil` |
 | `fullnameOverride` |  | `""` |
 | `image.pullPolicy` |  | `"IfNotPresent"` |
 | `image.repository` |  | `"docker.io/koorinc/data-control-center"` |
 | `image.tag` |  | `""` |
 | `imagePullSecrets` |  | `[]` |
 | `ingress.annotations` |  | `{}` |
-| `ingress.className` |  | `""` |
-| `ingress.enabled` |  | `false` |
+| `ingress.className` | Ingress class name | `""` |
+| `ingress.enabled` | If an Ingress object should be created. | `false` |
 | `ingress.hosts[0].host` |  | `"chart-example.local"` |
 | `ingress.hosts[0].paths[0].path` |  | `"/"` |
 | `ingress.hosts[0].paths[0].pathType` |  | `"ImplementationSpecific"` |
