@@ -259,7 +259,7 @@ func (s *Server) GetClusterRadar(ctx context.Context, req *connect.Request[stats
 		return nil, err
 	}
 	switch cephStatus.Health.Status {
-	case "HEALTH_OKAY":
+	case "HEALTH_OK":
 		radar.ClusterHealth = 100
 	case "HEALTH_WARN":
 		radar.ClusterHealth = 50
