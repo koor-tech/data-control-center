@@ -110,7 +110,8 @@ postInstallJob:
 
 # -- data-control-center config, documentation here: https://github.com/koor-tech/data-control-center/blob/main/docs/configuration.md#reference
 config:
-  namespace: # Defaults to current namespace
+  # -- The rook ceph namespace, if different from the current namespace. Defaults to the current namespace.
+  namespace:
   logLevel: 'INFO'
   mode: 'release'
   http:
