@@ -59,7 +59,7 @@ func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[stats
 
 	clusterHealthStatus := statsv1.ClusterHealth_CLUSTER_HEALTH_OFFLINE
 	switch st.Health.Status {
-	case "HEALTH_OKAY":
+	case "HEALTH_OK":
 		clusterHealthStatus = statsv1.ClusterHealth_CLUSTER_HEALTH_OK
 	case "HEALTH_WARN":
 		clusterHealthStatus = statsv1.ClusterHealth_CLUSTER_HEALTH_WARN
