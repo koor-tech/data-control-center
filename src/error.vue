@@ -49,8 +49,21 @@ startButtonTimer();
                 <div class="py-2 text-neutral mb-4">
                     <p class="py-2 font-semibold">Error Message:</p>
                     <span v-if="error">
-                        <pre v-if="error.statusMessage">{{ error.statusMessage }}</pre>
-                        <pre v-else-if="error.message">{{ error.message }}</pre>
+                        <!-- @vue-expect-error -->
+                        <pre v-if="error.statusMessage">
+                            <!-- @vue-expect-error -->
+                            {{ error.statusMessage }}
+                        </pre>
+                        <!-- @vue-expect-error -->
+                        <pre
+                            v-else-if="
+                                //@ts-ignore
+                                error.message
+                            "
+                        >
+                            <!-- @vue-expect-error -->
+                            {{ error.message }}
+                        </pre>
                         <pre v-else>Unable to get error message</pre>
                     </span>
                     <span v-else>
@@ -60,7 +73,7 @@ startButtonTimer();
 
                 <div class="flex justify-center">
                     <button
-                        @click="handleError"
+                        @click="handleError()"
                         :disabled="buttonDisabled"
                         class="rounded-md w-60 px-3.5 py-2.5 text-sm font-semibold text-neutral focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                         :class="[
@@ -85,6 +98,7 @@ startButtonTimer();
                         Retry
                     </button>
 
+                    <!-- @vue-expect-error -->
                     <button
                         @click="copyError"
                         v-if="error && (error.statusMessage || error.message)"

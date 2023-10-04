@@ -17,9 +17,11 @@ import (
 	ginzap "github.com/gin-contrib/zap"
 	"github.com/gin-gonic/gin"
 	"github.com/koor-tech/data-control-center/internal/ceph"
+	cephcache "github.com/koor-tech/data-control-center/pkg/ceph/cache"
 	"github.com/koor-tech/data-control-center/pkg/config"
 	"github.com/koor-tech/data-control-center/pkg/grpc/auth"
 	"github.com/koor-tech/data-control-center/pkg/k8s"
+	k8scache "github.com/koor-tech/data-control-center/pkg/k8s/cache"
 	"github.com/koor-tech/data-control-center/pkg/server/httpapi"
 	"github.com/koor-tech/data-control-center/pkg/server/oauth2"
 	"github.com/prometheus/client_golang/prometheus"
@@ -178,7 +180,9 @@ func StartHTTPServer() {
 		auth.AuthModule,
 		auth.TokenMgrModule,
 		k8s.Module,
+		k8scache.Module,
 		ceph.Module,
+		cephcache.Module,
 
 		// Connect Services
 		fx.Provide(

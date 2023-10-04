@@ -36,9 +36,9 @@ func NewService(logger *zap.Logger, config *config.Config) *Service {
 	}
 }
 
-// GetClusterHealth returns the Health Status of the Ceph Cluster
+// GetHealthFull returns the Health Status of the Ceph Cluster
 // calling - GET /health/full endpoint
-func (s *Service) GetClusterHealth(ctx context.Context) (*HealthStatus, error) {
+func (s *Service) GetHealthFull(ctx context.Context) (*HealthStatus, error) {
 	if err := s.apiClient.Auth(ctx); err != nil {
 		s.logger.Error(ErrorUnableToAuthenticate.Error(), zap.Error(err))
 		return nil, ErrorUnableToAuthenticate

@@ -10,21 +10,7 @@ import (
 	kubectldescribe "k8s.io/kubectl/pkg/describe"
 )
 
-func (k *K8s) GetK8SClusterNodes(ctx context.Context) ([]*statsv1.NodeInfo, error) {
-	nodes, err := k.client.CoreV1().Nodes().List(ctx, metav1.ListOptions{})
-	if err != nil {
-		return nil, err
-	}
-
-	res := []*statsv1.NodeInfo{}
-	for _, node := range nodes.Items {
-		res = append(res, k.TransformNodeIntoNodeInfo(&node))
-	}
-
-	return res, nil
-}
-
-func (k *K8s) TransformNodeIntoNodeInfo(node *v1.Node) *statsv1.NodeInfo {
+func (k *K8s) transformNodeIntoNodeInfo(node *v1.Node) *statsv1.NodeInfo {
 	status := statsv1.ResourceStatus_RESOURCE_STATUS_UNKNOWN
 	for _, cond := range node.Status.Conditions {
 		if cond.Type == v1.NodeReady {
@@ -98,7 +84,7 @@ func (k *K8s) GetStorageNodes(ctx context.Context, namespace string) ([]*statsv1
 			return nil, err
 		}
 
-		storageNodes = append(storageNodes, k.TransformNodeIntoNodeInfo(node))
+		storageNodes = append(storageNodes, k.transformNodeIntoNodeInfo(node))
 	}
 
 	return storageNodes, nil

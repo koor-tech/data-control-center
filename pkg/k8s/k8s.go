@@ -5,6 +5,7 @@ import (
 
 	statsv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/stats/v1"
 	"github.com/koor-tech/data-control-center/pkg/config"
+	rookclient "github.com/rook/rook/pkg/client/clientset/versioned"
 	"go.uber.org/fx"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
@@ -21,7 +22,8 @@ var Module = fx.Module("k8s",
 // Show other objects as well
 
 type K8s struct {
-	client *kubernetes.Clientset
+	client     *kubernetes.Clientset
+	rookclient *rookclient.Clientset
 }
 
 func New(cfg *config.Config) (*K8s, error) {
@@ -45,8 +47,14 @@ func New(cfg *config.Config) (*K8s, error) {
 		return nil, err
 	}
 
+	rookClientset, err := rookclient.NewForConfig(config)
+	if err != nil {
+		return nil, err
+	}
+
 	return &K8s{
-		client: clientset,
+		client:     clientset,
+		rookclient: rookClientset,
 	}, nil
 }
 

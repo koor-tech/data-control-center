@@ -9,8 +9,8 @@ import (
 
 func main() {
 	var rootCmd = &cobra.Command{
-		Use:   "server-app",
-		Short: "A demo application for starting different types of servers",
+		Use:   "data-control-center",
+		Short: "Nice dashboard and controls for managing Rook Ceph data storage.",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			server.StartHTTPServer()
 			return nil

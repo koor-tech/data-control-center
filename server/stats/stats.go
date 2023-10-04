@@ -9,13 +9,13 @@ import (
 	statsv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/stats/v1"
 	statspb "github.com/koor-tech/data-control-center/gen/go/api/services/stats/v1"
 	"github.com/koor-tech/data-control-center/gen/go/api/services/stats/v1/statsv1connect"
+	"go.uber.org/fx"
 	"go.uber.org/zap"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
-	"github.com/koor-tech/data-control-center/internal/ceph"
-
+	cephcache "github.com/koor-tech/data-control-center/pkg/ceph/cache"
 	"github.com/koor-tech/data-control-center/pkg/config"
-	"github.com/koor-tech/data-control-center/pkg/k8s"
+	k8scache "github.com/koor-tech/data-control-center/pkg/k8s/cache"
 	"github.com/koor-tech/data-control-center/pkg/utils"
 
 	"connectrpc.com/connect"
@@ -27,20 +27,30 @@ import (
 type Server struct {
 	statsv1connect.StatsServiceHandler
 
-	logger         *zap.Logger
-	auth           *auth.GRPCAuth
-	cephAPIService *ceph.Service
-	k              *k8s.K8s
-	Namespace      string
+	logger    *zap.Logger
+	auth      *auth.GRPCAuth
+	ceph      *cephcache.Cache
+	k         *k8scache.Cache
+	Namespace string
 }
 
-func New(logger *zap.Logger, grpcAuth *auth.GRPCAuth, k *k8s.K8s, cephAPIService *ceph.Service, cfg *config.Config) (*Server, error) {
+type Params struct {
+	fx.In
+
+	Logger   *zap.Logger
+	GrpcAuth *auth.GRPCAuth
+	K8S      *k8scache.Cache
+	Ceph     *cephcache.Cache
+	Cfg      *config.Config
+}
+
+func New(p Params) (*Server, error) {
 	return &Server{
-		logger:         logger,
-		auth:           grpcAuth,
-		cephAPIService: cephAPIService,
-		k:              k,
-		Namespace:      cfg.Namespace,
+		logger:    p.Logger,
+		auth:      p.GrpcAuth,
+		ceph:      p.Ceph,
+		k:         p.K8S,
+		Namespace: p.Cfg.Namespace,
 	}, nil
 }
 
@@ -52,10 +62,7 @@ func (s *Server) RegisterService(g *gin.RouterGroup) {
 }
 
 func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[statspb.GetClusterStatsRequest]) (*connect.Response[statspb.GetClusterStatsResponse], error) {
-	st, err := s.cephAPIService.GetClusterHealth(ctx)
-	if err != nil {
-		return nil, connect.NewError(connect.CodeInternal, fmt.Errorf("error caused by %w", err))
-	}
+	st, _ := s.ceph.GetHealthFull(ctx)
 
 	clusterHealthStatus := statsv1.ClusterHealth_CLUSTER_HEALTH_OFFLINE
 	switch st.Health.Status {
@@ -217,16 +224,9 @@ func convertMdsItems(src interface{}) (MdsItems, error) {
 }
 
 func (s *Server) GetClusterResources(ctx context.Context, req *connect.Request[statspb.GetClusterResourcesRequest]) (*connect.Response[statspb.GetClusterResourcesResponse], error) {
-	deployments, err := s.k.GetClusterDeployments(ctx, s.Namespace)
-	if err != nil {
-		return nil, err
-	}
+	deployments, _ := s.k.GetClusterDeployments(s.Namespace)
 
-	resources, err := s.k.GetCephResources(ctx, s.Namespace)
-	if err != nil {
-		return nil, err
-	}
-
+	resources, _ := s.k.GetCephResources(s.Namespace)
 	return &connect.Response[statspb.GetClusterResourcesResponse]{
 		Msg: &statspb.GetClusterResourcesResponse{
 			Deployments: deployments,
@@ -237,11 +237,7 @@ func (s *Server) GetClusterResources(ctx context.Context, req *connect.Request[s
 
 // GetClusterNodes Iterate over every Ceph cluster Pod (not CSI Pods) to collect the nodes used for the storage cluster
 func (s *Server) GetClusterNodes(ctx context.Context, req *connect.Request[statspb.GetClusterNodesRequest]) (*connect.Response[statspb.GetClusterNodesResponse], error) {
-
-	nodes, err := s.k.GetStorageNodes(ctx, s.Namespace)
-	if err != nil {
-		return nil, err
-	}
+	nodes, _ := s.k.GetStorageNodes(s.Namespace)
 
 	return &connect.Response[statspb.GetClusterNodesResponse]{
 		Msg: &statspb.GetClusterNodesResponse{
@@ -254,10 +250,8 @@ func (s *Server) GetClusterRadar(ctx context.Context, req *connect.Request[stats
 	radar := &statsv1.ClusterRadar{}
 
 	// Cluster Health
-	cephStatus, err := s.cephAPIService.GetClusterHealth(ctx)
-	if err != nil {
-		return nil, err
-	}
+	cephStatus, _ := s.ceph.GetHealthFull(ctx)
+
 	switch cephStatus.Health.Status {
 	case "HEALTH_OK":
 		radar.ClusterHealth = 100
@@ -270,10 +264,7 @@ func (s *Server) GetClusterRadar(ctx context.Context, req *connect.Request[stats
 	}
 
 	// Nodes Health
-	nodes, err := s.k.GetStorageNodes(ctx, s.Namespace)
-	if err != nil {
-		return nil, err
-	}
+	nodes, _ := s.k.GetStorageNodes(s.Namespace)
 	totalNodes := len(nodes)
 	healthyNodes := 0
 	for _, node := range nodes {
@@ -306,10 +297,7 @@ func (s *Server) GetClusterRadar(ctx context.Context, req *connect.Request[stats
 }
 
 func (s *Server) GetKoorCluster(ctx context.Context, req *connect.Request[statspb.GetKoorClusterRequest]) (*connect.Response[statspb.GetKoorClusterResponse], error) {
-	kc, err := s.k.GetKoorCluster(ctx, s.Namespace)
-	if err != nil {
-		return nil, err
-	}
+	kc, _ := s.k.GetKoorCluster(s.Namespace)
 
 	res := connect.NewResponse(&statspb.GetKoorClusterResponse{
 		KoorCluster: kc,
