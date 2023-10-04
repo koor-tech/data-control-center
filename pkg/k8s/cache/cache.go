@@ -130,7 +130,7 @@ func (c *Cache) run() {
 			c.logger.Error("failed to update ceph resources cache", zap.Error(err))
 			return
 		}
-		c.clusterDeployments.Set(resources)
+		c.cephResources.Set(resources)
 	}()
 
 	wg.Add(1)
