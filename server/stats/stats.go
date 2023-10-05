@@ -5,22 +5,19 @@ import (
 	"fmt"
 	"math"
 	"strings"
-
-	statsv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/stats/v1"
-	statspb "github.com/koor-tech/data-control-center/gen/go/api/services/stats/v1"
-	"github.com/koor-tech/data-control-center/gen/go/api/services/stats/v1/statsv1connect"
-	"go.uber.org/fx"
-	"go.uber.org/zap"
-	"google.golang.org/protobuf/types/known/timestamppb"
-
-	cephcache "github.com/koor-tech/data-control-center/pkg/ceph/cache"
-	"github.com/koor-tech/data-control-center/pkg/config"
-	k8scache "github.com/koor-tech/data-control-center/pkg/k8s/cache"
-	"github.com/koor-tech/data-control-center/pkg/utils"
+	"time"
 
 	"connectrpc.com/connect"
 	"github.com/gin-gonic/gin"
+	statsv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/stats/v1"
+	statspb "github.com/koor-tech/data-control-center/gen/go/api/services/stats/v1"
+	"github.com/koor-tech/data-control-center/gen/go/api/services/stats/v1/statsv1connect"
+	cephcache "github.com/koor-tech/data-control-center/pkg/ceph/cache"
+	"github.com/koor-tech/data-control-center/pkg/config"
 	"github.com/koor-tech/data-control-center/pkg/grpc/auth"
+	k8scache "github.com/koor-tech/data-control-center/pkg/k8s/cache"
+	"go.uber.org/fx"
+	"go.uber.org/zap"
 )
 
 // Server is used to implement stats services.
@@ -64,25 +61,6 @@ func (s *Server) RegisterService(g *gin.RouterGroup) {
 func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[statspb.GetClusterStatsRequest]) (*connect.Response[statspb.GetClusterStatsResponse], error) {
 	st, _ := s.ceph.GetHealthFull(ctx)
 
-	clusterHealthStatus := statsv1.ClusterHealth_CLUSTER_HEALTH_OFFLINE
-	switch st.Health.Status {
-	case "HEALTH_OK":
-		clusterHealthStatus = statsv1.ClusterHealth_CLUSTER_HEALTH_OK
-	case "HEALTH_WARN":
-		clusterHealthStatus = statsv1.ClusterHealth_CLUSTER_HEALTH_WARN
-	case "HEALTH_ERR":
-		fallthrough
-	default:
-		clusterHealthStatus = statsv1.ClusterHealth_CLUSTER_HEALTH_ERR
-	}
-
-	var crashes []*statsv1.Crash
-
-	for _, check := range st.Health.Checks {
-		crashes = append(crashes, &statsv1.Crash{Description: check.Summary.Message})
-	}
-
-	daemonCount := len(st.MonStatus.Monmap.Mons)
 	var monNames []string
 	for _, mon := range st.MonStatus.Monmap.Mons {
 		monNames = append(monNames, mon.Name)
@@ -126,43 +104,35 @@ func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[stats
 		activeAndCleanPGs += pool.PgStatus.ActiveClean
 	}
 
-	stored := 0
-	for _, pool := range st.DF.Pools {
-		stored += pool.DFPoolStats.Stored
-	}
-
-	clientReadBytes := utils.FormatBytes(int64(st.ClientPerf.ReadBytesSec))
-	clientWriteBytes := utils.FormatBytes(int64(st.ClientPerf.WriteBytesSec))
-	readOps := st.ClientPerf.ReadOpPerSec
-	writeOps := st.ClientPerf.WriteOpPerSec
+	now := time.Now()
 
 	resp := &statspb.GetClusterStatsResponse{
 		Stats: &statsv1.ClusterStats{
 			Id:      st.MonStatus.Monmap.Fsid,
-			Status:  clusterHealthStatus,
-			Crashes: crashes,
+			Status:  st.ClusterHealthStatus(),
+			Crashes: st.Crashes(),
 			Services: &statsv1.Services{
 				Mon: &statsv1.MonService{
-					DaemonCount: int32(daemonCount),
-					Quorum:      strings.Join(monNames, ","),
-					CreatedAt:   timestamppb.New(st.MonStatus.Monmap.Created),
-					UpdatedAt:   timestamppb.New(st.MonStatus.Monmap.Modified),
+					DaemonCount:  int32(len(st.MonStatus.Monmap.Mons)),
+					Quorum:       strings.Join(monNames, ","),
+					CreatedSince: int64(now.Sub(st.MonStatus.Monmap.Created)),
+					UpdatedSince: int64(now.Sub(st.MonStatus.Monmap.Modified)),
 				},
 				Mgr: &statsv1.MgrService{
-					Active:    st.MgrMap.ActiveName,
-					Standbys:  standBys,
-					UpdatedAt: timestamppb.New(st.MgrMap.ActiveChange.Time),
+					Active:       st.MgrMap.ActiveName,
+					Standbys:     standBys,
+					UpdatedSince: int64(now.Sub(st.MgrMap.ActiveChange.Time)),
 				},
 				Mds: &statsv1.MdsService{
 					DaemonsUp:       int32(daemonsUp),
 					HotStandbyCount: int32(standbyCountWanted),
 				},
 				Osd: &statsv1.OsdService{
-					OsdCount:       int32(osdCount),
-					OsdUp:          int32(osdUp),
-					OsdIn:          int32(osdIn),
-					OsdInUpdatedAt: timestamppb.New(st.OsdMap.LastInChange.Time),
-					OsdUpUpdatedAt: timestamppb.New(st.OsdMap.LastUpChange.Time),
+					OsdCount:          int32(osdCount),
+					OsdUp:             int32(osdUp),
+					OsdIn:             int32(osdIn),
+					OsdInUpdatedSince: int64(now.Sub(st.OsdMap.LastInChange.Time)),
+					OsdUpUpdatedSince: int64(now.Sub(st.OsdMap.LastUpChange.Time)),
 				},
 				Rgw: &statsv1.RgwService{
 					ActiveDaemon: int32(st.Rgw),
@@ -180,7 +150,7 @@ func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[stats
 				},
 				Objects: &statsv1.Objects{
 					ObjectCount: int32(st.PGInfo.ObjectStats.NumObjects),
-					Size:        utils.FormatBytes(int64(stored)),
+					Size:        st.ObjectSize(),
 				},
 				Usage: &statsv1.Usage{
 					Used:      st.DF.Stats.TotalUsedBytes,
@@ -189,10 +159,10 @@ func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[stats
 				},
 			},
 			Iops: &statsv1.IOPS{
-				ClientRead:     fmt.Sprintf("%s/s rd", clientReadBytes),
-				ClientWrite:    fmt.Sprintf("%s/s wr", clientWriteBytes),
-				ClientReadOps:  fmt.Sprintf("%d ops/s rd", readOps),
-				ClientWriteOps: fmt.Sprintf("%d ops/s wr", writeOps),
+				ClientRead:     int64(st.ClientPerf.ReadBytesSec),
+				ClientWrite:    int64(st.ClientPerf.WriteBytesSec),
+				ClientReadOps:  int64(st.ClientPerf.ReadOpPerSec),
+				ClientWriteOps: int64(st.ClientPerf.WriteOpPerSec),
 			},
 		},
 	}
@@ -252,16 +222,7 @@ func (s *Server) GetClusterRadar(ctx context.Context, req *connect.Request[stats
 	// Cluster Health
 	cephStatus, _ := s.ceph.GetHealthFull(ctx)
 
-	switch cephStatus.Health.Status {
-	case "HEALTH_OK":
-		radar.ClusterHealth = 100
-	case "HEALTH_WARN":
-		radar.ClusterHealth = 50
-	case "HEALTH_ERR":
-		fallthrough
-	default:
-		radar.ClusterHealth = 0
-	}
+	radar.ClusterHealth = cephStatus.ClusterHealth()
 
 	// Nodes Health
 	nodes, _ := s.k.GetStorageNodes(s.Namespace)

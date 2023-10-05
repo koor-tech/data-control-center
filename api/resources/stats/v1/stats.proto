@@ -17,14 +17,14 @@ enum ClusterHealth {
 message MonService {
   int32 daemon_count = 1;
   string quorum = 2;
-  google.protobuf.Timestamp created_at = 3;
-  google.protobuf.Timestamp updated_at = 4;
+  int64 created_since = 5;
+  int64 updated_since = 6;
 }
 
 message MgrService {
   string active = 1;
   repeated string standbys = 2;
-  google.protobuf.Timestamp updated_at = 4;
+  int64 updated_since = 6;
 }
 
 message MdsService {
@@ -36,8 +36,8 @@ message OsdService {
   int32 osd_count = 1;
   int32 osd_up = 2;
   int32 osd_in = 3;
-  google.protobuf.Timestamp osd_up_updated_at = 4;
-  google.protobuf.Timestamp osd_in_updated_at = 5;
+  int64 osd_up_updated_since = 6;
+  int64 osd_in_updated_since = 7;
 }
 
 message RgwService {
@@ -65,7 +65,7 @@ message Pools {
 
 message Objects {
   int32 object_count = 1;
-  string size = 2;
+  int64 size = 2;
 }
 
 message Usage {
@@ -82,10 +82,10 @@ message Data {
 }
 
 message IOPS {
-  string client_read = 1;
-  string client_write = 2;
-  string client_read_ops = 3;
-  string client_write_ops = 4;
+  int64 client_read = 1;
+  int64 client_write = 2;
+  int64 client_read_ops = 3;
+  int64 client_write_ops = 4;
 }
 
 message Crash {

@@ -2,6 +2,7 @@ package ceph
 
 import (
 	"encoding/json"
+	statsv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/stats/v1"
 	"time"
 )
 
@@ -190,4 +191,51 @@ type HealthStatus struct {
 	PGInfo     PGInfo     `json:"pg_info"`
 	DF         DF         `json:"df"`
 	ClientPerf ClientPerf `json:"client_perf"`
+}
+
+func (hs *HealthStatus) ClusterHealth() float32 {
+	switch hs.Health.Status {
+	case "HEALTH_OK":
+		return 100
+	case "HEALTH_WARN":
+		return 50
+	case "HEALTH_ERR":
+		fallthrough
+	default:
+		return 0
+	}
+}
+
+func (hs *HealthStatus) ClusterHealthStatus() statsv1.ClusterHealth {
+	clusterHealthStatus := statsv1.ClusterHealth_CLUSTER_HEALTH_OFFLINE
+	switch hs.Health.Status {
+	case "HEALTH_OK":
+		clusterHealthStatus = statsv1.ClusterHealth_CLUSTER_HEALTH_OK
+	case "HEALTH_WARN":
+		clusterHealthStatus = statsv1.ClusterHealth_CLUSTER_HEALTH_WARN
+	case "HEALTH_ERR":
+		fallthrough
+	default:
+		clusterHealthStatus = statsv1.ClusterHealth_CLUSTER_HEALTH_ERR
+	}
+
+	return clusterHealthStatus
+}
+
+func (hs *HealthStatus) Crashes() []*statsv1.Crash {
+	var crashes []*statsv1.Crash
+
+	for _, check := range hs.Health.Checks {
+		crashes = append(crashes, &statsv1.Crash{Description: check.Summary.Message})
+	}
+	return crashes
+}
+
+func (hs *HealthStatus) ObjectSize() int64 {
+	size := 0
+	for _, pool := range hs.DF.Pools {
+		size += pool.DFPoolStats.Stored
+	}
+
+	return int64(size)
 }

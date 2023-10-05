@@ -111,14 +111,14 @@ export declare class MonService extends Message<MonService> {
   quorum: string;
 
   /**
-   * @generated from field: google.protobuf.Timestamp created_at = 3;
+   * @generated from field: int64 created_since = 5;
    */
-  createdAt?: Timestamp;
+  createdSince: bigint;
 
   /**
-   * @generated from field: google.protobuf.Timestamp updated_at = 4;
+   * @generated from field: int64 updated_since = 6;
    */
-  updatedAt?: Timestamp;
+  updatedSince: bigint;
 
   constructor(data?: PartialMessage<MonService>);
 
@@ -150,9 +150,9 @@ export declare class MgrService extends Message<MgrService> {
   standbys: string[];
 
   /**
-   * @generated from field: google.protobuf.Timestamp updated_at = 4;
+   * @generated from field: int64 updated_since = 6;
    */
-  updatedAt?: Timestamp;
+  updatedSince: bigint;
 
   constructor(data?: PartialMessage<MgrService>);
 
@@ -218,14 +218,14 @@ export declare class OsdService extends Message<OsdService> {
   osdIn: number;
 
   /**
-   * @generated from field: google.protobuf.Timestamp osd_up_updated_at = 4;
+   * @generated from field: int64 osd_up_updated_since = 6;
    */
-  osdUpUpdatedAt?: Timestamp;
+  osdUpUpdatedSince: bigint;
 
   /**
-   * @generated from field: google.protobuf.Timestamp osd_in_updated_at = 5;
+   * @generated from field: int64 osd_in_updated_since = 7;
    */
-  osdInUpdatedAt?: Timestamp;
+  osdInUpdatedSince: bigint;
 
   constructor(data?: PartialMessage<OsdService>);
 
@@ -383,9 +383,9 @@ export declare class Objects extends Message<Objects> {
   objectCount: number;
 
   /**
-   * @generated from field: string size = 2;
+   * @generated from field: int64 size = 2;
    */
-  size: string;
+  size: bigint;
 
   constructor(data?: PartialMessage<Objects>);
 
@@ -480,24 +480,24 @@ export declare class Data extends Message<Data> {
  */
 export declare class IOPS extends Message<IOPS> {
   /**
-   * @generated from field: string client_read = 1;
+   * @generated from field: int64 client_read = 1;
    */
-  clientRead: string;
+  clientRead: bigint;
 
   /**
-   * @generated from field: string client_write = 2;
+   * @generated from field: int64 client_write = 2;
    */
-  clientWrite: string;
+  clientWrite: bigint;
 
   /**
-   * @generated from field: string client_read_ops = 3;
+   * @generated from field: int64 client_read_ops = 3;
    */
-  clientReadOps: string;
+  clientReadOps: bigint;
 
   /**
-   * @generated from field: string client_write_ops = 4;
+   * @generated from field: int64 client_write_ops = 4;
    */
-  clientWriteOps: string;
+  clientWriteOps: bigint;
 
   constructor(data?: PartialMessage<IOPS>);
 

@@ -55,8 +55,8 @@ export const MonService = proto3.makeMessageType(
   () => [
     { no: 1, name: "daemon_count", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
     { no: 2, name: "quorum", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "created_at", kind: "message", T: Timestamp },
-    { no: 4, name: "updated_at", kind: "message", T: Timestamp },
+    { no: 5, name: "created_since", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 6, name: "updated_since", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
   ],
 );
 
@@ -68,7 +68,7 @@ export const MgrService = proto3.makeMessageType(
   () => [
     { no: 1, name: "active", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "standbys", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
-    { no: 4, name: "updated_at", kind: "message", T: Timestamp },
+    { no: 6, name: "updated_since", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
   ],
 );
 
@@ -92,8 +92,8 @@ export const OsdService = proto3.makeMessageType(
     { no: 1, name: "osd_count", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
     { no: 2, name: "osd_up", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
     { no: 3, name: "osd_in", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
-    { no: 4, name: "osd_up_updated_at", kind: "message", T: Timestamp },
-    { no: 5, name: "osd_in_updated_at", kind: "message", T: Timestamp },
+    { no: 6, name: "osd_up_updated_since", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 7, name: "osd_in_updated_since", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
   ],
 );
 
@@ -151,7 +151,7 @@ export const Objects = proto3.makeMessageType(
   "api.resources.stats.v1.Objects",
   () => [
     { no: 1, name: "object_count", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
-    { no: 2, name: "size", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "size", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
   ],
 );
 
@@ -186,10 +186,10 @@ export const Data = proto3.makeMessageType(
 export const IOPS = proto3.makeMessageType(
   "api.resources.stats.v1.IOPS",
   () => [
-    { no: 1, name: "client_read", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "client_write", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "client_read_ops", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "client_write_ops", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: "client_read", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 2, name: "client_write", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 3, name: "client_read_ops", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 4, name: "client_write_ops", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
   ],
 );
 
