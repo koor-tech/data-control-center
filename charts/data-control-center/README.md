@@ -32,6 +32,7 @@ The `helm install` command deploys the Koor Operator on the Kubernetes cluster i
 
 ```console
 helm repo add data-control-center https://koor-tech.github.io/data-control-center
+helm repo update
 helm install --create-namespace --namespace rook-ceph data-control-center data-control-center/data-control-center -f values.yaml
 ```
 
