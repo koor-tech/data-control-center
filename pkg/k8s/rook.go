@@ -23,6 +23,8 @@ func (k *K8s) GetCephResources(ctx context.Context, namespace string) ([]*statsv
 			if obj.Status.State == cephv1.ClusterStateCreated || obj.Status.State == cephv1.ClusterStateConnected {
 				status = statsv1.ResourceStatus_RESOURCE_STATUS_READY
 			} else if obj.Status.State == cephv1.ClusterStateConnecting || obj.Status.State == cephv1.ClusterStateCreating || obj.Status.State == cephv1.ClusterStateUpdating {
+				status = statsv1.ResourceStatus_RESOURCE_STATUS_PROGRESSING
+			} else {
 				status = statsv1.ResourceStatus_RESOURCE_STATUS_NOT_READY
 			}
 		}
