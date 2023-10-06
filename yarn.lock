@@ -363,14 +363,14 @@
     undici "^5.23.0"
 
 "@connectrpc/connect-web@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@connectrpc/connect-web/-/connect-web-1.0.0.tgz#88d54be622be64b1f0f8307fc977cce785590981"
-  integrity sha512-QMoq/KoZG2ZUAJptXqQtFVoZY9avX+11JDFrb+2P7rVOzHifupBPNTp4LJjTPciuUhpNwMCNnNXdddAh/+N2aw==
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@connectrpc/connect-web/-/connect-web-1.1.2.tgz#e862a4027406dc772ead3ae179f058c26b1fcf0f"
+  integrity sha512-6Osvp4d/5Qvf0dsbUmqgzCPFIong9KBm5G24g2gapPW2huAtyVj+KwdG6453EKCirPZ5qZHY0FywLef57op9YQ==
 
 "@connectrpc/connect@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@connectrpc/connect/-/connect-1.0.0.tgz#d09b766bb2b55327d7565423519a72b1bd8501f2"
-  integrity sha512-eqrCpSoAK8OHlKN3t3BbMGAzLT3rbl8XEgyazDokm5lyhYc68UcxN8ChfWjFzVpXOCMYaEAR/0NV64UOAEko9w==
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@connectrpc/connect/-/connect-1.1.2.tgz#d1b5fa1dcec310a8210c1523c99abdc227643f4b"
+  integrity sha512-oDuKJFRORtzyH4IhZyNgIQ5DKjlDnbP72AH55Aabpc0fwApyus/h4cmYU1KDvahVbqsvUOpd5qUTyMH8IhMmLA==
 
 "@cspotcode/source-map-support@^0.8.0":
   version "0.8.1"
