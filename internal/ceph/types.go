@@ -239,3 +239,38 @@ func (hs *HealthStatus) ObjectSize() int64 {
 
 	return int64(size)
 }
+
+type BlockImageResponse struct {
+	BlockImages []BlockImage
+}
+
+type BlockImage struct {
+	BlockImageValue BlockImageValue `json:"value"`
+	PoolName        string          `json:"pool_name"`
+}
+
+type BlockImageValue []struct {
+	Size            int           `json:"size"`
+	ObjSize         int           `json:"obj_size"`
+	NumObjs         int           `json:"num_objs"`
+	Order           int           `json:"order"`
+	BlockNamePrefix string        `json:"block_name_prefix"`
+	MirrorMode      string        `json:"mirror_mode"`
+	Name            string        `json:"name"`
+	UniqueId        string        `json:"unique_id"`
+	Id              string        `json:"id"`
+	ImageFormat     int           `json:"image_format"`
+	PoolName        string        `json:"pool_name"`
+	Namespace       string        `json:"namespace"`
+	Features        int           `json:"features"`
+	FeaturesName    []string      `json:"features_name"`
+	Timestamp       time.Time     `json:"timestamp"`
+	StripeCount     int           `json:"stripe_count"`
+	StripeUnit      int           `json:"stripe_unit"`
+	DataPool        interface{}   `json:"data_pool"`
+	Parent          interface{}   `json:"parent"`
+	Snapshots       []interface{} `json:"snapshots"`
+	TotalDiskUsage  interface{}   `json:"total_disk_usage"`
+	DiskUsage       interface{}   `json:"disk_usage"`
+	Configuration   []interface{} `json:"configuration"`
+}
