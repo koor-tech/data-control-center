@@ -104,6 +104,12 @@ func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[stats
 		activeAndCleanPGs += pool.PgStatus.ActiveClean
 	}
 
+	//blockImages, err := s.ceph(ctx).GetBlockImage()
+	//if err != {
+	// 	return nil, connect.NewError(connect.CodeInternal, fmt.Errorf("error caused by %w", err))
+	// }
+	// volumes = len(blockImages)
+
 	now := time.Now()
 
 	resp := &statspb.GetClusterStatsResponse{

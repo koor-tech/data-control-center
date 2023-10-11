@@ -5,16 +5,6 @@ type AuthRequest struct {
 	Password string `json:"password"`
 }
 
-type Headers struct {
-	Accept      string `json:"Accept"`
-	ContentType string `json:"Content-Type"`
-}
-
-var headers = Headers{
-	Accept:      "application/vnd.ceph.api.v1.0+json",
-	ContentType: "application/json",
-}
-
 type Permissions struct {
 	CephFS            []string `json:"cephfs"`
 	ConfigOpt         []string `json:"config-opt"`
@@ -43,3 +33,21 @@ type ResponseData struct {
 	SSO               bool        `json:"sso"`
 	PwdUpdateRequired bool        `json:"pwdUpdateRequired"`
 }
+
+// CephApiVersion defines custom type to manage versions of the api
+type CephApiVersion string
+
+const (
+	CephApiVersionV01 CephApiVersion = "vnd.ceph.api.v0.1+json"
+	CephApiVersionV10 CephApiVersion = "vnd.ceph.api.v1.0+json"
+	CephApiVersionV20 CephApiVersion = "vnd.ceph.api.v2.0+json"
+)
+
+// CephApiEndpoint define each endpoint available on ceph api
+type CephApiEndpoint string
+
+const (
+	CephApiEndpointAuth       CephApiEndpoint = "/auth"
+	CephApiEndpointHealthFull CephApiEndpoint = "/health/full"
+	CephApiEndpointBlockImage CephApiEndpoint = "/block/image"
+)

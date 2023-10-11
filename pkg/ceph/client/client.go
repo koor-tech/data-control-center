@@ -40,7 +40,7 @@ func (c *Client) Auth(ctx context.Context) error {
 	}
 
 	payloadBytes, _ := json.Marshal(payload)
-	resp, err := c.MakeRequest(ctx, http.MethodPost, "/auth", payloadBytes)
+	resp, err := c.MakeRequest(ctx, NewEndpointAuth(payloadBytes))
 	if err != nil {
 		return err
 	}
@@ -68,16 +68,17 @@ func (c *Client) CreateCall(method, apiUrl string, payload *bytes.Buffer) (*http
 }
 
 // MakeRequest makes a GET or POST (for now) requests to interact with the ceph api
-func (c *Client) MakeRequest(ctx context.Context, method, url string, payloadBytes []byte) (*http.Response, error) {
-	apiUrl := fmt.Sprintf("%s%s", c.apiConfig.Url, url)
-
-	req, err := c.CreateCall(method, apiUrl, bytes.NewBuffer(payloadBytes))
+// func (c *Client) MakeRequest(ctx context.Context, method, url string, payloadBytes []byte) (*http.Response, error) {
+func (c *Client) MakeRequest(ctx context.Context, e *Endpoint) (*http.Response, error) {
+	apiUrl := fmt.Sprintf("%s%s", c.apiConfig.Url, e.Url)
+	req, err := c.CreateCall(e.Method, apiUrl, e.Payload)
 	if err != nil {
 		return nil, fmt.Errorf("error creating request: %w", err)
 	}
 
-	req.Header.Set("Accept", headers.Accept)
-	req.Header.Set("Content-Type", headers.ContentType)
+	for hName, hValue := range e.Headers() {
+		req.Header.Set(hName, hValue)
+	}
 
 	// the token is used to make request with authentication
 	if c.Token != nil {

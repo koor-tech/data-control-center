@@ -44,7 +44,7 @@ func (s *Service) GetHealthFull(ctx context.Context) (*HealthStatus, error) {
 		return nil, ErrorUnableToAuthenticate
 	}
 
-	resp, err := s.apiClient.MakeRequest(ctx, http.MethodGet, "/health/full", nil)
+	resp, err := s.apiClient.MakeRequest(ctx, client.NewEndpointHealthFull())
 	if err != nil {
 		s.logger.Error(ErrorUnableToConnectWithApi.Error(), zap.Error(err))
 		return nil, ErrorUnableToConnectWithApi
@@ -62,4 +62,30 @@ func (s *Service) GetHealthFull(ctx context.Context) (*HealthStatus, error) {
 	}
 
 	return &healthStatus, nil
+}
+
+func (s *Service) GetBlockImage(ctx context.Context) (*BlockImageResponse, error) {
+	if err := s.apiClient.Auth(ctx); err != nil {
+		s.logger.Error(ErrorUnableToAuthenticate.Error(), zap.Error(err))
+		return nil, ErrorUnableToAuthenticate
+	}
+
+	resp, err := s.apiClient.MakeRequest(ctx, client.NewEndpointBlockImage())
+	if err != nil {
+		s.logger.Error(ErrorUnableToConnectWithApi.Error(), zap.Error(err))
+		return nil, ErrorUnableToConnectWithApi
+	}
+
+	if resp.StatusCode != http.StatusOK {
+		s.logger.Error(ErrorUnableToConnectWithApi.Error(), zap.Error(err))
+		return nil, ErrorUnableToConnectWithApi
+	}
+
+	var bir BlockImageResponse
+	if err := json.NewDecoder(resp.Body).Decode(&bir); err != nil {
+		s.logger.Error("error decoding response", zap.Error(err))
+		return nil, fmt.Errorf("error decoding response %w", err)
+	}
+
+	return &bir, nil
 }
