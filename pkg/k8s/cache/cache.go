@@ -11,7 +11,9 @@ import (
 	"github.com/koor-tech/data-control-center/pkg/config"
 	"github.com/koor-tech/data-control-center/pkg/k8s"
 	"go.uber.org/fx"
+	"go.uber.org/multierr"
 	"go.uber.org/zap"
+	"k8s.io/apimachinery/pkg/api/errors"
 )
 
 var Module = fx.Module("k8s_cache",
@@ -65,8 +67,10 @@ func New(p Params) *Cache {
 	}
 
 	p.LC.Append(fx.Hook{
-		OnStart: func(context.Context) error {
-			c.run()
+		OnStart: func(ctx context.Context) error {
+			if err := c.run(ctx); err != nil {
+				return err
+			}
 
 			c.wg.Add(1)
 			go func() {
@@ -74,7 +78,12 @@ func New(p Params) *Cache {
 				for {
 					select {
 					case <-time.After(3 * time.Second):
-						c.run()
+						func() {
+							ctx, cancel := context.WithTimeout(c.ctx, 15*time.Second)
+							defer cancel()
+
+							c.run(ctx)
+						}()
 
 					case <-c.ctx.Done():
 						return
@@ -97,15 +106,18 @@ func New(p Params) *Cache {
 	return c
 }
 
-func (c *Cache) run() {
+func (c *Cache) run(ctx context.Context) error {
 	wg := sync.WaitGroup{}
+
+	errs := multierr.Combine()
 
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		clusterDeployments, err := c.k8s.GetClusterDeployments(c.ctx, c.namespace)
+		clusterDeployments, err := c.k8s.GetClusterDeployments(ctx, c.namespace)
 		if err != nil {
 			c.logger.Error("failed to update cluster deployments cache", zap.Error(err))
+			errs = multierr.Append(errs, err)
 			return
 		}
 		c.clusterDeployments.Set(clusterDeployments)
@@ -114,9 +126,10 @@ func (c *Cache) run() {
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		nodes, err := c.k8s.GetStorageNodes(c.ctx, c.namespace)
+		nodes, err := c.k8s.GetStorageNodes(ctx, c.namespace)
 		if err != nil {
 			c.logger.Error("failed to update storage nodes cache", zap.Error(err))
+			errs = multierr.Append(errs, err)
 			return
 		}
 		c.storageNodes.Set(nodes)
@@ -125,9 +138,10 @@ func (c *Cache) run() {
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		resources, err := c.k8s.GetCephResources(c.ctx, c.namespace)
+		resources, err := c.k8s.GetCephResources(ctx, c.namespace)
 		if err != nil {
 			c.logger.Error("failed to update ceph resources cache", zap.Error(err))
+			errs = multierr.Append(errs, err)
 			return
 		}
 		c.cephResources.Set(resources)
@@ -136,15 +150,21 @@ func (c *Cache) run() {
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		cluster, err := c.k8s.GetKoorCluster(c.ctx, c.namespace)
+		cluster, err := c.k8s.GetKoorCluster(ctx, c.namespace)
 		if err != nil {
-			c.logger.Error("failed to update koor cluster cache", zap.Error(err))
+			// Ignore if the cluster doesn't have the koor-operator CRDs already
+			if !errors.IsNotFound(err) {
+				c.logger.Error("failed to update koor cluster cache", zap.Error(err))
+				errs = multierr.Append(errs, err)
+			}
 			return
 		}
 		c.koorCluster.Set(cluster)
 	}()
 
 	wg.Wait()
+
+	return errs
 }
 
 func (c *Cache) GetClusterDeployments(namespace string) ([]*statsv1.ResourceInfo, bool) {
