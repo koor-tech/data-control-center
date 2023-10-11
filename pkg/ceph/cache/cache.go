@@ -8,6 +8,7 @@ import (
 	"github.com/koor-tech/data-control-center/internal/ceph"
 	"github.com/koor-tech/data-control-center/pkg/cache"
 	"go.uber.org/fx"
+	"go.uber.org/multierr"
 	"go.uber.org/zap"
 )
 
@@ -51,8 +52,10 @@ func New(p Params) *Cache {
 	}
 
 	p.LC.Append(fx.Hook{
-		OnStart: func(context.Context) error {
-			c.run()
+		OnStart: func(ctx context.Context) error {
+			if err := c.run(ctx); err != nil {
+				return err
+			}
 
 			c.wg.Add(1)
 			go func() {
@@ -60,7 +63,12 @@ func New(p Params) *Cache {
 				for {
 					select {
 					case <-time.After(3 * time.Second):
-						c.run()
+						func() {
+							ctx, cancel := context.WithTimeout(c.ctx, 15*time.Second)
+							defer cancel()
+
+							c.run(ctx)
+						}()
 
 					case <-c.ctx.Done():
 						return
@@ -83,21 +91,26 @@ func New(p Params) *Cache {
 	return c
 }
 
-func (c *Cache) run() {
+func (c *Cache) run(ctx context.Context) error {
 	wg := sync.WaitGroup{}
+
+	errs := multierr.Combine()
 
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		healthStatus, err := c.ceph.GetHealthFull(c.ctx)
+		healthStatus, err := c.ceph.GetHealthFull(ctx)
 		if err != nil {
 			c.logger.Error("failed to update cluster deployments cache", zap.Error(err))
+			errs = multierr.Append(errs, err)
 			return
 		}
 		c.healthStatus.Set(healthStatus)
 	}()
 
 	wg.Wait()
+
+	return errs
 }
 
 func (c *Cache) GetHealthFull(ctx context.Context) (*ceph.HealthStatus, bool) {
