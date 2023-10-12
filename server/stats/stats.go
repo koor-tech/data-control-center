@@ -104,11 +104,8 @@ func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[stats
 		activeAndCleanPGs += pool.PgStatus.ActiveClean
 	}
 
-	//blockImages, err := s.ceph(ctx).GetBlockImage()
-	//if err != {
-	// 	return nil, connect.NewError(connect.CodeInternal, fmt.Errorf("error caused by %w", err))
-	// }
-	// volumes = len(blockImages)
+	blockImages, _ := s.ceph.GetBlockImages(ctx)
+	volumes := len(blockImages)
 
 	now := time.Now()
 
@@ -147,7 +144,7 @@ func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[stats
 				},
 			},
 			Data: &statsv1.Data{
-				Volumes: int32(1), // TODO still figuring out https://linear.app/koorinc/issue/KSD-290/
+				Volumes: int32(volumes),
 				Pools: &statsv1.Pools{
 					Pools: int32(poolCount),
 					Pgs: &statsv1.PGs{
