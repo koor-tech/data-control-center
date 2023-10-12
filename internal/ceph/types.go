@@ -240,16 +240,12 @@ func (hs *HealthStatus) ObjectSize() int64 {
 	return int64(size)
 }
 
-type BlockImageResponse struct {
-	BlockImages []BlockImage
-}
-
 type BlockImage struct {
-	BlockImageValue BlockImageValue `json:"value"`
-	PoolName        string          `json:"pool_name"`
+	BlockImageValue []BlockImageValue `json:"value"`
+	PoolName        string            `json:"pool_name"`
 }
 
-type BlockImageValue []struct {
+type BlockImageValue struct {
 	Size            int           `json:"size"`
 	ObjSize         int           `json:"obj_size"`
 	NumObjs         int           `json:"num_objs"`

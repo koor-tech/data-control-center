@@ -31,6 +31,7 @@ type Cache struct {
 	ceph *ceph.Service
 
 	healthStatus cache.CacheEntry[*ceph.HealthStatus]
+	rbdImages    cache.CacheEntry[[]ceph.BlockImage]
 }
 
 type Params struct {
@@ -105,6 +106,15 @@ func (c *Cache) run(ctx context.Context) error {
 			errs = multierr.Append(errs, err)
 			return
 		}
+
+		blockImages, err := c.ceph.GetBlockImage(ctx)
+		if err != nil {
+			c.logger.Error("failed to update block image cache", zap.Error(err))
+			errs = multierr.Append(errs, err)
+			return
+		}
+
+		c.rbdImages.Set(blockImages)
 		c.healthStatus.Set(healthStatus)
 	}()
 
@@ -113,6 +123,10 @@ func (c *Cache) run(ctx context.Context) error {
 	return errs
 }
 
-func (c *Cache) GetHealthFull(ctx context.Context) (*ceph.HealthStatus, bool) {
+func (c *Cache) GetHealthFull(_ context.Context) (*ceph.HealthStatus, bool) {
 	return c.healthStatus.Get()
+}
+
+func (c *Cache) GetBlockImages(_ context.Context) ([]ceph.BlockImage, bool) {
+	return c.rbdImages.Get()
 }

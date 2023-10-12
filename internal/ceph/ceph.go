@@ -64,7 +64,7 @@ func (s *Service) GetHealthFull(ctx context.Context) (*HealthStatus, error) {
 	return &healthStatus, nil
 }
 
-func (s *Service) GetBlockImage(ctx context.Context) (*BlockImageResponse, error) {
+func (s *Service) GetBlockImage(ctx context.Context) ([]BlockImage, error) {
 	if err := s.apiClient.Auth(ctx); err != nil {
 		s.logger.Error(ErrorUnableToAuthenticate.Error(), zap.Error(err))
 		return nil, ErrorUnableToAuthenticate
@@ -81,11 +81,10 @@ func (s *Service) GetBlockImage(ctx context.Context) (*BlockImageResponse, error
 		return nil, ErrorUnableToConnectWithApi
 	}
 
-	var bir BlockImageResponse
-	if err := json.NewDecoder(resp.Body).Decode(&bir); err != nil {
+	var blockImage []BlockImage
+	if err := json.NewDecoder(resp.Body).Decode(&blockImage); err != nil {
 		s.logger.Error("error decoding response", zap.Error(err))
 		return nil, fmt.Errorf("error decoding response %w", err)
 	}
-
-	return &bir, nil
+	return blockImage, nil
 }
