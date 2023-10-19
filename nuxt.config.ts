@@ -29,15 +29,6 @@ const config = defineNuxtConfig({
             enabled: true,
         },
     },
-    pinia: {
-        autoImports: [
-            // automatically imports `defineStore`
-            'defineStore', // import { defineStore } from 'pinia'
-            ['defineStore', 'definePiniaStore'], // import { defineStore as definePiniaStore } from 'pinia'
-            'acceptHMRUpdate', // import { acceptHMRUpdate } from 'pinia'
-            'storeToRefs',
-        ],
-    },
     robots: {
         rules: {
             UserAgent: '*',
