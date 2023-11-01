@@ -3,6 +3,9 @@
 
 ## Table of Contents
 
+- [api/resources/ceph/v1/ceph.proto](#api_resources_ceph_v1_ceph-proto)
+    - [User](#api-resources-ceph-v1-User)
+  
 - [api/resources/koor/v1/koor.proto](#api_resources_koor_v1_koor-proto)
     - [ClusterResources](#api-resources-koor-v1-ClusterResources)
     - [DetailedProductVersions](#api-resources-koor-v1-DetailedProductVersions)
@@ -52,6 +55,14 @@
   
     - [AuthService](#api-services-auth-v1-AuthService)
   
+- [api/services/ceph/v1/ceph.proto](#api_services_ceph_v1_ceph-proto)
+    - [CephUsersResponse](#api-services-ceph-v1-CephUsersResponse)
+    - [CreatCephUsersRequest](#api-services-ceph-v1-CreatCephUsersRequest)
+    - [GetCephUsersRequest](#api-services-ceph-v1-GetCephUsersRequest)
+    - [GetCephUsersResponse](#api-services-ceph-v1-GetCephUsersResponse)
+  
+    - [CephService](#api-services-ceph-v1-CephService)
+  
 - [api/services/cluster/v1/cluster.proto](#api_services_cluster_v1_cluster-proto)
     - [GetKoorClusterRequest](#api-services-cluster-v1-GetKoorClusterRequest)
     - [GetKoorClusterResponse](#api-services-cluster-v1-GetKoorClusterResponse)
@@ -75,6 +86,42 @@
     - [StatsService](#api-services-stats-v1-StatsService)
   
 - [Scalar Value Types](#scalar-value-types)
+
+
+
+<a name="api_resources_ceph_v1_ceph-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## api/resources/ceph/v1/ceph.proto
+
+
+
+<a name="api-resources-ceph-v1-User"></a>
+
+### User
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| Username | [string](#string) |  |  |
+| Name | [string](#string) |  |  |
+| Email | [string](#string) |  |  |
+| Password | [string](#string) |  |  |
+| Enabled | [bool](#bool) |  |  |
+| Roles | [string](#string) | repeated |  |
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+ 
 
 
 
@@ -788,6 +835,88 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 | Login | [LoginRequest](#api-services-auth-v1-LoginRequest) | [LoginResponse](#api-services-auth-v1-LoginResponse) |  |
 | Logout | [LogoutRequest](#api-services-auth-v1-LogoutRequest) | [LogoutResponse](#api-services-auth-v1-LogoutResponse) |  |
 | CheckToken | [CheckTokenRequest](#api-services-auth-v1-CheckTokenRequest) | [CheckTokenResponse](#api-services-auth-v1-CheckTokenResponse) |  |
+
+ 
+
+
+
+<a name="api_services_ceph_v1_ceph-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## api/services/ceph/v1/ceph.proto
+
+
+
+<a name="api-services-ceph-v1-CephUsersResponse"></a>
+
+### CephUsersResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| cephUser | [api.resources.ceph.v1.User](#api-resources-ceph-v1-User) |  |  |
+
+
+
+
+
+
+<a name="api-services-ceph-v1-CreatCephUsersRequest"></a>
+
+### CreatCephUsersRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| cephUser | [api.resources.ceph.v1.User](#api-resources-ceph-v1-User) |  |  |
+
+
+
+
+
+
+<a name="api-services-ceph-v1-GetCephUsersRequest"></a>
+
+### GetCephUsersRequest
+
+
+
+
+
+
+
+<a name="api-services-ceph-v1-GetCephUsersResponse"></a>
+
+### GetCephUsersResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| cephUsers | [api.resources.ceph.v1.User](#api-resources-ceph-v1-User) | repeated |  |
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+
+<a name="api-services-ceph-v1-CephService"></a>
+
+### CephService
+
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| GetCephUsers | [GetCephUsersRequest](#api-services-ceph-v1-GetCephUsersRequest) | [GetCephUsersResponse](#api-services-ceph-v1-GetCephUsersResponse) |  |
+| CreateCephUsers | [CreatCephUsersRequest](#api-services-ceph-v1-CreatCephUsersRequest) | [CephUsersResponse](#api-services-ceph-v1-CephUsersResponse) |  |
 
  
 

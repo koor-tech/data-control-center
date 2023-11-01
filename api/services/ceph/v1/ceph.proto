@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package api.services.ceph.v1;
+
+import "api/resources/ceph/v1/ceph.proto";
+
+option go_package = "github.com/koor-tech/data-control-center/gen/go/api/services/ceph";
+
+message GetCephUsersRequest {}
+
+message GetCephUsersResponse {
+ repeated api.resources.ceph.v1.User cephUsers = 1;
+}
+
+message CreatCephUsersRequest {
+  api.resources.ceph.v1.User cephUser = 1;
+}
+
+message CephUsersResponse {
+  api.resources.ceph.v1.User cephUser = 1;
+}
+
+service CephService {
+  rpc GetCephUsers(GetCephUsersRequest) returns (GetCephUsersResponse) {}
+  rpc CreateCephUsers(CreatCephUsersRequest) returns (CephUsersResponse) {}
+}

@@ -84,6 +84,13 @@ const sidebarNavigation = ref<
 
     // Bottom
     {
+        name: 'Ceph Settings',
+        href: { name: 'ceph' },
+        icon: markRaw(TuneIcon),
+        position: 'top',
+        current: false,
+    },
+    {
         name: 'Knowledge Center',
         href: 'https://kb.koor.tech',
         external: true,

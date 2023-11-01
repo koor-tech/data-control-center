@@ -31,6 +31,7 @@ import (
 
 	// Connect Services - Need to be added here
 	serverauth "github.com/koor-tech/data-control-center/server/auth"
+	serverceph "github.com/koor-tech/data-control-center/server/ceph"
 	servercluster "github.com/koor-tech/data-control-center/server/cluster"
 	serverstats "github.com/koor-tech/data-control-center/server/stats"
 )
@@ -190,6 +191,7 @@ func StartHTTPServer() {
 			AsService(serverauth.New),
 			AsService(servercluster.New),
 			AsService(serverstats.New),
+			AsService(serverceph.New),
 		),
 
 		fx.Invoke(func(*http.Server) {}),

@@ -7,6 +7,7 @@ import { useNotificationsStore } from '~/store/notifications';
 import { AuthService } from '~~/gen/ts/api/services/auth/v1/auth_connect';
 import { ClusterService } from '~~/gen/ts/api/services/cluster/v1/cluster_connect';
 import { StatsService } from '~~/gen/ts/api/services/stats/v1/stats_connect';
+import {CephService} from "~~/gen/ts/api/services/ceph/v1/ceph_connect";
 
 export default defineNuxtPlugin(() => {
     return {
@@ -116,6 +117,16 @@ export class GRPCClients {
                 interceptors: [authInterceptor],
             }),
         );
+    }
+
+    getCephUsers(): PromiseClient<typeof CephService> {
+        return createPromiseClient(
+            CephService,
+            createConnectTransport({
+                baseUrl: useConfigStore().appConfig.baseUrl,
+                interceptors: [authInterceptor],
+            })
+        )
     }
 
     getClusterClient(): PromiseClient<typeof ClusterService> {
