@@ -2,6 +2,7 @@ package ceph
 
 import (
 	"encoding/json"
+	"errors"
 	statsv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/stats/v1"
 	"time"
 )
@@ -269,4 +270,36 @@ type BlockImageValue struct {
 	TotalDiskUsage  interface{}   `json:"total_disk_usage"`
 	DiskUsage       interface{}   `json:"disk_usage"`
 	Configuration   []interface{} `json:"configuration"`
+}
+
+type User struct {
+	Username          string   `json:"username"`
+	Name              string   `json:"name"`
+	Email             string   `json:"email"`
+	Roles             []string `json:"roles"`
+	LastUpdate        int      `json:"lastUpdate"`
+	Enabled           bool     `json:"enabled"`
+	PwdExpirationDate float64  `json:"pwdExpirationDate"`
+	PwdUpdateRequired bool     `json:"pwdUpdateRequired"`
+}
+
+type UserCreate struct {
+	Username          string   `json:"username"`
+	Name              string   `json:"name"`
+	Email             string   `json:"email"`
+	Password          string   `json:"password"`
+	Roles             []string `json:"roles"`
+	Enabled           bool     `json:"enabled"`
+	PwdExpirationDate float64  `json:"pwdExpirationDate"`
+	PwdUpdateRequired bool     `json:"pwdUpdateRequired"`
+}
+
+type ErrorCephApi struct {
+	Detail    string `json:"detail"`
+	Code      string `json:"code"`
+	Component string `json:"component"`
+}
+
+func (e *ErrorCephApi) Error() error {
+	return errors.New(e.Detail)
 }

@@ -50,4 +50,5 @@ const (
 	CephApiEndpointAuth       CephApiEndpoint = "/auth"
 	CephApiEndpointHealthFull CephApiEndpoint = "/health/full"
 	CephApiEndpointBlockImage CephApiEndpoint = "/block/image"
+	CephApiEndpointUsers      CephApiEndpoint = "/user"
 )

@@ -45,3 +45,20 @@ func NewEndpointBlockImage() *Endpoint {
 		Method:     http.MethodGet,
 	}
 }
+
+func NewEndpointUsers() *Endpoint {
+	return &Endpoint{
+		Url:        CephApiEndpointUsers,
+		ApiVersion: CephApiVersionV10,
+		Method:     http.MethodGet,
+	}
+}
+
+func NewPostEndpointUsers(payload []byte) *Endpoint {
+	return &Endpoint{
+		Url:        CephApiEndpointUsers,
+		ApiVersion: CephApiVersionV10,
+		Method:     http.MethodPost,
+		Payload:    bytes.NewBuffer(payload),
+	}
+}

@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package api.resources.ceph.v1;
+
+option go_package = "github.com/koor-tech/data-control-center/gen/go/api/resources/ceph;ceph";
+
+message User {
+  string Username = 1;
+  string Name = 2;
+  string Email = 3;
+  string Password = 4;
+  bool  Enabled = 5;
+  repeated string Roles = 6;
+}
