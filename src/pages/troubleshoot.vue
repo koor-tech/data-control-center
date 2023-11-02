@@ -2,13 +2,16 @@
 import { ConnectError } from '@connectrpc/connect';
 import { useThrottleFn } from '@vueuse/core';
 import GenericDivider from '~/components/partials/GenericDivider.vue';
+import DataErrorBlock from '~/components/partials/data/DataErrorBlock.vue';
+import DataNoDataBlock from '~/components/partials/data/DataNoDataBlock.vue';
+import DataPendingBlock from '~/components/partials/data/DataPendingBlock.vue';
 import { useClusterStore } from '~/store/cluster';
 
 useHead({
-    title: 'Troubleshooting',
+    title: 'Troubleshoot',
 });
 definePageMeta({
-    title: 'Troubleshooting',
+    title: 'Troubleshoot',
     requiresAuth: true,
 });
 
@@ -16,7 +19,12 @@ const { $grpc } = useNuxtApp();
 
 const clusterStore = useClusterStore();
 
-const { data: report, refresh } = useLazyAsyncData(
+const {
+    data: report,
+    error,
+    pending,
+    refresh,
+} = useLazyAsyncData(
     'cluster-troubleshoot_report',
     async () => {
         try {
@@ -53,9 +61,19 @@ const onSubmitThrottle = useThrottleFn(async (_) => {
                 Generate Troubleshoot Report
             </button>
         </div>
-        <div v-if="report" class="flex">
-            <GenericDivider />
-            <textarea :value="report.report" />
+        <div v-if="report" class="mt-4 flex flex-col">
+            <GenericDivider label="Report" />
+
+            <DataErrorBlock v-if="error" :retry="refresh" :message="error.value?.message" />
+            <DataPendingBlock v-else-if="pending" message="Loading Troubleshoot report" />
+            <DataNoDataBlock v-else-if="!report || !report.report" />
+            <textarea
+                v-else
+                :value="report.report"
+                rows="10"
+                name="comment"
+                class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
         </div>
     </div>
 </template>

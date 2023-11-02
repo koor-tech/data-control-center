@@ -76,7 +76,7 @@ const sidebarNavigation = ref<
     },
     {
         name: 'Troubleshooting',
-        href: { name: 'troubleshooting' },
+        href: { name: 'troubleshoot' },
         icon: markRaw(HelpBoxMultipleIcon),
         position: 'top',
         current: false,

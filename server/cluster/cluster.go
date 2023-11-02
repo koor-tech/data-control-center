@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"connectrpc.com/connect"
+	"github.com/gin-gonic/gin"
 	clusterpb "github.com/koor-tech/data-control-center/gen/go/api/services/cluster/v1"
 	"github.com/koor-tech/data-control-center/gen/go/api/services/cluster/v1/clusterv1connect"
 	"github.com/koor-tech/data-control-center/pkg/config"
@@ -42,6 +43,13 @@ func New(p Params) (*Server, error) {
 	}, nil
 }
 
+func (s *Server) RegisterService(g *gin.RouterGroup) {
+	path, handler := clusterv1connect.NewClusterServiceHandler(s, connect.WithInterceptors(
+		s.auth.NewAuthInterceptor(),
+	))
+	g.Any(path+"/*path", gin.WrapH(handler))
+}
+
 func (s *Server) GetKoorCluster(ctx context.Context, req *connect.Request[clusterpb.GetKoorClusterRequest]) (*connect.Response[clusterpb.GetKoorClusterResponse], error) {
 	kc, _ := s.k.GetKoorCluster(s.Namespace)
 
@@ -57,7 +65,7 @@ func (s *Server) GetTroubleshootReport(ctx context.Context, req *connect.Request
 		Content string
 	}{}
 
-	// TODO
+	// TODO get k8s, rook pod versions, ceph version and the custom resource infos
 
 	report := ""
 	if len(reportContent) == 0 {
