@@ -9,11 +9,11 @@ export function toDate(ts: Timestamp | undefined): Date {
 }
 
 export function toDateLocaleString(ts: Timestamp | undefined): string {
-    if (typeof ts === undefined) {
+    if (typeof ts === 'undefined') {
         return '-';
     }
 
-    return ts?.toDate().toLocaleDateString()!;
+    return ts.toDate().toLocaleDateString()!;
 }
 
 export function fromString(time: string): Date {

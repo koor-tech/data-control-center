@@ -940,6 +940,146 @@ var _ interface {
 	ErrorName() string
 } = UpgradeOptionsValidationError{}
 
+// Validate checks the field values on OSDScrubbingSchedule with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *OSDScrubbingSchedule) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on OSDScrubbingSchedule with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// OSDScrubbingScheduleMultiError, or nil if none found.
+func (m *OSDScrubbingSchedule) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *OSDScrubbingSchedule) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ApplySchedule
+
+	if m.MaxScrubOps != nil {
+		// no validation rules for MaxScrubOps
+	}
+
+	if m.BeginHour != nil {
+		// no validation rules for BeginHour
+	}
+
+	if m.EndHour != nil {
+		// no validation rules for EndHour
+	}
+
+	if m.BeginWeekDay != nil {
+		// no validation rules for BeginWeekDay
+	}
+
+	if m.EndWeekDay != nil {
+		// no validation rules for EndWeekDay
+	}
+
+	if m.MinScrubInterval != nil {
+		// no validation rules for MinScrubInterval
+	}
+
+	if m.MaxScrubInterval != nil {
+		// no validation rules for MaxScrubInterval
+	}
+
+	if m.DeepScrubInterval != nil {
+		// no validation rules for DeepScrubInterval
+	}
+
+	if m.ScrubSleepSeconds != nil {
+		// no validation rules for ScrubSleepSeconds
+	}
+
+	if len(errors) > 0 {
+		return OSDScrubbingScheduleMultiError(errors)
+	}
+
+	return nil
+}
+
+// OSDScrubbingScheduleMultiError is an error wrapping multiple validation
+// errors returned by OSDScrubbingSchedule.ValidateAll() if the designated
+// constraints aren't met.
+type OSDScrubbingScheduleMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m OSDScrubbingScheduleMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m OSDScrubbingScheduleMultiError) AllErrors() []error { return m }
+
+// OSDScrubbingScheduleValidationError is the validation error returned by
+// OSDScrubbingSchedule.Validate if the designated constraints aren't met.
+type OSDScrubbingScheduleValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e OSDScrubbingScheduleValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e OSDScrubbingScheduleValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e OSDScrubbingScheduleValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e OSDScrubbingScheduleValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e OSDScrubbingScheduleValidationError) ErrorName() string {
+	return "OSDScrubbingScheduleValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e OSDScrubbingScheduleValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sOSDScrubbingSchedule.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = OSDScrubbingScheduleValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = OSDScrubbingScheduleValidationError{}
+
 // Validate checks the field values on KoorClusterSpec with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.
@@ -1110,6 +1250,35 @@ func (m *KoorClusterSpec) validate(all bool) error {
 	// no validation rules for KsdReleaseName
 
 	// no validation rules for KsdClusterReleaseName
+
+	if all {
+		switch v := interface{}(m.GetOsdScrubbingSchedule()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, KoorClusterSpecValidationError{
+					field:  "OsdScrubbingSchedule",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, KoorClusterSpecValidationError{
+					field:  "OsdScrubbingSchedule",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetOsdScrubbingSchedule()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return KoorClusterSpecValidationError{
+				field:  "OsdScrubbingSchedule",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return KoorClusterSpecMultiError(errors)

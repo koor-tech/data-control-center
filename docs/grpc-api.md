@@ -10,6 +10,7 @@
     - [KoorCluster](#api-resources-koor-v1-KoorCluster)
     - [KoorClusterSpec](#api-resources-koor-v1-KoorClusterSpec)
     - [KoorClusterStatus](#api-resources-koor-v1-KoorClusterStatus)
+    - [OSDScrubbingSchedule](#api-resources-koor-v1-OSDScrubbingSchedule)
     - [ProductVersions](#api-resources-koor-v1-ProductVersions)
     - [UpgradeOptions](#api-resources-koor-v1-UpgradeOptions)
   
@@ -51,6 +52,16 @@
   
     - [AuthService](#api-services-auth-v1-AuthService)
   
+- [api/services/cluster/v1/cluster.proto](#api_services_cluster_v1_cluster-proto)
+    - [GetKoorClusterRequest](#api-services-cluster-v1-GetKoorClusterRequest)
+    - [GetKoorClusterResponse](#api-services-cluster-v1-GetKoorClusterResponse)
+    - [GetTroubleshootReportRequest](#api-services-cluster-v1-GetTroubleshootReportRequest)
+    - [GetTroubleshootReportResponse](#api-services-cluster-v1-GetTroubleshootReportResponse)
+    - [SetScrubbingScheduleRequest](#api-services-cluster-v1-SetScrubbingScheduleRequest)
+    - [SetScrubbingScheduleResponse](#api-services-cluster-v1-SetScrubbingScheduleResponse)
+  
+    - [ClusterService](#api-services-cluster-v1-ClusterService)
+  
 - [api/services/stats/v1/stats.proto](#api_services_stats_v1_stats-proto)
     - [GetClusterNodesRequest](#api-services-stats-v1-GetClusterNodesRequest)
     - [GetClusterNodesResponse](#api-services-stats-v1-GetClusterNodesResponse)
@@ -60,8 +71,6 @@
     - [GetClusterResourcesResponse](#api-services-stats-v1-GetClusterResourcesResponse)
     - [GetClusterStatsRequest](#api-services-stats-v1-GetClusterStatsRequest)
     - [GetClusterStatsResponse](#api-services-stats-v1-GetClusterStatsResponse)
-    - [GetKoorClusterRequest](#api-services-stats-v1-GetKoorClusterRequest)
-    - [GetKoorClusterResponse](#api-services-stats-v1-GetKoorClusterResponse)
   
     - [StatsService](#api-services-stats-v1-StatsService)
   
@@ -163,6 +172,7 @@ Represents the state of KoorCluster
 | upgrade_options | [UpgradeOptions](#api-resources-koor-v1-UpgradeOptions) |  | Specifies the upgrade options for new ceph versions |
 | ksd_release_name | [string](#string) |  | The name to use for KSD helm release. |
 | ksd_cluster_release_name | [string](#string) |  | The name to use for KSD cluster helm release. |
+| osd_scrubbing_schedule | [OSDScrubbingSchedule](#api-resources-koor-v1-OSDScrubbingSchedule) |  | OSD scrubbing schedule config |
 
 
 
@@ -181,6 +191,30 @@ Represents the status of the KoorCluster CRD
 | meets_minimum_resources | [bool](#bool) |  | Does the cluster meet the minimum recommended resources |
 | current_versions | [ProductVersions](#api-resources-koor-v1-ProductVersions) |  | The current versions of rook and ceph |
 | latest_versions | [DetailedProductVersions](#api-resources-koor-v1-DetailedProductVersions) |  | The latest versions of rook and ceph |
+
+
+
+
+
+
+<a name="api-resources-koor-v1-OSDScrubbingSchedule"></a>
+
+### OSDScrubbingSchedule
+Osd Scrubbing schedule config
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| apply_schedule | [bool](#bool) |  |  |
+| max_scrub_ops | [int64](#int64) | optional |  |
+| begin_hour | [int64](#int64) | optional |  |
+| end_hour | [int64](#int64) | optional |  |
+| begin_week_day | [int64](#int64) | optional |  |
+| end_week_day | [int64](#int64) | optional |  |
+| min_scrub_interval | [string](#string) | optional |  |
+| max_scrub_interval | [string](#string) | optional |  |
+| deep_scrub_interval | [string](#string) | optional |  |
+| scrub_sleep_seconds | [string](#string) | optional |  |
 
 
 
@@ -759,6 +793,114 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 
 
+<a name="api_services_cluster_v1_cluster-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## api/services/cluster/v1/cluster.proto
+
+
+
+<a name="api-services-cluster-v1-GetKoorClusterRequest"></a>
+
+### GetKoorClusterRequest
+
+
+
+
+
+
+
+<a name="api-services-cluster-v1-GetKoorClusterResponse"></a>
+
+### GetKoorClusterResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| koor_cluster | [api.resources.koor.v1.KoorCluster](#api-resources-koor-v1-KoorCluster) |  |  |
+
+
+
+
+
+
+<a name="api-services-cluster-v1-GetTroubleshootReportRequest"></a>
+
+### GetTroubleshootReportRequest
+
+
+
+
+
+
+
+<a name="api-services-cluster-v1-GetTroubleshootReportResponse"></a>
+
+### GetTroubleshootReportResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| report | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="api-services-cluster-v1-SetScrubbingScheduleRequest"></a>
+
+### SetScrubbingScheduleRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| osd_scrubbing_schedule | [api.resources.koor.v1.OSDScrubbingSchedule](#api-resources-koor-v1-OSDScrubbingSchedule) |  |  |
+
+
+
+
+
+
+<a name="api-services-cluster-v1-SetScrubbingScheduleResponse"></a>
+
+### SetScrubbingScheduleResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| osd_scrubbing_schedule | [api.resources.koor.v1.OSDScrubbingSchedule](#api-resources-koor-v1-OSDScrubbingSchedule) |  |  |
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+
+<a name="api-services-cluster-v1-ClusterService"></a>
+
+### ClusterService
+
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| GetKoorCluster | [GetKoorClusterRequest](#api-services-cluster-v1-GetKoorClusterRequest) | [GetKoorClusterResponse](#api-services-cluster-v1-GetKoorClusterResponse) |  |
+| GetTroubleshootReport | [GetTroubleshootReportRequest](#api-services-cluster-v1-GetTroubleshootReportRequest) | [GetTroubleshootReportResponse](#api-services-cluster-v1-GetTroubleshootReportResponse) |  |
+| SetScrubbingSchedule | [SetScrubbingScheduleRequest](#api-services-cluster-v1-SetScrubbingScheduleRequest) | [SetScrubbingScheduleResponse](#api-services-cluster-v1-SetScrubbingScheduleResponse) |  |
+
+ 
+
+
+
 <a name="api_services_stats_v1_stats-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -866,31 +1008,6 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 
 
-
-<a name="api-services-stats-v1-GetKoorClusterRequest"></a>
-
-### GetKoorClusterRequest
-
-
-
-
-
-
-
-<a name="api-services-stats-v1-GetKoorClusterResponse"></a>
-
-### GetKoorClusterResponse
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| koor_cluster | [api.resources.koor.v1.KoorCluster](#api-resources-koor-v1-KoorCluster) |  |  |
-
-
-
-
-
  
 
  
@@ -909,7 +1026,6 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 | GetClusterResources | [GetClusterResourcesRequest](#api-services-stats-v1-GetClusterResourcesRequest) | [GetClusterResourcesResponse](#api-services-stats-v1-GetClusterResourcesResponse) |  |
 | GetClusterNodes | [GetClusterNodesRequest](#api-services-stats-v1-GetClusterNodesRequest) | [GetClusterNodesResponse](#api-services-stats-v1-GetClusterNodesResponse) |  |
 | GetClusterRadar | [GetClusterRadarRequest](#api-services-stats-v1-GetClusterRadarRequest) | [GetClusterRadarResponse](#api-services-stats-v1-GetClusterRadarResponse) |  |
-| GetKoorCluster | [GetKoorClusterRequest](#api-services-stats-v1-GetKoorClusterRequest) | [GetKoorClusterResponse](#api-services-stats-v1-GetKoorClusterResponse) |  |
 
  
 

@@ -1,24 +1,24 @@
 import { NuxtError } from 'nuxt/app';
 import { StoreDefinition, defineStore } from 'pinia';
 
-export interface ConfigState {
-    fetched: boolean;
-    appConfig: AppConfig;
-}
-
-type AppConfig = {
-    baseUrl: string;
-    login: LoginConfig;
+type ProviderConfig = {
+    name: string;
+    label: string;
 };
 
 type LoginConfig = {
     providers: ProviderConfig[];
 };
 
-type ProviderConfig = {
-    name: string;
-    label: string;
+type AppConfig = {
+    baseUrl: string;
+    login: LoginConfig;
 };
+
+export interface ConfigState {
+    fetched: boolean;
+    appConfig: AppConfig;
+}
 
 export const useConfigStore = defineStore('config', {
     state: () =>
@@ -34,44 +34,40 @@ export const useConfigStore = defineStore('config', {
     persist: false,
     actions: {
         async loadConfig(): Promise<void> {
-            return new Promise(async (res, rej) => {
-                if (this.fetched) {
-                    return res();
-                }
+            if (this.fetched) {
+                return;
+            }
 
-                try {
-                    // 6 seconds should be enough
-                    const abort = new AbortController();
-                    const tId = setTimeout(() => abort.abort(), 8000);
+            try {
+                // 6 seconds should be enough
+                const abort = new AbortController();
+                const tId = setTimeout(() => abort.abort(), 8000);
 
-                    const resp = await fetch('/api/config', {
-                        method: 'POST',
-                        signal: abort.signal,
+                const resp = await fetch('/api/config', {
+                    method: 'POST',
+                    signal: abort.signal,
+                });
+                clearTimeout(tId);
+
+                if (!resp.ok) {
+                    const text = await resp.text();
+                    throw createError({
+                        statusCode: 500,
+                        statusMessage: 'Failed to get Koor data-control-center config from backend',
+                        message: text,
+                        fatal: true,
+                        unhandled: false,
                     });
-                    clearTimeout(tId);
-
-                    if (!resp.ok) {
-                        const text = await resp.text();
-                        throw createError({
-                            statusCode: 500,
-                            statusMessage: 'Failed to get Koor data-control-center config from backend',
-                            message: text,
-                            fatal: true,
-                            unhandled: false,
-                        });
-                    }
-                    const data = (await resp.json()) as AppConfig;
-                    data.baseUrl = '/api';
-                    this.appConfig = data;
-
-                    this.fetched = true;
-
-                    return res();
-                } catch (e) {
-                    showError(e as NuxtError);
-                    return rej(e);
                 }
-            });
+                const data = (await resp.json()) as AppConfig;
+                data.baseUrl = '/api';
+                this.appConfig = data;
+
+                this.fetched = true;
+            } catch (e) {
+                showError(e as NuxtError);
+                throw e;
+            }
         },
     },
 });

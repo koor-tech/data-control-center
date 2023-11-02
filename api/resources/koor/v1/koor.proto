@@ -86,6 +86,20 @@ message UpgradeOptions {
   string schedule = 3;
 }
 
+// Osd Scrubbing schedule config
+message OSDScrubbingSchedule {
+  bool apply_schedule = 1;
+  optional int64 max_scrub_ops = 2;
+  optional int64 begin_hour = 3;
+  optional int64 end_hour = 4;
+  optional int64 begin_week_day = 5;
+  optional int64 end_week_day = 6;
+  optional string min_scrub_interval = 7;
+  optional string max_scrub_interval = 8;
+  optional string deep_scrub_interval = 9;
+  optional string scrub_sleep_seconds = 10;
+}
+
 // Represents the state of KoorCluster
 message KoorClusterSpec {
   google.protobuf.BoolValue use_all_devices = 1; // Use all devices on nodes
@@ -95,6 +109,7 @@ message KoorClusterSpec {
   UpgradeOptions upgrade_options = 5; // Specifies the upgrade options for new ceph versions
   string ksd_release_name = 6; // The name to use for KSD helm release.
   string ksd_cluster_release_name = 7; // The name to use for KSD cluster helm release.
+  OSDScrubbingSchedule osd_scrubbing_schedule = 8; // OSD scrubbing schedule config
 }
 
 message KoorCluster {
@@ -103,4 +118,3 @@ message KoorCluster {
   KoorClusterSpec spec = 3;
   KoorClusterStatus status = 4;
 }
-

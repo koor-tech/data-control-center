@@ -9,6 +9,7 @@ import {
     CloseIcon,
     GithubIcon,
     GlassesIcon,
+    HelpBoxMultipleIcon,
     HomeIcon,
     MenuIcon,
     SchoolIcon,
@@ -73,7 +74,15 @@ const sidebarNavigation = ref<
         position: 'top',
         current: false,
     },
+    {
+        name: 'Troubleshooting',
+        href: { name: 'troubleshooting' },
+        icon: markRaw(HelpBoxMultipleIcon),
+        position: 'top',
+        current: false,
+    },
 
+    // Bottom
     {
         name: 'Knowledge Center',
         href: 'https://kb.koor.tech',
@@ -211,29 +220,30 @@ const appVersion = accessToken ? ' v' + __APP_VERSION__ + (import.meta.env.DEV ?
                     </NuxtLink>
                 </div>
                 <div class="flex-grow w-full px-2 mt-6 space-y-1 text-center">
-                    <NuxtLink
-                        v-if="accessToken"
-                        v-for="item in sidebarNavigation.filter(
-                            (e) => e.position === 'top' && (!e.permission || can(e.permission)),
-                        )"
-                        :key="item.name"
-                        :external="item.external"
-                        :to="item.href"
-                        :class="[
-                            item.current
-                                ? 'bg-accent-100/20 text-neutral font-bold'
-                                : 'text-accent-100 hover:bg-accent-100/10 hover:text-neutral font-medium',
-                            'hover:transition-all group flex w-full flex-col items-center rounded-md p-3 text-xs my-2',
-                        ]"
-                        :aria-current="item.current ? 'page' : undefined"
-                    >
-                        <component
-                            :is="item.icon"
-                            :class="[item.current ? 'text-neutral' : 'text-accent-100 group-hover:text-neutral', 'h-6 w-6']"
-                            aria-hidden="true"
-                        />
-                        <span class="mt-2">{{ item.name }}</span>
-                    </NuxtLink>
+                    <template v-if="accessToken">
+                        <NuxtLink
+                            v-for="item in sidebarNavigation.filter(
+                                (e) => e.position === 'top' && (!e.permission || can(e.permission)),
+                            )"
+                            :key="item.name"
+                            :external="item.external"
+                            :to="item.href"
+                            :class="[
+                                item.current
+                                    ? 'bg-accent-100/20 text-neutral font-bold'
+                                    : 'text-accent-100 hover:bg-accent-100/10 hover:text-neutral font-medium',
+                                'hover:transition-all group flex w-full flex-col items-center rounded-md p-3 text-xs my-2',
+                            ]"
+                            :aria-current="item.current ? 'page' : undefined"
+                        >
+                            <component
+                                :is="item.icon"
+                                :class="[item.current ? 'text-neutral' : 'text-accent-100 group-hover:text-neutral', 'h-6 w-6']"
+                                aria-hidden="true"
+                            />
+                            <span class="mt-2">{{ item.name }}</span>
+                        </NuxtLink>
+                    </template>
                 </div>
                 <div class="flex-initial w-full px-2 space-y-1 text-center">
                     <NuxtLink
@@ -318,7 +328,7 @@ const appVersion = accessToken ? ' v' + __APP_VERSION__ + (import.meta.env.DEV ?
                                             v-if="!accessToken"
                                             :to="{ name: 'index' }"
                                             class="text-accent-100 hover:bg-accent-100/10 hover:text-neutral font-medium group flex items-center rounded-md py-2 px-3 text-sm"
-                                            @click.native="mobileMenuOpen = false"
+                                            @click="mobileMenuOpen = false"
                                         >
                                             <HomeIcon
                                                 class="text-accent-100 group-hover:text-neutral mr-3 h-6 w-6"
@@ -341,7 +351,7 @@ const appVersion = accessToken ? ' v' + __APP_VERSION__ + (import.meta.env.DEV ?
                                                 'group flex items-center rounded-md py-2 px-3 text-sm',
                                             ]"
                                             :aria-current="item.current ? 'page' : undefined"
-                                            @click.native="mobileMenuOpen = false"
+                                            @click="mobileMenuOpen = false"
                                         >
                                             <component
                                                 :is="item.icon"
@@ -373,7 +383,7 @@ const appVersion = accessToken ? ' v' + __APP_VERSION__ + (import.meta.env.DEV ?
                                                 'group flex items-center rounded-md py-2 px-3 text-sm',
                                             ]"
                                             :aria-current="item.current ? 'page' : undefined"
-                                            @click.native="mobileMenuOpen = false"
+                                            @click="mobileMenuOpen = false"
                                         >
                                             <component
                                                 :is="item.icon"

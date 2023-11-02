@@ -1,6 +1,5 @@
 import { ConnectError } from '@connectrpc/connect';
 import { defineStore } from 'pinia';
-import { KoorCluster } from '~~/gen/ts/api/resources/koor/v1/koor_pb';
 import { ClusterRadar, ClusterStats, NodeInfo } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
 import { GetClusterResourcesResponse } from '~~/gen/ts/api/services/stats/v1/stats_pb';
 
@@ -11,79 +10,52 @@ export const useStatsStore = defineStore('stats', {
     persist: false,
     actions: {
         async getClusterNodes(): Promise<NodeInfo[]> {
-            return new Promise(async (res, rej) => {
-                const { $grpc } = useNuxtApp();
+            const { $grpc } = useNuxtApp();
 
-                try {
-                    const resp = await $grpc.getStatsClient().getClusterNodes({});
+            try {
+                const resp = await $grpc.getStatsClient().getClusterNodes({});
 
-                    return res(resp.nodes);
-                } catch (e) {
-                    if (e instanceof ConnectError) $grpc.handleError(e as ConnectError);
-                    return rej(e);
-                }
-            });
+                return resp.nodes;
+            } catch (e) {
+                if (e instanceof ConnectError) $grpc.handleError(e as ConnectError);
+                throw e;
+            }
         },
         async getClusterRadar(): Promise<ClusterRadar> {
-            return new Promise(async (res, rej) => {
-                const { $grpc } = useNuxtApp();
+            const { $grpc } = useNuxtApp();
 
-                try {
-                    const radar = await $grpc.getStatsClient().getClusterRadar({});
-                    if (!radar.radar) {
-                        return rej();
-                    }
+            try {
+                const radar = await $grpc.getStatsClient().getClusterRadar({});
 
-                    return res(radar.radar);
-                } catch (e) {
-                    if (e instanceof ConnectError) $grpc.handleError(e as ConnectError);
-                    return rej(e);
-                }
-            });
+                return radar.radar!;
+            } catch (e) {
+                if (e instanceof ConnectError) $grpc.handleError(e as ConnectError);
+                throw e;
+            }
         },
         async getClusterResources(): Promise<GetClusterResourcesResponse> {
-            return new Promise(async (res, rej) => {
-                const { $grpc } = useNuxtApp();
+            const { $grpc } = useNuxtApp();
 
-                try {
-                    const resp = await $grpc.getStatsClient().getClusterResources({});
+            try {
+                const resp = await $grpc.getStatsClient().getClusterResources({});
 
-                    return res(resp);
-                } catch (e) {
-                    if (e instanceof ConnectError) $grpc.handleError(e as ConnectError);
-                    return rej(e);
-                }
-            });
+                return resp;
+            } catch (e) {
+                if (e instanceof ConnectError) $grpc.handleError(e as ConnectError);
+                throw e;
+            }
         },
         async getClusterStats(): Promise<ClusterStats> {
-            return new Promise(async (res, rej) => {
-                const { $grpc } = useNuxtApp();
+            const { $grpc } = useNuxtApp();
 
-                try {
-                    const stats = await $grpc.getStatsClient().getClusterStats({});
-                    if (!stats.stats) return rej();
+            try {
+                const stats = await $grpc.getStatsClient().getClusterStats({});
 
-                    return res(stats.stats);
-                } catch (e) {
-                    if (e instanceof ConnectError) $grpc.handleError(e as ConnectError);
-                    return rej(e);
-                }
-            });
-        },
-        async getKoorCluster(): Promise<KoorCluster> {
-            return new Promise(async (res, rej) => {
-                const { $grpc } = useNuxtApp();
-
-                try {
-                    const stats = await $grpc.getStatsClient().getKoorCluster({});
-                    if (!stats.koorCluster) return rej();
-
-                    return res(stats.koorCluster);
-                } catch (e) {
-                    if (e instanceof ConnectError) $grpc.handleError(e as ConnectError);
-                    return rej(e);
-                }
-            });
+                return stats.stats!;
+            } catch (e) {
+                if (e instanceof ConnectError) $grpc.handleError(e as ConnectError);
+                throw e;
+            }
         },
     },
 });

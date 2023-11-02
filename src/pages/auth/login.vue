@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import Login from '~/components/auth/Login.vue';
 import ContentCenterWrapper from '~/components/partials/ContentCenterWrapper.vue';
-import Footer from '~/components/partials/Footer.vue';
+import PageFooter from '~/components/partials/PageFooter.vue';
 import HeroFull from '~/components/partials/HeroFull.vue';
 
 useHead({
@@ -20,6 +20,6 @@ definePageMeta({
                 <Login />
             </ContentCenterWrapper>
         </HeroFull>
-        <Footer />
+        <PageFooter />
     </div>
 </template>
