@@ -24,6 +24,7 @@ function sendKSDNotification(): void {
     notifications.dispatchNotification({
         title: 'Koor Storage Distribution required!',
         content: 'Please contact Koor to learn how to activate this feature in your cluster.',
+        type: 'info',
     });
 }
 
