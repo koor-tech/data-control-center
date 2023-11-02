@@ -1,12 +1,35 @@
 <script lang="ts" setup>
-import { Switch, SwitchGroup, SwitchLabel } from '@headlessui/vue';
+import { useNotificationsStore } from '~/store/notifications';
 import { OSDScrubbingSchedule } from '~~/gen/ts/api/resources/koor/v1/koor_pb';
 
+// TODO we should just rely on the defaults from the CRD/API
 const osdScrubbingSchedule = ref<OSDScrubbingSchedule>(
     new OSDScrubbingSchedule({
         applySchedule: false,
+        maxScrubOps: 3n,
+        beginHour: 0n,
+        endHour: 3n,
+        beginWeekDay: 1n,
+        endWeekDay: 0n,
+        minScrubInterval: '24h',
+        maxScrubInterval: '168h',
+        deepScrubInterval: '168h',
+        scrubSleepSeconds: '100ms',
     }),
 );
+
+const notifications = useNotificationsStore();
+
+function sendKSDNotification(): void {
+    notifications.dispatchNotification({
+        title: 'Koor Storage Distribution required!',
+        content: 'Please contact Koor to learn how to activate this feature in your cluster.',
+    });
+}
+
+const canSubmit = ref(false);
+
+watch(osdScrubbingSchedule.value, () => (osdScrubbingSchedule.value.applySchedule = false));
 </script>
 
 <template>
@@ -21,39 +44,129 @@ const osdScrubbingSchedule = ref<OSDScrubbingSchedule>(
                     <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
                         <dt class="text-sm font-medium">Enable custom Schedule</dt>
                         <dd class="mt-1 text-sm sm:col-span-2 sm:mt-0">
-                            <SwitchGroup as="div" class="flex items-center">
-                                <Switch
-                                    v-model="osdScrubbingSchedule.applySchedule"
-                                    :class="[
-                                        osdScrubbingSchedule.applySchedule ? 'bg-indigo-600' : 'bg-gray-200',
-                                        'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2',
-                                    ]"
-                                >
-                                    <span
-                                        aria-hidden="true"
-                                        :class="[
-                                            osdScrubbingSchedule.applySchedule ? 'translate-x-5' : 'translate-x-0',
-                                            'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out',
-                                        ]"
-                                    />
-                                </Switch>
-                                <SwitchLabel as="span" class="ml-3 text-sm">
-                                    <span class="font-medium text-gray-300">Enabled</span>
-                                </SwitchLabel>
-                            </SwitchGroup>
+                            <input
+                                v-model="osdScrubbingSchedule.applySchedule"
+                                type="checkbox"
+                                @click="sendKSDNotification()"
+                            />
                         </dd>
                     </div>
                 </dl>
-                <template v-if="osdScrubbingSchedule.applySchedule">
-                    <dl class="sm:divide-y sm:divide-base-400">
-                        <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
-                            <dt class="text-sm font-medium">Time Span</dt>
-                            <dd class="mt-1 text-sm sm:col-span-2 sm:mt-0">
-                                <!-- TODO add calendar for selecting each time span -->
-                            </dd>
-                        </div>
-                    </dl>
-                </template>
+                <dl class="sm:divide-y sm:divide-base-400">
+                    <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
+                        <dt class="text-sm font-medium">Maximumg Scrubbing Operations</dt>
+                        <dd class="mt-1 text-sm sm:col-span-2 sm:mt-0">
+                            <VeeField
+                                v-model="osdScrubbingSchedule.maxScrubOps"
+                                :disabled="!canSubmit"
+                                type="number"
+                                name="maxScrubOps"
+                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                min="1"
+                                max="99999"
+                            />
+                        </dd>
+                    </div>
+                </dl>
+                <dl class="sm:divide-y sm:divide-base-400">
+                    <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
+                        <dt class="text-sm font-medium">Run Hours</dt>
+                        <dd class="mt-1 text-sm sm:col-span-2 sm:mt-0">
+                            <label for="beginHour"> Begin Hour </label>
+                            <VeeField
+                                v-model="osdScrubbingSchedule.beginHour"
+                                :disabled="!canSubmit"
+                                type="number"
+                                name="beginHour"
+                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                min="1"
+                                max="99999"
+                            />
+                            <label for="endHour"> End Hour </label>
+                            <VeeField
+                                v-model="osdScrubbingSchedule.endHour"
+                                :disabled="!canSubmit"
+                                type="number"
+                                name="endHour"
+                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                min="1"
+                                max="99999"
+                            />
+                        </dd>
+                    </div>
+                </dl>
+                <dl class="sm:divide-y sm:divide-base-400">
+                    <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
+                        <dt class="text-sm font-medium">Run Week Days</dt>
+                        <dd class="mt-1 text-sm sm:col-span-2 sm:mt-0">
+                            <label for="beginWeekDay"> Begin Week Day </label>
+                            <VeeField
+                                v-model="osdScrubbingSchedule.beginWeekDay"
+                                :disabled="!canSubmit"
+                                type="number"
+                                name="beginWeekDay"
+                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                min="1"
+                                max="99999"
+                            />
+                            <label for="endWeekDay"> End Week Day </label>
+                            <VeeField
+                                v-model="osdScrubbingSchedule.endWeekDay"
+                                :disabled="!canSubmit"
+                                type="number"
+                                name="endWeekDay"
+                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                min="1"
+                                max="99999"
+                            />
+                        </dd>
+                    </div>
+                </dl>
+                <dl class="sm:divide-y sm:divide-base-400">
+                    <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
+                        <dt class="text-sm font-medium">Scrub Intervals</dt>
+                        <dd class="mt-1 text-sm sm:col-span-2 sm:mt-0">
+                            <label for="minScrubInterval"> Min Scrub Interval </label>
+                            <VeeField
+                                v-model="osdScrubbingSchedule.minScrubInterval"
+                                :disabled="!canSubmit"
+                                type="text"
+                                name="minScrubInterval"
+                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            />
+                            <label for="maxScrubInterval"> Max Scrub Interval </label>
+                            <VeeField
+                                v-model="osdScrubbingSchedule.maxScrubInterval"
+                                :disabled="!canSubmit"
+                                type="text"
+                                name="maxScrubInterval"
+                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            />
+                            <label for="deepScrubInterval"> Deep Scrub Interval </label>
+                            <VeeField
+                                v-model="osdScrubbingSchedule.deepScrubInterval"
+                                :disabled="!canSubmit"
+                                type="text"
+                                name="deepScrubInterval"
+                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            />
+                        </dd>
+                    </div>
+                </dl>
+                <dl class="sm:divide-y sm:divide-base-400">
+                    <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
+                        <dt class="text-sm font-medium">Scrub Sleep Seconds</dt>
+                        <dd class="mt-1 text-sm sm:col-span-2 sm:mt-0">
+                            <VeeField
+                                v-model="osdScrubbingSchedule.scrubSleepSeconds"
+                                :disabled="!canSubmit"
+                                type="text"
+                                name="scrubSleepSeconds"
+                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            />
+                        </dd>
+                    </div>
+                </dl>
             </div>
         </div>
     </div>
