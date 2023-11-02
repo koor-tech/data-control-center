@@ -2,6 +2,7 @@ package cluster
 
 import (
 	"context"
+	"time"
 
 	"connectrpc.com/connect"
 	clusterpb "github.com/koor-tech/data-control-center/gen/go/api/services/cluster/v1"
@@ -51,11 +52,30 @@ func (s *Server) GetKoorCluster(ctx context.Context, req *connect.Request[cluste
 }
 
 func (s *Server) GetTroubleshootReport(ctx context.Context, req *connect.Request[clusterpb.GetTroubleshootReportRequest]) (*connect.Response[clusterpb.GetTroubleshootReportResponse], error) {
+	reportContent := []struct {
+		Name    string
+		Content string
+	}{}
 
 	// TODO
 
+	report := ""
+	if len(reportContent) == 0 {
+		report = "Unable to collect any report data."
+	} else {
+		for _, v := range reportContent {
+			report += "## " + v.Name + "\n"
+			report += "```console\n"
+			report += v.Content + "\n"
+			report += "```\n\n"
+		}
+
+		now := time.Now()
+		report += "_Generated using Koor Data-Control-Center on " + now.String() + "_."
+	}
+
 	res := connect.NewResponse(&clusterpb.GetTroubleshootReportResponse{
-		Report: "",
+		Report: report,
 	})
 	return res, nil
 }
