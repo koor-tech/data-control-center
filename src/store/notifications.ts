@@ -24,13 +24,7 @@ export const useNotificationsStore = defineStore('notifications', {
         removeNotification(id: string): void {
             this.notifications = this.notifications.filter((notification) => notification.id !== id);
         },
-        dispatchNotification({
-            title,
-            content,
-            type,
-            autoClose = true,
-            duration = 6000,
-        }: NotificationConfig) {
+        dispatchNotification({ title, content, type, autoClose = true, duration = 6000 }: NotificationConfig) {
             const id = uuidv4();
             this.notifications.unshift({
                 id,

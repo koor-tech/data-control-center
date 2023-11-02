@@ -5,6 +5,7 @@ import { useAuthStore } from '~/store/auth';
 import { useConfigStore } from '~/store/config';
 import { useNotificationsStore } from '~/store/notifications';
 import { AuthService } from '~~/gen/ts/api/services/auth/v1/auth_connect';
+import { ClusterService } from '~~/gen/ts/api/services/cluster/v1/cluster_connect';
 import { StatsService } from '~~/gen/ts/api/services/stats/v1/stats_connect';
 
 export default defineNuxtPlugin(() => {
@@ -34,6 +35,9 @@ export class GRPCClients {
         } as Notification;
 
         if (err.code !== undefined) {
+            const route = useRoute();
+            const redirect = route.query.redirect ?? route.fullPath;
+
             switch (err.code) {
                 case Code.Internal:
                     break;
@@ -51,11 +55,9 @@ export class GRPCClients {
                     notification.content = 'Your request was . Please login again.';
 
                     // Only update the redirect query param if it isn't already set
-                    const route = useRoute();
-                    const redirect = route.query.redirect ?? route.fullPath;
                     navigateTo({
                         name: 'auth-login',
-                        query: { redirect: redirect },
+                        query: { redirect },
                         replace: true,
                         force: true,
                     });
@@ -95,6 +97,7 @@ export class GRPCClients {
             }),
         );
     }
+
     getAuthClient(): PromiseClient<typeof AuthService> {
         return createPromiseClient(
             AuthService,
@@ -108,6 +111,16 @@ export class GRPCClients {
     getStatsClient(): PromiseClient<typeof StatsService> {
         return createPromiseClient(
             StatsService,
+            createConnectTransport({
+                baseUrl: useConfigStore().appConfig.baseUrl,
+                interceptors: [authInterceptor],
+            }),
+        );
+    }
+
+    getClusterClient(): PromiseClient<typeof ClusterService> {
+        return createPromiseClient(
+            ClusterService,
             createConnectTransport({
                 baseUrl: useConfigStore().appConfig.baseUrl,
                 interceptors: [authInterceptor],

@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package api.services.cluster.v1;
+
+import "api/resources/koor/v1/koor.proto";
+
+option go_package = "github.com/koor-tech/data-control-center/gen/go/api/services/cluster";
+
+message GetKoorClusterRequest {}
+
+message GetKoorClusterResponse {
+  api.resources.koor.v1.KoorCluster koor_cluster = 1;
+}
+
+message GetTroubleshootReportRequest {}
+
+message GetTroubleshootReportResponse {
+  string report = 1;
+}
+
+message SetScrubbingScheduleRequest {
+  api.resources.koor.v1.OSDScrubbingSchedule osd_scrubbing_schedule = 1;
+}
+
+message SetScrubbingScheduleResponse {
+  api.resources.koor.v1.OSDScrubbingSchedule osd_scrubbing_schedule = 1;
+}
+
+service ClusterService {
+  rpc GetKoorCluster(GetKoorClusterRequest) returns (GetKoorClusterResponse) {}
+  rpc GetTroubleshootReport(GetTroubleshootReportRequest) returns (GetTroubleshootReportResponse) {}
+
+  rpc SetScrubbingSchedule(SetScrubbingScheduleRequest) returns (SetScrubbingScheduleResponse) {}
+}

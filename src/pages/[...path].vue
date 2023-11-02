@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import ContentCenterWrapper from '~/components/partials/ContentCenterWrapper.vue';
-import Footer from '~/components/partials/Footer.vue';
+import PageFooter from '~/components/partials/PageFooter.vue';
 import HeroFull from '~/components/partials/HeroFull.vue';
 </script>
 
@@ -19,6 +19,6 @@ import HeroFull from '~/components/partials/HeroFull.vue';
                 </NuxtLink>
             </ContentCenterWrapper>
         </HeroFull>
-        <Footer />
+        <PageFooter />
     </div>
 </template>
