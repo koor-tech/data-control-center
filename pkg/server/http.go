@@ -29,8 +29,9 @@ import (
 	"go.uber.org/fx"
 	"go.uber.org/zap"
 
-	// Services
+	// Connect Services - Need to be added here
 	serverauth "github.com/koor-tech/data-control-center/server/auth"
+	servercluster "github.com/koor-tech/data-control-center/server/cluster"
 	serverstats "github.com/koor-tech/data-control-center/server/stats"
 )
 
@@ -184,9 +185,10 @@ func StartHTTPServer() {
 		ceph.Module,
 		cephcache.Module,
 
-		// Connect Services
+		// Connect Services - Need to be added here
 		fx.Provide(
 			AsService(serverauth.New),
+			AsService(servercluster.New),
 			AsService(serverstats.New),
 		),
 
