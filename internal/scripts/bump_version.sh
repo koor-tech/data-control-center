@@ -10,6 +10,14 @@ if [ -z ${1+x} ]; then
     exit 2
 fi
 
+CHANGES=$(git status --short | wc -l)
+if [ "${CHANGES}" -ne 0 ]; then
+    echo "Please ensure that your folder is clean before to make a new release"
+    git status --short
+    exit 2
+fi
+
+
 export VERSION="${1//v}"
 
 # Go to root of repo
@@ -52,7 +60,6 @@ git add --all
 
 git commit \
     --signoff \
-    --gpg-sign \
     --message "version: bump to v${VERSION}"
 
 git push
