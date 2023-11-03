@@ -1393,10 +1393,10 @@
     "@nuxt/kit" "^3.0.0"
     h3 "^1.0.1"
 
-"@nuxtjs/tailwindcss@^6.9.0":
-  version "6.9.0"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/tailwindcss/-/tailwindcss-6.9.0.tgz#03a99ab198484ccec6ca2008343a297ec9cda5f2"
-  integrity sha512-XDIvuLi7DfpyN/wIPR98yROh1wZ90iupta+zjo8TcrgmPsH+unhmOhFlaCHMUWprWMRTqe0BUUzD0NEf9MncmA==
+"@nuxtjs/tailwindcss@^6.9.4":
+  version "6.9.4"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/tailwindcss/-/tailwindcss-6.9.4.tgz#d2df06a35c62a72f253624e6ef7ec0c59d2105d7"
+  integrity sha512-T3B3P7RgJ/WTW3plHziLWqWbMzCWctUHpjqhW1WCXB/U3FOQxGH5dG4uEOmQkA6Gj4cbTNStIU/cRxpZhbBMhg==
   dependencies:
     "@nuxt/kit" "^3.8.0"
     "@nuxt/postcss8" "^1.1.3"
