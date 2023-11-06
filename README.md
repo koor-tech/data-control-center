@@ -19,7 +19,7 @@ Checkout the [configuration documentation here](docs/configuration.md).
 * `make` installed
 * Golang version `1.21` or higher
 * Node version of at least `v16.x`
-* `yarn` for, e.g., `yarn dev` to preview the frontend.
+* `yarn` for, e.g., `yarn dev` to preview the frontend, just `yarn` to install all dependencies (please don't use `npm`).
 * [`buf` cli](https://buf.build/docs/installation) installed (you can use `make buf` to install it to your Go bin path)
 * `go-licenses`: Run `go install github.com/google/go-licenses@latest`.
 * `prettier` is installed when running `yarn`.
