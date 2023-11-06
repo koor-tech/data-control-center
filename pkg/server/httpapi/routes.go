@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/koor-tech/data-control-center/pkg/config"
+	"github.com/koor-tech/data-control-center/pkg/version"
 	"go.uber.org/zap"
 )
 
@@ -28,7 +29,7 @@ func New(logger *zap.Logger, cfg *config.Config) *Routes {
 		logger: logger,
 
 		clientCfg: &ClientConfig{
-			Version: "TODO",
+			Version: version.Version,
 			Login: LoginConfig{
 				Providers: providers,
 			},

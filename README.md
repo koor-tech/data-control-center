@@ -19,7 +19,7 @@ Checkout the [configuration documentation here](docs/configuration.md).
 * `make` installed
 * Golang version `1.21` or higher
 * Node version of at least `v16.x`
-* `yarn` for, e.g., `yarn dev` to preview the frontend.
+* `yarn` for, e.g., `yarn dev` to preview the frontend, just `yarn` to install all dependencies (please don't use `npm`).
 * [`buf` cli](https://buf.build/docs/installation) installed (you can use `make buf` to install it to your Go bin path)
 * `go-licenses`: Run `go install github.com/google/go-licenses@latest`.
 * `prettier` is installed when running `yarn`.
@@ -46,6 +46,7 @@ For running the data-control-center a kubeconfig file is currently required. A [
 
 * Must run `prettier` format on any changed files. For Codium/VSCode users that should automatically be configured due to the settings in [`.vscode/` folder](.vscode/).
 * Protobuf files: Must follow the [Protobuf Style Guide - buf](https://buf.build/docs/best-practices/style-guide).
+* ESLint is used for style checking.
 
 ## License
 

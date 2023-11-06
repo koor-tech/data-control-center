@@ -1896,6 +1896,10 @@ func (m *ResourceInfo) validate(all bool) error {
 
 	// no validation rules for Reliability
 
+	if m.Version != nil {
+		// no validation rules for Version
+	}
+
 	if len(errors) > 0 {
 		return ResourceInfoMultiError(errors)
 	}

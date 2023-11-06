@@ -576,6 +576,7 @@ The mode of the upgrade
 | status | [ResourceStatus](#api-resources-stats-v1-ResourceStatus) |  |  |
 | replicas | [int32](#int32) |  |  |
 | reliability | [ReliabilityScore](#api-resources-stats-v1-ReliabilityScore) |  |  |
+| version | [string](#string) | optional |  |
 
 
 

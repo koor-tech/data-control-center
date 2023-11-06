@@ -110,6 +110,7 @@ message ResourceInfo {
   ResourceStatus status = 5;
   int32 replicas = 6;
   ReliabilityScore reliability = 7;
+  optional string version = 8;
 }
 
 enum ResourceStatus {

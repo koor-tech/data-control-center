@@ -82,7 +82,7 @@ const onSubmitThrottle = useThrottleFn(async (_) => {
         <div v-if="report" class="mt-4 flex flex-col">
             <GenericDivider label="Report" />
 
-            <DataErrorBlock v-if="error" :retry="refresh" :message="error.value?.message" />
+            <DataErrorBlock v-if="error" :retry="refresh" :message="error.message" />
             <DataPendingBlock v-else-if="pending" message="Loading Troubleshoot report" />
             <DataNoDataBlock v-else-if="!report || !report.report" />
             <template v-else>

@@ -5,15 +5,15 @@ import (
 	"strings"
 
 	statsv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/stats/v1"
-	v1 "k8s.io/api/core/v1"
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	kubectldescribe "k8s.io/kubectl/pkg/describe"
 )
 
-func (k *K8s) transformNodeIntoNodeInfo(node *v1.Node) *statsv1.NodeInfo {
+func (k *K8s) transformNodeIntoNodeInfo(node *corev1.Node) *statsv1.NodeInfo {
 	status := statsv1.ResourceStatus_RESOURCE_STATUS_UNKNOWN
 	for _, cond := range node.Status.Conditions {
-		if cond.Type == v1.NodeReady {
+		if cond.Type == corev1.NodeReady {
 			if cond.Status == "True" {
 				status = statsv1.ResourceStatus_RESOURCE_STATUS_READY
 			} else {
@@ -27,15 +27,15 @@ func (k *K8s) transformNodeIntoNodeInfo(node *v1.Node) *statsv1.NodeInfo {
 	var externalIP *string
 	for _, address := range node.Status.Addresses {
 		switch address.Type {
-		case v1.NodeExternalIP:
+		case corev1.NodeExternalIP:
 			fallthrough
-		case v1.NodeExternalDNS:
+		case corev1.NodeExternalDNS:
 			address := address.Address
 			externalIP = &address
 
-		case v1.NodeInternalIP:
+		case corev1.NodeInternalIP:
 			fallthrough
-		case v1.NodeInternalDNS:
+		case corev1.NodeInternalDNS:
 			address := address.Address
 			internalIP = &address
 		}
