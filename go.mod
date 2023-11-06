@@ -5,7 +5,7 @@ go 1.21
 toolchain go1.21.1
 
 require (
-	connectrpc.com/connect v1.11.1
+	connectrpc.com/connect v1.12.0
 	github.com/Masterminds/sprig/v3 v3.2.3
 	github.com/creasty/defaults v1.7.0
 	github.com/envoyproxy/protoc-gen-validate v1.0.2
