@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { CephUsersResponse, CreatCephUsersRequest, GetCephUsersRequest, GetCephUsersResponse } from "./ceph_pb.js";
+import { CreateCephUsersRequest, CreateCephUsersResponse, GetCephUsersRequest, GetCephUsersResponse } from "./ceph_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -26,8 +26,8 @@ export declare const CephService: {
      */
     readonly createCephUsers: {
       readonly name: "CreateCephUsers",
-      readonly I: typeof CreatCephUsersRequest,
-      readonly O: typeof CephUsersResponse,
+      readonly I: typeof CreateCephUsersRequest,
+      readonly O: typeof CreateCephUsersResponse,
       readonly kind: MethodKind.Unary,
     },
   }

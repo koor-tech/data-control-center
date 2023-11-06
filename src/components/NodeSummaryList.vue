@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { NodeInfo } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
 import NodeSummaryItem from './NodeSummaryItem.vue';
 import Container from './partials/Container.vue';
+import type { NodeInfo } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
 
 defineProps<{
     nodes: NodeInfo[];
@@ -10,8 +10,8 @@ defineProps<{
 
 <template>
     <Container>
-        <template v-slot:title>Storage Nodes</template>
-        <template v-slot:default>
+        <template #title>Storage Nodes</template>
+        <template #default>
             <table class="min-w-full divide-y divide-gray-300">
                 <thead>
                     <tr>

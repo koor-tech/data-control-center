@@ -44,7 +44,7 @@ const (
 // CephServiceClient is a client for the api.services.ceph.v1.CephService service.
 type CephServiceClient interface {
 	GetCephUsers(context.Context, *connect.Request[v1.GetCephUsersRequest]) (*connect.Response[v1.GetCephUsersResponse], error)
-	CreateCephUsers(context.Context, *connect.Request[v1.CreatCephUsersRequest]) (*connect.Response[v1.CephUsersResponse], error)
+	CreateCephUsers(context.Context, *connect.Request[v1.CreateCephUsersRequest]) (*connect.Response[v1.CreateCephUsersResponse], error)
 }
 
 // NewCephServiceClient constructs a client for the api.services.ceph.v1.CephService service. By
@@ -62,7 +62,7 @@ func NewCephServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 			baseURL+CephServiceGetCephUsersProcedure,
 			opts...,
 		),
-		createCephUsers: connect.NewClient[v1.CreatCephUsersRequest, v1.CephUsersResponse](
+		createCephUsers: connect.NewClient[v1.CreateCephUsersRequest, v1.CreateCephUsersResponse](
 			httpClient,
 			baseURL+CephServiceCreateCephUsersProcedure,
 			opts...,
@@ -73,7 +73,7 @@ func NewCephServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 // cephServiceClient implements CephServiceClient.
 type cephServiceClient struct {
 	getCephUsers    *connect.Client[v1.GetCephUsersRequest, v1.GetCephUsersResponse]
-	createCephUsers *connect.Client[v1.CreatCephUsersRequest, v1.CephUsersResponse]
+	createCephUsers *connect.Client[v1.CreateCephUsersRequest, v1.CreateCephUsersResponse]
 }
 
 // GetCephUsers calls api.services.ceph.v1.CephService.GetCephUsers.
@@ -82,14 +82,14 @@ func (c *cephServiceClient) GetCephUsers(ctx context.Context, req *connect.Reque
 }
 
 // CreateCephUsers calls api.services.ceph.v1.CephService.CreateCephUsers.
-func (c *cephServiceClient) CreateCephUsers(ctx context.Context, req *connect.Request[v1.CreatCephUsersRequest]) (*connect.Response[v1.CephUsersResponse], error) {
+func (c *cephServiceClient) CreateCephUsers(ctx context.Context, req *connect.Request[v1.CreateCephUsersRequest]) (*connect.Response[v1.CreateCephUsersResponse], error) {
 	return c.createCephUsers.CallUnary(ctx, req)
 }
 
 // CephServiceHandler is an implementation of the api.services.ceph.v1.CephService service.
 type CephServiceHandler interface {
 	GetCephUsers(context.Context, *connect.Request[v1.GetCephUsersRequest]) (*connect.Response[v1.GetCephUsersResponse], error)
-	CreateCephUsers(context.Context, *connect.Request[v1.CreatCephUsersRequest]) (*connect.Response[v1.CephUsersResponse], error)
+	CreateCephUsers(context.Context, *connect.Request[v1.CreateCephUsersRequest]) (*connect.Response[v1.CreateCephUsersResponse], error)
 }
 
 // NewCephServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -127,6 +127,6 @@ func (UnimplementedCephServiceHandler) GetCephUsers(context.Context, *connect.Re
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("api.services.ceph.v1.CephService.GetCephUsers is not implemented"))
 }
 
-func (UnimplementedCephServiceHandler) CreateCephUsers(context.Context, *connect.Request[v1.CreatCephUsersRequest]) (*connect.Response[v1.CephUsersResponse], error) {
+func (UnimplementedCephServiceHandler) CreateCephUsers(context.Context, *connect.Request[v1.CreateCephUsersRequest]) (*connect.Response[v1.CreateCephUsersResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("api.services.ceph.v1.CephService.CreateCephUsers is not implemented"))
 }

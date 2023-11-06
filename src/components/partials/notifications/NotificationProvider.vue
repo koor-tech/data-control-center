@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { useNotificationsStore } from '~/store/notifications';
 import NotificationItem from './NotificationItem.vue';
+import { useNotificationsStore } from '~/store/notifications';
 
 const notificationsStore = useNotificationsStore();
 const { getNotifications } = storeToRefs(notificationsStore);
@@ -15,10 +15,10 @@ const { getNotifications } = storeToRefs(notificationsStore);
         >
             <div class="flex w-full flex-col items-center space-y-4 sm:items-end">
                 <NotificationItem
+                    v-for="(notification, idx) in getNotifications"
                     :key="notification.id?.toString()"
                     :notification="notification"
                     :class="idx > 0 ? 'mt-4' : ''"
-                    v-for="(notification, idx) in getNotifications"
                 />
             </div>
         </div>

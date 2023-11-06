@@ -22,23 +22,23 @@ import { HumanMaleIcon } from 'mdi-vue3';
         <div class="grid divide-gray-200 border-t border-gray-200 bg-gray-50">
             <div class="px-2 py-5 text-center text-sm font-medium">
                 <span class="isolate inline-flex rounded-md shadow-sm">
-                    <router-link to="/ceph/users/add">
+                    <NuxtLink to="/ceph/users/add">
                         <button
                             type="button"
                             class="relative inline-flex items-center rounded-l-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10"
                         >
                             Add user
                         </button>
-                    </router-link>
+                    </NuxtLink>
 
-                    <router-link to="/ceph/users/">
+                    <NuxtLink to="/ceph/users/">
                         <button
                             type="button"
                             class="relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10"
                         >
                             View users
                         </button>
-                    </router-link>
+                    </NuxtLink>
                 </span>
             </div>
         </div>

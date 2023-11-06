@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { StatsDescription } from '~/composables/stats/types';
+import type { StatsDescription } from '~/composables/stats/types';
 
 defineProps<{
     healthStats: StatsDescription;

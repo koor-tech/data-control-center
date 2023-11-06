@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ApexOptions } from 'apexcharts';
+import type { ApexOptions } from 'apexcharts';
 import VueApexCharts from 'vue3-apexcharts';
 
 const props = defineProps<{

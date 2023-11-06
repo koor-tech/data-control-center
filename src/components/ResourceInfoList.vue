@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import DataNoDataBlock from './partials/data/DataNoDataBlock.vue';
 import { resourceStatusToTextColor } from '~/components/helpers';
 import { ResourceInfo, ResourceStatus } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
-import DataNoDataBlock from './partials/data/DataNoDataBlock.vue';
 
 const props = withDefaults(
     defineProps<{
@@ -17,7 +17,7 @@ const props = withDefaults(
     },
 );
 
-const sortedRows = computed(() => props.rows.sort());
+const sortedRows = computed(() => props.rows.map((r) => r).sort());
 </script>
 
 <template>

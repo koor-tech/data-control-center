@@ -1,5 +1,5 @@
 import { ConnectError } from '@connectrpc/connect';
-import { defineStore } from 'pinia';
+import { defineStore, type StoreDefinition } from 'pinia';
 import { KoorCluster } from '~~/gen/ts/api/resources/koor/v1/koor_pb';
 import { GetTroubleshootReportResponse } from '~~/gen/ts/api/services/cluster/v1/cluster_pb';
 
@@ -33,3 +33,7 @@ export const useClusterStore = defineStore('cluster', {
         },
     },
 });
+
+if (import.meta.hot) {
+    import.meta.hot.accept(acceptHMRUpdate(useClusterStore as unknown as StoreDefinition, import.meta.hot));
+}

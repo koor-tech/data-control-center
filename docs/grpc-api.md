@@ -56,8 +56,8 @@
     - [AuthService](#api-services-auth-v1-AuthService)
   
 - [api/services/ceph/v1/ceph.proto](#api_services_ceph_v1_ceph-proto)
-    - [CephUsersResponse](#api-services-ceph-v1-CephUsersResponse)
-    - [CreatCephUsersRequest](#api-services-ceph-v1-CreatCephUsersRequest)
+    - [CreateCephUsersRequest](#api-services-ceph-v1-CreateCephUsersRequest)
+    - [CreateCephUsersResponse](#api-services-ceph-v1-CreateCephUsersResponse)
     - [GetCephUsersRequest](#api-services-ceph-v1-GetCephUsersRequest)
     - [GetCephUsersResponse](#api-services-ceph-v1-GetCephUsersResponse)
   
@@ -848,30 +848,30 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 
 
-<a name="api-services-ceph-v1-CephUsersResponse"></a>
+<a name="api-services-ceph-v1-CreateCephUsersRequest"></a>
 
-### CephUsersResponse
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| cephUser | [api.resources.ceph.v1.User](#api-resources-ceph-v1-User) |  |  |
-
-
-
-
-
-
-<a name="api-services-ceph-v1-CreatCephUsersRequest"></a>
-
-### CreatCephUsersRequest
+### CreateCephUsersRequest
 
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| cephUser | [api.resources.ceph.v1.User](#api-resources-ceph-v1-User) |  |  |
+| ceph_user | [api.resources.ceph.v1.User](#api-resources-ceph-v1-User) |  |  |
+
+
+
+
+
+
+<a name="api-services-ceph-v1-CreateCephUsersResponse"></a>
+
+### CreateCephUsersResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| ceph_user | [api.resources.ceph.v1.User](#api-resources-ceph-v1-User) |  |  |
 
 
 
@@ -896,7 +896,7 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| cephUsers | [api.resources.ceph.v1.User](#api-resources-ceph-v1-User) | repeated |  |
+| ceph_users | [api.resources.ceph.v1.User](#api-resources-ceph-v1-User) | repeated |  |
 
 
 
@@ -917,7 +917,7 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
 | GetCephUsers | [GetCephUsersRequest](#api-services-ceph-v1-GetCephUsersRequest) | [GetCephUsersResponse](#api-services-ceph-v1-GetCephUsersResponse) |  |
-| CreateCephUsers | [CreatCephUsersRequest](#api-services-ceph-v1-CreatCephUsersRequest) | [CephUsersResponse](#api-services-ceph-v1-CephUsersResponse) |  |
+| CreateCephUsers | [CreateCephUsersRequest](#api-services-ceph-v1-CreateCephUsersRequest) | [CreateCephUsersResponse](#api-services-ceph-v1-CreateCephUsersResponse) |  |
 
  
 

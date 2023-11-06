@@ -28,7 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CephServiceClient interface {
 	GetCephUsers(ctx context.Context, in *GetCephUsersRequest, opts ...grpc.CallOption) (*GetCephUsersResponse, error)
-	CreateCephUsers(ctx context.Context, in *CreatCephUsersRequest, opts ...grpc.CallOption) (*CephUsersResponse, error)
+	CreateCephUsers(ctx context.Context, in *CreateCephUsersRequest, opts ...grpc.CallOption) (*CreateCephUsersResponse, error)
 }
 
 type cephServiceClient struct {
@@ -48,8 +48,8 @@ func (c *cephServiceClient) GetCephUsers(ctx context.Context, in *GetCephUsersRe
 	return out, nil
 }
 
-func (c *cephServiceClient) CreateCephUsers(ctx context.Context, in *CreatCephUsersRequest, opts ...grpc.CallOption) (*CephUsersResponse, error) {
-	out := new(CephUsersResponse)
+func (c *cephServiceClient) CreateCephUsers(ctx context.Context, in *CreateCephUsersRequest, opts ...grpc.CallOption) (*CreateCephUsersResponse, error) {
+	out := new(CreateCephUsersResponse)
 	err := c.cc.Invoke(ctx, CephService_CreateCephUsers_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -62,7 +62,7 @@ func (c *cephServiceClient) CreateCephUsers(ctx context.Context, in *CreatCephUs
 // for forward compatibility
 type CephServiceServer interface {
 	GetCephUsers(context.Context, *GetCephUsersRequest) (*GetCephUsersResponse, error)
-	CreateCephUsers(context.Context, *CreatCephUsersRequest) (*CephUsersResponse, error)
+	CreateCephUsers(context.Context, *CreateCephUsersRequest) (*CreateCephUsersResponse, error)
 }
 
 // UnimplementedCephServiceServer should be embedded to have forward compatible implementations.
@@ -72,7 +72,7 @@ type UnimplementedCephServiceServer struct {
 func (UnimplementedCephServiceServer) GetCephUsers(context.Context, *GetCephUsersRequest) (*GetCephUsersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCephUsers not implemented")
 }
-func (UnimplementedCephServiceServer) CreateCephUsers(context.Context, *CreatCephUsersRequest) (*CephUsersResponse, error) {
+func (UnimplementedCephServiceServer) CreateCephUsers(context.Context, *CreateCephUsersRequest) (*CreateCephUsersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateCephUsers not implemented")
 }
 
@@ -106,7 +106,7 @@ func _CephService_GetCephUsers_Handler(srv interface{}, ctx context.Context, dec
 }
 
 func _CephService_CreateCephUsers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreatCephUsersRequest)
+	in := new(CreateCephUsersRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -118,7 +118,7 @@ func _CephService_CreateCephUsers_Handler(srv interface{}, ctx context.Context, 
 		FullMethod: CephService_CreateCephUsers_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CephServiceServer).CreateCephUsers(ctx, req.(*CreatCephUsersRequest))
+		return srv.(CephServiceServer).CreateCephUsers(ctx, req.(*CreateCephUsersRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

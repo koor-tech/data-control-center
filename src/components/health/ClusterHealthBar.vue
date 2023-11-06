@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { ClusterHealthStats } from '~/composables/stats/types';
-import { ClusterHealth } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
-import Container from '../partials/Container.vue';
 import { clusterHealthToBGColor, clusterHealthToTextColor } from './helpers';
+import Container from '~/components/partials/Container.vue';
+import type { ClusterHealthStats } from '~/composables/stats/types';
+import { ClusterHealth } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
 
 defineProps<{
     clusterStats: ClusterHealthStats;

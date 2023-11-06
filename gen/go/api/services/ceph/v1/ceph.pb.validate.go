@@ -273,22 +273,22 @@ var _ interface {
 	ErrorName() string
 } = GetCephUsersResponseValidationError{}
 
-// Validate checks the field values on CreatCephUsersRequest with the rules
+// Validate checks the field values on CreateCephUsersRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *CreatCephUsersRequest) Validate() error {
+func (m *CreateCephUsersRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on CreatCephUsersRequest with the rules
+// ValidateAll checks the field values on CreateCephUsersRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// CreatCephUsersRequestMultiError, or nil if none found.
-func (m *CreatCephUsersRequest) ValidateAll() error {
+// CreateCephUsersRequestMultiError, or nil if none found.
+func (m *CreateCephUsersRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *CreatCephUsersRequest) validate(all bool) error {
+func (m *CreateCephUsersRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -299,7 +299,7 @@ func (m *CreatCephUsersRequest) validate(all bool) error {
 		switch v := interface{}(m.GetCephUser()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, CreatCephUsersRequestValidationError{
+				errors = append(errors, CreateCephUsersRequestValidationError{
 					field:  "CephUser",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -307,7 +307,7 @@ func (m *CreatCephUsersRequest) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, CreatCephUsersRequestValidationError{
+				errors = append(errors, CreateCephUsersRequestValidationError{
 					field:  "CephUser",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -316,7 +316,7 @@ func (m *CreatCephUsersRequest) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetCephUser()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return CreatCephUsersRequestValidationError{
+			return CreateCephUsersRequestValidationError{
 				field:  "CephUser",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -325,19 +325,19 @@ func (m *CreatCephUsersRequest) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return CreatCephUsersRequestMultiError(errors)
+		return CreateCephUsersRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-// CreatCephUsersRequestMultiError is an error wrapping multiple validation
-// errors returned by CreatCephUsersRequest.ValidateAll() if the designated
+// CreateCephUsersRequestMultiError is an error wrapping multiple validation
+// errors returned by CreateCephUsersRequest.ValidateAll() if the designated
 // constraints aren't met.
-type CreatCephUsersRequestMultiError []error
+type CreateCephUsersRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m CreatCephUsersRequestMultiError) Error() string {
+func (m CreateCephUsersRequestMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -346,11 +346,11 @@ func (m CreatCephUsersRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m CreatCephUsersRequestMultiError) AllErrors() []error { return m }
+func (m CreateCephUsersRequestMultiError) AllErrors() []error { return m }
 
-// CreatCephUsersRequestValidationError is the validation error returned by
-// CreatCephUsersRequest.Validate if the designated constraints aren't met.
-type CreatCephUsersRequestValidationError struct {
+// CreateCephUsersRequestValidationError is the validation error returned by
+// CreateCephUsersRequest.Validate if the designated constraints aren't met.
+type CreateCephUsersRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -358,24 +358,24 @@ type CreatCephUsersRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e CreatCephUsersRequestValidationError) Field() string { return e.field }
+func (e CreateCephUsersRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e CreatCephUsersRequestValidationError) Reason() string { return e.reason }
+func (e CreateCephUsersRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e CreatCephUsersRequestValidationError) Cause() error { return e.cause }
+func (e CreateCephUsersRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e CreatCephUsersRequestValidationError) Key() bool { return e.key }
+func (e CreateCephUsersRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e CreatCephUsersRequestValidationError) ErrorName() string {
-	return "CreatCephUsersRequestValidationError"
+func (e CreateCephUsersRequestValidationError) ErrorName() string {
+	return "CreateCephUsersRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e CreatCephUsersRequestValidationError) Error() string {
+func (e CreateCephUsersRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -387,14 +387,14 @@ func (e CreatCephUsersRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sCreatCephUsersRequest.%s: %s%s",
+		"invalid %sCreateCephUsersRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = CreatCephUsersRequestValidationError{}
+var _ error = CreateCephUsersRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -402,24 +402,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = CreatCephUsersRequestValidationError{}
+} = CreateCephUsersRequestValidationError{}
 
-// Validate checks the field values on CephUsersResponse with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// first error encountered is returned, or nil if there are no violations.
-func (m *CephUsersResponse) Validate() error {
+// Validate checks the field values on CreateCephUsersResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CreateCephUsersResponse) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on CephUsersResponse with the rules
-// defined in the proto definition for this message. If any rules are
+// ValidateAll checks the field values on CreateCephUsersResponse with the
+// rules defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// CephUsersResponseMultiError, or nil if none found.
-func (m *CephUsersResponse) ValidateAll() error {
+// CreateCephUsersResponseMultiError, or nil if none found.
+func (m *CreateCephUsersResponse) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *CephUsersResponse) validate(all bool) error {
+func (m *CreateCephUsersResponse) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -430,7 +430,7 @@ func (m *CephUsersResponse) validate(all bool) error {
 		switch v := interface{}(m.GetCephUser()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, CephUsersResponseValidationError{
+				errors = append(errors, CreateCephUsersResponseValidationError{
 					field:  "CephUser",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -438,7 +438,7 @@ func (m *CephUsersResponse) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, CephUsersResponseValidationError{
+				errors = append(errors, CreateCephUsersResponseValidationError{
 					field:  "CephUser",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -447,7 +447,7 @@ func (m *CephUsersResponse) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetCephUser()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return CephUsersResponseValidationError{
+			return CreateCephUsersResponseValidationError{
 				field:  "CephUser",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -456,19 +456,19 @@ func (m *CephUsersResponse) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return CephUsersResponseMultiError(errors)
+		return CreateCephUsersResponseMultiError(errors)
 	}
 
 	return nil
 }
 
-// CephUsersResponseMultiError is an error wrapping multiple validation errors
-// returned by CephUsersResponse.ValidateAll() if the designated constraints
-// aren't met.
-type CephUsersResponseMultiError []error
+// CreateCephUsersResponseMultiError is an error wrapping multiple validation
+// errors returned by CreateCephUsersResponse.ValidateAll() if the designated
+// constraints aren't met.
+type CreateCephUsersResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m CephUsersResponseMultiError) Error() string {
+func (m CreateCephUsersResponseMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -477,11 +477,11 @@ func (m CephUsersResponseMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m CephUsersResponseMultiError) AllErrors() []error { return m }
+func (m CreateCephUsersResponseMultiError) AllErrors() []error { return m }
 
-// CephUsersResponseValidationError is the validation error returned by
-// CephUsersResponse.Validate if the designated constraints aren't met.
-type CephUsersResponseValidationError struct {
+// CreateCephUsersResponseValidationError is the validation error returned by
+// CreateCephUsersResponse.Validate if the designated constraints aren't met.
+type CreateCephUsersResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -489,24 +489,24 @@ type CephUsersResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e CephUsersResponseValidationError) Field() string { return e.field }
+func (e CreateCephUsersResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e CephUsersResponseValidationError) Reason() string { return e.reason }
+func (e CreateCephUsersResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e CephUsersResponseValidationError) Cause() error { return e.cause }
+func (e CreateCephUsersResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e CephUsersResponseValidationError) Key() bool { return e.key }
+func (e CreateCephUsersResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e CephUsersResponseValidationError) ErrorName() string {
-	return "CephUsersResponseValidationError"
+func (e CreateCephUsersResponseValidationError) ErrorName() string {
+	return "CreateCephUsersResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e CephUsersResponseValidationError) Error() string {
+func (e CreateCephUsersResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -518,14 +518,14 @@ func (e CephUsersResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sCephUsersResponse.%s: %s%s",
+		"invalid %sCreateCephUsersResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = CephUsersResponseValidationError{}
+var _ error = CreateCephUsersResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -533,4 +533,4 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = CephUsersResponseValidationError{}
+} = CreateCephUsersResponseValidationError{}

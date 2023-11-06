@@ -20,27 +20,27 @@ export const GetCephUsersRequest = proto3.makeMessageType(
 export const GetCephUsersResponse = proto3.makeMessageType(
   "api.services.ceph.v1.GetCephUsersResponse",
   () => [
-    { no: 1, name: "cephUsers", kind: "message", T: User, repeated: true },
+    { no: 1, name: "ceph_users", kind: "message", T: User, repeated: true },
   ],
 );
 
 /**
- * @generated from message api.services.ceph.v1.CreatCephUsersRequest
+ * @generated from message api.services.ceph.v1.CreateCephUsersRequest
  */
-export const CreatCephUsersRequest = proto3.makeMessageType(
-  "api.services.ceph.v1.CreatCephUsersRequest",
+export const CreateCephUsersRequest = proto3.makeMessageType(
+  "api.services.ceph.v1.CreateCephUsersRequest",
   () => [
-    { no: 1, name: "cephUser", kind: "message", T: User },
+    { no: 1, name: "ceph_user", kind: "message", T: User },
   ],
 );
 
 /**
- * @generated from message api.services.ceph.v1.CephUsersResponse
+ * @generated from message api.services.ceph.v1.CreateCephUsersResponse
  */
-export const CephUsersResponse = proto3.makeMessageType(
-  "api.services.ceph.v1.CephUsersResponse",
+export const CreateCephUsersResponse = proto3.makeMessageType(
+  "api.services.ceph.v1.CreateCephUsersResponse",
   () => [
-    { no: 1, name: "cephUser", kind: "message", T: User },
+    { no: 1, name: "ceph_user", kind: "message", T: User },
   ],
 );
 

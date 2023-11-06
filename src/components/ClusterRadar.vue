@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ApexOptions } from 'apexcharts';
+import type { ApexOptions } from 'apexcharts';
 import VueApexCharts from 'vue3-apexcharts';
-import { ClusterRadar } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
 import Container from './partials/Container.vue';
+import { ClusterRadar } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
 
 const props = defineProps<{
     radar: ClusterRadar;
@@ -69,8 +69,8 @@ onMounted(() => (renderChart.value = true));
 
 <template>
     <Container>
-        <template v-slot:title> Cluster Radar </template>
-        <template v-slot>
+        <template #title> Cluster Radar </template>
+        <template #default>
             <div class="h-[12rem] max-h-[12rem] overflow-hidden">
                 <!-- Chart -->
                 <VueApexCharts

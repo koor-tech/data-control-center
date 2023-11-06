@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import UsersWidget from '~/components/ceph/UsersWidget.vue';
+
 useHead({
     title: 'Ceph settings',
 });
@@ -11,6 +13,6 @@ definePageMeta({
 <template>
     <div class="p-2">
         <h2 class="text-xl q-mt-lg text-center">Ceph Settings</h2>
-        <CephSettings />
+        <UsersWidget />
     </div>
 </template>

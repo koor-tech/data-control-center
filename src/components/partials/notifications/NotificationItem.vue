@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { AlertCircleIcon, AlertIcon, CheckCircleIcon, CloseIcon, InformationIcon } from 'mdi-vue3';
-import { Notification } from '~/composables/notification/interfaces/Notification.interface';
+import { type Notification } from '~/composables/notification/interfaces/Notification.interface';
 import { useNotificationsStore } from '~/store/notifications';
 
 const notifications = useNotificationsStore();
@@ -27,7 +27,7 @@ async function closeNotification(id: string): Promise<void> {
         <div class="z-50 w-full max-w-sm overflow-hidden bg-base-800 rounded-lg pointer-events-auto shadow-float text-neutral">
             <div class="p-4">
                 <div class="flex items-start">
-                    <div class="flex-shrink-0 w-8 my-auto" v-if="notification.type">
+                    <div v-if="notification.type" class="flex-shrink-0 w-8 my-auto">
                         <CheckCircleIcon v-if="notification.type === 'success'" class="text-success-400" aria-hidden="true" />
                         <InformationIcon v-else-if="notification.type === 'info'" class="text-info-400" aria-hidden="true" />
                         <AlertIcon v-else-if="notification.type === 'warning'" class="text-warn-400" aria-hidden="true" />
@@ -43,9 +43,9 @@ async function closeNotification(id: string): Promise<void> {
                     </div>
                     <div class="flex flex-shrink-0 ml-4">
                         <button
-                            @click="() => closeNotification(notification.id)"
                             type="button"
                             class="inline-flex text-neutral hover:text-base-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                            @click="() => closeNotification(notification.id)"
                         >
                             <span class="sr-only">Close</span>
                             <CloseIcon class="w-5 h-5" aria-hidden="true" />

@@ -1,5 +1,5 @@
 import { Timestamp } from '@bufbuild/protobuf';
-import { ClusterHealthStats, DisplayStatsData, meta } from '~/composables/stats/types';
+import { meta, type ClusterHealthStats, type DisplayStatsData } from '~/composables/stats/types';
 import { camelCaseToTitleCase, formatBytes } from '~/utils/strings';
 import { ClusterStats, PGs } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
 

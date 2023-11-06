@@ -1,5 +1,5 @@
 import { ConnectError } from '@connectrpc/connect';
-import { defineStore } from 'pinia';
+import { defineStore, type StoreDefinition } from 'pinia';
 import { ClusterRadar, ClusterStats, NodeInfo } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
 import { GetClusterResourcesResponse } from '~~/gen/ts/api/services/stats/v1/stats_pb';
 
@@ -59,3 +59,7 @@ export const useStatsStore = defineStore('stats', {
         },
     },
 });
+
+if (import.meta.hot) {
+    import.meta.hot.accept(acceptHMRUpdate(useStatsStore as unknown as StoreDefinition, import.meta.hot));
+}

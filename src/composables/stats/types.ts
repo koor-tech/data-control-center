@@ -13,7 +13,7 @@ import {
     SwapVerticalIcon,
     TableIcon,
 } from 'mdi-vue3';
-import { DefineComponent } from 'vue';
+import { type DefineComponent } from 'vue';
 import { ClusterHealth } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
 
 export type StatsDescription = { title?: string; description: string };

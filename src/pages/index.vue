@@ -70,10 +70,10 @@ const displayHealthServices = computed(() => stats.value?.stats?.filter((s) => h
                 <div class="col-4">
                     <NodeSummaryList v-if="nodes" :nodes="nodes.nodes" />
                 </div>
-                <div class="grid grid-cols-1" v-if="resources">
+                <div v-if="resources" class="grid grid-cols-1">
                     <dl class="space-y-2">
                         <Container>
-                            <Disclosure as="div" v-slot="{ open }">
+                            <Disclosure v-slot="{ open }" as="div">
                                 <dt>
                                     <DisclosureButton
                                         class="flex w-full items-start justify-between text-left text-base border-b border-gray-300"
@@ -103,7 +103,7 @@ const displayHealthServices = computed(() => stats.value?.stats?.filter((s) => h
                             </Disclosure>
                         </Container>
                         <Container>
-                            <Disclosure as="div" v-slot="{ open }">
+                            <Disclosure v-slot="{ open }" as="div">
                                 <dt>
                                     <DisclosureButton
                                         class="flex w-full items-start justify-between text-left text-base border-b border-gray-300"

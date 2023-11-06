@@ -1,5 +1,5 @@
-import { NuxtError } from 'nuxt/app';
-import { StoreDefinition, defineStore } from 'pinia';
+import { type NuxtError } from 'nuxt/app';
+import { defineStore, type StoreDefinition } from 'pinia';
 
 type ProviderConfig = {
     name: string;

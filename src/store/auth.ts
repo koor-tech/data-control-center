@@ -1,4 +1,5 @@
 import { ConnectError } from '@connectrpc/connect';
+import { defineStore, type StoreDefinition } from 'pinia';
 import { useNotificationsStore } from '~/store/notifications';
 
 export interface AuthState {
@@ -103,3 +104,7 @@ export const useAuthStore = defineStore('auth', {
         },
     },
 });
+
+if (import.meta.hot) {
+    import.meta.hot.accept(acceptHMRUpdate(useAuthStore as unknown as StoreDefinition, import.meta.hot));
+}

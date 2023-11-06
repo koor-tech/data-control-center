@@ -1,6 +1,6 @@
-import { Code, ConnectError, createPromiseClient, Interceptor, PromiseClient } from '@connectrpc/connect';
+import { Code, ConnectError, createPromiseClient, type Interceptor, type PromiseClient } from '@connectrpc/connect';
 import { createConnectTransport } from '@connectrpc/connect-web';
-import { Notification } from '~/composables/notification/interfaces/Notification.interface';
+import { type Notification } from '~/composables/notification/interfaces/Notification.interface';
 import { useAuthStore } from '~/store/auth';
 import { useConfigStore } from '~/store/config';
 import { useNotificationsStore } from '~/store/notifications';

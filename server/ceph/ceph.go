@@ -1,9 +1,10 @@
 package ceph
 
 import (
-	"connectrpc.com/connect"
 	"context"
 	"fmt"
+
+	"connectrpc.com/connect"
 	"github.com/gin-gonic/gin"
 	cephv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/ceph/v1"
 	v1 "github.com/koor-tech/data-control-center/gen/go/api/services/ceph/v1"
@@ -70,7 +71,7 @@ func (s *Server) GetCephUsers(ctx context.Context, _ *connect.Request[v1.GetCeph
 	}, nil
 }
 
-func (s *Server) CreateCephUsers(ctx context.Context, req *connect.Request[v1.CreatCephUsersRequest]) (*connect.Response[v1.CephUsersResponse], error) {
+func (s *Server) CreateCephUsers(ctx context.Context, req *connect.Request[v1.CreateCephUsersRequest]) (*connect.Response[v1.CreateCephUsersResponse], error) {
 	userCreate := ceph.UserCreate{
 		Username: req.Msg.CephUser.Username,
 		Name:     req.Msg.CephUser.Name,
@@ -92,8 +93,8 @@ func (s *Server) CreateCephUsers(ctx context.Context, req *connect.Request[v1.Cr
 		Roles:    userCreate.Roles,
 	}
 
-	return &connect.Response[v1.CephUsersResponse]{
-		Msg: &v1.CephUsersResponse{
+	return &connect.Response[v1.CreateCephUsersResponse]{
+		Msg: &v1.CreateCephUsersResponse{
 			CephUser: &user,
 		},
 	}, nil

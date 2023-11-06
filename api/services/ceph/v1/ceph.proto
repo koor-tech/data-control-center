@@ -9,18 +9,18 @@ option go_package = "github.com/koor-tech/data-control-center/gen/go/api/service
 message GetCephUsersRequest {}
 
 message GetCephUsersResponse {
- repeated api.resources.ceph.v1.User cephUsers = 1;
+ repeated api.resources.ceph.v1.User ceph_users = 1;
 }
 
-message CreatCephUsersRequest {
-  api.resources.ceph.v1.User cephUser = 1;
+message CreateCephUsersRequest {
+  api.resources.ceph.v1.User ceph_user = 1;
 }
 
-message CephUsersResponse {
-  api.resources.ceph.v1.User cephUser = 1;
+message CreateCephUsersResponse {
+  api.resources.ceph.v1.User ceph_user = 1;
 }
 
 service CephService {
   rpc GetCephUsers(GetCephUsersRequest) returns (GetCephUsersResponse) {}
-  rpc CreateCephUsers(CreatCephUsersRequest) returns (CephUsersResponse) {}
+  rpc CreateCephUsers(CreateCephUsersRequest) returns (CreateCephUsersResponse) {}
 }
