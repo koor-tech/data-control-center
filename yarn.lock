@@ -322,10 +322,15 @@
     "@babel/helper-validator-identifier" "^7.22.20"
     to-fast-properties "^2.0.0"
 
-"@bufbuild/protobuf@1.4.1", "@bufbuild/protobuf@^1.4.1":
+"@bufbuild/protobuf@1.4.1":
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/@bufbuild/protobuf/-/protobuf-1.4.1.tgz#2a827da66aebe904edca21f7085724154aa7868d"
   integrity sha512-4dthhwBGD9nlpY35ic8dMQC5R0dsND2b2xyeVO3qf+hBk8m7Y9dUs+SmMh6rqO2pGLUTKHefGXLDW+z19hBPdQ==
+
+"@bufbuild/protobuf@^1.4.1":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@bufbuild/protobuf/-/protobuf-1.4.2.tgz#dc4faf21264a47b71a15806616043cb006e80ac8"
+  integrity sha512-JyEH8Z+OD5Sc2opSg86qMHn1EM1Sa+zj/Tc0ovxdwk56ByVNONJSabuCUbLQp+eKN3rWNfrho0X+3SEqEPXIow==
 
 "@bufbuild/protoc-gen-es@^1.4.1":
   version "1.4.1"
