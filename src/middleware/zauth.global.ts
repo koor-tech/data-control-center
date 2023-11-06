@@ -1,5 +1,6 @@
 import { RouteLocationNormalized } from 'vue-router';
 import { useAuthStore } from '~/store/auth';
+import { useNotificationsStore } from '~/store/notifications';
 
 export default defineNuxtRouteMiddleware(async (to: RouteLocationNormalized, _: RouteLocationNormalized) => {
     const authStore = useAuthStore();
@@ -34,7 +35,7 @@ export default defineNuxtRouteMiddleware(async (to: RouteLocationNormalized, _: 
 
             if (accessToken.value !== null) {
                 return navigateTo({
-                    name: 'overview',
+                    name: 'index',
                 });
             }
         }

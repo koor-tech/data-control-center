@@ -4,18 +4,22 @@ import { camelCaseToTitleCase, formatBytes } from '~/utils/strings';
 import { ClusterStats, PGs } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
 
 export class TransformStats {
-    constructor(private clusterStats: ClusterStats) {}
+    private clusterStats: ClusterStats;
+
+    constructor(clusterStats: ClusterStats) {
+        this.clusterStats = clusterStats;
+    }
 
     /**
      * Transforms descriptions for display.
-     * @param {string} title - The title of the data.
+     * @param {string} _ - The title of the data.
      * @param {any} data - The data to transform.
      * @returns {DisplayStatsData[]} An array of transformed data.
      */
-    private transformDescriptions(title: string, data: any): DisplayStatsData[] {
+    private transformDescriptions(_: string, data: any): DisplayStatsData[] {
         return Object.keys(data).map((serviceName) => {
             const serviceData = data[serviceName];
-            const serviceMeta = meta[serviceName] ?? meta['default'];
+            const serviceMeta = meta[serviceName] ?? meta.default;
 
             if (serviceName === 'volumes') {
                 return {
@@ -71,8 +75,8 @@ export class TransformStats {
 
         transformedArray.push({
             title: 'Alerts',
-            icon: meta['alerts'].icon,
-            color: meta['alerts']?.color,
+            icon: meta.alerts.icon,
+            color: meta.alerts.color,
 
             description: this.clusterStats.crashes.map((daemon) => ({
                 description: daemon.description,
@@ -85,24 +89,24 @@ export class TransformStats {
         if (this.clusterStats.iops) {
             transformedArray.push({
                 title: 'Input / Output',
-                icon: markRaw(meta['iops'].icon),
-                color: meta['iops']?.color,
+                icon: markRaw(meta.iops.icon),
+                color: meta.iops?.color,
                 description: [
                     {
                         title: 'Read',
-                        description: this.clusterStats.iops.clientRead,
+                        description: this.clusterStats.iops.clientRead.toString(),
                     },
                     {
                         title: 'Read Ops',
-                        description: this.clusterStats.iops.clientReadOps,
+                        description: this.clusterStats.iops.clientReadOps.toString(),
                     },
                     {
                         title: 'Write',
-                        description: this.clusterStats.iops.clientWrite,
+                        description: this.clusterStats.iops.clientWrite.toString(),
                     },
                     {
                         title: 'Write Ops',
-                        description: this.clusterStats.iops.clientWriteOps,
+                        description: this.clusterStats.iops.clientWriteOps.toString(),
                     },
                 ],
             });
