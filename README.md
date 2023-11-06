@@ -46,6 +46,7 @@ For running the data-control-center a kubeconfig file is currently required. A [
 
 * Must run `prettier` format on any changed files. For Codium/VSCode users that should automatically be configured due to the settings in [`.vscode/` folder](.vscode/).
 * Protobuf files: Must follow the [Protobuf Style Guide - buf](https://buf.build/docs/best-practices/style-guide).
+* ESLint is used for style checking.
 
 ## License
 

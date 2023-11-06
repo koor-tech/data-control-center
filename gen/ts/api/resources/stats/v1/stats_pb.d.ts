@@ -631,6 +631,11 @@ export declare class ResourceInfo extends Message<ResourceInfo> {
    */
   reliability: ReliabilityScore;
 
+  /**
+   * @generated from field: optional string version = 8;
+   */
+  version?: string;
+
   constructor(data?: PartialMessage<ResourceInfo>);
 
   static readonly runtime: typeof proto3;

@@ -62,7 +62,12 @@ release:
 
 .PHONY: build-go
 build-go:
-	CGO_ENABLED=0 go build -a -installsuffix cgo -o data-control-center .
+	CGO_ENABLED=0 go \
+		build \
+		-a \
+		-installsuffix cgo \
+		-ldflags "-X github.com/koor-tech/data-control-center/pkg/version.Version=$(shell git describe --tags --exclude='data-control-center-*')" \
+		-o data-control-center .
 
 .PHONY: build-yarn
 build-yarn:

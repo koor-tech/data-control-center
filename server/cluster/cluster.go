@@ -2,7 +2,6 @@ package cluster
 
 import (
 	"context"
-	"time"
 
 	"connectrpc.com/connect"
 	"github.com/gin-gonic/gin"
@@ -59,54 +58,6 @@ func (s *Server) GetKoorCluster(ctx context.Context, req *connect.Request[cluste
 
 	res := connect.NewResponse(&clusterpb.GetKoorClusterResponse{
 		KoorCluster: kc,
-	})
-	return res, nil
-}
-
-type ReportContent struct {
-	Name    string
-	Content string
-	Error   error
-}
-
-func (s *Server) GetTroubleshootReport(ctx context.Context, req *connect.Request[clusterpb.GetTroubleshootReportRequest]) (*connect.Response[clusterpb.GetTroubleshootReportResponse], error) {
-	reportContent := []ReportContent{}
-
-	kCli := s.k.GetClient()
-
-	version, err := kCli.ServerVersion()
-	reportContent = append(reportContent, ReportContent{
-		Name:    "Kubernetes Version",
-		Content: version.String(),
-		Error:   err,
-	})
-
-	// TODO get k8s, rook pod versions, ceph version and the custom resource infos
-
-	report := ""
-	if len(reportContent) == 0 {
-		report = "Unable to collect any report data."
-	} else {
-		for _, v := range reportContent {
-			report += "## " + v.Name + "\n"
-			report += "```console\n"
-			report += v.Content + "\n"
-			report += "```\n\n"
-
-			if v.Error != nil {
-				report += "Error during data collection:\n"
-				report += "```console\n"
-				report += v.Error.Error() + "\n"
-				report += "```\n\n"
-			}
-		}
-
-		now := time.Now()
-		report += "_Generated using Koor Data-Control-Center on " + now.String() + "_."
-	}
-
-	res := connect.NewResponse(&clusterpb.GetTroubleshootReportResponse{
-		Report: report,
 	})
 	return res, nil
 }

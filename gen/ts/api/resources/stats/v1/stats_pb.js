@@ -232,6 +232,7 @@ export const ResourceInfo = proto3.makeMessageType(
     { no: 5, name: "status", kind: "enum", T: proto3.getEnumType(ResourceStatus) },
     { no: 6, name: "replicas", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
     { no: 7, name: "reliability", kind: "enum", T: proto3.getEnumType(ReliabilityScore) },
+    { no: 8, name: "version", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ],
 );
 

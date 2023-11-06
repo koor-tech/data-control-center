@@ -4,7 +4,6 @@ import { Dialog, DialogPanel, Menu, MenuButton, MenuItem, MenuItems, TransitionC
 import {
     AccountIcon,
     AntennaIcon,
-    ChartBarIcon,
     ChevronRightIcon,
     CloseIcon,
     GithubIcon,
@@ -50,13 +49,6 @@ const sidebarNavigation = ref<
         name: 'Health Stats',
         href: { name: 'health' },
         icon: markRaw(AntennaIcon),
-        position: 'top',
-        current: false,
-    },
-    {
-        name: 'Charts',
-        href: { name: 'charts' },
-        icon: markRaw(ChartBarIcon),
         position: 'top',
         current: false,
     },

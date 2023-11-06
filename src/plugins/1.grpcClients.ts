@@ -5,9 +5,9 @@ import { useAuthStore } from '~/store/auth';
 import { useConfigStore } from '~/store/config';
 import { useNotificationsStore } from '~/store/notifications';
 import { AuthService } from '~~/gen/ts/api/services/auth/v1/auth_connect';
+import { CephService } from '~~/gen/ts/api/services/ceph/v1/ceph_connect';
 import { ClusterService } from '~~/gen/ts/api/services/cluster/v1/cluster_connect';
 import { StatsService } from '~~/gen/ts/api/services/stats/v1/stats_connect';
-import {CephService} from "~~/gen/ts/api/services/ceph/v1/ceph_connect";
 
 export default defineNuxtPlugin(() => {
     return {
@@ -53,7 +53,7 @@ export class GRPCClients {
 
                     notification.type = 'warning';
                     notification.title = 'Unauthenticated';
-                    notification.content = 'Your request was . Please login again.';
+                    notification.content = 'Your request was denied. Please login again.';
 
                     // Only update the redirect query param if it isn't already set
                     navigateTo({
@@ -125,8 +125,8 @@ export class GRPCClients {
             createConnectTransport({
                 baseUrl: useConfigStore().appConfig.baseUrl,
                 interceptors: [authInterceptor],
-            })
-        )
+            }),
+        );
     }
 
     getClusterClient(): PromiseClient<typeof ClusterService> {
