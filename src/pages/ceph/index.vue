@@ -13,6 +13,8 @@ definePageMeta({
 <template>
     <div class="p-2">
         <h2 class="text-xl q-mt-lg text-center">Ceph Settings</h2>
-        <UsersWidget />
+        <ul role="list" class="grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-3 xl:gap-x-8">
+            <UsersWidget />
+        </ul>
     </div>
 </template>

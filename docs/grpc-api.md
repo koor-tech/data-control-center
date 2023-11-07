@@ -58,6 +58,8 @@
 - [api/services/ceph/v1/ceph.proto](#api_services_ceph_v1_ceph-proto)
     - [CreateCephUsersRequest](#api-services-ceph-v1-CreateCephUsersRequest)
     - [CreateCephUsersResponse](#api-services-ceph-v1-CreateCephUsersResponse)
+    - [DeleteCephUserRequest](#api-services-ceph-v1-DeleteCephUserRequest)
+    - [DeleteCephUserResponse](#api-services-ceph-v1-DeleteCephUserResponse)
     - [GetCephUsersRequest](#api-services-ceph-v1-GetCephUsersRequest)
     - [GetCephUsersResponse](#api-services-ceph-v1-GetCephUsersResponse)
   
@@ -878,6 +880,36 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 
 
+<a name="api-services-ceph-v1-DeleteCephUserRequest"></a>
+
+### DeleteCephUserRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| username | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="api-services-ceph-v1-DeleteCephUserResponse"></a>
+
+### DeleteCephUserResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| status | [string](#string) |  |  |
+
+
+
+
+
+
 <a name="api-services-ceph-v1-GetCephUsersRequest"></a>
 
 ### GetCephUsersRequest
@@ -918,6 +950,7 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 | ----------- | ------------ | ------------- | ------------|
 | GetCephUsers | [GetCephUsersRequest](#api-services-ceph-v1-GetCephUsersRequest) | [GetCephUsersResponse](#api-services-ceph-v1-GetCephUsersResponse) |  |
 | CreateCephUsers | [CreateCephUsersRequest](#api-services-ceph-v1-CreateCephUsersRequest) | [CreateCephUsersResponse](#api-services-ceph-v1-CreateCephUsersResponse) |  |
+| DeleteCephUser | [DeleteCephUserRequest](#api-services-ceph-v1-DeleteCephUserRequest) | [DeleteCephUserResponse](#api-services-ceph-v1-DeleteCephUserResponse) |  |
 
  
 

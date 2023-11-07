@@ -1,7 +1,12 @@
 import { ConnectError } from '@connectrpc/connect';
 import { defineStore, type StoreDefinition } from 'pinia';
 import { User } from '~~/gen/ts/api/resources/ceph/v1/ceph_pb';
-import { type CreateCephUsersRequest, type CreateCephUsersResponse } from '~~/gen/ts/api/services/ceph/v1/ceph_pb';
+import {
+    DeleteCephUserRequest,
+    DeleteCephUserResponse,
+    type CreateCephUsersRequest,
+    type CreateCephUsersResponse,
+} from '~~/gen/ts/api/services/ceph/v1/ceph_pb';
 
 export interface CephState {
     addError: null | string;
@@ -46,6 +51,18 @@ export const useCephStore = defineStore('ceph', {
                 const resp = await $grpc.getCephUsers().createCephUsers(createUser);
 
                 return resp;
+            } catch (e) {
+                if (e instanceof ConnectError) $grpc.handleError(e as ConnectError);
+                throw e;
+            }
+        },
+        async deleteUser(username: string): Promise<DeleteCephUserResponse> {
+            const { $grpc } = useNuxtApp();
+            try {
+                const deleteUser = {
+                    username,
+                } as DeleteCephUserRequest;
+                return await $grpc.getCephUsers().deleteCephUser(deleteUser);
             } catch (e) {
                 if (e instanceof ConnectError) $grpc.handleError(e as ConnectError);
                 throw e;

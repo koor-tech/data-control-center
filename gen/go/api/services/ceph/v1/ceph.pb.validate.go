@@ -534,3 +534,211 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = CreateCephUsersResponseValidationError{}
+
+// Validate checks the field values on DeleteCephUserRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteCephUserRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteCephUserRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeleteCephUserRequestMultiError, or nil if none found.
+func (m *DeleteCephUserRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteCephUserRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Username
+
+	if len(errors) > 0 {
+		return DeleteCephUserRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteCephUserRequestMultiError is an error wrapping multiple validation
+// errors returned by DeleteCephUserRequest.ValidateAll() if the designated
+// constraints aren't met.
+type DeleteCephUserRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteCephUserRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteCephUserRequestMultiError) AllErrors() []error { return m }
+
+// DeleteCephUserRequestValidationError is the validation error returned by
+// DeleteCephUserRequest.Validate if the designated constraints aren't met.
+type DeleteCephUserRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteCephUserRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteCephUserRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteCephUserRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteCephUserRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteCephUserRequestValidationError) ErrorName() string {
+	return "DeleteCephUserRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteCephUserRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteCephUserRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteCephUserRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteCephUserRequestValidationError{}
+
+// Validate checks the field values on DeleteCephUserResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteCephUserResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteCephUserResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeleteCephUserResponseMultiError, or nil if none found.
+func (m *DeleteCephUserResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteCephUserResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Status
+
+	if len(errors) > 0 {
+		return DeleteCephUserResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteCephUserResponseMultiError is an error wrapping multiple validation
+// errors returned by DeleteCephUserResponse.ValidateAll() if the designated
+// constraints aren't met.
+type DeleteCephUserResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteCephUserResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteCephUserResponseMultiError) AllErrors() []error { return m }
+
+// DeleteCephUserResponseValidationError is the validation error returned by
+// DeleteCephUserResponse.Validate if the designated constraints aren't met.
+type DeleteCephUserResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteCephUserResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteCephUserResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteCephUserResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteCephUserResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteCephUserResponseValidationError) ErrorName() string {
+	return "DeleteCephUserResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteCephUserResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteCephUserResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteCephUserResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteCephUserResponseValidationError{}

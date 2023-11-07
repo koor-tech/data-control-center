@@ -61,7 +61,7 @@ func (c *Client) Auth(ctx context.Context) error {
 }
 
 func (c *Client) CreateCall(method, apiUrl string, payload *bytes.Buffer) (*http.Request, error) {
-	if method == http.MethodGet {
+	if method == http.MethodGet || method == http.MethodDelete {
 		return http.NewRequest(method, apiUrl, nil)
 	}
 	return http.NewRequest(method, apiUrl, payload)
