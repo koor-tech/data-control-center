@@ -5,6 +5,7 @@ import { ref } from 'vue';
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue';
 import { CloseIcon } from 'mdi-vue3';
 import { useCephStore } from '~/store/ceph';
+import GenericBadge from '~/components/partials/GenericBadge.vue';
 
 useHead({
     title: 'MGR Dashboard Users',
@@ -92,7 +93,13 @@ const deleteCephUser = async function (): Promise<void> {
                                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                         {{ Username }}
                                     </td>
-                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ Roles }}</td>
+                                    <td
+                                        v-for="role in Roles"
+                                        :key="role"
+                                        class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                                    >
+                                        <GenericBadge>{{ role }}</GenericBadge>
+                                    </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                         {{ Enabled }}
                                     </td>
