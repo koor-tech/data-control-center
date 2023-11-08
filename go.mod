@@ -13,7 +13,7 @@ require (
 	github.com/gin-contrib/static v0.0.1
 	github.com/gin-contrib/zap v0.2.0
 	github.com/gin-gonic/gin v1.9.1
-	github.com/golang-jwt/jwt/v5 v5.0.0
+	github.com/golang-jwt/jwt/v5 v5.1.0
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.1
 	github.com/json-iterator/go v1.1.12
 	github.com/koor-tech/koor-operator v0.3.8
