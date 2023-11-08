@@ -31,4 +31,6 @@ service ClusterService {
   rpc GetTroubleshootReport(GetTroubleshootReportRequest) returns (GetTroubleshootReportResponse) {}
 
   rpc SetScrubbingSchedule(SetScrubbingScheduleRequest) returns (SetScrubbingScheduleResponse) {}
+
+  // TODO add rpc calls for starting, stopping and retrieving ancientt network test results
 }
