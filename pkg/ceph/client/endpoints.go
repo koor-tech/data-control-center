@@ -62,3 +62,11 @@ func NewPostEndpointUsers(payload []byte) *Endpoint {
 		Payload:    bytes.NewBuffer(payload),
 	}
 }
+
+func NewEndpointDeleteUser(username string) *Endpoint {
+	return &Endpoint{
+		Url:        CephApiEndpoint(fmt.Sprintf("%s/%s", CephApiEndpointUsers, username)),
+		ApiVersion: CephApiVersionV10,
+		Method:     http.MethodDelete,
+	}
+}

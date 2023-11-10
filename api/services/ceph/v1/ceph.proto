@@ -20,7 +20,16 @@ message CreateCephUsersResponse {
   api.resources.ceph.v1.User ceph_user = 1;
 }
 
+message DeleteCephUserRequest {
+  string username = 1;
+}
+
+message DeleteCephUserResponse {
+  string status = 1;
+}
+
 service CephService {
   rpc GetCephUsers(GetCephUsersRequest) returns (GetCephUsersResponse) {}
   rpc CreateCephUsers(CreateCephUsersRequest) returns (CreateCephUsersResponse) {}
+  rpc DeleteCephUser(DeleteCephUserRequest )returns (DeleteCephUserResponse) {}
 }

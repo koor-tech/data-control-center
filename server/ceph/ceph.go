@@ -99,3 +99,15 @@ func (s *Server) CreateCephUsers(ctx context.Context, req *connect.Request[v1.Cr
 		},
 	}, nil
 }
+
+func (s *Server) DeleteCephUser(ctx context.Context, req *connect.Request[v1.DeleteCephUserRequest]) (*connect.Response[v1.DeleteCephUserResponse], error) {
+	err := s.ceph.DeleteCephUser(ctx, req.Msg.Username)
+	if err != nil {
+		return nil, connect.NewError(connect.CodeInternal, fmt.Errorf("error caused by %w", err))
+	}
+	return &connect.Response[v1.DeleteCephUserResponse]{
+		Msg: &v1.DeleteCephUserResponse{
+			Status: "success",
+		},
+	}, nil
+}

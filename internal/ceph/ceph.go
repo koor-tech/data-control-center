@@ -1,16 +1,15 @@
 package ceph
 
 import (
-	"context"
-	"encoding/json"
-	"errors"
-	"fmt"
-	"net/http"
+    "context"
+    "encoding/json"
+    "fmt"
+    "net/http"
 
-	"github.com/koor-tech/data-control-center/pkg/ceph/client"
-	"github.com/koor-tech/data-control-center/pkg/config"
-	"go.uber.org/fx"
-	"go.uber.org/zap"
+    "github.com/koor-tech/data-control-center/pkg/ceph/client"
+    "github.com/koor-tech/data-control-center/pkg/config"
+    "go.uber.org/fx"
+    "go.uber.org/zap"
 )
 
 var Module = fx.Module("ceph_api",
@@ -116,8 +115,6 @@ func (s *Service) GetUsers(ctx context.Context) ([]User, error) {
 	return users, nil
 }
 
-var ErrorUnableToSaveCephUser = errors.New("unable to save ceph user")
-
 func (s *Service) CreateCephUser(ctx context.Context, user UserCreate) error {
 	if err := s.apiClient.Auth(ctx); err != nil {
 		s.logger.Error(ErrorUnableToAuthenticate.Error(), zap.Error(err))
@@ -143,5 +140,31 @@ func (s *Service) CreateCephUser(ctx context.Context, user UserCreate) error {
 
 	s.logger.Error("error making request to ceph api ", zap.Error(errorCephApi.Error()))
 
+	return errorCephApi.Error()
+}
+
+func (s *Service) DeleteCephUser(ctx context.Context, username string) error {
+	if err := s.apiClient.Auth(ctx); err != nil {
+		s.logger.Error(ErrorUnableToAuthenticate.Error(), zap.Error(err))
+		return ErrorUnableToSaveCephUser
+	}
+
+	resp, err := s.apiClient.MakeRequest(ctx, client.NewEndpointDeleteUser(username))
+	if err != nil {
+		s.logger.Error(ErrorUnableToSaveCephUser.Error(), zap.Error(err))
+		return ErrorUnableToSaveCephUser
+	}
+
+	if resp.StatusCode == http.StatusNoContent {
+		return nil
+	}
+
+	var errorCephApi ErrorCephApi
+	if err := json.NewDecoder(resp.Body).Decode(&errorCephApi); err != nil {
+		s.logger.Error("error decoding ceph api request", zap.Error(err))
+		return err
+	}
+
+	s.logger.Error("error making request to ceph api ", zap.Error(errorCephApi.Error()))
 	return errorCephApi.Error()
 }
