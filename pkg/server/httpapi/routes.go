@@ -6,8 +6,13 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/koor-tech/data-control-center/pkg/config"
 	"github.com/koor-tech/data-control-center/pkg/version"
+	"go.uber.org/fx"
 	"go.uber.org/zap"
 )
+
+var Module = fx.Module("httpapi_routes", fx.Provide(
+	New,
+))
 
 type Routes struct {
 	logger *zap.Logger
@@ -33,7 +38,8 @@ func New(logger *zap.Logger, cfg *config.Config) *Routes {
 			Login: LoginConfig{
 				Providers: providers,
 			},
-			ReadOnly: cfg.ReadyOnly,
+			ReadOnly:        cfg.ReadOnly,
+			UpdateAvailable: nil,
 		},
 	}
 }
@@ -58,4 +64,8 @@ func (r *Routes) Register(e *gin.Engine) {
 			c.String(http.StatusOK, "Your local site data should be cleared now, please go back to the data-control-center homepage yourself.")
 		})
 	}
+}
+
+func (r *Routes) SetUpdateAvailable(update string) {
+	r.clientCfg.UpdateAvailable = &update
 }

@@ -20,6 +20,7 @@ func (p *Generic) GetUserInfo(code string) (*UserInfo, error) {
 		return nil, fmt.Errorf("failed to get user info: %+q", err)
 	}
 	defer res.Body.Close()
+
 	var dest map[string]interface{}
 	if err := json.NewDecoder(res.Body).Decode(&dest); err != nil {
 		return nil, err

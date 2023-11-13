@@ -2,7 +2,6 @@ import { Code, ConnectError, createPromiseClient, type Interceptor, type Promise
 import { createConnectTransport } from '@connectrpc/connect-web';
 import { type Notification } from '~/composables/notification/interfaces/Notification.interface';
 import { useAuthStore } from '~/store/auth';
-import { useConfigStore } from '~/store/config';
 import { useNotificationsStore } from '~/store/notifications';
 import { AuthService } from '~~/gen/ts/api/services/auth/v1/auth_connect';
 import { CephService } from '~~/gen/ts/api/services/ceph/v1/ceph_connect';
@@ -94,7 +93,7 @@ export class GRPCClients {
         return createPromiseClient(
             AuthService,
             createConnectTransport({
-                baseUrl: useConfigStore().appConfig.baseUrl,
+                baseUrl: '/api',
             }),
         );
     }
@@ -103,7 +102,7 @@ export class GRPCClients {
         return createPromiseClient(
             AuthService,
             createConnectTransport({
-                baseUrl: useConfigStore().appConfig.baseUrl,
+                baseUrl: '/api',
                 interceptors: [authInterceptor],
             }),
         );
@@ -113,7 +112,7 @@ export class GRPCClients {
         return createPromiseClient(
             StatsService,
             createConnectTransport({
-                baseUrl: useConfigStore().appConfig.baseUrl,
+                baseUrl: '/api',
                 interceptors: [authInterceptor],
             }),
         );
@@ -123,7 +122,7 @@ export class GRPCClients {
         return createPromiseClient(
             CephService,
             createConnectTransport({
-                baseUrl: useConfigStore().appConfig.baseUrl,
+                baseUrl: '/api',
                 interceptors: [authInterceptor],
             }),
         );
@@ -133,7 +132,7 @@ export class GRPCClients {
         return createPromiseClient(
             ClusterService,
             createConnectTransport({
-                baseUrl: useConfigStore().appConfig.baseUrl,
+                baseUrl: '/api',
                 interceptors: [authInterceptor],
             }),
         );

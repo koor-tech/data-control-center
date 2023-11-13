@@ -114,7 +114,7 @@ config:
   namespace:
   logLevel: 'INFO'
   mode: 'release'
-  readyOnly: false
+  readOnly: false
   http:
     listen: ':8282'
     sessions:
@@ -147,3 +147,6 @@ config:
   users: []
     #- username: 'exampl'
     #  password: 'notagoodpassword123'
+  updateCheck:
+    enabled: true
+    interval: 24h

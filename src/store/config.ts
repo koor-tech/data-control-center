@@ -11,9 +11,10 @@ type LoginConfig = {
 };
 
 type AppConfig = {
-    baseUrl: string;
+    version: string;
     login: LoginConfig;
     readOnly: boolean;
+    updateAvailable?: string;
 };
 
 export interface ConfigState {
@@ -26,7 +27,7 @@ export const useConfigStore = defineStore('config', {
         ({
             fetched: false,
             appConfig: {
-                baseUrl: '/api',
+                version: '',
                 login: {
                     providers: [],
                 },

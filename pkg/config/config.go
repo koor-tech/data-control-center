@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/creasty/defaults"
 	"github.com/spf13/viper"
@@ -57,13 +58,14 @@ type Config struct {
 	LogLevel  string `default:"INFO" yaml:"logLevel"`
 	Mode      string `default:"debug" yaml:"mode"`
 
-	ReadyOnly bool `default:"false" yaml:"readyOnly"`
+	ReadOnly bool `default:"false" yaml:"readOnly"`
 
-	HTTP   HTTP    `yaml:"http"`
-	JWT    JWT     `yaml:"jwt"`
-	OAuth2 OAuth2  `yaml:"oauth2"`
-	Users  []*User `yaml:"users"`
-	Ceph   Ceph    `yaml:"ceph"`
+	HTTP        HTTP        `yaml:"http"`
+	JWT         JWT         `yaml:"jwt"`
+	OAuth2      OAuth2      `yaml:"oauth2"`
+	Users       []*User     `yaml:"users"`
+	Ceph        Ceph        `yaml:"ceph"`
+	UpdateCheck UpdateCheck `yaml:"updateCheck"`
 }
 
 type HTTP struct {
@@ -129,4 +131,9 @@ type API struct {
 	Username    string `yaml:"username"`
 	Password    string `yaml:"password"`
 	InsecureSSL bool   `yaml:"insecureSSL"`
+}
+
+type UpdateCheck struct {
+	Enabled  bool          `default:"true" yaml:"enabled"`
+	Interval time.Duration `default:"24h" yaml:"interval"`
 }

@@ -24,6 +24,7 @@ import (
 	k8scache "github.com/koor-tech/data-control-center/pkg/k8s/cache"
 	"github.com/koor-tech/data-control-center/pkg/server/httpapi"
 	"github.com/koor-tech/data-control-center/pkg/server/oauth2"
+	"github.com/koor-tech/data-control-center/pkg/update"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"go.uber.org/fx"
@@ -51,6 +52,8 @@ type ServerParams struct {
 	Logger   *zap.Logger
 	Config   *config.Config
 	TokenMgr *auth.TokenMgr
+
+	Routes *httpapi.Routes
 
 	Services []Service `group:"connectServices"`
 }
@@ -121,8 +124,7 @@ func setupHTTPServer(p ServerParams) *gin.Engine {
 	)))
 
 	// Register HTTP API routes
-	rs := httpapi.New(p.Logger, p.Config)
-	rs.Register(e)
+	p.Routes.Register(e)
 
 	if len(p.Config.OAuth2.Providers) > 0 {
 		oauth := oauth2.New(p.Logger.Named("oauth"), p.TokenMgr, p.Config.OAuth2.Providers)
@@ -178,6 +180,7 @@ func StartHTTPServer() {
 
 		LoggerModule,
 		config.Module,
+		httpapi.Module,
 		HTTPServerModule,
 		auth.AuthModule,
 		auth.TokenMgrModule,
@@ -185,6 +188,7 @@ func StartHTTPServer() {
 		k8scache.Module,
 		ceph.Module,
 		cephcache.Module,
+		update.Module,
 
 		// Connect Services - Need to be added here
 		fx.Provide(
@@ -194,6 +198,7 @@ func StartHTTPServer() {
 			AsService(serverceph.New),
 		),
 
+		fx.Invoke(func(*update.Checker) {}),
 		fx.Invoke(func(*http.Server) {}),
 	).Run()
 }
