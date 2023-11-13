@@ -198,4 +198,4 @@ exclude (
 	k8s.io/client-go v12.0.0+incompatible
 )
 
-replace github.com/imdario/mergo => github.com/imdario/mergo v0.3.16
+replace github.com/imdario/mergo => github.com/imdario/mergo v1.0.0
