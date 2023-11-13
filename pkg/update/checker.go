@@ -53,7 +53,7 @@ func New(p Params) *Checker {
 	p.LC.Append(fx.Hook{
 		OnStart: func(ctx context.Context) error {
 			go func() {
-				c.run(ctx)
+				c.run(c.ctx)
 			}()
 			return nil
 		},
@@ -82,6 +82,9 @@ func (c *Checker) run(ctx context.Context) error {
 }
 
 func (c *Checker) check(ctx context.Context) error {
+	ctx, cancel := context.WithTimeout(ctx, 15*time.Second)
+	defer cancel()
+
 	latest, err := GetLatestRelease(ctx)
 	if err != nil {
 		return err

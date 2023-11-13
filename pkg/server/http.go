@@ -178,6 +178,8 @@ func StartHTTPServer() {
 			return &fxevent.ZapLogger{Logger: log}
 		}),
 
+		fx.StartTimeout(60*time.Second),
+
 		LoggerModule,
 		config.Module,
 		httpapi.Module,
