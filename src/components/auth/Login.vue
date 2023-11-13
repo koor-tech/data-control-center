@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useAuthStore } from '~/store/auth';
 import { useNotificationsStore } from '~/store/notifications';
-import LoginForm from './LoginForm.vue';
+import LoginForm from '~/components/auth/LoginForm.vue';
 
 const authStore = useAuthStore();
 const notifications = useNotificationsStore();

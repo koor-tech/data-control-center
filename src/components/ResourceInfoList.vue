@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import DataNoDataBlock from './partials/data/DataNoDataBlock.vue';
+import DataNoDataBlock from '~/components/partials/data/DataNoDataBlock.vue';
 import { resourceStatusToTextColor } from '~/components/helpers';
 import { ResourceInfo, ResourceStatus } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
 

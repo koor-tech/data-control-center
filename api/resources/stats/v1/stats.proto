@@ -16,15 +16,15 @@ enum ClusterHealth {
 
 message MonService {
   int32 daemon_count = 1;
-  string quorum = 2;
-  int64 created_since = 5;
-  int64 updated_since = 6;
+  repeated string quorum = 2;
+  google.protobuf.Timestamp created_since = 5;
+  google.protobuf.Timestamp updated_since = 6;
 }
 
 message MgrService {
   string active = 1;
   repeated string standbys = 2;
-  int64 updated_since = 6;
+  google.protobuf.Timestamp updated_since = 6;
 }
 
 message MdsService {
@@ -36,8 +36,8 @@ message OsdService {
   int32 osd_count = 1;
   int32 osd_up = 2;
   int32 osd_in = 3;
-  int64 osd_up_updated_since = 6;
-  int64 osd_in_updated_since = 7;
+  google.protobuf.Timestamp osd_up_updated_since = 6;
+  google.protobuf.Timestamp osd_in_updated_since = 7;
 }
 
 message RgwService {

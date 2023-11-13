@@ -59,11 +59,63 @@ func (m *MonService) validate(all bool) error {
 
 	// no validation rules for DaemonCount
 
-	// no validation rules for Quorum
+	if all {
+		switch v := interface{}(m.GetCreatedSince()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, MonServiceValidationError{
+					field:  "CreatedSince",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, MonServiceValidationError{
+					field:  "CreatedSince",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCreatedSince()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return MonServiceValidationError{
+				field:  "CreatedSince",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
-	// no validation rules for CreatedSince
-
-	// no validation rules for UpdatedSince
+	if all {
+		switch v := interface{}(m.GetUpdatedSince()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, MonServiceValidationError{
+					field:  "UpdatedSince",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, MonServiceValidationError{
+					field:  "UpdatedSince",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUpdatedSince()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return MonServiceValidationError{
+				field:  "UpdatedSince",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return MonServiceMultiError(errors)
@@ -166,7 +218,34 @@ func (m *MgrService) validate(all bool) error {
 
 	// no validation rules for Active
 
-	// no validation rules for UpdatedSince
+	if all {
+		switch v := interface{}(m.GetUpdatedSince()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, MgrServiceValidationError{
+					field:  "UpdatedSince",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, MgrServiceValidationError{
+					field:  "UpdatedSince",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUpdatedSince()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return MgrServiceValidationError{
+				field:  "UpdatedSince",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return MgrServiceMultiError(errors)
@@ -376,9 +455,63 @@ func (m *OsdService) validate(all bool) error {
 
 	// no validation rules for OsdIn
 
-	// no validation rules for OsdUpUpdatedSince
+	if all {
+		switch v := interface{}(m.GetOsdUpUpdatedSince()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, OsdServiceValidationError{
+					field:  "OsdUpUpdatedSince",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, OsdServiceValidationError{
+					field:  "OsdUpUpdatedSince",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetOsdUpUpdatedSince()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return OsdServiceValidationError{
+				field:  "OsdUpUpdatedSince",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
-	// no validation rules for OsdInUpdatedSince
+	if all {
+		switch v := interface{}(m.GetOsdInUpdatedSince()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, OsdServiceValidationError{
+					field:  "OsdInUpdatedSince",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, OsdServiceValidationError{
+					field:  "OsdInUpdatedSince",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetOsdInUpdatedSince()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return OsdServiceValidationError{
+				field:  "OsdInUpdatedSince",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return OsdServiceMultiError(errors)

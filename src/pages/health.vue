@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { ConnectError } from '@connectrpc/connect';
 import ClusterHealthBar from '~/components/cluster/ClusterHealthBar.vue';
-import ClusterHealthServices from '~/components/cluster/ClusterHealthServices.vue';
-import { TransformStats } from '~/composables/stats/transform';
+import ClusterServices from '~/components/cluster/ClusterServices.vue';
 import { useStatsStore } from '~/store/stats';
 
 useHead({
@@ -17,11 +16,9 @@ const { $grpc } = useNuxtApp();
 
 const statsStore = useStatsStore();
 
-const { data: clusterStats } = useLazyAsyncData('clusterStats', async () => {
+const { data: stats } = useLazyAsyncData('clusterStats', async () => {
     try {
-        const stats = await statsStore.getClusterStats();
-        const dataStats = new TransformStats(stats);
-        return dataStats.display();
+        return await statsStore.getClusterStats();
     } catch (e) {
         $grpc.handleError(e as ConnectError);
     }
@@ -30,10 +27,10 @@ const { data: clusterStats } = useLazyAsyncData('clusterStats', async () => {
 
 <template>
     <div class="p-2">
-        <div class="flex flex-col gap-2">
-            <ClusterHealthBar v-if="clusterStats" :cluster-stats="clusterStats" />
+        <div v-if="stats" class="flex flex-col gap-2">
+            <ClusterHealthBar :health="stats.status" :cluster-id="stats.id" />
 
-            <ClusterHealthServices v-if="clusterStats?.stats" :stats="clusterStats?.stats" />
+            <ClusterServices :stats="stats" />
         </div>
     </div>
 </template>

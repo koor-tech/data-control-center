@@ -2,14 +2,13 @@
 import { ConnectError } from '@connectrpc/connect';
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue';
 import { ChevronDownIcon } from 'mdi-vue3';
-import ClusterRadar from '~/components/ClusterRadar.vue';
-import NodeSummaryList from '~/components/NodeSummaryList.vue';
+import ClusterRadar from '~/components/cluster/ClusterRadar.vue';
+import NodeSummaryList from '~/components/cluster/nodes/NodeSummaryList.vue';
 import StatusDials from '~/components/StatusDials.vue';
 import ClusterHealthBar from '~/components/cluster/ClusterHealthBar.vue';
-import ClusterHealthServices from '~/components/cluster/ClusterHealthServices.vue';
 import Container from '~/components/partials/Container.vue';
-import { TransformStats } from '~/composables/stats/transform';
 import { useStatsStore } from '~/store/stats';
+import ClusterServices from '~/components/cluster/ClusterServices.vue';
 
 useHead({
     title: 'Overview',
@@ -25,9 +24,7 @@ const statsStore = useStatsStore();
 
 const { data: stats } = useLazyAsyncData('clusterStats', async () => {
     try {
-        const stats = await statsStore.getClusterStats();
-        const dataStats = new TransformStats(stats);
-        return dataStats.display();
+        return await statsStore.getClusterStats();
     } catch (e) {
         $grpc.handleError(e as ConnectError);
     }
@@ -50,21 +47,18 @@ const { data: resources } = useLazyAsyncData(`clusterResources`, async () => {
         $grpc.handleError(e as ConnectError);
     }
 });
-
-const healthServices = ['Alerts', 'MONs', 'MGRs', 'OSDs', 'Usage'].map((s) => s.toLowerCase());
-const displayHealthServices = computed(() => stats.value?.stats?.filter((s) => healthServices.includes(s.title.toLowerCase())));
 </script>
 
 <template>
     <div class="p-2">
         <div class="flex flex-col gap-2">
-            <div class="grid grid-cols-3 gap-2">
-                <ClusterRadar v-if="radar && radar.radar" :radar="radar.radar" />
-                <StatusDials v-if="radar && radar.radar" class="col-span-2" :radar="radar.radar" />
+            <div v-if="radar" class="grid grid-cols-3 gap-2">
+                <ClusterRadar v-if="radar.radar" :radar="radar.radar" />
+                <StatusDials v-if="radar.radar" class="col-span-2" :radar="radar.radar" />
             </div>
-            <div class="grid-cols-1">
-                <ClusterHealthBar v-if="stats" :cluster-stats="stats" />
-                <ClusterHealthServices v-if="displayHealthServices" :stats="displayHealthServices" />
+            <div v-if="stats" class="grid-cols-1">
+                <ClusterHealthBar :health="stats.status" :cluster-id="stats.id" />
+                <ClusterServices :stats="stats" />
             </div>
             <div class="grid-cols-2">
                 <div class="col-4">

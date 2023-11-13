@@ -1,4 +1,4 @@
-import type { NotificationType } from './Notification.interface';
+import type { NotificationType } from '~/composables/notification/interfaces/Notification.interface';
 
 export interface NotificationConfig {
     title: string;

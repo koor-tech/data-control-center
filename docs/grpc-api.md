@@ -452,7 +452,7 @@ The mode of the upgrade
 | ----- | ---- | ----- | ----------- |
 | active | [string](#string) |  |  |
 | standbys | [string](#string) | repeated |  |
-| updated_since | [int64](#int64) |  |  |
+| updated_since | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
 
 
 
@@ -468,9 +468,9 @@ The mode of the upgrade
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | daemon_count | [int32](#int32) |  |  |
-| quorum | [string](#string) |  |  |
-| created_since | [int64](#int64) |  |  |
-| updated_since | [int64](#int64) |  |  |
+| quorum | [string](#string) | repeated |  |
+| created_since | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
+| updated_since | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
 
 
 
@@ -524,8 +524,8 @@ The mode of the upgrade
 | osd_count | [int32](#int32) |  |  |
 | osd_up | [int32](#int32) |  |  |
 | osd_in | [int32](#int32) |  |  |
-| osd_up_updated_since | [int64](#int64) |  |  |
-| osd_in_updated_since | [int64](#int64) |  |  |
+| osd_up_updated_since | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
+| osd_in_updated_since | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
 
 
 

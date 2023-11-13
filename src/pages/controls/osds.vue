@@ -1,5 +1,13 @@
 <script lang="ts" setup>
 import ScrubbingSchedule from '~/components/controls/ScrubbingSchedule.vue';
+
+useHead({
+    title: 'OSD Controls',
+});
+definePageMeta({
+    title: 'OSD Controls',
+    requiresAuth: true,
+});
 </script>
 
 <template>

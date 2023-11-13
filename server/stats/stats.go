@@ -4,8 +4,6 @@ import (
 	"context"
 	"fmt"
 	"math"
-	"strings"
-	"time"
 
 	"connectrpc.com/connect"
 	"github.com/gin-gonic/gin"
@@ -18,6 +16,7 @@ import (
 	k8scache "github.com/koor-tech/data-control-center/pkg/k8s/cache"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 // Server is used to implement stats services.
@@ -107,8 +106,6 @@ func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[stats
 	blockImages, _ := s.ceph.GetBlockImages(ctx)
 	volumes := len(blockImages)
 
-	now := time.Now()
-
 	resp := &statspb.GetClusterStatsResponse{
 		Stats: &statsv1.ClusterStats{
 			Id:      st.MonStatus.Monmap.Fsid,
@@ -117,14 +114,14 @@ func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[stats
 			Services: &statsv1.Services{
 				Mon: &statsv1.MonService{
 					DaemonCount:  int32(len(st.MonStatus.Monmap.Mons)),
-					Quorum:       strings.Join(monNames, ","),
-					CreatedSince: int64(now.Sub(st.MonStatus.Monmap.Created)),
-					UpdatedSince: int64(now.Sub(st.MonStatus.Monmap.Modified)),
+					Quorum:       monNames,
+					CreatedSince: timestamppb.New(st.MonStatus.Monmap.Created),
+					UpdatedSince: timestamppb.New(st.MonStatus.Monmap.Modified),
 				},
 				Mgr: &statsv1.MgrService{
 					Active:       st.MgrMap.ActiveName,
 					Standbys:     standBys,
-					UpdatedSince: int64(now.Sub(st.MgrMap.ActiveChange.Time)),
+					UpdatedSince: timestamppb.New(st.MgrMap.ActiveChange.Time),
 				},
 				Mds: &statsv1.MdsService{
 					DaemonsUp:       int32(daemonsUp),
@@ -134,8 +131,8 @@ func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[stats
 					OsdCount:          int32(osdCount),
 					OsdUp:             int32(osdUp),
 					OsdIn:             int32(osdIn),
-					OsdInUpdatedSince: int64(now.Sub(st.OsdMap.LastInChange.Time)),
-					OsdUpUpdatedSince: int64(now.Sub(st.OsdMap.LastUpChange.Time)),
+					OsdInUpdatedSince: timestamppb.New(st.OsdMap.LastInChange.Time),
+					OsdUpUpdatedSince: timestamppb.New(st.OsdMap.LastUpChange.Time),
 				},
 				Rgw: &statsv1.RgwService{
 					ActiveDaemon: int32(st.Rgw),

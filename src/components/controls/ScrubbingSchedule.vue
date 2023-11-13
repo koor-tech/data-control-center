@@ -34,7 +34,7 @@ watch(osdScrubbingSchedule.value, () => (osdScrubbingSchedule.value.applySchedul
 </script>
 
 <template>
-    <div>
+    <div class="mx-auto">
         <div class="overflow-hidden bg-base-800 shadow sm:rounded-lg text-neutral">
             <div class="px-4 py-5 sm:px-6">
                 <h3 class="text-base font-semibold leading-6">Custom OSD Scrubbing Schedule</h3>

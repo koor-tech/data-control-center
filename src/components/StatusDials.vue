@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import DialIndicator from './DialIndicator.vue';
+import DialIndicator from '~/components/partials/DialIndicator.vue';
 import { ClusterRadar } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
 
 const props = defineProps<{

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ApexOptions } from 'apexcharts';
 import VueApexCharts from 'vue3-apexcharts';
-import Container from './partials/Container.vue';
+import Container from '~/components/partials/Container.vue';
 import { ClusterRadar } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
 
 const props = defineProps<{

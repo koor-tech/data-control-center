@@ -54,9 +54,9 @@ export const MonService = proto3.makeMessageType(
   "api.resources.stats.v1.MonService",
   () => [
     { no: 1, name: "daemon_count", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
-    { no: 2, name: "quorum", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 5, name: "created_since", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 6, name: "updated_since", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 2, name: "quorum", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 5, name: "created_since", kind: "message", T: Timestamp },
+    { no: 6, name: "updated_since", kind: "message", T: Timestamp },
   ],
 );
 
@@ -68,7 +68,7 @@ export const MgrService = proto3.makeMessageType(
   () => [
     { no: 1, name: "active", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "standbys", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
-    { no: 6, name: "updated_since", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 6, name: "updated_since", kind: "message", T: Timestamp },
   ],
 );
 
@@ -92,8 +92,8 @@ export const OsdService = proto3.makeMessageType(
     { no: 1, name: "osd_count", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
     { no: 2, name: "osd_up", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
     { no: 3, name: "osd_in", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
-    { no: 6, name: "osd_up_updated_since", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 7, name: "osd_in_updated_since", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 6, name: "osd_up_updated_since", kind: "message", T: Timestamp },
+    { no: 7, name: "osd_in_updated_since", kind: "message", T: Timestamp },
   ],
 );
 

@@ -106,19 +106,19 @@ export declare class MonService extends Message<MonService> {
   daemonCount: number;
 
   /**
-   * @generated from field: string quorum = 2;
+   * @generated from field: repeated string quorum = 2;
    */
-  quorum: string;
+  quorum: string[];
 
   /**
-   * @generated from field: int64 created_since = 5;
+   * @generated from field: google.protobuf.Timestamp created_since = 5;
    */
-  createdSince: bigint;
+  createdSince?: Timestamp;
 
   /**
-   * @generated from field: int64 updated_since = 6;
+   * @generated from field: google.protobuf.Timestamp updated_since = 6;
    */
-  updatedSince: bigint;
+  updatedSince?: Timestamp;
 
   constructor(data?: PartialMessage<MonService>);
 
@@ -150,9 +150,9 @@ export declare class MgrService extends Message<MgrService> {
   standbys: string[];
 
   /**
-   * @generated from field: int64 updated_since = 6;
+   * @generated from field: google.protobuf.Timestamp updated_since = 6;
    */
-  updatedSince: bigint;
+  updatedSince?: Timestamp;
 
   constructor(data?: PartialMessage<MgrService>);
 
@@ -218,14 +218,14 @@ export declare class OsdService extends Message<OsdService> {
   osdIn: number;
 
   /**
-   * @generated from field: int64 osd_up_updated_since = 6;
+   * @generated from field: google.protobuf.Timestamp osd_up_updated_since = 6;
    */
-  osdUpUpdatedSince: bigint;
+  osdUpUpdatedSince?: Timestamp;
 
   /**
-   * @generated from field: int64 osd_in_updated_since = 7;
+   * @generated from field: google.protobuf.Timestamp osd_in_updated_since = 7;
    */
-  osdInUpdatedSince: bigint;
+  osdInUpdatedSince?: Timestamp;
 
   constructor(data?: PartialMessage<OsdService>);
 
