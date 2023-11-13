@@ -21,7 +21,7 @@ defineProps<{
 <template>
     <div class="w-full relative isolate">
         <!-- Stats -->
-        <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5 px-2">
+        <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-2">
             <AlertsList :alerts="stats.crashes!" />
             <MonService :stats="stats.services!.mon!" />
             <MgrService :stats="stats.services!.mgr!" />
