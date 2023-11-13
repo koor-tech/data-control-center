@@ -2,6 +2,7 @@
 import { Dialog, DialogPanel, Menu, MenuButton, MenuItem, MenuItems, TransitionChild, TransitionRoot } from '@headlessui/vue';
 
 import {
+    AccountDetailsIcon,
     AccountIcon,
     AntennaIcon,
     ChevronRightIcon,
@@ -46,7 +47,7 @@ const sidebarNavigation = ref<
         current: false,
     },
     {
-        name: 'Health Stats',
+        name: 'Stats',
         href: { name: 'health' },
         icon: markRaw(AntennaIcon),
         position: 'top',
@@ -55,13 +56,6 @@ const sidebarNavigation = ref<
     {
         name: 'Controls',
         href: { name: 'controls' },
-        icon: markRaw(TuneIcon),
-        position: 'top',
-        current: false,
-    },
-    {
-        name: 'User Account',
-        href: { name: 'accounts' },
         icon: markRaw(TuneIcon),
         position: 'top',
         current: false,
@@ -76,10 +70,11 @@ const sidebarNavigation = ref<
 
     // Bottom
     {
-        name: 'Ceph Settings',
-        href: { name: 'ceph' },
-        icon: markRaw(TuneIcon),
-        position: 'top',
+        name: 'Koor Account',
+        external: true,
+        href: 'https://account.koor.tech/login',
+        icon: markRaw(AccountDetailsIcon),
+        position: 'bottom',
         current: false,
     },
     {

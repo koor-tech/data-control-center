@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ConnectError } from '@connectrpc/connect';
-import ClusterHealthBar from '~/components/health/ClusterHealthBar.vue';
-import ClusterHealthServices from '~/components/health/ClusterHealthServices.vue';
+import ClusterHealthBar from '~/components/cluster/ClusterHealthBar.vue';
+import ClusterHealthServices from '~/components/cluster/ClusterHealthServices.vue';
 import { TransformStats } from '~/composables/stats/transform';
 import { useStatsStore } from '~/store/stats';
 

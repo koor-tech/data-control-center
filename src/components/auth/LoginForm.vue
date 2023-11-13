@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+// eslint-disable-next-line camelcase
 import { alpha_dash, max, min, required } from '@vee-validate/rules';
 import { defineRule } from 'vee-validate';
 import Alert from '~/components/partials/elements/Alert.vue';
@@ -36,7 +37,7 @@ const onSubmit = handleSubmit(async (values): Promise<void> => await doLogin(val
 <template>
     <h2 class="pb-4 text-3xl text-center text-white">Login</h2>
 
-    <form @submit="onSubmit" class="my-2 space-y-6">
+    <form class="my-2 space-y-6" @submit="onSubmit">
         <template v-if="appConfig.login.providers.length === 0">
             <div>
                 <label for="username" class="sr-only"> Username </label>
@@ -84,7 +85,7 @@ const onSubmit = handleSubmit(async (values): Promise<void> => await doLogin(val
         </template>
 
         <div v-else class="my-4 space-y-2">
-            <div v-for="prov in appConfig.login.providers" class="">
+            <div v-for="prov in appConfig.login.providers" :key="prov.name">
                 <NuxtLink
                     :external="true"
                     :to="`/api/oauth2/login/${prov.name}`"

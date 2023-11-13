@@ -1,13 +1,5 @@
-<script setup lang="ts">
-import ScrubbingSchedule from '~/components/cluster/ScrubbingSchedule.vue';
-
-useHead({
-    title: 'Controls',
-});
-definePageMeta({
-    title: 'Controls',
-    requiresAuth: true,
-});
+<script lang="ts" setup>
+import ScrubbingSchedule from '~/components/controls/ScrubbingSchedule.vue';
 </script>
 
 <template>

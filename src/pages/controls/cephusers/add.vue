@@ -40,7 +40,7 @@ const { handleSubmit } = useForm<FormData>({
 
 const onSubmit = handleSubmit(async function (values): Promise<any> {
     await addCephUser(values.username, values.name, values.email, values.password, values.roles);
-    await navigateTo({ name: 'ceph-users' });
+    await navigateTo({ name: 'controls-cephusers' });
 });
 </script>
 <template>

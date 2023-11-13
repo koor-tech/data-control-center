@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { DisplayStatsData } from '~/composables/stats/types';
+import HealthServices from '~/components/cluster/HealthServices.vue';
 
 defineProps<{
     stats: DisplayStatsData[];
