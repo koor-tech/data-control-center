@@ -57,6 +57,8 @@ type Config struct {
 	LogLevel  string `default:"INFO" yaml:"logLevel"`
 	Mode      string `default:"debug" yaml:"mode"`
 
+	ReadyOnly bool `default:"false" yaml:"readyOnly"`
+
 	HTTP   HTTP    `yaml:"http"`
 	JWT    JWT     `yaml:"jwt"`
 	OAuth2 OAuth2  `yaml:"oauth2"`

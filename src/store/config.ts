@@ -13,6 +13,7 @@ type LoginConfig = {
 type AppConfig = {
     baseUrl: string;
     login: LoginConfig;
+    readOnly: boolean;
 };
 
 export interface ConfigState {
@@ -29,6 +30,7 @@ export const useConfigStore = defineStore('config', {
                 login: {
                     providers: [],
                 },
+                readOnly: false,
             } as AppConfig,
         }) as ConfigState,
     persist: false,

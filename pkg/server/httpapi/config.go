@@ -1,8 +1,9 @@
 package httpapi
 
 type ClientConfig struct {
-	Version string      `json:"version"`
-	Login   LoginConfig `json:"login"`
+	Version  string      `json:"version"`
+	Login    LoginConfig `json:"login"`
+	ReadOnly bool        `json:"readyOnly"`
 }
 
 type LoginConfig struct {

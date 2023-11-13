@@ -33,6 +33,7 @@ func New(logger *zap.Logger, cfg *config.Config) *Routes {
 			Login: LoginConfig{
 				Providers: providers,
 			},
+			ReadOnly: cfg.ReadyOnly,
 		},
 	}
 }

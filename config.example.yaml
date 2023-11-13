@@ -5,6 +5,7 @@ namespace: 'rook-ceph'
 logLevel: 'DEBUG'
 # debug or release
 mode: 'debug'
+readyOnly: false
 http:
   listen: ':8282'
   sessions:

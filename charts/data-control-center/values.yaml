@@ -114,6 +114,7 @@ config:
   namespace:
   logLevel: 'INFO'
   mode: 'release'
+  readyOnly: false
   http:
     listen: ':8282'
     sessions:
