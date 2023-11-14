@@ -56,6 +56,8 @@ sed \
     --expression 's~^version: .+~version: '"${version_rest}.${version_patch_new}"'~' \
         ./charts/data-control-center/Chart.yaml
 
+make helm-docs
+
 git add --all
 
 git commit \
