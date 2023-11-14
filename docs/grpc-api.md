@@ -66,12 +66,18 @@
     - [CephService](#api-services-ceph-v1-CephService)
   
 - [api/services/cluster/v1/cluster.proto](#api_services_cluster_v1_cluster-proto)
+    - [CancelNetworkTestRequest](#api-services-cluster-v1-CancelNetworkTestRequest)
+    - [CancelNetworkTestResponse](#api-services-cluster-v1-CancelNetworkTestResponse)
     - [GetKoorClusterRequest](#api-services-cluster-v1-GetKoorClusterRequest)
     - [GetKoorClusterResponse](#api-services-cluster-v1-GetKoorClusterResponse)
+    - [GetNetworkTestResultsRequest](#api-services-cluster-v1-GetNetworkTestResultsRequest)
+    - [GetNetworkTestResultsResponse](#api-services-cluster-v1-GetNetworkTestResultsResponse)
     - [GetTroubleshootReportRequest](#api-services-cluster-v1-GetTroubleshootReportRequest)
     - [GetTroubleshootReportResponse](#api-services-cluster-v1-GetTroubleshootReportResponse)
     - [SetScrubbingScheduleRequest](#api-services-cluster-v1-SetScrubbingScheduleRequest)
     - [SetScrubbingScheduleResponse](#api-services-cluster-v1-SetScrubbingScheduleResponse)
+    - [StartNetworkTestRequest](#api-services-cluster-v1-StartNetworkTestRequest)
+    - [StartNetworkTestResponse](#api-services-cluster-v1-StartNetworkTestResponse)
   
     - [ClusterService](#api-services-cluster-v1-ClusterService)
   
@@ -963,6 +969,36 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 
 
+<a name="api-services-cluster-v1-CancelNetworkTestRequest"></a>
+
+### CancelNetworkTestRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| force | [bool](#bool) |  |  |
+
+
+
+
+
+
+<a name="api-services-cluster-v1-CancelNetworkTestResponse"></a>
+
+### CancelNetworkTestResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| none_running | [bool](#bool) |  |  |
+
+
+
+
+
+
 <a name="api-services-cluster-v1-GetKoorClusterRequest"></a>
 
 ### GetKoorClusterRequest
@@ -982,6 +1018,32 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | koor_cluster | [api.resources.koor.v1.KoorCluster](#api-resources-koor-v1-KoorCluster) |  |  |
+
+
+
+
+
+
+<a name="api-services-cluster-v1-GetNetworkTestResultsRequest"></a>
+
+### GetNetworkTestResultsRequest
+
+
+
+
+
+
+
+<a name="api-services-cluster-v1-GetNetworkTestResultsResponse"></a>
+
+### GetNetworkTestResultsResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| file_name | [string](#string) |  |  |
+| file_contents | [bytes](#bytes) |  |  |
 
 
 
@@ -1042,6 +1104,31 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 
 
+
+<a name="api-services-cluster-v1-StartNetworkTestRequest"></a>
+
+### StartNetworkTestRequest
+
+
+
+
+
+
+
+<a name="api-services-cluster-v1-StartNetworkTestResponse"></a>
+
+### StartNetworkTestResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| already_running | [bool](#bool) |  |  |
+
+
+
+
+
  
 
  
@@ -1058,6 +1145,9 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 | ----------- | ------------ | ------------- | ------------|
 | GetKoorCluster | [GetKoorClusterRequest](#api-services-cluster-v1-GetKoorClusterRequest) | [GetKoorClusterResponse](#api-services-cluster-v1-GetKoorClusterResponse) |  |
 | GetTroubleshootReport | [GetTroubleshootReportRequest](#api-services-cluster-v1-GetTroubleshootReportRequest) | [GetTroubleshootReportResponse](#api-services-cluster-v1-GetTroubleshootReportResponse) |  |
+| StartNetworkTest | [StartNetworkTestRequest](#api-services-cluster-v1-StartNetworkTestRequest) | [StartNetworkTestResponse](#api-services-cluster-v1-StartNetworkTestResponse) |  |
+| CancelNetworkTest | [CancelNetworkTestRequest](#api-services-cluster-v1-CancelNetworkTestRequest) | [CancelNetworkTestResponse](#api-services-cluster-v1-CancelNetworkTestResponse) |  |
+| GetNetworkTestResults | [GetNetworkTestResultsRequest](#api-services-cluster-v1-GetNetworkTestResultsRequest) | [GetNetworkTestResultsResponse](#api-services-cluster-v1-GetNetworkTestResultsResponse) |  |
 | SetScrubbingSchedule | [SetScrubbingScheduleRequest](#api-services-cluster-v1-SetScrubbingScheduleRequest) | [SetScrubbingScheduleResponse](#api-services-cluster-v1-SetScrubbingScheduleResponse) |  |
 
  

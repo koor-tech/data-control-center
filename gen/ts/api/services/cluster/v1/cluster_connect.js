@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { GetKoorClusterRequest, GetKoorClusterResponse, GetTroubleshootReportRequest, GetTroubleshootReportResponse, SetScrubbingScheduleRequest, SetScrubbingScheduleResponse } from "./cluster_pb.js";
+import { CancelNetworkTestRequest, CancelNetworkTestResponse, GetKoorClusterRequest, GetKoorClusterResponse, GetNetworkTestResultsRequest, GetNetworkTestResultsResponse, GetTroubleshootReportRequest, GetTroubleshootReportResponse, SetScrubbingScheduleRequest, SetScrubbingScheduleResponse, StartNetworkTestRequest, StartNetworkTestResponse } from "./cluster_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -28,6 +28,33 @@ export const ClusterService = {
       name: "GetTroubleshootReport",
       I: GetTroubleshootReportRequest,
       O: GetTroubleshootReportResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc api.services.cluster.v1.ClusterService.StartNetworkTest
+     */
+    startNetworkTest: {
+      name: "StartNetworkTest",
+      I: StartNetworkTestRequest,
+      O: StartNetworkTestResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc api.services.cluster.v1.ClusterService.CancelNetworkTest
+     */
+    cancelNetworkTest: {
+      name: "CancelNetworkTest",
+      I: CancelNetworkTestRequest,
+      O: CancelNetworkTestResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc api.services.cluster.v1.ClusterService.GetNetworkTestResults
+     */
+    getNetworkTestResults: {
+      name: "GetNetworkTestResults",
+      I: GetNetworkTestResultsRequest,
+      O: GetNetworkTestResultsResponse,
       kind: MethodKind.Unary,
     },
     /**

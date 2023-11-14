@@ -43,6 +43,63 @@ export const GetTroubleshootReportResponse = proto3.makeMessageType(
 );
 
 /**
+ * @generated from message api.services.cluster.v1.StartNetworkTestRequest
+ */
+export const StartNetworkTestRequest = proto3.makeMessageType(
+  "api.services.cluster.v1.StartNetworkTestRequest",
+  [],
+);
+
+/**
+ * @generated from message api.services.cluster.v1.StartNetworkTestResponse
+ */
+export const StartNetworkTestResponse = proto3.makeMessageType(
+  "api.services.cluster.v1.StartNetworkTestResponse",
+  () => [
+    { no: 1, name: "already_running", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ],
+);
+
+/**
+ * @generated from message api.services.cluster.v1.CancelNetworkTestRequest
+ */
+export const CancelNetworkTestRequest = proto3.makeMessageType(
+  "api.services.cluster.v1.CancelNetworkTestRequest",
+  () => [
+    { no: 1, name: "force", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ],
+);
+
+/**
+ * @generated from message api.services.cluster.v1.CancelNetworkTestResponse
+ */
+export const CancelNetworkTestResponse = proto3.makeMessageType(
+  "api.services.cluster.v1.CancelNetworkTestResponse",
+  () => [
+    { no: 1, name: "none_running", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ],
+);
+
+/**
+ * @generated from message api.services.cluster.v1.GetNetworkTestResultsRequest
+ */
+export const GetNetworkTestResultsRequest = proto3.makeMessageType(
+  "api.services.cluster.v1.GetNetworkTestResultsRequest",
+  [],
+);
+
+/**
+ * @generated from message api.services.cluster.v1.GetNetworkTestResultsResponse
+ */
+export const GetNetworkTestResultsResponse = proto3.makeMessageType(
+  "api.services.cluster.v1.GetNetworkTestResultsResponse",
+  () => [
+    { no: 1, name: "file_name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "file_contents", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+  ],
+);
+
+/**
  * @generated from message api.services.cluster.v1.SetScrubbingScheduleRequest
  */
 export const SetScrubbingScheduleRequest = proto3.makeMessageType(

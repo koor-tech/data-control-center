@@ -476,6 +476,630 @@ var _ interface {
 	ErrorName() string
 } = GetTroubleshootReportResponseValidationError{}
 
+// Validate checks the field values on StartNetworkTestRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *StartNetworkTestRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on StartNetworkTestRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// StartNetworkTestRequestMultiError, or nil if none found.
+func (m *StartNetworkTestRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *StartNetworkTestRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return StartNetworkTestRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// StartNetworkTestRequestMultiError is an error wrapping multiple validation
+// errors returned by StartNetworkTestRequest.ValidateAll() if the designated
+// constraints aren't met.
+type StartNetworkTestRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m StartNetworkTestRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m StartNetworkTestRequestMultiError) AllErrors() []error { return m }
+
+// StartNetworkTestRequestValidationError is the validation error returned by
+// StartNetworkTestRequest.Validate if the designated constraints aren't met.
+type StartNetworkTestRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e StartNetworkTestRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e StartNetworkTestRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e StartNetworkTestRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e StartNetworkTestRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e StartNetworkTestRequestValidationError) ErrorName() string {
+	return "StartNetworkTestRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e StartNetworkTestRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sStartNetworkTestRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = StartNetworkTestRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = StartNetworkTestRequestValidationError{}
+
+// Validate checks the field values on StartNetworkTestResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *StartNetworkTestResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on StartNetworkTestResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// StartNetworkTestResponseMultiError, or nil if none found.
+func (m *StartNetworkTestResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *StartNetworkTestResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for AlreadyRunning
+
+	if len(errors) > 0 {
+		return StartNetworkTestResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// StartNetworkTestResponseMultiError is an error wrapping multiple validation
+// errors returned by StartNetworkTestResponse.ValidateAll() if the designated
+// constraints aren't met.
+type StartNetworkTestResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m StartNetworkTestResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m StartNetworkTestResponseMultiError) AllErrors() []error { return m }
+
+// StartNetworkTestResponseValidationError is the validation error returned by
+// StartNetworkTestResponse.Validate if the designated constraints aren't met.
+type StartNetworkTestResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e StartNetworkTestResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e StartNetworkTestResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e StartNetworkTestResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e StartNetworkTestResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e StartNetworkTestResponseValidationError) ErrorName() string {
+	return "StartNetworkTestResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e StartNetworkTestResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sStartNetworkTestResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = StartNetworkTestResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = StartNetworkTestResponseValidationError{}
+
+// Validate checks the field values on CancelNetworkTestRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CancelNetworkTestRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CancelNetworkTestRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CancelNetworkTestRequestMultiError, or nil if none found.
+func (m *CancelNetworkTestRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CancelNetworkTestRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Force
+
+	if len(errors) > 0 {
+		return CancelNetworkTestRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// CancelNetworkTestRequestMultiError is an error wrapping multiple validation
+// errors returned by CancelNetworkTestRequest.ValidateAll() if the designated
+// constraints aren't met.
+type CancelNetworkTestRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CancelNetworkTestRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CancelNetworkTestRequestMultiError) AllErrors() []error { return m }
+
+// CancelNetworkTestRequestValidationError is the validation error returned by
+// CancelNetworkTestRequest.Validate if the designated constraints aren't met.
+type CancelNetworkTestRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CancelNetworkTestRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CancelNetworkTestRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CancelNetworkTestRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CancelNetworkTestRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CancelNetworkTestRequestValidationError) ErrorName() string {
+	return "CancelNetworkTestRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CancelNetworkTestRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCancelNetworkTestRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CancelNetworkTestRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CancelNetworkTestRequestValidationError{}
+
+// Validate checks the field values on CancelNetworkTestResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CancelNetworkTestResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CancelNetworkTestResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CancelNetworkTestResponseMultiError, or nil if none found.
+func (m *CancelNetworkTestResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CancelNetworkTestResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for NoneRunning
+
+	if len(errors) > 0 {
+		return CancelNetworkTestResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// CancelNetworkTestResponseMultiError is an error wrapping multiple validation
+// errors returned by CancelNetworkTestResponse.ValidateAll() if the
+// designated constraints aren't met.
+type CancelNetworkTestResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CancelNetworkTestResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CancelNetworkTestResponseMultiError) AllErrors() []error { return m }
+
+// CancelNetworkTestResponseValidationError is the validation error returned by
+// CancelNetworkTestResponse.Validate if the designated constraints aren't met.
+type CancelNetworkTestResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CancelNetworkTestResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CancelNetworkTestResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CancelNetworkTestResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CancelNetworkTestResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CancelNetworkTestResponseValidationError) ErrorName() string {
+	return "CancelNetworkTestResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CancelNetworkTestResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCancelNetworkTestResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CancelNetworkTestResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CancelNetworkTestResponseValidationError{}
+
+// Validate checks the field values on GetNetworkTestResultsRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetNetworkTestResultsRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetNetworkTestResultsRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetNetworkTestResultsRequestMultiError, or nil if none found.
+func (m *GetNetworkTestResultsRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetNetworkTestResultsRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return GetNetworkTestResultsRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetNetworkTestResultsRequestMultiError is an error wrapping multiple
+// validation errors returned by GetNetworkTestResultsRequest.ValidateAll() if
+// the designated constraints aren't met.
+type GetNetworkTestResultsRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetNetworkTestResultsRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetNetworkTestResultsRequestMultiError) AllErrors() []error { return m }
+
+// GetNetworkTestResultsRequestValidationError is the validation error returned
+// by GetNetworkTestResultsRequest.Validate if the designated constraints
+// aren't met.
+type GetNetworkTestResultsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetNetworkTestResultsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetNetworkTestResultsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetNetworkTestResultsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetNetworkTestResultsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetNetworkTestResultsRequestValidationError) ErrorName() string {
+	return "GetNetworkTestResultsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetNetworkTestResultsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetNetworkTestResultsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetNetworkTestResultsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetNetworkTestResultsRequestValidationError{}
+
+// Validate checks the field values on GetNetworkTestResultsResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetNetworkTestResultsResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetNetworkTestResultsResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// GetNetworkTestResultsResponseMultiError, or nil if none found.
+func (m *GetNetworkTestResultsResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetNetworkTestResultsResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for FileName
+
+	// no validation rules for FileContents
+
+	if len(errors) > 0 {
+		return GetNetworkTestResultsResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetNetworkTestResultsResponseMultiError is an error wrapping multiple
+// validation errors returned by GetNetworkTestResultsResponse.ValidateAll()
+// if the designated constraints aren't met.
+type GetNetworkTestResultsResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetNetworkTestResultsResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetNetworkTestResultsResponseMultiError) AllErrors() []error { return m }
+
+// GetNetworkTestResultsResponseValidationError is the validation error
+// returned by GetNetworkTestResultsResponse.Validate if the designated
+// constraints aren't met.
+type GetNetworkTestResultsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetNetworkTestResultsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetNetworkTestResultsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetNetworkTestResultsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetNetworkTestResultsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetNetworkTestResultsResponseValidationError) ErrorName() string {
+	return "GetNetworkTestResultsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetNetworkTestResultsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetNetworkTestResultsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetNetworkTestResultsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetNetworkTestResultsResponseValidationError{}
+
 // Validate checks the field values on SetScrubbingScheduleRequest with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.

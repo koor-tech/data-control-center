@@ -21,6 +21,9 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	ClusterService_GetKoorCluster_FullMethodName        = "/api.services.cluster.v1.ClusterService/GetKoorCluster"
 	ClusterService_GetTroubleshootReport_FullMethodName = "/api.services.cluster.v1.ClusterService/GetTroubleshootReport"
+	ClusterService_StartNetworkTest_FullMethodName      = "/api.services.cluster.v1.ClusterService/StartNetworkTest"
+	ClusterService_CancelNetworkTest_FullMethodName     = "/api.services.cluster.v1.ClusterService/CancelNetworkTest"
+	ClusterService_GetNetworkTestResults_FullMethodName = "/api.services.cluster.v1.ClusterService/GetNetworkTestResults"
 	ClusterService_SetScrubbingSchedule_FullMethodName  = "/api.services.cluster.v1.ClusterService/SetScrubbingSchedule"
 )
 
@@ -30,6 +33,9 @@ const (
 type ClusterServiceClient interface {
 	GetKoorCluster(ctx context.Context, in *GetKoorClusterRequest, opts ...grpc.CallOption) (*GetKoorClusterResponse, error)
 	GetTroubleshootReport(ctx context.Context, in *GetTroubleshootReportRequest, opts ...grpc.CallOption) (*GetTroubleshootReportResponse, error)
+	StartNetworkTest(ctx context.Context, in *StartNetworkTestRequest, opts ...grpc.CallOption) (*StartNetworkTestResponse, error)
+	CancelNetworkTest(ctx context.Context, in *CancelNetworkTestRequest, opts ...grpc.CallOption) (*CancelNetworkTestResponse, error)
+	GetNetworkTestResults(ctx context.Context, in *GetNetworkTestResultsRequest, opts ...grpc.CallOption) (*GetNetworkTestResultsResponse, error)
 	SetScrubbingSchedule(ctx context.Context, in *SetScrubbingScheduleRequest, opts ...grpc.CallOption) (*SetScrubbingScheduleResponse, error)
 }
 
@@ -59,6 +65,33 @@ func (c *clusterServiceClient) GetTroubleshootReport(ctx context.Context, in *Ge
 	return out, nil
 }
 
+func (c *clusterServiceClient) StartNetworkTest(ctx context.Context, in *StartNetworkTestRequest, opts ...grpc.CallOption) (*StartNetworkTestResponse, error) {
+	out := new(StartNetworkTestResponse)
+	err := c.cc.Invoke(ctx, ClusterService_StartNetworkTest_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *clusterServiceClient) CancelNetworkTest(ctx context.Context, in *CancelNetworkTestRequest, opts ...grpc.CallOption) (*CancelNetworkTestResponse, error) {
+	out := new(CancelNetworkTestResponse)
+	err := c.cc.Invoke(ctx, ClusterService_CancelNetworkTest_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *clusterServiceClient) GetNetworkTestResults(ctx context.Context, in *GetNetworkTestResultsRequest, opts ...grpc.CallOption) (*GetNetworkTestResultsResponse, error) {
+	out := new(GetNetworkTestResultsResponse)
+	err := c.cc.Invoke(ctx, ClusterService_GetNetworkTestResults_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *clusterServiceClient) SetScrubbingSchedule(ctx context.Context, in *SetScrubbingScheduleRequest, opts ...grpc.CallOption) (*SetScrubbingScheduleResponse, error) {
 	out := new(SetScrubbingScheduleResponse)
 	err := c.cc.Invoke(ctx, ClusterService_SetScrubbingSchedule_FullMethodName, in, out, opts...)
@@ -74,6 +107,9 @@ func (c *clusterServiceClient) SetScrubbingSchedule(ctx context.Context, in *Set
 type ClusterServiceServer interface {
 	GetKoorCluster(context.Context, *GetKoorClusterRequest) (*GetKoorClusterResponse, error)
 	GetTroubleshootReport(context.Context, *GetTroubleshootReportRequest) (*GetTroubleshootReportResponse, error)
+	StartNetworkTest(context.Context, *StartNetworkTestRequest) (*StartNetworkTestResponse, error)
+	CancelNetworkTest(context.Context, *CancelNetworkTestRequest) (*CancelNetworkTestResponse, error)
+	GetNetworkTestResults(context.Context, *GetNetworkTestResultsRequest) (*GetNetworkTestResultsResponse, error)
 	SetScrubbingSchedule(context.Context, *SetScrubbingScheduleRequest) (*SetScrubbingScheduleResponse, error)
 }
 
@@ -86,6 +122,15 @@ func (UnimplementedClusterServiceServer) GetKoorCluster(context.Context, *GetKoo
 }
 func (UnimplementedClusterServiceServer) GetTroubleshootReport(context.Context, *GetTroubleshootReportRequest) (*GetTroubleshootReportResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTroubleshootReport not implemented")
+}
+func (UnimplementedClusterServiceServer) StartNetworkTest(context.Context, *StartNetworkTestRequest) (*StartNetworkTestResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method StartNetworkTest not implemented")
+}
+func (UnimplementedClusterServiceServer) CancelNetworkTest(context.Context, *CancelNetworkTestRequest) (*CancelNetworkTestResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CancelNetworkTest not implemented")
+}
+func (UnimplementedClusterServiceServer) GetNetworkTestResults(context.Context, *GetNetworkTestResultsRequest) (*GetNetworkTestResultsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetNetworkTestResults not implemented")
 }
 func (UnimplementedClusterServiceServer) SetScrubbingSchedule(context.Context, *SetScrubbingScheduleRequest) (*SetScrubbingScheduleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetScrubbingSchedule not implemented")
@@ -138,6 +183,60 @@ func _ClusterService_GetTroubleshootReport_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ClusterService_StartNetworkTest_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StartNetworkTestRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ClusterServiceServer).StartNetworkTest(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ClusterService_StartNetworkTest_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ClusterServiceServer).StartNetworkTest(ctx, req.(*StartNetworkTestRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ClusterService_CancelNetworkTest_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CancelNetworkTestRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ClusterServiceServer).CancelNetworkTest(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ClusterService_CancelNetworkTest_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ClusterServiceServer).CancelNetworkTest(ctx, req.(*CancelNetworkTestRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ClusterService_GetNetworkTestResults_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetNetworkTestResultsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ClusterServiceServer).GetNetworkTestResults(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ClusterService_GetNetworkTestResults_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ClusterServiceServer).GetNetworkTestResults(ctx, req.(*GetNetworkTestResultsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _ClusterService_SetScrubbingSchedule_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SetScrubbingScheduleRequest)
 	if err := dec(in); err != nil {
@@ -170,6 +269,18 @@ var ClusterService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetTroubleshootReport",
 			Handler:    _ClusterService_GetTroubleshootReport_Handler,
+		},
+		{
+			MethodName: "StartNetworkTest",
+			Handler:    _ClusterService_StartNetworkTest_Handler,
+		},
+		{
+			MethodName: "CancelNetworkTest",
+			Handler:    _ClusterService_CancelNetworkTest_Handler,
+		},
+		{
+			MethodName: "GetNetworkTestResults",
+			Handler:    _ClusterService_GetNetworkTestResults_Handler,
 		},
 		{
 			MethodName: "SetScrubbingSchedule",

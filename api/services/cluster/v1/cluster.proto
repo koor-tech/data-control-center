@@ -18,6 +18,27 @@ message GetTroubleshootReportResponse {
   string report = 1;
 }
 
+message StartNetworkTestRequest {}
+
+message StartNetworkTestResponse {
+  bool already_running = 1;
+}
+
+message CancelNetworkTestRequest {
+  bool force = 1;
+}
+
+message CancelNetworkTestResponse {
+  bool none_running = 1;
+}
+
+message GetNetworkTestResultsRequest {}
+
+message GetNetworkTestResultsResponse {
+  string file_name = 1;
+  bytes file_contents = 2;
+}
+
 message SetScrubbingScheduleRequest {
   api.resources.koor.v1.OSDScrubbingSchedule osd_scrubbing_schedule = 1;
 }
@@ -30,7 +51,9 @@ service ClusterService {
   rpc GetKoorCluster(GetKoorClusterRequest) returns (GetKoorClusterResponse) {}
   rpc GetTroubleshootReport(GetTroubleshootReportRequest) returns (GetTroubleshootReportResponse) {}
 
-  rpc SetScrubbingSchedule(SetScrubbingScheduleRequest) returns (SetScrubbingScheduleResponse) {}
+  rpc StartNetworkTest(StartNetworkTestRequest) returns (StartNetworkTestResponse) {}
+  rpc CancelNetworkTest(CancelNetworkTestRequest) returns (CancelNetworkTestResponse) {}
+  rpc GetNetworkTestResults(GetNetworkTestResultsRequest) returns (GetNetworkTestResultsResponse) {}
 
-  // TODO add rpc calls for starting, stopping and retrieving ancientt network test results
+  rpc SetScrubbingSchedule(SetScrubbingScheduleRequest) returns (SetScrubbingScheduleResponse) {}
 }

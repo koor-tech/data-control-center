@@ -39,6 +39,15 @@ const (
 	// ClusterServiceGetTroubleshootReportProcedure is the fully-qualified name of the ClusterService's
 	// GetTroubleshootReport RPC.
 	ClusterServiceGetTroubleshootReportProcedure = "/api.services.cluster.v1.ClusterService/GetTroubleshootReport"
+	// ClusterServiceStartNetworkTestProcedure is the fully-qualified name of the ClusterService's
+	// StartNetworkTest RPC.
+	ClusterServiceStartNetworkTestProcedure = "/api.services.cluster.v1.ClusterService/StartNetworkTest"
+	// ClusterServiceCancelNetworkTestProcedure is the fully-qualified name of the ClusterService's
+	// CancelNetworkTest RPC.
+	ClusterServiceCancelNetworkTestProcedure = "/api.services.cluster.v1.ClusterService/CancelNetworkTest"
+	// ClusterServiceGetNetworkTestResultsProcedure is the fully-qualified name of the ClusterService's
+	// GetNetworkTestResults RPC.
+	ClusterServiceGetNetworkTestResultsProcedure = "/api.services.cluster.v1.ClusterService/GetNetworkTestResults"
 	// ClusterServiceSetScrubbingScheduleProcedure is the fully-qualified name of the ClusterService's
 	// SetScrubbingSchedule RPC.
 	ClusterServiceSetScrubbingScheduleProcedure = "/api.services.cluster.v1.ClusterService/SetScrubbingSchedule"
@@ -48,6 +57,9 @@ const (
 type ClusterServiceClient interface {
 	GetKoorCluster(context.Context, *connect.Request[v1.GetKoorClusterRequest]) (*connect.Response[v1.GetKoorClusterResponse], error)
 	GetTroubleshootReport(context.Context, *connect.Request[v1.GetTroubleshootReportRequest]) (*connect.Response[v1.GetTroubleshootReportResponse], error)
+	StartNetworkTest(context.Context, *connect.Request[v1.StartNetworkTestRequest]) (*connect.Response[v1.StartNetworkTestResponse], error)
+	CancelNetworkTest(context.Context, *connect.Request[v1.CancelNetworkTestRequest]) (*connect.Response[v1.CancelNetworkTestResponse], error)
+	GetNetworkTestResults(context.Context, *connect.Request[v1.GetNetworkTestResultsRequest]) (*connect.Response[v1.GetNetworkTestResultsResponse], error)
 	SetScrubbingSchedule(context.Context, *connect.Request[v1.SetScrubbingScheduleRequest]) (*connect.Response[v1.SetScrubbingScheduleResponse], error)
 }
 
@@ -71,6 +83,21 @@ func NewClusterServiceClient(httpClient connect.HTTPClient, baseURL string, opts
 			baseURL+ClusterServiceGetTroubleshootReportProcedure,
 			opts...,
 		),
+		startNetworkTest: connect.NewClient[v1.StartNetworkTestRequest, v1.StartNetworkTestResponse](
+			httpClient,
+			baseURL+ClusterServiceStartNetworkTestProcedure,
+			opts...,
+		),
+		cancelNetworkTest: connect.NewClient[v1.CancelNetworkTestRequest, v1.CancelNetworkTestResponse](
+			httpClient,
+			baseURL+ClusterServiceCancelNetworkTestProcedure,
+			opts...,
+		),
+		getNetworkTestResults: connect.NewClient[v1.GetNetworkTestResultsRequest, v1.GetNetworkTestResultsResponse](
+			httpClient,
+			baseURL+ClusterServiceGetNetworkTestResultsProcedure,
+			opts...,
+		),
 		setScrubbingSchedule: connect.NewClient[v1.SetScrubbingScheduleRequest, v1.SetScrubbingScheduleResponse](
 			httpClient,
 			baseURL+ClusterServiceSetScrubbingScheduleProcedure,
@@ -83,6 +110,9 @@ func NewClusterServiceClient(httpClient connect.HTTPClient, baseURL string, opts
 type clusterServiceClient struct {
 	getKoorCluster        *connect.Client[v1.GetKoorClusterRequest, v1.GetKoorClusterResponse]
 	getTroubleshootReport *connect.Client[v1.GetTroubleshootReportRequest, v1.GetTroubleshootReportResponse]
+	startNetworkTest      *connect.Client[v1.StartNetworkTestRequest, v1.StartNetworkTestResponse]
+	cancelNetworkTest     *connect.Client[v1.CancelNetworkTestRequest, v1.CancelNetworkTestResponse]
+	getNetworkTestResults *connect.Client[v1.GetNetworkTestResultsRequest, v1.GetNetworkTestResultsResponse]
 	setScrubbingSchedule  *connect.Client[v1.SetScrubbingScheduleRequest, v1.SetScrubbingScheduleResponse]
 }
 
@@ -96,6 +126,21 @@ func (c *clusterServiceClient) GetTroubleshootReport(ctx context.Context, req *c
 	return c.getTroubleshootReport.CallUnary(ctx, req)
 }
 
+// StartNetworkTest calls api.services.cluster.v1.ClusterService.StartNetworkTest.
+func (c *clusterServiceClient) StartNetworkTest(ctx context.Context, req *connect.Request[v1.StartNetworkTestRequest]) (*connect.Response[v1.StartNetworkTestResponse], error) {
+	return c.startNetworkTest.CallUnary(ctx, req)
+}
+
+// CancelNetworkTest calls api.services.cluster.v1.ClusterService.CancelNetworkTest.
+func (c *clusterServiceClient) CancelNetworkTest(ctx context.Context, req *connect.Request[v1.CancelNetworkTestRequest]) (*connect.Response[v1.CancelNetworkTestResponse], error) {
+	return c.cancelNetworkTest.CallUnary(ctx, req)
+}
+
+// GetNetworkTestResults calls api.services.cluster.v1.ClusterService.GetNetworkTestResults.
+func (c *clusterServiceClient) GetNetworkTestResults(ctx context.Context, req *connect.Request[v1.GetNetworkTestResultsRequest]) (*connect.Response[v1.GetNetworkTestResultsResponse], error) {
+	return c.getNetworkTestResults.CallUnary(ctx, req)
+}
+
 // SetScrubbingSchedule calls api.services.cluster.v1.ClusterService.SetScrubbingSchedule.
 func (c *clusterServiceClient) SetScrubbingSchedule(ctx context.Context, req *connect.Request[v1.SetScrubbingScheduleRequest]) (*connect.Response[v1.SetScrubbingScheduleResponse], error) {
 	return c.setScrubbingSchedule.CallUnary(ctx, req)
@@ -105,6 +150,9 @@ func (c *clusterServiceClient) SetScrubbingSchedule(ctx context.Context, req *co
 type ClusterServiceHandler interface {
 	GetKoorCluster(context.Context, *connect.Request[v1.GetKoorClusterRequest]) (*connect.Response[v1.GetKoorClusterResponse], error)
 	GetTroubleshootReport(context.Context, *connect.Request[v1.GetTroubleshootReportRequest]) (*connect.Response[v1.GetTroubleshootReportResponse], error)
+	StartNetworkTest(context.Context, *connect.Request[v1.StartNetworkTestRequest]) (*connect.Response[v1.StartNetworkTestResponse], error)
+	CancelNetworkTest(context.Context, *connect.Request[v1.CancelNetworkTestRequest]) (*connect.Response[v1.CancelNetworkTestResponse], error)
+	GetNetworkTestResults(context.Context, *connect.Request[v1.GetNetworkTestResultsRequest]) (*connect.Response[v1.GetNetworkTestResultsResponse], error)
 	SetScrubbingSchedule(context.Context, *connect.Request[v1.SetScrubbingScheduleRequest]) (*connect.Response[v1.SetScrubbingScheduleResponse], error)
 }
 
@@ -124,6 +172,21 @@ func NewClusterServiceHandler(svc ClusterServiceHandler, opts ...connect.Handler
 		svc.GetTroubleshootReport,
 		opts...,
 	)
+	clusterServiceStartNetworkTestHandler := connect.NewUnaryHandler(
+		ClusterServiceStartNetworkTestProcedure,
+		svc.StartNetworkTest,
+		opts...,
+	)
+	clusterServiceCancelNetworkTestHandler := connect.NewUnaryHandler(
+		ClusterServiceCancelNetworkTestProcedure,
+		svc.CancelNetworkTest,
+		opts...,
+	)
+	clusterServiceGetNetworkTestResultsHandler := connect.NewUnaryHandler(
+		ClusterServiceGetNetworkTestResultsProcedure,
+		svc.GetNetworkTestResults,
+		opts...,
+	)
 	clusterServiceSetScrubbingScheduleHandler := connect.NewUnaryHandler(
 		ClusterServiceSetScrubbingScheduleProcedure,
 		svc.SetScrubbingSchedule,
@@ -135,6 +198,12 @@ func NewClusterServiceHandler(svc ClusterServiceHandler, opts ...connect.Handler
 			clusterServiceGetKoorClusterHandler.ServeHTTP(w, r)
 		case ClusterServiceGetTroubleshootReportProcedure:
 			clusterServiceGetTroubleshootReportHandler.ServeHTTP(w, r)
+		case ClusterServiceStartNetworkTestProcedure:
+			clusterServiceStartNetworkTestHandler.ServeHTTP(w, r)
+		case ClusterServiceCancelNetworkTestProcedure:
+			clusterServiceCancelNetworkTestHandler.ServeHTTP(w, r)
+		case ClusterServiceGetNetworkTestResultsProcedure:
+			clusterServiceGetNetworkTestResultsHandler.ServeHTTP(w, r)
 		case ClusterServiceSetScrubbingScheduleProcedure:
 			clusterServiceSetScrubbingScheduleHandler.ServeHTTP(w, r)
 		default:
@@ -152,6 +221,18 @@ func (UnimplementedClusterServiceHandler) GetKoorCluster(context.Context, *conne
 
 func (UnimplementedClusterServiceHandler) GetTroubleshootReport(context.Context, *connect.Request[v1.GetTroubleshootReportRequest]) (*connect.Response[v1.GetTroubleshootReportResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("api.services.cluster.v1.ClusterService.GetTroubleshootReport is not implemented"))
+}
+
+func (UnimplementedClusterServiceHandler) StartNetworkTest(context.Context, *connect.Request[v1.StartNetworkTestRequest]) (*connect.Response[v1.StartNetworkTestResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("api.services.cluster.v1.ClusterService.StartNetworkTest is not implemented"))
+}
+
+func (UnimplementedClusterServiceHandler) CancelNetworkTest(context.Context, *connect.Request[v1.CancelNetworkTestRequest]) (*connect.Response[v1.CancelNetworkTestResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("api.services.cluster.v1.ClusterService.CancelNetworkTest is not implemented"))
+}
+
+func (UnimplementedClusterServiceHandler) GetNetworkTestResults(context.Context, *connect.Request[v1.GetNetworkTestResultsRequest]) (*connect.Response[v1.GetNetworkTestResultsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("api.services.cluster.v1.ClusterService.GetNetworkTestResults is not implemented"))
 }
 
 func (UnimplementedClusterServiceHandler) SetScrubbingSchedule(context.Context, *connect.Request[v1.SetScrubbingScheduleRequest]) (*connect.Response[v1.SetScrubbingScheduleResponse], error) {

@@ -94,6 +94,145 @@ export declare class GetTroubleshootReportResponse extends Message<GetTroublesho
 }
 
 /**
+ * @generated from message api.services.cluster.v1.StartNetworkTestRequest
+ */
+export declare class StartNetworkTestRequest extends Message<StartNetworkTestRequest> {
+  constructor(data?: PartialMessage<StartNetworkTestRequest>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "api.services.cluster.v1.StartNetworkTestRequest";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): StartNetworkTestRequest;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): StartNetworkTestRequest;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): StartNetworkTestRequest;
+
+  static equals(a: StartNetworkTestRequest | PlainMessage<StartNetworkTestRequest> | undefined, b: StartNetworkTestRequest | PlainMessage<StartNetworkTestRequest> | undefined): boolean;
+}
+
+/**
+ * @generated from message api.services.cluster.v1.StartNetworkTestResponse
+ */
+export declare class StartNetworkTestResponse extends Message<StartNetworkTestResponse> {
+  /**
+   * @generated from field: bool already_running = 1;
+   */
+  alreadyRunning: boolean;
+
+  constructor(data?: PartialMessage<StartNetworkTestResponse>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "api.services.cluster.v1.StartNetworkTestResponse";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): StartNetworkTestResponse;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): StartNetworkTestResponse;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): StartNetworkTestResponse;
+
+  static equals(a: StartNetworkTestResponse | PlainMessage<StartNetworkTestResponse> | undefined, b: StartNetworkTestResponse | PlainMessage<StartNetworkTestResponse> | undefined): boolean;
+}
+
+/**
+ * @generated from message api.services.cluster.v1.CancelNetworkTestRequest
+ */
+export declare class CancelNetworkTestRequest extends Message<CancelNetworkTestRequest> {
+  /**
+   * @generated from field: bool force = 1;
+   */
+  force: boolean;
+
+  constructor(data?: PartialMessage<CancelNetworkTestRequest>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "api.services.cluster.v1.CancelNetworkTestRequest";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CancelNetworkTestRequest;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CancelNetworkTestRequest;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CancelNetworkTestRequest;
+
+  static equals(a: CancelNetworkTestRequest | PlainMessage<CancelNetworkTestRequest> | undefined, b: CancelNetworkTestRequest | PlainMessage<CancelNetworkTestRequest> | undefined): boolean;
+}
+
+/**
+ * @generated from message api.services.cluster.v1.CancelNetworkTestResponse
+ */
+export declare class CancelNetworkTestResponse extends Message<CancelNetworkTestResponse> {
+  /**
+   * @generated from field: bool none_running = 1;
+   */
+  noneRunning: boolean;
+
+  constructor(data?: PartialMessage<CancelNetworkTestResponse>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "api.services.cluster.v1.CancelNetworkTestResponse";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CancelNetworkTestResponse;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CancelNetworkTestResponse;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CancelNetworkTestResponse;
+
+  static equals(a: CancelNetworkTestResponse | PlainMessage<CancelNetworkTestResponse> | undefined, b: CancelNetworkTestResponse | PlainMessage<CancelNetworkTestResponse> | undefined): boolean;
+}
+
+/**
+ * @generated from message api.services.cluster.v1.GetNetworkTestResultsRequest
+ */
+export declare class GetNetworkTestResultsRequest extends Message<GetNetworkTestResultsRequest> {
+  constructor(data?: PartialMessage<GetNetworkTestResultsRequest>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "api.services.cluster.v1.GetNetworkTestResultsRequest";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetNetworkTestResultsRequest;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetNetworkTestResultsRequest;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetNetworkTestResultsRequest;
+
+  static equals(a: GetNetworkTestResultsRequest | PlainMessage<GetNetworkTestResultsRequest> | undefined, b: GetNetworkTestResultsRequest | PlainMessage<GetNetworkTestResultsRequest> | undefined): boolean;
+}
+
+/**
+ * @generated from message api.services.cluster.v1.GetNetworkTestResultsResponse
+ */
+export declare class GetNetworkTestResultsResponse extends Message<GetNetworkTestResultsResponse> {
+  /**
+   * @generated from field: string file_name = 1;
+   */
+  fileName: string;
+
+  /**
+   * @generated from field: bytes file_contents = 2;
+   */
+  fileContents: Uint8Array;
+
+  constructor(data?: PartialMessage<GetNetworkTestResultsResponse>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "api.services.cluster.v1.GetNetworkTestResultsResponse";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetNetworkTestResultsResponse;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetNetworkTestResultsResponse;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetNetworkTestResultsResponse;
+
+  static equals(a: GetNetworkTestResultsResponse | PlainMessage<GetNetworkTestResultsResponse> | undefined, b: GetNetworkTestResultsResponse | PlainMessage<GetNetworkTestResultsResponse> | undefined): boolean;
+}
+
+/**
  * @generated from message api.services.cluster.v1.SetScrubbingScheduleRequest
  */
 export declare class SetScrubbingScheduleRequest extends Message<SetScrubbingScheduleRequest> {

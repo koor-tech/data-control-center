@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { GetKoorClusterRequest, GetKoorClusterResponse, GetTroubleshootReportRequest, GetTroubleshootReportResponse, SetScrubbingScheduleRequest, SetScrubbingScheduleResponse } from "./cluster_pb.js";
+import { CancelNetworkTestRequest, CancelNetworkTestResponse, GetKoorClusterRequest, GetKoorClusterResponse, GetNetworkTestResultsRequest, GetNetworkTestResultsResponse, GetTroubleshootReportRequest, GetTroubleshootReportResponse, SetScrubbingScheduleRequest, SetScrubbingScheduleResponse, StartNetworkTestRequest, StartNetworkTestResponse } from "./cluster_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -28,6 +28,33 @@ export declare const ClusterService: {
       readonly name: "GetTroubleshootReport",
       readonly I: typeof GetTroubleshootReportRequest,
       readonly O: typeof GetTroubleshootReportResponse,
+      readonly kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc api.services.cluster.v1.ClusterService.StartNetworkTest
+     */
+    readonly startNetworkTest: {
+      readonly name: "StartNetworkTest",
+      readonly I: typeof StartNetworkTestRequest,
+      readonly O: typeof StartNetworkTestResponse,
+      readonly kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc api.services.cluster.v1.ClusterService.CancelNetworkTest
+     */
+    readonly cancelNetworkTest: {
+      readonly name: "CancelNetworkTest",
+      readonly I: typeof CancelNetworkTestRequest,
+      readonly O: typeof CancelNetworkTestResponse,
+      readonly kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc api.services.cluster.v1.ClusterService.GetNetworkTestResults
+     */
+    readonly getNetworkTestResults: {
+      readonly name: "GetNetworkTestResults",
+      readonly I: typeof GetNetworkTestResultsRequest,
+      readonly O: typeof GetNetworkTestResultsResponse,
       readonly kind: MethodKind.Unary,
     },
     /**
