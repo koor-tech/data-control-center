@@ -30,8 +30,7 @@ onMounted(() => {
     if (appConfig.value.updateAvailable !== undefined) {
         notifications.dispatchNotification({
             title: 'New version available!',
-            content:
-                'A new Data Control Center version is available on GitHub. Be sure to update to get new features and fixes.',
+            content: `A new Data Control Center version (${appConfig.value.updateAvailable}) is available on GitHub. Be sure to update to get new features and fixes.`,
             type: 'info',
         });
     }
