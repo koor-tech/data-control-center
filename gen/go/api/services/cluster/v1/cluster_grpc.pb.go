@@ -26,6 +26,8 @@ const (
 	ClusterService_CancelNetworkTest_FullMethodName     = "/api.services.cluster.v1.ClusterService/CancelNetworkTest"
 	ClusterService_GetNetworkTestResults_FullMethodName = "/api.services.cluster.v1.ClusterService/GetNetworkTestResults"
 	ClusterService_SetScrubbingSchedule_FullMethodName  = "/api.services.cluster.v1.ClusterService/SetScrubbingSchedule"
+	ClusterService_GetResources_FullMethodName          = "/api.services.cluster.v1.ClusterService/GetResources"
+	ClusterService_SaveResources_FullMethodName         = "/api.services.cluster.v1.ClusterService/SaveResources"
 )
 
 // ClusterServiceClient is the client API for ClusterService service.
@@ -39,6 +41,8 @@ type ClusterServiceClient interface {
 	CancelNetworkTest(ctx context.Context, in *CancelNetworkTestRequest, opts ...grpc.CallOption) (*CancelNetworkTestResponse, error)
 	GetNetworkTestResults(ctx context.Context, in *GetNetworkTestResultsRequest, opts ...grpc.CallOption) (*GetNetworkTestResultsResponse, error)
 	SetScrubbingSchedule(ctx context.Context, in *SetScrubbingScheduleRequest, opts ...grpc.CallOption) (*SetScrubbingScheduleResponse, error)
+	GetResources(ctx context.Context, in *GetResourcesRequest, opts ...grpc.CallOption) (*GetResourcesResponse, error)
+	SaveResources(ctx context.Context, in *SaveResourcesRequest, opts ...grpc.CallOption) (*SaveResourcesResponse, error)
 }
 
 type clusterServiceClient struct {
@@ -112,6 +116,24 @@ func (c *clusterServiceClient) SetScrubbingSchedule(ctx context.Context, in *Set
 	return out, nil
 }
 
+func (c *clusterServiceClient) GetResources(ctx context.Context, in *GetResourcesRequest, opts ...grpc.CallOption) (*GetResourcesResponse, error) {
+	out := new(GetResourcesResponse)
+	err := c.cc.Invoke(ctx, ClusterService_GetResources_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *clusterServiceClient) SaveResources(ctx context.Context, in *SaveResourcesRequest, opts ...grpc.CallOption) (*SaveResourcesResponse, error) {
+	out := new(SaveResourcesResponse)
+	err := c.cc.Invoke(ctx, ClusterService_SaveResources_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ClusterServiceServer is the server API for ClusterService service.
 // All implementations should embed UnimplementedClusterServiceServer
 // for forward compatibility
@@ -123,6 +145,8 @@ type ClusterServiceServer interface {
 	CancelNetworkTest(context.Context, *CancelNetworkTestRequest) (*CancelNetworkTestResponse, error)
 	GetNetworkTestResults(context.Context, *GetNetworkTestResultsRequest) (*GetNetworkTestResultsResponse, error)
 	SetScrubbingSchedule(context.Context, *SetScrubbingScheduleRequest) (*SetScrubbingScheduleResponse, error)
+	GetResources(context.Context, *GetResourcesRequest) (*GetResourcesResponse, error)
+	SaveResources(context.Context, *SaveResourcesRequest) (*SaveResourcesResponse, error)
 }
 
 // UnimplementedClusterServiceServer should be embedded to have forward compatible implementations.
@@ -149,6 +173,12 @@ func (UnimplementedClusterServiceServer) GetNetworkTestResults(context.Context, 
 }
 func (UnimplementedClusterServiceServer) SetScrubbingSchedule(context.Context, *SetScrubbingScheduleRequest) (*SetScrubbingScheduleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetScrubbingSchedule not implemented")
+}
+func (UnimplementedClusterServiceServer) GetResources(context.Context, *GetResourcesRequest) (*GetResourcesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetResources not implemented")
+}
+func (UnimplementedClusterServiceServer) SaveResources(context.Context, *SaveResourcesRequest) (*SaveResourcesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SaveResources not implemented")
 }
 
 // UnsafeClusterServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -288,6 +318,42 @@ func _ClusterService_SetScrubbingSchedule_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ClusterService_GetResources_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetResourcesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ClusterServiceServer).GetResources(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ClusterService_GetResources_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ClusterServiceServer).GetResources(ctx, req.(*GetResourcesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ClusterService_SaveResources_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SaveResourcesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ClusterServiceServer).SaveResources(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ClusterService_SaveResources_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ClusterServiceServer).SaveResources(ctx, req.(*SaveResourcesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ClusterService_ServiceDesc is the grpc.ServiceDesc for ClusterService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -322,6 +388,14 @@ var ClusterService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SetScrubbingSchedule",
 			Handler:    _ClusterService_SetScrubbingSchedule_Handler,
+		},
+		{
+			MethodName: "GetResources",
+			Handler:    _ClusterService_GetResources_Handler,
+		},
+		{
+			MethodName: "SaveResources",
+			Handler:    _ClusterService_SaveResources_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

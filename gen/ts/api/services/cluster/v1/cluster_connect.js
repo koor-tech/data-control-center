@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { CancelNetworkTestRequest, CancelNetworkTestResponse, GetKoorClusterRequest, GetKoorClusterResponse, GetNetworkTestResultsRequest, GetNetworkTestResultsResponse, GetNetworkTestStatusRequest, GetNetworkTestStatusResponse, GetTroubleshootReportRequest, GetTroubleshootReportResponse, SetScrubbingScheduleRequest, SetScrubbingScheduleResponse, StartNetworkTestRequest, StartNetworkTestResponse } from "./cluster_pb.js";
+import { CancelNetworkTestRequest, CancelNetworkTestResponse, GetKoorClusterRequest, GetKoorClusterResponse, GetNetworkTestResultsRequest, GetNetworkTestResultsResponse, GetNetworkTestStatusRequest, GetNetworkTestStatusResponse, GetResourcesRequest, GetResourcesResponse, GetTroubleshootReportRequest, GetTroubleshootReportResponse, SaveResourcesRequest, SaveResourcesResponse, SetScrubbingScheduleRequest, SetScrubbingScheduleResponse, StartNetworkTestRequest, StartNetworkTestResponse } from "./cluster_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -73,6 +73,24 @@ export const ClusterService = {
       name: "SetScrubbingSchedule",
       I: SetScrubbingScheduleRequest,
       O: SetScrubbingScheduleResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc api.services.cluster.v1.ClusterService.GetResources
+     */
+    getResources: {
+      name: "GetResources",
+      I: GetResourcesRequest,
+      O: GetResourcesResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc api.services.cluster.v1.ClusterService.SaveResources
+     */
+    saveResources: {
+      name: "SaveResources",
+      I: SaveResourcesRequest,
+      O: SaveResourcesResponse,
       kind: MethodKind.Unary,
     },
   }

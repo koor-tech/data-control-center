@@ -54,6 +54,12 @@ const (
 	// ClusterServiceSetScrubbingScheduleProcedure is the fully-qualified name of the ClusterService's
 	// SetScrubbingSchedule RPC.
 	ClusterServiceSetScrubbingScheduleProcedure = "/api.services.cluster.v1.ClusterService/SetScrubbingSchedule"
+	// ClusterServiceGetResourcesProcedure is the fully-qualified name of the ClusterService's
+	// GetResources RPC.
+	ClusterServiceGetResourcesProcedure = "/api.services.cluster.v1.ClusterService/GetResources"
+	// ClusterServiceSaveResourcesProcedure is the fully-qualified name of the ClusterService's
+	// SaveResources RPC.
+	ClusterServiceSaveResourcesProcedure = "/api.services.cluster.v1.ClusterService/SaveResources"
 )
 
 // ClusterServiceClient is a client for the api.services.cluster.v1.ClusterService service.
@@ -65,6 +71,8 @@ type ClusterServiceClient interface {
 	CancelNetworkTest(context.Context, *connect.Request[v1.CancelNetworkTestRequest]) (*connect.Response[v1.CancelNetworkTestResponse], error)
 	GetNetworkTestResults(context.Context, *connect.Request[v1.GetNetworkTestResultsRequest]) (*connect.Response[v1.GetNetworkTestResultsResponse], error)
 	SetScrubbingSchedule(context.Context, *connect.Request[v1.SetScrubbingScheduleRequest]) (*connect.Response[v1.SetScrubbingScheduleResponse], error)
+	GetResources(context.Context, *connect.Request[v1.GetResourcesRequest]) (*connect.Response[v1.GetResourcesResponse], error)
+	SaveResources(context.Context, *connect.Request[v1.SaveResourcesRequest]) (*connect.Response[v1.SaveResourcesResponse], error)
 }
 
 // NewClusterServiceClient constructs a client for the api.services.cluster.v1.ClusterService
@@ -112,6 +120,16 @@ func NewClusterServiceClient(httpClient connect.HTTPClient, baseURL string, opts
 			baseURL+ClusterServiceSetScrubbingScheduleProcedure,
 			opts...,
 		),
+		getResources: connect.NewClient[v1.GetResourcesRequest, v1.GetResourcesResponse](
+			httpClient,
+			baseURL+ClusterServiceGetResourcesProcedure,
+			opts...,
+		),
+		saveResources: connect.NewClient[v1.SaveResourcesRequest, v1.SaveResourcesResponse](
+			httpClient,
+			baseURL+ClusterServiceSaveResourcesProcedure,
+			opts...,
+		),
 	}
 }
 
@@ -124,6 +142,8 @@ type clusterServiceClient struct {
 	cancelNetworkTest     *connect.Client[v1.CancelNetworkTestRequest, v1.CancelNetworkTestResponse]
 	getNetworkTestResults *connect.Client[v1.GetNetworkTestResultsRequest, v1.GetNetworkTestResultsResponse]
 	setScrubbingSchedule  *connect.Client[v1.SetScrubbingScheduleRequest, v1.SetScrubbingScheduleResponse]
+	getResources          *connect.Client[v1.GetResourcesRequest, v1.GetResourcesResponse]
+	saveResources         *connect.Client[v1.SaveResourcesRequest, v1.SaveResourcesResponse]
 }
 
 // GetKoorCluster calls api.services.cluster.v1.ClusterService.GetKoorCluster.
@@ -161,6 +181,16 @@ func (c *clusterServiceClient) SetScrubbingSchedule(ctx context.Context, req *co
 	return c.setScrubbingSchedule.CallUnary(ctx, req)
 }
 
+// GetResources calls api.services.cluster.v1.ClusterService.GetResources.
+func (c *clusterServiceClient) GetResources(ctx context.Context, req *connect.Request[v1.GetResourcesRequest]) (*connect.Response[v1.GetResourcesResponse], error) {
+	return c.getResources.CallUnary(ctx, req)
+}
+
+// SaveResources calls api.services.cluster.v1.ClusterService.SaveResources.
+func (c *clusterServiceClient) SaveResources(ctx context.Context, req *connect.Request[v1.SaveResourcesRequest]) (*connect.Response[v1.SaveResourcesResponse], error) {
+	return c.saveResources.CallUnary(ctx, req)
+}
+
 // ClusterServiceHandler is an implementation of the api.services.cluster.v1.ClusterService service.
 type ClusterServiceHandler interface {
 	GetKoorCluster(context.Context, *connect.Request[v1.GetKoorClusterRequest]) (*connect.Response[v1.GetKoorClusterResponse], error)
@@ -170,6 +200,8 @@ type ClusterServiceHandler interface {
 	CancelNetworkTest(context.Context, *connect.Request[v1.CancelNetworkTestRequest]) (*connect.Response[v1.CancelNetworkTestResponse], error)
 	GetNetworkTestResults(context.Context, *connect.Request[v1.GetNetworkTestResultsRequest]) (*connect.Response[v1.GetNetworkTestResultsResponse], error)
 	SetScrubbingSchedule(context.Context, *connect.Request[v1.SetScrubbingScheduleRequest]) (*connect.Response[v1.SetScrubbingScheduleResponse], error)
+	GetResources(context.Context, *connect.Request[v1.GetResourcesRequest]) (*connect.Response[v1.GetResourcesResponse], error)
+	SaveResources(context.Context, *connect.Request[v1.SaveResourcesRequest]) (*connect.Response[v1.SaveResourcesResponse], error)
 }
 
 // NewClusterServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -213,6 +245,16 @@ func NewClusterServiceHandler(svc ClusterServiceHandler, opts ...connect.Handler
 		svc.SetScrubbingSchedule,
 		opts...,
 	)
+	clusterServiceGetResourcesHandler := connect.NewUnaryHandler(
+		ClusterServiceGetResourcesProcedure,
+		svc.GetResources,
+		opts...,
+	)
+	clusterServiceSaveResourcesHandler := connect.NewUnaryHandler(
+		ClusterServiceSaveResourcesProcedure,
+		svc.SaveResources,
+		opts...,
+	)
 	return "/api.services.cluster.v1.ClusterService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case ClusterServiceGetKoorClusterProcedure:
@@ -229,6 +271,10 @@ func NewClusterServiceHandler(svc ClusterServiceHandler, opts ...connect.Handler
 			clusterServiceGetNetworkTestResultsHandler.ServeHTTP(w, r)
 		case ClusterServiceSetScrubbingScheduleProcedure:
 			clusterServiceSetScrubbingScheduleHandler.ServeHTTP(w, r)
+		case ClusterServiceGetResourcesProcedure:
+			clusterServiceGetResourcesHandler.ServeHTTP(w, r)
+		case ClusterServiceSaveResourcesProcedure:
+			clusterServiceSaveResourcesHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -264,4 +310,12 @@ func (UnimplementedClusterServiceHandler) GetNetworkTestResults(context.Context,
 
 func (UnimplementedClusterServiceHandler) SetScrubbingSchedule(context.Context, *connect.Request[v1.SetScrubbingScheduleRequest]) (*connect.Response[v1.SetScrubbingScheduleResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("api.services.cluster.v1.ClusterService.SetScrubbingSchedule is not implemented"))
+}
+
+func (UnimplementedClusterServiceHandler) GetResources(context.Context, *connect.Request[v1.GetResourcesRequest]) (*connect.Response[v1.GetResourcesResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("api.services.cluster.v1.ClusterService.GetResources is not implemented"))
+}
+
+func (UnimplementedClusterServiceHandler) SaveResources(context.Context, *connect.Request[v1.SaveResourcesRequest]) (*connect.Response[v1.SaveResourcesResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("api.services.cluster.v1.ClusterService.SaveResources is not implemented"))
 }

@@ -4,6 +4,7 @@ import (
 	"github.com/koor-tech/data-control-center/pkg/config"
 	rookclient "github.com/rook/rook/pkg/client/clientset/versioned"
 	"go.uber.org/fx"
+	"k8s.io/client-go/dynamic"
 	"k8s.io/client-go/kubernetes"
 	cruntimeconfig "sigs.k8s.io/controller-runtime/pkg/client/config"
 )
@@ -18,8 +19,9 @@ var Module = fx.Module("k8s",
 // Show other objects as well
 
 type K8s struct {
-	client     *kubernetes.Clientset
-	rookclient *rookclient.Clientset
+	client           *kubernetes.Clientset
+	rookclient       *rookclient.Clientset
+	dynamicClientSet dynamic.Interface
 }
 
 func New(cfg *config.Config) (*K8s, error) {
@@ -48,9 +50,15 @@ func New(cfg *config.Config) (*K8s, error) {
 		return nil, err
 	}
 
+	dynamicClientSet, err := dynamic.NewForConfig(config)
+	if err != nil {
+		return nil, err
+	}
+
 	return &K8s{
-		client:     clientset,
-		rookclient: rookClientset,
+		client:           clientset,
+		rookclient:       rookClientset,
+		dynamicClientSet: dynamicClientSet,
 	}, nil
 }
 

@@ -2,10 +2,15 @@ package k8s
 
 import (
 	"context"
-
+	koorv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/ceph/v1"
 	statsv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/stats/v1"
 	cephv1 "github.com/rook/rook/pkg/apis/ceph.rook.io/v1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+
+	k8sErrors "k8s.io/apimachinery/pkg/api/errors"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime/schema"
+	"sigs.k8s.io/yaml"
 )
 
 func (k *K8s) GetCephResources(ctx context.Context, namespace string) ([]*statsv1.ResourceInfo, error) {
@@ -118,4 +123,110 @@ func (k *K8s) GetCephResources(ctx context.Context, namespace string) ([]*statsv
 	}
 
 	return res, nil
+}
+
+func (k *K8s) getAsYaml(resource interface{}) (string, error) {
+	resourceYaml, err := yaml.Marshal(resource)
+	if err != nil {
+		return "", err
+	}
+	return string(resourceYaml), nil
+}
+
+var cephObjects = []string{
+	"cephclusters",
+	"cephblockpoolradosnamespaces",
+	"cephblockpools",
+	"cephbucketnotifications",
+	"cephbuckettopics",
+	"cephclients",
+	"cephcosidrivers",
+	"cephfilesystemmirrors",
+	"cephfilesystems",
+	"cephfilesystemsubvolumegroup",
+	"cephnfses",
+	"cephobjectrealms",
+	"cephobjectstores",
+	"cephobjectstoreusers",
+	"cephobjectzonegroups",
+	"cephobjectzones",
+	"cephrbdmirrors",
+}
+
+type Resource struct {
+	Name      string
+	Namespace string
+	Content   string
+	Kind      string
+	Object    string
+}
+
+const (
+	cephGroupResource = "ceph.rook.io"
+	cephGroupVersion  = "v1"
+)
+
+func (k *K8s) GetYamlCephResources(ctx context.Context, namespace string) ([]Resource, error) {
+
+	var resources []Resource
+	for _, cephObject := range cephObjects {
+		resourceId := schema.GroupVersionResource{
+			Group:    cephGroupResource,
+			Version:  cephGroupVersion,
+			Resource: cephObject,
+		}
+
+		cephResources, err := k.dynamicClientSet.Resource(resourceId).Namespace(namespace).List(ctx, v1.ListOptions{})
+		if err != nil {
+			if k8sErrors.IsNotFound(err) {
+				continue
+
+			}
+			return nil, err
+		}
+
+		for _, cephResource := range cephResources.Items {
+			objectAsYaml, err := k.getAsYaml(cephResource.Object)
+			if err != nil {
+				return nil, err
+			}
+			resource := Resource{
+				Name:      cephResource.GetName(),
+				Namespace: cephResource.GetNamespace(),
+				Content:   objectAsYaml,
+				Kind:      cephResource.GetKind(),
+				Object:    cephObject,
+			}
+			resources = append(resources, resource)
+		}
+	}
+
+	return resources, nil
+}
+
+func (k *K8s) SaveResource(ctx context.Context, resource *koorv1.Resource) error {
+	var (
+		object *unstructured.Unstructured
+		err    error
+	)
+	err = yaml.Unmarshal([]byte(resource.Content), &object)
+
+	resourceId := schema.GroupVersionResource{
+		Group:    cephGroupResource,
+		Version:  cephGroupVersion,
+		Resource: resource.Object,
+	}
+
+	cephResource, err := k.dynamicClientSet.Resource(resourceId).Namespace(resource.Namespace).Get(ctx, resource.Name, v1.GetOptions{})
+	if err != nil {
+		return err
+	}
+	object.SetResourceVersion(cephResource.GetResourceVersion())
+
+	_, err = k.dynamicClientSet.Resource(resourceId).Namespace(resource.Namespace).Update(ctx, object, v1.UpdateOptions{})
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

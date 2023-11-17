@@ -3,6 +3,7 @@ syntax = "proto3";
 package api.services.cluster.v1;
 
 import "api/resources/koor/v1/koor.proto";
+import "api/resources/ceph/v1/resources.proto";
 import "validate/validate.proto";
 
 option go_package = "github.com/koor-tech/data-control-center/gen/go/api/services/cluster";
@@ -63,6 +64,20 @@ message SetScrubbingScheduleResponse {
   api.resources.koor.v1.OSDScrubbingSchedule osd_scrubbing_schedule = 1;
 }
 
+message GetResourcesResponse {
+  api.resources.ceph.v1.Resources resources = 1;
+}
+
+message GetResourcesRequest{}
+
+message SaveResourcesRequest {
+  api.resources.ceph.v1.Resource resource = 1;
+}
+
+message SaveResourcesResponse{
+  api.resources.ceph.v1.Resource resource = 1;
+}
+
 service ClusterService {
   rpc GetKoorCluster(GetKoorClusterRequest) returns (GetKoorClusterResponse) {}
   rpc GetTroubleshootReport(GetTroubleshootReportRequest) returns (GetTroubleshootReportResponse) {}
@@ -73,4 +88,7 @@ service ClusterService {
   rpc GetNetworkTestResults(GetNetworkTestResultsRequest) returns (GetNetworkTestResultsResponse) {}
 
   rpc SetScrubbingSchedule(SetScrubbingScheduleRequest) returns (SetScrubbingScheduleResponse) {}
+
+  rpc GetResources(GetResourcesRequest) returns (GetResourcesResponse) {}
+  rpc SaveResources(SaveResourcesRequest) returns (SaveResourcesResponse) {}
 }

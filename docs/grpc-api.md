@@ -6,6 +6,10 @@
 - [api/resources/ceph/v1/ceph.proto](#api_resources_ceph_v1_ceph-proto)
     - [User](#api-resources-ceph-v1-User)
   
+- [api/resources/ceph/v1/resources.proto](#api_resources_ceph_v1_resources-proto)
+    - [Resource](#api-resources-ceph-v1-Resource)
+    - [Resources](#api-resources-ceph-v1-Resources)
+  
 - [api/resources/koor/v1/koor.proto](#api_resources_koor_v1_koor-proto)
     - [ClusterResources](#api-resources-koor-v1-ClusterResources)
     - [DetailedProductVersions](#api-resources-koor-v1-DetailedProductVersions)
@@ -74,8 +78,12 @@
     - [GetNetworkTestResultsResponse](#api-services-cluster-v1-GetNetworkTestResultsResponse)
     - [GetNetworkTestStatusRequest](#api-services-cluster-v1-GetNetworkTestStatusRequest)
     - [GetNetworkTestStatusResponse](#api-services-cluster-v1-GetNetworkTestStatusResponse)
+    - [GetResourcesRequest](#api-services-cluster-v1-GetResourcesRequest)
+    - [GetResourcesResponse](#api-services-cluster-v1-GetResourcesResponse)
     - [GetTroubleshootReportRequest](#api-services-cluster-v1-GetTroubleshootReportRequest)
     - [GetTroubleshootReportResponse](#api-services-cluster-v1-GetTroubleshootReportResponse)
+    - [SaveResourcesRequest](#api-services-cluster-v1-SaveResourcesRequest)
+    - [SaveResourcesResponse](#api-services-cluster-v1-SaveResourcesResponse)
     - [SetScrubbingScheduleRequest](#api-services-cluster-v1-SetScrubbingScheduleRequest)
     - [SetScrubbingScheduleResponse](#api-services-cluster-v1-SetScrubbingScheduleResponse)
     - [StartNetworkTestRequest](#api-services-cluster-v1-StartNetworkTestRequest)
@@ -122,6 +130,56 @@
 | Password | [string](#string) |  |  |
 | Enabled | [bool](#bool) |  |  |
 | Roles | [string](#string) | repeated |  |
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+<a name="api_resources_ceph_v1_resources-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## api/resources/ceph/v1/resources.proto
+
+
+
+<a name="api-resources-ceph-v1-Resource"></a>
+
+### Resource
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| Name | [string](#string) |  |  |
+| Content | [string](#string) |  |  |
+| Namespace | [string](#string) |  |  |
+| Kind | [string](#string) |  |  |
+| Object | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="api-resources-ceph-v1-Resources"></a>
+
+### Resources
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resources | [Resource](#api-resources-ceph-v1-Resource) | repeated |  |
 
 
 
@@ -1076,6 +1134,31 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 
 
+<a name="api-services-cluster-v1-GetResourcesRequest"></a>
+
+### GetResourcesRequest
+
+
+
+
+
+
+
+<a name="api-services-cluster-v1-GetResourcesResponse"></a>
+
+### GetResourcesResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resources | [api.resources.ceph.v1.Resources](#api-resources-ceph-v1-Resources) |  |  |
+
+
+
+
+
+
 <a name="api-services-cluster-v1-GetTroubleshootReportRequest"></a>
 
 ### GetTroubleshootReportRequest
@@ -1095,6 +1178,36 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | report | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="api-services-cluster-v1-SaveResourcesRequest"></a>
+
+### SaveResourcesRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource | [api.resources.ceph.v1.Resource](#api-resources-ceph-v1-Resource) |  |  |
+
+
+
+
+
+
+<a name="api-services-cluster-v1-SaveResourcesResponse"></a>
+
+### SaveResourcesResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource | [api.resources.ceph.v1.Resource](#api-resources-ceph-v1-Resource) |  |  |
 
 
 
@@ -1195,6 +1308,8 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 | CancelNetworkTest | [CancelNetworkTestRequest](#api-services-cluster-v1-CancelNetworkTestRequest) | [CancelNetworkTestResponse](#api-services-cluster-v1-CancelNetworkTestResponse) |  |
 | GetNetworkTestResults | [GetNetworkTestResultsRequest](#api-services-cluster-v1-GetNetworkTestResultsRequest) | [GetNetworkTestResultsResponse](#api-services-cluster-v1-GetNetworkTestResultsResponse) |  |
 | SetScrubbingSchedule | [SetScrubbingScheduleRequest](#api-services-cluster-v1-SetScrubbingScheduleRequest) | [SetScrubbingScheduleResponse](#api-services-cluster-v1-SetScrubbingScheduleResponse) |  |
+| GetResources | [GetResourcesRequest](#api-services-cluster-v1-GetResourcesRequest) | [GetResourcesResponse](#api-services-cluster-v1-GetResourcesResponse) |  |
+| SaveResources | [SaveResourcesRequest](#api-services-cluster-v1-SaveResourcesRequest) | [SaveResourcesResponse](#api-services-cluster-v1-SaveResourcesResponse) |  |
 
  
 

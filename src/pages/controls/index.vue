@@ -29,6 +29,14 @@ const features = [
         iconForeground: 'text-zinc-900',
         iconBackground: 'bg-zinc-100',
     },
+    {
+        title: 'Koor Editor',
+        description: 'Edit resources in yaml.',
+        href: { name: 'controls-editor-editor' },
+        icon: markRaw(AccountGroupIcon),
+        iconForeground: 'text-zinc-900',
+        iconBackground: 'bg-zinc-100',
+    },
 ] as CardElements;
 </script>
 
