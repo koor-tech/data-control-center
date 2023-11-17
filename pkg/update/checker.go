@@ -97,6 +97,7 @@ func (c *Checker) check(ctx context.Context) error {
 		return nil
 	}
 
+	c.logger.Info("new version found", zap.String("current", version.Version), zap.String("new", latest))
 	c.routes.SetUpdateAvailable(latest)
 
 	return nil
