@@ -97,7 +97,7 @@ The following table lists the configurable parameters of the rook-operator chart
 | `rbac.annotations` |  | `{}` |
 | `rbac.create` |  | `true` |
 | `rbac.name` |  | `""` |
-| `replicaCount` |  | `1` |
+| `replicaCount` |  | `2` |
 | `resources` |  | `{}` |
 | `securityContext` |  | `{}` |
 | `service.port` |  | `8282` |
