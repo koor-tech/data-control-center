@@ -65,7 +65,6 @@ const config = defineNuxtConfig({
             hmr: {
                 protocol: 'ws',
             },
-            https: false,
             proxy: {
                 '/api': {
                     target: 'http://localhost:8282',
