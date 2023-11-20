@@ -23,6 +23,7 @@ import (
 type Server struct {
 	statsv1connect.StatsServiceHandler
 
+	readOnly  bool
 	logger    *zap.Logger
 	auth      *auth.GRPCAuth
 	ceph      *cephcache.Cache
@@ -42,6 +43,7 @@ type Params struct {
 
 func New(p Params) (*Server, error) {
 	return &Server{
+		readOnly:  p.Cfg.ReadOnly,
 		logger:    p.Logger,
 		auth:      p.GrpcAuth,
 		ceph:      p.Ceph,

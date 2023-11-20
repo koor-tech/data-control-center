@@ -12,6 +12,7 @@ import (
 	"github.com/koor-tech/data-control-center/internal/ceph"
 	"github.com/koor-tech/data-control-center/pkg/config"
 	"github.com/koor-tech/data-control-center/pkg/grpc/auth"
+	grpcerrors "github.com/koor-tech/data-control-center/pkg/grpc/errors"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
 )
@@ -19,6 +20,7 @@ import (
 type Server struct {
 	cephv1connect.CephServiceHandler
 
+	readOnly  bool
 	logger    *zap.Logger
 	auth      *auth.GRPCAuth
 	ceph      *ceph.Service
@@ -36,6 +38,7 @@ type Params struct {
 
 func New(p Params) (*Server, error) {
 	return &Server{
+		readOnly:  p.Cfg.ReadOnly,
 		logger:    p.Logger,
 		auth:      p.GrpcAuth,
 		ceph:      p.Ceph,
@@ -72,6 +75,10 @@ func (s *Server) GetCephUsers(ctx context.Context, _ *connect.Request[v1.GetCeph
 }
 
 func (s *Server) CreateCephUsers(ctx context.Context, req *connect.Request[v1.CreateCephUsersRequest]) (*connect.Response[v1.CreateCephUsersResponse], error) {
+	if s.readOnly {
+		return nil, grpcerrors.ErrReadOnly
+	}
+
 	userCreate := ceph.UserCreate{
 		Username: req.Msg.CephUser.Username,
 		Name:     req.Msg.CephUser.Name,
@@ -101,6 +108,10 @@ func (s *Server) CreateCephUsers(ctx context.Context, req *connect.Request[v1.Cr
 }
 
 func (s *Server) DeleteCephUser(ctx context.Context, req *connect.Request[v1.DeleteCephUserRequest]) (*connect.Response[v1.DeleteCephUserResponse], error) {
+	if s.readOnly {
+		return nil, grpcerrors.ErrReadOnly
+	}
+
 	err := s.ceph.DeleteCephUser(ctx, req.Msg.Username)
 	if err != nil {
 		return nil, connect.NewError(connect.CodeInternal, fmt.Errorf("error caused by %w", err))

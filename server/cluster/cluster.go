@@ -19,6 +19,7 @@ import (
 type Server struct {
 	clusterv1connect.ClusterServiceHandler
 
+	readOnly  bool
 	logger    *zap.Logger
 	auth      *auth.GRPCAuth
 	k         *k8s.K8s
@@ -38,6 +39,7 @@ type Params struct {
 
 func New(p Params) (*Server, error) {
 	return &Server{
+		readOnly:  p.Cfg.ReadOnly,
 		logger:    p.Logger,
 		auth:      p.GrpcAuth,
 		k:         p.K8S,
