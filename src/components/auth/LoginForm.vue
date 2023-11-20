@@ -4,14 +4,12 @@ import { alpha_dash, max, min, required } from '@vee-validate/rules';
 import { defineRule } from 'vee-validate';
 import Alert from '~/components/partials/elements/Alert.vue';
 import { useAuthStore } from '~/store/auth';
-import { useConfigStore } from '~/store/config';
 
 const authStore = useAuthStore();
 const { loginError } = storeToRefs(authStore);
 const { doLogin } = authStore;
 
-const configStore = useConfigStore();
-const { appConfig } = storeToRefs(configStore);
+const appConfig = useAppConfig();
 
 defineRule('required', required);
 defineRule('min', min);

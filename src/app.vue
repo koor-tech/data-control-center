@@ -1,12 +1,9 @@
 <script lang="ts" setup>
 import { initFlowbite } from 'flowbite';
 import { onMounted } from 'vue';
-import { useConfigStore } from '~/store/config';
 import { useNotificationsStore } from '~/store/notifications';
 
-const configStore = useConfigStore();
-const { loadConfig } = configStore;
-const { appConfig } = storeToRefs(configStore);
+const appConfig = useAppConfig();
 
 const notifications = useNotificationsStore();
 
@@ -27,16 +24,14 @@ useHead({
 onMounted(() => {
     initFlowbite();
 
-    if (appConfig.value.updateAvailable !== undefined) {
+    if (appConfig.updateAvailable !== undefined) {
         notifications.dispatchNotification({
             title: 'New version available!',
-            content: `A new Data Control Center version (${appConfig.value.updateAvailable}) is available on GitHub. Be sure to update to get new features and fixes.`,
+            content: `A new Data Control Center version (${appConfig.updateAvailable}) is available on GitHub. Be sure to update to get new features and fixes.`,
             type: 'info',
         });
     }
 });
-
-await loadConfig();
 </script>
 
 <template>
