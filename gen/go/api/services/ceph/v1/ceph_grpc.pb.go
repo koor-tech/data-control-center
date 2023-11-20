@@ -19,9 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	CephService_GetCephUsers_FullMethodName    = "/api.services.ceph.v1.CephService/GetCephUsers"
-	CephService_CreateCephUsers_FullMethodName = "/api.services.ceph.v1.CephService/CreateCephUsers"
-	CephService_DeleteCephUser_FullMethodName  = "/api.services.ceph.v1.CephService/DeleteCephUser"
+	CephService_GetCephUsers_FullMethodName   = "/api.services.ceph.v1.CephService/GetCephUsers"
+	CephService_CreateCephUser_FullMethodName = "/api.services.ceph.v1.CephService/CreateCephUser"
+	CephService_DeleteCephUser_FullMethodName = "/api.services.ceph.v1.CephService/DeleteCephUser"
 )
 
 // CephServiceClient is the client API for CephService service.
@@ -29,7 +29,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CephServiceClient interface {
 	GetCephUsers(ctx context.Context, in *GetCephUsersRequest, opts ...grpc.CallOption) (*GetCephUsersResponse, error)
-	CreateCephUsers(ctx context.Context, in *CreateCephUsersRequest, opts ...grpc.CallOption) (*CreateCephUsersResponse, error)
+	CreateCephUser(ctx context.Context, in *CreateCephUserRequest, opts ...grpc.CallOption) (*CreateCephUserResponse, error)
 	DeleteCephUser(ctx context.Context, in *DeleteCephUserRequest, opts ...grpc.CallOption) (*DeleteCephUserResponse, error)
 }
 
@@ -50,9 +50,9 @@ func (c *cephServiceClient) GetCephUsers(ctx context.Context, in *GetCephUsersRe
 	return out, nil
 }
 
-func (c *cephServiceClient) CreateCephUsers(ctx context.Context, in *CreateCephUsersRequest, opts ...grpc.CallOption) (*CreateCephUsersResponse, error) {
-	out := new(CreateCephUsersResponse)
-	err := c.cc.Invoke(ctx, CephService_CreateCephUsers_FullMethodName, in, out, opts...)
+func (c *cephServiceClient) CreateCephUser(ctx context.Context, in *CreateCephUserRequest, opts ...grpc.CallOption) (*CreateCephUserResponse, error) {
+	out := new(CreateCephUserResponse)
+	err := c.cc.Invoke(ctx, CephService_CreateCephUser_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -73,7 +73,7 @@ func (c *cephServiceClient) DeleteCephUser(ctx context.Context, in *DeleteCephUs
 // for forward compatibility
 type CephServiceServer interface {
 	GetCephUsers(context.Context, *GetCephUsersRequest) (*GetCephUsersResponse, error)
-	CreateCephUsers(context.Context, *CreateCephUsersRequest) (*CreateCephUsersResponse, error)
+	CreateCephUser(context.Context, *CreateCephUserRequest) (*CreateCephUserResponse, error)
 	DeleteCephUser(context.Context, *DeleteCephUserRequest) (*DeleteCephUserResponse, error)
 }
 
@@ -84,8 +84,8 @@ type UnimplementedCephServiceServer struct {
 func (UnimplementedCephServiceServer) GetCephUsers(context.Context, *GetCephUsersRequest) (*GetCephUsersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCephUsers not implemented")
 }
-func (UnimplementedCephServiceServer) CreateCephUsers(context.Context, *CreateCephUsersRequest) (*CreateCephUsersResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateCephUsers not implemented")
+func (UnimplementedCephServiceServer) CreateCephUser(context.Context, *CreateCephUserRequest) (*CreateCephUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateCephUser not implemented")
 }
 func (UnimplementedCephServiceServer) DeleteCephUser(context.Context, *DeleteCephUserRequest) (*DeleteCephUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteCephUser not implemented")
@@ -120,20 +120,20 @@ func _CephService_GetCephUsers_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
-func _CephService_CreateCephUsers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateCephUsersRequest)
+func _CephService_CreateCephUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateCephUserRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CephServiceServer).CreateCephUsers(ctx, in)
+		return srv.(CephServiceServer).CreateCephUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: CephService_CreateCephUsers_FullMethodName,
+		FullMethod: CephService_CreateCephUser_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CephServiceServer).CreateCephUsers(ctx, req.(*CreateCephUsersRequest))
+		return srv.(CephServiceServer).CreateCephUser(ctx, req.(*CreateCephUserRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -168,8 +168,8 @@ var CephService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _CephService_GetCephUsers_Handler,
 		},
 		{
-			MethodName: "CreateCephUsers",
-			Handler:    _CephService_CreateCephUsers_Handler,
+			MethodName: "CreateCephUser",
+			Handler:    _CephService_CreateCephUser_Handler,
 		},
 		{
 			MethodName: "DeleteCephUser",

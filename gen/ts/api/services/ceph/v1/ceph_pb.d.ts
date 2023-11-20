@@ -51,51 +51,51 @@ export declare class GetCephUsersResponse extends Message<GetCephUsersResponse> 
 }
 
 /**
- * @generated from message api.services.ceph.v1.CreateCephUsersRequest
+ * @generated from message api.services.ceph.v1.CreateCephUserRequest
  */
-export declare class CreateCephUsersRequest extends Message<CreateCephUsersRequest> {
+export declare class CreateCephUserRequest extends Message<CreateCephUserRequest> {
   /**
    * @generated from field: api.resources.ceph.v1.User ceph_user = 1;
    */
   cephUser?: User;
 
-  constructor(data?: PartialMessage<CreateCephUsersRequest>);
+  constructor(data?: PartialMessage<CreateCephUserRequest>);
 
   static readonly runtime: typeof proto3;
-  static readonly typeName = "api.services.ceph.v1.CreateCephUsersRequest";
+  static readonly typeName = "api.services.ceph.v1.CreateCephUserRequest";
   static readonly fields: FieldList;
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CreateCephUsersRequest;
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CreateCephUserRequest;
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CreateCephUsersRequest;
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CreateCephUserRequest;
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CreateCephUsersRequest;
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CreateCephUserRequest;
 
-  static equals(a: CreateCephUsersRequest | PlainMessage<CreateCephUsersRequest> | undefined, b: CreateCephUsersRequest | PlainMessage<CreateCephUsersRequest> | undefined): boolean;
+  static equals(a: CreateCephUserRequest | PlainMessage<CreateCephUserRequest> | undefined, b: CreateCephUserRequest | PlainMessage<CreateCephUserRequest> | undefined): boolean;
 }
 
 /**
- * @generated from message api.services.ceph.v1.CreateCephUsersResponse
+ * @generated from message api.services.ceph.v1.CreateCephUserResponse
  */
-export declare class CreateCephUsersResponse extends Message<CreateCephUsersResponse> {
+export declare class CreateCephUserResponse extends Message<CreateCephUserResponse> {
   /**
    * @generated from field: api.resources.ceph.v1.User ceph_user = 1;
    */
   cephUser?: User;
 
-  constructor(data?: PartialMessage<CreateCephUsersResponse>);
+  constructor(data?: PartialMessage<CreateCephUserResponse>);
 
   static readonly runtime: typeof proto3;
-  static readonly typeName = "api.services.ceph.v1.CreateCephUsersResponse";
+  static readonly typeName = "api.services.ceph.v1.CreateCephUserResponse";
   static readonly fields: FieldList;
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CreateCephUsersResponse;
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CreateCephUserResponse;
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CreateCephUsersResponse;
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CreateCephUserResponse;
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CreateCephUsersResponse;
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CreateCephUserResponse;
 
-  static equals(a: CreateCephUsersResponse | PlainMessage<CreateCephUsersResponse> | undefined, b: CreateCephUsersResponse | PlainMessage<CreateCephUsersResponse> | undefined): boolean;
+  static equals(a: CreateCephUserResponse | PlainMessage<CreateCephUserResponse> | undefined, b: CreateCephUserResponse | PlainMessage<CreateCephUserResponse> | undefined): boolean;
 }
 
 /**

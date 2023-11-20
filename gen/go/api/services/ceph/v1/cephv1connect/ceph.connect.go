@@ -36,9 +36,9 @@ const (
 	// CephServiceGetCephUsersProcedure is the fully-qualified name of the CephService's GetCephUsers
 	// RPC.
 	CephServiceGetCephUsersProcedure = "/api.services.ceph.v1.CephService/GetCephUsers"
-	// CephServiceCreateCephUsersProcedure is the fully-qualified name of the CephService's
-	// CreateCephUsers RPC.
-	CephServiceCreateCephUsersProcedure = "/api.services.ceph.v1.CephService/CreateCephUsers"
+	// CephServiceCreateCephUserProcedure is the fully-qualified name of the CephService's
+	// CreateCephUser RPC.
+	CephServiceCreateCephUserProcedure = "/api.services.ceph.v1.CephService/CreateCephUser"
 	// CephServiceDeleteCephUserProcedure is the fully-qualified name of the CephService's
 	// DeleteCephUser RPC.
 	CephServiceDeleteCephUserProcedure = "/api.services.ceph.v1.CephService/DeleteCephUser"
@@ -47,7 +47,7 @@ const (
 // CephServiceClient is a client for the api.services.ceph.v1.CephService service.
 type CephServiceClient interface {
 	GetCephUsers(context.Context, *connect.Request[v1.GetCephUsersRequest]) (*connect.Response[v1.GetCephUsersResponse], error)
-	CreateCephUsers(context.Context, *connect.Request[v1.CreateCephUsersRequest]) (*connect.Response[v1.CreateCephUsersResponse], error)
+	CreateCephUser(context.Context, *connect.Request[v1.CreateCephUserRequest]) (*connect.Response[v1.CreateCephUserResponse], error)
 	DeleteCephUser(context.Context, *connect.Request[v1.DeleteCephUserRequest]) (*connect.Response[v1.DeleteCephUserResponse], error)
 }
 
@@ -66,9 +66,9 @@ func NewCephServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 			baseURL+CephServiceGetCephUsersProcedure,
 			opts...,
 		),
-		createCephUsers: connect.NewClient[v1.CreateCephUsersRequest, v1.CreateCephUsersResponse](
+		createCephUser: connect.NewClient[v1.CreateCephUserRequest, v1.CreateCephUserResponse](
 			httpClient,
-			baseURL+CephServiceCreateCephUsersProcedure,
+			baseURL+CephServiceCreateCephUserProcedure,
 			opts...,
 		),
 		deleteCephUser: connect.NewClient[v1.DeleteCephUserRequest, v1.DeleteCephUserResponse](
@@ -81,9 +81,9 @@ func NewCephServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 
 // cephServiceClient implements CephServiceClient.
 type cephServiceClient struct {
-	getCephUsers    *connect.Client[v1.GetCephUsersRequest, v1.GetCephUsersResponse]
-	createCephUsers *connect.Client[v1.CreateCephUsersRequest, v1.CreateCephUsersResponse]
-	deleteCephUser  *connect.Client[v1.DeleteCephUserRequest, v1.DeleteCephUserResponse]
+	getCephUsers   *connect.Client[v1.GetCephUsersRequest, v1.GetCephUsersResponse]
+	createCephUser *connect.Client[v1.CreateCephUserRequest, v1.CreateCephUserResponse]
+	deleteCephUser *connect.Client[v1.DeleteCephUserRequest, v1.DeleteCephUserResponse]
 }
 
 // GetCephUsers calls api.services.ceph.v1.CephService.GetCephUsers.
@@ -91,9 +91,9 @@ func (c *cephServiceClient) GetCephUsers(ctx context.Context, req *connect.Reque
 	return c.getCephUsers.CallUnary(ctx, req)
 }
 
-// CreateCephUsers calls api.services.ceph.v1.CephService.CreateCephUsers.
-func (c *cephServiceClient) CreateCephUsers(ctx context.Context, req *connect.Request[v1.CreateCephUsersRequest]) (*connect.Response[v1.CreateCephUsersResponse], error) {
-	return c.createCephUsers.CallUnary(ctx, req)
+// CreateCephUser calls api.services.ceph.v1.CephService.CreateCephUser.
+func (c *cephServiceClient) CreateCephUser(ctx context.Context, req *connect.Request[v1.CreateCephUserRequest]) (*connect.Response[v1.CreateCephUserResponse], error) {
+	return c.createCephUser.CallUnary(ctx, req)
 }
 
 // DeleteCephUser calls api.services.ceph.v1.CephService.DeleteCephUser.
@@ -104,7 +104,7 @@ func (c *cephServiceClient) DeleteCephUser(ctx context.Context, req *connect.Req
 // CephServiceHandler is an implementation of the api.services.ceph.v1.CephService service.
 type CephServiceHandler interface {
 	GetCephUsers(context.Context, *connect.Request[v1.GetCephUsersRequest]) (*connect.Response[v1.GetCephUsersResponse], error)
-	CreateCephUsers(context.Context, *connect.Request[v1.CreateCephUsersRequest]) (*connect.Response[v1.CreateCephUsersResponse], error)
+	CreateCephUser(context.Context, *connect.Request[v1.CreateCephUserRequest]) (*connect.Response[v1.CreateCephUserResponse], error)
 	DeleteCephUser(context.Context, *connect.Request[v1.DeleteCephUserRequest]) (*connect.Response[v1.DeleteCephUserResponse], error)
 }
 
@@ -119,9 +119,9 @@ func NewCephServiceHandler(svc CephServiceHandler, opts ...connect.HandlerOption
 		svc.GetCephUsers,
 		opts...,
 	)
-	cephServiceCreateCephUsersHandler := connect.NewUnaryHandler(
-		CephServiceCreateCephUsersProcedure,
-		svc.CreateCephUsers,
+	cephServiceCreateCephUserHandler := connect.NewUnaryHandler(
+		CephServiceCreateCephUserProcedure,
+		svc.CreateCephUser,
 		opts...,
 	)
 	cephServiceDeleteCephUserHandler := connect.NewUnaryHandler(
@@ -133,8 +133,8 @@ func NewCephServiceHandler(svc CephServiceHandler, opts ...connect.HandlerOption
 		switch r.URL.Path {
 		case CephServiceGetCephUsersProcedure:
 			cephServiceGetCephUsersHandler.ServeHTTP(w, r)
-		case CephServiceCreateCephUsersProcedure:
-			cephServiceCreateCephUsersHandler.ServeHTTP(w, r)
+		case CephServiceCreateCephUserProcedure:
+			cephServiceCreateCephUserHandler.ServeHTTP(w, r)
 		case CephServiceDeleteCephUserProcedure:
 			cephServiceDeleteCephUserHandler.ServeHTTP(w, r)
 		default:
@@ -150,8 +150,8 @@ func (UnimplementedCephServiceHandler) GetCephUsers(context.Context, *connect.Re
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("api.services.ceph.v1.CephService.GetCephUsers is not implemented"))
 }
 
-func (UnimplementedCephServiceHandler) CreateCephUsers(context.Context, *connect.Request[v1.CreateCephUsersRequest]) (*connect.Response[v1.CreateCephUsersResponse], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("api.services.ceph.v1.CephService.CreateCephUsers is not implemented"))
+func (UnimplementedCephServiceHandler) CreateCephUser(context.Context, *connect.Request[v1.CreateCephUserRequest]) (*connect.Response[v1.CreateCephUserResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("api.services.ceph.v1.CephService.CreateCephUser is not implemented"))
 }
 
 func (UnimplementedCephServiceHandler) DeleteCephUser(context.Context, *connect.Request[v1.DeleteCephUserRequest]) (*connect.Response[v1.DeleteCephUserResponse], error) {

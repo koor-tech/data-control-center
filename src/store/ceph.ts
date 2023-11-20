@@ -4,8 +4,8 @@ import { User } from '~~/gen/ts/api/resources/ceph/v1/ceph_pb';
 import {
     DeleteCephUserRequest,
     DeleteCephUserResponse,
-    type CreateCephUsersRequest,
-    type CreateCephUsersResponse,
+    type CreateCephUserRequest,
+    type CreateCephUserResponse,
 } from '~~/gen/ts/api/services/ceph/v1/ceph_pb';
 
 export interface CephState {
@@ -30,13 +30,13 @@ export const useCephStore = defineStore('ceph', {
                 throw e;
             }
         },
-        addCephUser: async function (
+        createCephUser: async function (
             username: string,
             name: string,
             email: string,
             password: string,
             rol: string,
-        ): Promise<CreateCephUsersResponse> {
+        ): Promise<CreateCephUserResponse> {
             const { $grpc } = useNuxtApp();
             try {
                 const createUser = {
@@ -47,8 +47,8 @@ export const useCephStore = defineStore('ceph', {
                         Password: password,
                         Roles: [rol],
                     },
-                } as CreateCephUsersRequest;
-                const resp = await $grpc.getCephUsers().createCephUsers(createUser);
+                } as CreateCephUserRequest;
+                const resp = await $grpc.getCephUsers().createCephUser(createUser);
 
                 return resp;
             } catch (e) {
@@ -56,7 +56,7 @@ export const useCephStore = defineStore('ceph', {
                 throw e;
             }
         },
-        async deleteUser(username: string): Promise<DeleteCephUserResponse> {
+        async deleteCephUser(username: string): Promise<DeleteCephUserResponse> {
             const { $grpc } = useNuxtApp();
             try {
                 const deleteUser = {

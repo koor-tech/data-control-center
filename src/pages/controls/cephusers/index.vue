@@ -3,7 +3,7 @@ import { ConnectError } from '@connectrpc/connect';
 
 import { ref } from 'vue';
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue';
-import { CloseIcon } from 'mdi-vue3';
+import { CloseIcon, TrashCanIcon } from 'mdi-vue3';
 import { useCephStore } from '~/store/ceph';
 import GenericBadge from '~/components/partials/GenericBadge.vue';
 
@@ -14,6 +14,8 @@ definePageMeta({
     title: 'MGR Dashboard Users',
     requiresAuth: true,
 });
+
+const appConfig = useAppConfig();
 
 const modalWindowOpen = ref(false);
 const username = ref();
@@ -36,7 +38,7 @@ const displayConfirmation = function (Username: string) {
 
 const deleteCephUser = async function (): Promise<void> {
     try {
-        await cephStore.deleteUser(username.value);
+        await cephStore.deleteCephUser(username.value);
         console.log('removing username.value', username.value);
         modalWindowOpen.value = false;
         cephUsers.value = await cephStore.getCephUsers();
@@ -54,7 +56,7 @@ const deleteCephUser = async function (): Promise<void> {
                     <h1 class="text-base font-semibold leading-6 text-gray-900">Users</h1>
                     <p class="mt-2 text-sm text-gray-700">A list of all the ceph users</p>
                 </div>
-                <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+                <div v-if="!appConfig.readOnly" class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
                     <NuxtLink :to="{ name: 'controls-cephusers-add' }">
                         <button
                             type="button"
@@ -83,7 +85,11 @@ const deleteCephUser = async function (): Promise<void> {
                                     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                         Enabled
                                     </th>
-                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                    <th
+                                        v-if="!appConfig.readOnly"
+                                        scope="col"
+                                        class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                                    >
                                         Delete
                                     </th>
                                 </tr>
@@ -93,23 +99,23 @@ const deleteCephUser = async function (): Promise<void> {
                                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                         {{ Username }}
                                     </td>
-                                    <td
-                                        v-for="role in Roles"
-                                        :key="role"
-                                        class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
-                                    >
-                                        <GenericBadge>{{ role }}</GenericBadge>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                        <GenericBadge v-for="role in Roles" :key="role">{{ role }}</GenericBadge>
                                     </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                         {{ Enabled }}
                                     </td>
-                                    <td class="relative whitespace-nowrap py-4 pl-3 text-sm font-medium sm:pr-6">
-                                        <a
-                                            href="#"
+                                    <td
+                                        v-if="!appConfig.readOnly"
+                                        class="relative whitespace-nowrap py-4 pl-3 text-sm font-medium sm:pr-6"
+                                    >
+                                        <button
+                                            type="button"
                                             class="text-indigo-600 hover:text-indigo-900"
                                             @click="displayConfirmation(Username)"
-                                            >Delete<span class="sr-only"></span
-                                        ></a>
+                                        >
+                                            <TrashCanIcon class="w-5 h-5" /> <span class="sr-only">Delete</span>
+                                        </button>
                                     </td>
                                 </tr>
                             </tbody>

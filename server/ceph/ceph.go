@@ -74,7 +74,7 @@ func (s *Server) GetCephUsers(ctx context.Context, _ *connect.Request[v1.GetCeph
 	}, nil
 }
 
-func (s *Server) CreateCephUsers(ctx context.Context, req *connect.Request[v1.CreateCephUsersRequest]) (*connect.Response[v1.CreateCephUsersResponse], error) {
+func (s *Server) CreateCephUser(ctx context.Context, req *connect.Request[v1.CreateCephUserRequest]) (*connect.Response[v1.CreateCephUserResponse], error) {
 	if s.readOnly {
 		return nil, grpcerrors.ErrReadOnly
 	}
@@ -100,8 +100,8 @@ func (s *Server) CreateCephUsers(ctx context.Context, req *connect.Request[v1.Cr
 		Roles:    userCreate.Roles,
 	}
 
-	return &connect.Response[v1.CreateCephUsersResponse]{
-		Msg: &v1.CreateCephUsersResponse{
+	return &connect.Response[v1.CreateCephUserResponse]{
+		Msg: &v1.CreateCephUserResponse{
 			CephUser: &user,
 		},
 	}, nil

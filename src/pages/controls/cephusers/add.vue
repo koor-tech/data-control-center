@@ -13,7 +13,7 @@ definePageMeta({
 });
 
 const cephStorage = useCephStore();
-const { addCephUser } = cephStorage;
+const { createCephUser } = cephStorage;
 const { addError } = storeToRefs(cephStorage);
 
 defineRule('required', required);
@@ -39,7 +39,7 @@ const { handleSubmit } = useForm<FormData>({
 });
 
 const onSubmit = handleSubmit(async function (values): Promise<any> {
-    await addCephUser(values.username, values.name, values.email, values.password, values.roles);
+    await createCephUser(values.username, values.name, values.email, values.password, values.roles);
     await navigateTo({ name: 'controls-cephusers' });
 });
 </script>

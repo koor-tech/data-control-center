@@ -25,20 +25,20 @@ export const GetCephUsersResponse = proto3.makeMessageType(
 );
 
 /**
- * @generated from message api.services.ceph.v1.CreateCephUsersRequest
+ * @generated from message api.services.ceph.v1.CreateCephUserRequest
  */
-export const CreateCephUsersRequest = proto3.makeMessageType(
-  "api.services.ceph.v1.CreateCephUsersRequest",
+export const CreateCephUserRequest = proto3.makeMessageType(
+  "api.services.ceph.v1.CreateCephUserRequest",
   () => [
     { no: 1, name: "ceph_user", kind: "message", T: User },
   ],
 );
 
 /**
- * @generated from message api.services.ceph.v1.CreateCephUsersResponse
+ * @generated from message api.services.ceph.v1.CreateCephUserResponse
  */
-export const CreateCephUsersResponse = proto3.makeMessageType(
-  "api.services.ceph.v1.CreateCephUsersResponse",
+export const CreateCephUserResponse = proto3.makeMessageType(
+  "api.services.ceph.v1.CreateCephUserResponse",
   () => [
     { no: 1, name: "ceph_user", kind: "message", T: User },
   ],

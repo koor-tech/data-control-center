@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { CreateCephUsersRequest, CreateCephUsersResponse, DeleteCephUserRequest, DeleteCephUserResponse, GetCephUsersRequest, GetCephUsersResponse } from "./ceph_pb.js";
+import { CreateCephUserRequest, CreateCephUserResponse, DeleteCephUserRequest, DeleteCephUserResponse, GetCephUsersRequest, GetCephUsersResponse } from "./ceph_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -22,12 +22,12 @@ export declare const CephService: {
       readonly kind: MethodKind.Unary,
     },
     /**
-     * @generated from rpc api.services.ceph.v1.CephService.CreateCephUsers
+     * @generated from rpc api.services.ceph.v1.CephService.CreateCephUser
      */
-    readonly createCephUsers: {
-      readonly name: "CreateCephUsers",
-      readonly I: typeof CreateCephUsersRequest,
-      readonly O: typeof CreateCephUsersResponse,
+    readonly createCephUser: {
+      readonly name: "CreateCephUser",
+      readonly I: typeof CreateCephUserRequest,
+      readonly O: typeof CreateCephUserResponse,
       readonly kind: MethodKind.Unary,
     },
     /**

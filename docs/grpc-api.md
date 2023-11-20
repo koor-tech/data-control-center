@@ -56,8 +56,8 @@
     - [AuthService](#api-services-auth-v1-AuthService)
   
 - [api/services/ceph/v1/ceph.proto](#api_services_ceph_v1_ceph-proto)
-    - [CreateCephUsersRequest](#api-services-ceph-v1-CreateCephUsersRequest)
-    - [CreateCephUsersResponse](#api-services-ceph-v1-CreateCephUsersResponse)
+    - [CreateCephUserRequest](#api-services-ceph-v1-CreateCephUserRequest)
+    - [CreateCephUserResponse](#api-services-ceph-v1-CreateCephUserResponse)
     - [DeleteCephUserRequest](#api-services-ceph-v1-DeleteCephUserRequest)
     - [DeleteCephUserResponse](#api-services-ceph-v1-DeleteCephUserResponse)
     - [GetCephUsersRequest](#api-services-ceph-v1-GetCephUsersRequest)
@@ -856,9 +856,9 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 
 
-<a name="api-services-ceph-v1-CreateCephUsersRequest"></a>
+<a name="api-services-ceph-v1-CreateCephUserRequest"></a>
 
-### CreateCephUsersRequest
+### CreateCephUserRequest
 
 
 
@@ -871,9 +871,9 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 
 
-<a name="api-services-ceph-v1-CreateCephUsersResponse"></a>
+<a name="api-services-ceph-v1-CreateCephUserResponse"></a>
 
-### CreateCephUsersResponse
+### CreateCephUserResponse
 
 
 
@@ -955,7 +955,7 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
 | GetCephUsers | [GetCephUsersRequest](#api-services-ceph-v1-GetCephUsersRequest) | [GetCephUsersResponse](#api-services-ceph-v1-GetCephUsersResponse) |  |
-| CreateCephUsers | [CreateCephUsersRequest](#api-services-ceph-v1-CreateCephUsersRequest) | [CreateCephUsersResponse](#api-services-ceph-v1-CreateCephUsersResponse) |  |
+| CreateCephUser | [CreateCephUserRequest](#api-services-ceph-v1-CreateCephUserRequest) | [CreateCephUserResponse](#api-services-ceph-v1-CreateCephUserResponse) |  |
 | DeleteCephUser | [DeleteCephUserRequest](#api-services-ceph-v1-DeleteCephUserRequest) | [DeleteCephUserResponse](#api-services-ceph-v1-DeleteCephUserResponse) |  |
 
  
