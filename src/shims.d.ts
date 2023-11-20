@@ -7,6 +7,15 @@ declare module '#app' {
     }
 }
 
+declare module 'vue-router' {
+    interface PageMeta {
+        title?: string;
+        requiresAuth?: boolean;
+        permission?: string;
+        authOnlyToken?: boolean;
+    }
+}
+
 type ProviderConfig = {
     name: string;
     label: string;
