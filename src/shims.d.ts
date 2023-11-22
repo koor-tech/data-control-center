@@ -29,7 +29,7 @@ export type AppConfig = {
     version: string;
     login: LoginConfig;
     readOnly: boolean;
-    updateAvailable?: string;
+    updateAvailable: null | string;
 };
 
 // It is always important to ensure you import/export something when augmenting a type

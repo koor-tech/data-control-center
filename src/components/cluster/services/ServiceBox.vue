@@ -6,10 +6,12 @@ withDefaults(
     defineProps<{
         icon?: DefineComponent;
         color?: string;
+        listClasses?: string;
     }>(),
     {
         icon: HelpIcon,
         color: 'bg-accent-500',
+        listClasses: '' as any,
     },
 );
 </script>
@@ -25,7 +27,7 @@ withDefaults(
             </div>
         </dt>
         <dd class="flex">
-            <ul role="list" class="w-full divide-y divide-gray-100">
+            <ul role="list" class="w-full divide-y divide-gray-100" :class="listClasses">
                 <slot name="content" />
             </ul>
         </dd>

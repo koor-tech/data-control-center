@@ -24,7 +24,7 @@ useHead({
 onMounted(() => {
     initFlowbite();
 
-    if (appConfig.updateAvailable !== undefined) {
+    if (appConfig.updateAvailable !== null && appConfig.updateAvailable !== '') {
         notifications.dispatchNotification({
             title: 'New version available!',
             content: `A new Data Control Center version (${appConfig.updateAvailable}) is available on GitHub. Be sure to update to get new features and fixes.`,

@@ -16,6 +16,7 @@ defineProps<{
             <template v-if="alerts.length > 0"> </template>
             <ServiceLiItem v-for="(alert, idx) in alerts" :key="idx">
                 <template #content> {{ alert.description }} </template>
+                <!-- TODO show bullet points infront of alerts -->
             </ServiceLiItem>
         </template>
     </ServiceBox>
