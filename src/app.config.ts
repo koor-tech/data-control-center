@@ -6,4 +6,5 @@ export default defineAppConfig({
         providers: [],
     },
     readOnly: true,
+    updateAvailable: null,
 } as AppConfig);

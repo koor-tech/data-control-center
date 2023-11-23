@@ -7,17 +7,24 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"sync"
+	"time"
 
 	"github.com/koor-tech/data-control-center/pkg/config"
 )
 
+const tokenLifetimeDuration = 15 * time.Minute
+
 type Client struct {
-	Token     *string
-	client    *http.Client
 	apiConfig config.API
+	client    *http.Client
+
+	authMutex    sync.Mutex
+	tokenExpires time.Time
+	token        string
 }
 
-func NewClient(ctx context.Context, apiConfig config.API) *Client {
+func NewClient(apiConfig config.API) *Client {
 	customTransport := http.DefaultTransport.(*http.Transport).Clone()
 	if apiConfig.InsecureSSL {
 		customTransport.TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
@@ -27,37 +34,59 @@ func NewClient(ctx context.Context, apiConfig config.API) *Client {
 	return &Client{
 		apiConfig: apiConfig,
 		client:    client,
+
+		authMutex:    sync.Mutex{},
+		tokenExpires: time.Time{},
 	}
 }
 
-// Auth method is used to authenticate against ceph mgr api
+// auth method is used to authenticate against ceph mgr api
 // if the authentication is successful we are going to store the token returned by the api
 // in Client.Token, if any error happens this method will return an error
-func (c *Client) Auth(ctx context.Context) error {
+func (c *Client) auth(ctx context.Context) (string, error) {
 	payload := AuthRequest{
 		Username: c.apiConfig.Username,
 		Password: c.apiConfig.Password,
 	}
 
-	payloadBytes, _ := json.Marshal(payload)
+	payloadBytes, err := json.Marshal(payload)
+	if err != nil {
+		return "", err
+	}
 	resp, err := c.MakeRequest(ctx, NewEndpointAuth(payloadBytes))
 	if err != nil {
-		return err
+		return "", err
 	}
 
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusCreated {
-		return fmt.Errorf("invalid request %w, status code: %d", err, resp.StatusCode)
+		return "", fmt.Errorf("invalid request %w, status code: %d", err, resp.StatusCode)
 	}
 
 	var authData ResponseData
 	if err := json.NewDecoder(resp.Body).Decode(&authData); err != nil {
-		return fmt.Errorf("error decoding response %w", err)
+		return "", fmt.Errorf("error decoding response %w", err)
 	}
 
-	c.Token = &authData.Token
-	return nil
+	return authData.Token, nil
+}
+
+func (c *Client) GetToken(ctx context.Context) (string, error) {
+	c.authMutex.Lock()
+	defer c.authMutex.Unlock()
+
+	if time.Since(c.tokenExpires) > tokenLifetimeDuration {
+		token, err := c.auth(ctx)
+		if err != nil {
+			return "", err
+		}
+
+		c.token = token
+		c.tokenExpires = time.Now().Add(tokenLifetimeDuration)
+	}
+
+	return c.token, nil
 }
 
 func (c *Client) CreateCall(method, apiUrl string, payload *bytes.Buffer) (*http.Request, error) {
@@ -80,10 +109,13 @@ func (c *Client) MakeRequest(ctx context.Context, e *Endpoint) (*http.Response, 
 		req.Header.Set(hName, hValue)
 	}
 
-	// the token is used to make request with authentication
-	if c.Token != nil {
-		req.Header.Set("Authorization", "Bearer "+*c.Token)
+	token, err := c.GetToken(ctx)
+	if err != nil {
+		return nil, fmt.Errorf("error getting token for request: %w", err)
 	}
+
+	// the token is used to make request with authentication
+	req.Header.Set("Authorization", "Bearer "+token)
 
 	resp, err := c.client.Do(req)
 	if err != nil {

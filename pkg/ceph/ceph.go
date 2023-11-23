@@ -1,20 +1,20 @@
 package ceph
 
 import (
-    "context"
-    "encoding/json"
-    "fmt"
-    "net/http"
+	"context"
+	"encoding/json"
+	"fmt"
+	"net/http"
 
-    "github.com/koor-tech/data-control-center/pkg/ceph/client"
-    "github.com/koor-tech/data-control-center/pkg/config"
-    "go.uber.org/fx"
-    "go.uber.org/zap"
+	"github.com/koor-tech/data-control-center/pkg/ceph/client"
+	"github.com/koor-tech/data-control-center/pkg/config"
+	"go.uber.org/fx"
+	"go.uber.org/zap"
 )
 
 var Module = fx.Module("ceph_api",
 	fx.Provide(
-		NewService,
+		New,
 	),
 	fx.Decorate(wrapLogger),
 )
@@ -23,27 +23,33 @@ func wrapLogger(log *zap.Logger) *zap.Logger {
 	return log.Named("ceph_api")
 }
 
-type Service struct {
+type MgrService struct {
 	logger *zap.Logger
 
 	apiClient *client.Client
 }
 
-func NewService(logger *zap.Logger, config *config.Config) *Service {
-	return &Service{
-		logger:    logger,
-		apiClient: client.NewClient(context.Background(), config.Ceph.API),
+type Params struct {
+	fx.In
+
+	LC fx.Lifecycle
+
+	Logger *zap.Logger
+	Config *config.Config
+}
+
+func New(p Params) *MgrService {
+	apiClient := client.NewClient(p.Config.Ceph.API)
+
+	return &MgrService{
+		logger:    p.Logger,
+		apiClient: apiClient,
 	}
 }
 
 // GetHealthFull returns the Health Status of the Ceph Cluster
 // calling - GET /health/full endpoint
-func (s *Service) GetHealthFull(ctx context.Context) (*HealthStatus, error) {
-	if err := s.apiClient.Auth(ctx); err != nil {
-		s.logger.Error(ErrorUnableToAuthenticate.Error(), zap.Error(err))
-		return nil, ErrorUnableToAuthenticate
-	}
-
+func (s *MgrService) GetHealthFull(ctx context.Context) (*HealthStatus, error) {
 	resp, err := s.apiClient.MakeRequest(ctx, client.NewEndpointHealthFull())
 	if err != nil {
 		s.logger.Error(ErrorUnableToConnectWithApi.Error(), zap.Error(err))
@@ -64,12 +70,7 @@ func (s *Service) GetHealthFull(ctx context.Context) (*HealthStatus, error) {
 	return &healthStatus, nil
 }
 
-func (s *Service) GetBlockImage(ctx context.Context) ([]BlockImage, error) {
-	if err := s.apiClient.Auth(ctx); err != nil {
-		s.logger.Error(ErrorUnableToAuthenticate.Error(), zap.Error(err))
-		return nil, ErrorUnableToAuthenticate
-	}
-
+func (s *MgrService) GetBlockImage(ctx context.Context) ([]BlockImage, error) {
 	resp, err := s.apiClient.MakeRequest(ctx, client.NewEndpointBlockImage())
 	if err != nil {
 		s.logger.Error(ErrorUnableToConnectWithApi.Error(), zap.Error(err))
@@ -89,12 +90,7 @@ func (s *Service) GetBlockImage(ctx context.Context) ([]BlockImage, error) {
 	return blockImage, nil
 }
 
-func (s *Service) GetUsers(ctx context.Context) ([]User, error) {
-	if err := s.apiClient.Auth(ctx); err != nil {
-		s.logger.Error(ErrorUnableToAuthenticate.Error(), zap.Error(err))
-		return nil, ErrorUnableToAuthenticate
-	}
-
+func (s *MgrService) GetUsers(ctx context.Context) ([]User, error) {
 	resp, err := s.apiClient.MakeRequest(ctx, client.NewEndpointUsers())
 	if err != nil {
 		s.logger.Error(ErrorUnableToConnectWithApi.Error(), zap.Error(err))
@@ -115,12 +111,7 @@ func (s *Service) GetUsers(ctx context.Context) ([]User, error) {
 	return users, nil
 }
 
-func (s *Service) CreateCephUser(ctx context.Context, user UserCreate) error {
-	if err := s.apiClient.Auth(ctx); err != nil {
-		s.logger.Error(ErrorUnableToAuthenticate.Error(), zap.Error(err))
-		return ErrorUnableToSaveCephUser
-	}
-
+func (s *MgrService) CreateCephUser(ctx context.Context, user UserCreate) error {
 	userPayloadBytes, _ := json.Marshal(user)
 	resp, err := s.apiClient.MakeRequest(ctx, client.NewPostEndpointUsers(userPayloadBytes))
 	if err != nil {
@@ -143,12 +134,7 @@ func (s *Service) CreateCephUser(ctx context.Context, user UserCreate) error {
 	return errorCephApi.Error()
 }
 
-func (s *Service) DeleteCephUser(ctx context.Context, username string) error {
-	if err := s.apiClient.Auth(ctx); err != nil {
-		s.logger.Error(ErrorUnableToAuthenticate.Error(), zap.Error(err))
-		return ErrorUnableToSaveCephUser
-	}
-
+func (s *MgrService) DeleteCephUser(ctx context.Context, username string) error {
 	resp, err := s.apiClient.MakeRequest(ctx, client.NewEndpointDeleteUser(username))
 	if err != nil {
 		s.logger.Error(ErrorUnableToSaveCephUser.Error(), zap.Error(err))

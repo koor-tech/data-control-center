@@ -16,7 +16,7 @@ import (
 	"github.com/gin-contrib/static"
 	ginzap "github.com/gin-contrib/zap"
 	"github.com/gin-gonic/gin"
-	"github.com/koor-tech/data-control-center/internal/ceph"
+	"github.com/koor-tech/data-control-center/pkg/ceph"
 	cephcache "github.com/koor-tech/data-control-center/pkg/ceph/cache"
 	"github.com/koor-tech/data-control-center/pkg/config"
 	"github.com/koor-tech/data-control-center/pkg/grpc/auth"

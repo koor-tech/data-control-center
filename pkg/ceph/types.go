@@ -3,8 +3,9 @@ package ceph
 import (
 	"encoding/json"
 	"errors"
-	statsv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/stats/v1"
 	"time"
+
+	statsv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/stats/v1"
 )
 
 type Summary struct {
@@ -34,7 +35,7 @@ type Mons []struct {
 }
 
 type Monmap struct {
-	Fsid string `json:"fsid"` //change to uuid
+	Fsid string `json:"fsid"` // Change to uuid
 	Mons Mons   `json:"mons"`
 
 	Modified time.Time `json:"modified"`

@@ -9,7 +9,7 @@ import (
 	cephv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/ceph/v1"
 	v1 "github.com/koor-tech/data-control-center/gen/go/api/services/ceph/v1"
 	"github.com/koor-tech/data-control-center/gen/go/api/services/ceph/v1/cephv1connect"
-	"github.com/koor-tech/data-control-center/internal/ceph"
+	"github.com/koor-tech/data-control-center/pkg/ceph"
 	"github.com/koor-tech/data-control-center/pkg/config"
 	"github.com/koor-tech/data-control-center/pkg/grpc/auth"
 	grpcerrors "github.com/koor-tech/data-control-center/pkg/grpc/errors"
@@ -23,7 +23,7 @@ type Server struct {
 	readOnly  bool
 	logger    *zap.Logger
 	auth      *auth.GRPCAuth
-	ceph      *ceph.Service
+	ceph      *ceph.MgrService
 	Namespace string
 }
 
@@ -32,7 +32,7 @@ type Params struct {
 
 	Logger   *zap.Logger
 	GrpcAuth *auth.GRPCAuth
-	Ceph     *ceph.Service
+	Ceph     *ceph.MgrService
 	Cfg      *config.Config
 }
 

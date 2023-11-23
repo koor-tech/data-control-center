@@ -5,8 +5,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/koor-tech/data-control-center/internal/ceph"
 	"github.com/koor-tech/data-control-center/pkg/cache"
+	"github.com/koor-tech/data-control-center/pkg/ceph"
 	"go.uber.org/fx"
 	"go.uber.org/multierr"
 	"go.uber.org/zap"
@@ -28,7 +28,7 @@ type Cache struct {
 	wg     sync.WaitGroup
 	logger *zap.Logger
 
-	ceph *ceph.Service
+	ceph *ceph.MgrService
 
 	healthStatus cache.CacheEntry[*ceph.HealthStatus]
 	rbdImages    cache.CacheEntry[[]ceph.BlockImage]
@@ -39,7 +39,7 @@ type Params struct {
 
 	LC     fx.Lifecycle
 	Logger *zap.Logger
-	Ceph   *ceph.Service
+	Ceph   *ceph.MgrService
 }
 
 func New(p Params) *Cache {
@@ -100,6 +100,7 @@ func (c *Cache) run(ctx context.Context) error {
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
+
 		healthStatus, err := c.ceph.GetHealthFull(ctx)
 		if err != nil {
 			c.logger.Error("failed to update cluster deployments cache", zap.Error(err))
@@ -107,15 +108,20 @@ func (c *Cache) run(ctx context.Context) error {
 			return
 		}
 
+		c.healthStatus.Set(healthStatus)
+	}()
+
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+
 		blockImages, err := c.ceph.GetBlockImage(ctx)
 		if err != nil {
 			c.logger.Error("failed to update block image cache", zap.Error(err))
 			errs = multierr.Append(errs, err)
 			return
 		}
-
 		c.rbdImages.Set(blockImages)
-		c.healthStatus.Set(healthStatus)
 	}()
 
 	wg.Wait()
