@@ -94,6 +94,7 @@ The following table lists the configurable parameters of the rook-operator chart
 | `podAnnotations` |  | `{}` |
 | `podSecurityContext` |  | `{}` |
 | `postInstallJob.enabled` | If enabled,  will create a Ceph dashboard admin user `data-control-center` either on Rook/Ceph cluster pre upgrade(when having data-control-center as a helm dependency) or on post install of data-control-center (needs existing Rook/Ceph cluster). This user will be used for retrieving cluster info and stats. | `true` |
+| `rbac.ancientt` |  | `true` |
 | `rbac.annotations` |  | `{}` |
 | `rbac.create` |  | `true` |
 | `rbac.name` |  | `""` |
