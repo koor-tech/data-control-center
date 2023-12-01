@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	clusterpb "github.com/koor-tech/data-control-center/gen/go/api/services/cluster/v1"
 	"github.com/koor-tech/data-control-center/gen/go/api/services/cluster/v1/clusterv1connect"
+	"github.com/koor-tech/data-control-center/pkg/ancientt"
 	"github.com/koor-tech/data-control-center/pkg/config"
 	"github.com/koor-tech/data-control-center/pkg/grpc/auth"
 	k8s "github.com/koor-tech/data-control-center/pkg/k8s"
@@ -25,6 +26,8 @@ type Server struct {
 	k         *k8s.K8s
 	kc        *k8scache.Cache
 	Namespace string
+
+	ancientt *ancientt.Runner
 }
 
 type Params struct {
@@ -35,6 +38,8 @@ type Params struct {
 	K8S      *k8s.K8s
 	K8SCache *k8scache.Cache
 	Cfg      *config.Config
+
+	Ancientt *ancientt.Runner
 }
 
 func New(p Params) (*Server, error) {
@@ -45,6 +50,7 @@ func New(p Params) (*Server, error) {
 		k:         p.K8S,
 		kc:        p.K8SCache,
 		Namespace: p.Cfg.Namespace,
+		ancientt:  p.Ancientt,
 	}, nil
 }
 

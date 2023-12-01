@@ -101,7 +101,7 @@ rules:
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: {{ include "data-control-center.serviceAccountName" . }}
+  name: {{ include "data-control-center.serviceAccountName" . }}-cluster
   labels:
     {{- include "data-control-center.labels" . | nindent 4 }}
   {{- with .Values.rbac.annotations }}
@@ -116,4 +116,43 @@ roleRef:
   kind: ClusterRole
   name: {{ include "data-control-center.serviceAccountName" . }}-cluster
   apiGroup: rbac.authorization.k8s.io
+{{- if .Values.rbac.ancientt }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "data-control-center.serviceAccountName" . }}-ancientt
+  labels:
+    {{- include "data-control-center.labels" . | nindent 4 }}
+  {{- with .Values.rbac.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+rules:
+  # Get nodes for, e.g., status
+  - apiGroups: [""]
+    resources: ["nodes"]
+    verbs:
+      - get
+      - list
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: {{ include "data-control-center.serviceAccountName" . }}-ancientt
+  labels:
+    {{- include "data-control-center.labels" . | nindent 4 }}
+  {{- with .Values.rbac.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "data-control-center.serviceAccountName" . }}
+    namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: ClusterRole
+  name: {{ include "data-control-center.serviceAccountName" . }}-ancientt
+  apiGroup: rbac.authorization.k8s.io
+{{- end }}
 {{- end }}

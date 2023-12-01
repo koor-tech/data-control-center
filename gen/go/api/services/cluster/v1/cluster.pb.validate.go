@@ -704,8 +704,6 @@ func (m *CancelNetworkTestRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Force
-
 	if len(errors) > 0 {
 		return CancelNetworkTestRequestMultiError(errors)
 	}
@@ -808,7 +806,7 @@ func (m *CancelNetworkTestResponse) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for NoneRunning
+	// no validation rules for NotRunning
 
 	if len(errors) > 0 {
 		return CancelNetworkTestResponseMultiError(errors)

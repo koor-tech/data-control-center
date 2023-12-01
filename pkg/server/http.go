@@ -16,6 +16,7 @@ import (
 	"github.com/gin-contrib/static"
 	ginzap "github.com/gin-contrib/zap"
 	"github.com/gin-gonic/gin"
+	"github.com/koor-tech/data-control-center/pkg/ancientt"
 	"github.com/koor-tech/data-control-center/pkg/ceph"
 	cephcache "github.com/koor-tech/data-control-center/pkg/ceph/cache"
 	"github.com/koor-tech/data-control-center/pkg/config"
@@ -191,6 +192,7 @@ func StartHTTPServer() {
 		ceph.Module,
 		cephcache.Module,
 		update.Module,
+		ancientt.Module,
 
 		// Connect Services - Need to be added here
 		fx.Provide(

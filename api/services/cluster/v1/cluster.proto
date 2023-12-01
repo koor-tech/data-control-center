@@ -24,12 +24,10 @@ message StartNetworkTestResponse {
   bool already_running = 1;
 }
 
-message CancelNetworkTestRequest {
-  bool force = 1;
-}
+message CancelNetworkTestRequest {}
 
 message CancelNetworkTestResponse {
-  bool none_running = 1;
+  bool not_running = 1;
 }
 
 message GetNetworkTestResultsRequest {}

@@ -140,11 +140,6 @@ export declare class StartNetworkTestResponse extends Message<StartNetworkTestRe
  * @generated from message api.services.cluster.v1.CancelNetworkTestRequest
  */
 export declare class CancelNetworkTestRequest extends Message<CancelNetworkTestRequest> {
-  /**
-   * @generated from field: bool force = 1;
-   */
-  force: boolean;
-
   constructor(data?: PartialMessage<CancelNetworkTestRequest>);
 
   static readonly runtime: typeof proto3;
@@ -165,9 +160,9 @@ export declare class CancelNetworkTestRequest extends Message<CancelNetworkTestR
  */
 export declare class CancelNetworkTestResponse extends Message<CancelNetworkTestResponse> {
   /**
-   * @generated from field: bool none_running = 1;
+   * @generated from field: bool not_running = 1;
    */
-  noneRunning: boolean;
+  notRunning: boolean;
 
   constructor(data?: PartialMessage<CancelNetworkTestResponse>);
 

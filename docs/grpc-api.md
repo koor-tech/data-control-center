@@ -975,11 +975,6 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 
 
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| force | [bool](#bool) |  |  |
-
-
 
 
 
@@ -992,7 +987,7 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| none_running | [bool](#bool) |  |  |
+| not_running | [bool](#bool) |  |  |
 
 
 

@@ -65,9 +65,7 @@ export const StartNetworkTestResponse = proto3.makeMessageType(
  */
 export const CancelNetworkTestRequest = proto3.makeMessageType(
   "api.services.cluster.v1.CancelNetworkTestRequest",
-  () => [
-    { no: 1, name: "force", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-  ],
+  [],
 );
 
 /**
@@ -76,7 +74,7 @@ export const CancelNetworkTestRequest = proto3.makeMessageType(
 export const CancelNetworkTestResponse = proto3.makeMessageType(
   "api.services.cluster.v1.CancelNetworkTestResponse",
   () => [
-    { no: 1, name: "none_running", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 1, name: "not_running", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ],
 );
 
