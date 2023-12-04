@@ -364,9 +364,9 @@
   integrity sha512-WfShOZt91duJngqivYF4wJFRbeRa4bF/fPMfDVN0MAYSX3VuaTMn8o9qgKN7tsg2H2ZClyOVQwMkZx6IdcP7Zw==
 
 "@connectrpc/connect@^1.1.3":
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/@connectrpc/connect/-/connect-1.1.3.tgz#6099789e392bf3d4c3d831f294b1a9ff969703a1"
-  integrity sha512-AXkbsLQe2Nm7VuoN5nqp05GEb9mPa/f5oFzDqTbHME4i8TghTrlY03uefbhuAq4wjsnfDnmuxHZvn6ndlgXmbg==
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@connectrpc/connect/-/connect-1.1.4.tgz#b21353044a0af15f3b0de11beceec98a7f71fed1"
+  integrity sha512-kFiOi3jsEyOuL4gGW55LgNCqQBNA0Z/GLXrfeJO4r6pI/f8L9rqnjrFZTCeyrvzu1TuqEtL51cR+c46KMCposw==
 
 "@cspotcode/source-map-support@^0.8.0":
   version "0.8.1"
