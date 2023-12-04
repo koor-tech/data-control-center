@@ -667,9 +667,9 @@
   integrity sha512-+KpH+QxZU7O4675t3mnkQKcZZg56u+K/Ct2K+N2AZYNVK8kyeo/bI18tI8aPm3tvNNRyTWfj6s5tnGNlcbQRsA==
 
 "@fastify/cors@^8.4.1":
-  version "8.4.1"
-  resolved "https://registry.yarnpkg.com/@fastify/cors/-/cors-8.4.1.tgz#bd8fece8e175a20059a4c6552f0e7de9e94eafa0"
-  integrity sha512-iYQJtrY3pFiDS5mo5zRaudzg2OcUdJ96PD6xfkKOOEilly5nnrFZx/W6Sce2T79xxlEn2qpU3t5+qS2phS369w==
+  version "8.4.2"
+  resolved "https://registry.yarnpkg.com/@fastify/cors/-/cors-8.4.2.tgz#5a3af71a356def991d49d78fe9982fba504d3d0a"
+  integrity sha512-IVynbcPG9eWiJ0P/A1B+KynmiU/yTYbu3ooBUSIeHfca/N1XLb9nIJVCws+YTr2q63MA8Y6QLeXQczEv4npM9g==
   dependencies:
     fastify-plugin "^4.0.0"
     mnemonist "0.39.5"
