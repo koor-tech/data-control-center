@@ -50,7 +50,7 @@ func New(p Params) *MgrService {
 // GetHealthFull returns the Health Status of the Ceph Cluster
 // calling - GET /health/full endpoint
 func (s *MgrService) GetHealthFull(ctx context.Context) (*HealthStatus, error) {
-	resp, err := s.apiClient.MakeRequest(ctx, client.NewEndpointHealthFull())
+	resp, err := s.apiClient.MakeRequest(ctx, client.NewEndpointHealthFull(), true)
 	if err != nil {
 		s.logger.Error(ErrorUnableToConnectWithApi.Error(), zap.Error(err))
 		return nil, ErrorUnableToConnectWithApi
@@ -71,7 +71,7 @@ func (s *MgrService) GetHealthFull(ctx context.Context) (*HealthStatus, error) {
 }
 
 func (s *MgrService) GetBlockImage(ctx context.Context) ([]BlockImage, error) {
-	resp, err := s.apiClient.MakeRequest(ctx, client.NewEndpointBlockImage())
+	resp, err := s.apiClient.MakeRequest(ctx, client.NewEndpointBlockImage(), true)
 	if err != nil {
 		s.logger.Error(ErrorUnableToConnectWithApi.Error(), zap.Error(err))
 		return nil, ErrorUnableToConnectWithApi
@@ -91,7 +91,7 @@ func (s *MgrService) GetBlockImage(ctx context.Context) ([]BlockImage, error) {
 }
 
 func (s *MgrService) GetUsers(ctx context.Context) ([]User, error) {
-	resp, err := s.apiClient.MakeRequest(ctx, client.NewEndpointUsers())
+	resp, err := s.apiClient.MakeRequest(ctx, client.NewEndpointUsers(), true)
 	if err != nil {
 		s.logger.Error(ErrorUnableToConnectWithApi.Error(), zap.Error(err))
 		return nil, ErrorUnableToConnectWithApi
@@ -113,7 +113,7 @@ func (s *MgrService) GetUsers(ctx context.Context) ([]User, error) {
 
 func (s *MgrService) CreateCephUser(ctx context.Context, user UserCreate) error {
 	userPayloadBytes, _ := json.Marshal(user)
-	resp, err := s.apiClient.MakeRequest(ctx, client.NewPostEndpointUsers(userPayloadBytes))
+	resp, err := s.apiClient.MakeRequest(ctx, client.NewPostEndpointUsers(userPayloadBytes), true)
 	if err != nil {
 		s.logger.Error(ErrorUnableToSaveCephUser.Error(), zap.Error(err))
 		return ErrorUnableToSaveCephUser
@@ -135,7 +135,7 @@ func (s *MgrService) CreateCephUser(ctx context.Context, user UserCreate) error 
 }
 
 func (s *MgrService) DeleteCephUser(ctx context.Context, username string) error {
-	resp, err := s.apiClient.MakeRequest(ctx, client.NewEndpointDeleteUser(username))
+	resp, err := s.apiClient.MakeRequest(ctx, client.NewEndpointDeleteUser(username), true)
 	if err != nil {
 		s.logger.Error(ErrorUnableToSaveCephUser.Error(), zap.Error(err))
 		return ErrorUnableToSaveCephUser

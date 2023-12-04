@@ -53,7 +53,7 @@ func (c *Client) auth(ctx context.Context) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	resp, err := c.MakeRequest(ctx, NewEndpointAuth(payloadBytes))
+	resp, err := c.MakeRequest(ctx, NewEndpointAuth(payloadBytes), false)
 	if err != nil {
 		return "", err
 	}
@@ -93,12 +93,13 @@ func (c *Client) CreateCall(method, apiUrl string, payload *bytes.Buffer) (*http
 	if method == http.MethodGet || method == http.MethodDelete {
 		return http.NewRequest(method, apiUrl, nil)
 	}
+
 	return http.NewRequest(method, apiUrl, payload)
 }
 
 // MakeRequest makes a GET or POST (for now) requests to interact with the ceph api
 // func (c *Client) MakeRequest(ctx context.Context, method, url string, payloadBytes []byte) (*http.Response, error) {
-func (c *Client) MakeRequest(ctx context.Context, e *Endpoint) (*http.Response, error) {
+func (c *Client) MakeRequest(ctx context.Context, e *Endpoint, withAuth bool) (*http.Response, error) {
 	apiUrl := fmt.Sprintf("%s%s", c.apiConfig.Url, e.Url)
 	req, err := c.CreateCall(e.Method, apiUrl, e.Payload)
 	if err != nil {
@@ -109,13 +110,15 @@ func (c *Client) MakeRequest(ctx context.Context, e *Endpoint) (*http.Response, 
 		req.Header.Set(hName, hValue)
 	}
 
-	token, err := c.GetToken(ctx)
-	if err != nil {
-		return nil, fmt.Errorf("error getting token for request: %w", err)
-	}
+	if withAuth {
+		token, err := c.GetToken(ctx)
+		if err != nil {
+			return nil, fmt.Errorf("error getting token for request: %w", err)
+		}
 
-	// the token is used to make request with authentication
-	req.Header.Set("Authorization", "Bearer "+token)
+		// the token is used to make request with authentication
+		req.Header.Set("Authorization", "Bearer "+token)
+	}
 
 	resp, err := c.client.Do(req)
 	if err != nil {

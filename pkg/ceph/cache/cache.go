@@ -121,6 +121,7 @@ func (c *Cache) run(ctx context.Context) error {
 			errs = multierr.Append(errs, err)
 			return
 		}
+
 		c.rbdImages.Set(blockImages)
 	}()
 
