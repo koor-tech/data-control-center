@@ -1,13 +1,9 @@
 package ancientt
 
 import (
-	"context"
 	"embed"
 	"fmt"
-	"html/template"
-	"io"
 	"os"
-	"os/exec"
 	"path"
 	"sync"
 )
@@ -28,10 +24,16 @@ const (
 	ExcelizeOutputFormat OutputFormat = "excelize"
 )
 
-var OutputFormatToFileExtensionMap = map[OutputFormat]string{
-	CSVOutputFormat:      "csv",
-	ExcelizeOutputFormat: "xlsx",
-}
+var (
+	OutputFormatToFileExtensionMap = map[OutputFormat]string{
+		CSVOutputFormat:      "csv",
+		ExcelizeOutputFormat: "xlsx",
+	}
+	OutputFormatToMetaMap = map[OutputFormat]string{
+		CSVOutputFormat:      "text/csv",
+		ExcelizeOutputFormat: "application/vnd.ms-excel",
+	}
+)
 
 type TplData struct {
 	OutputDir  string
@@ -42,16 +44,16 @@ type TplData struct {
 	OutputFormat OutputFormat
 }
 
+type RunParams struct {
+	HostNetwork  bool
+	OutputFormat OutputFormat
+}
+
 type Runner struct {
 	mutex sync.Mutex
 
-	ctx    context.Context
-	cancel context.CancelFunc
-
-	cmd *exec.Cmd
-
-	outputDir  string
-	outputFile string
+	run  *Run
+	data *TplData
 }
 
 func New() *Runner {
@@ -60,37 +62,35 @@ func New() *Runner {
 	}
 }
 
+func (r *Runner) IsStarted() bool {
+	return r.run != nil
+}
+
 func (r *Runner) IsRunning() bool {
 	r.mutex.Lock()
 	defer r.mutex.Unlock()
 
-	return r.cmd != nil
+	return r.run != nil && r.run.IsRunning()
 }
 
-func (r *Runner) Start(outputFormat OutputFormat) error {
+func (r *Runner) Start(p *RunParams) error {
 	r.mutex.Lock()
 	defer r.mutex.Unlock()
 
-	outputDir, testDefsFile, err := prepareConfigAndOutputDir(outputFormat)
+	testDefsFile, err := r.prepareConfigAndOutputDir(p)
 	if err != nil {
 		return err
 	}
 
-	r.outputDir = outputDir
+	command := "ancientt"
+	args := []string{command, "--testdefinition=" + testDefsFile, "-y"}
 
-	ctx, cancel := context.WithCancel(context.Background())
-
-	r.ctx = ctx
-	r.cancel = cancel
-
-	args := []string{"ancientt", "--testdefinition=" + testDefsFile, "-y"}
-	cmd := exec.CommandContext(ctx, "ancientt", args...)
-
-	if err := cmd.Start(); err != nil {
+	run, err := NewRun(r.data.OutputDir, command, args)
+	if err != nil {
 		return err
 	}
 
-	r.cmd = cmd
+	r.run = run
 
 	return nil
 }
@@ -99,82 +99,44 @@ func (r *Runner) Cancel() error {
 	r.mutex.Lock()
 	defer r.mutex.Unlock()
 
-	r.cancel()
-
-	if err := r.cmd.Wait(); err != nil {
+	if err := r.run.Stop(); err != nil {
 		return err
 	}
-
-	r.cmd = nil
-	r.cancel = nil
-	r.ctx = nil
-
-	r.outputDir = ""
-	r.outputFile = ""
 
 	return nil
 }
 
-func (r *Runner) Cleanup() error {
+func (r *Runner) Stop() error {
 	r.mutex.Lock()
 	defer r.mutex.Unlock()
 
-	if r.outputDir == "" {
+	if r.run == nil {
 		return nil
 	}
 
-	return os.RemoveAll(r.outputDir)
+	return r.run.Stop()
 }
 
-func (r *Runner) GetResultFile() (string, []byte, error) {
+func (r *Runner) GetLogs() (string, error) {
 	r.mutex.Lock()
 	defer r.mutex.Unlock()
 
-	resultFile := fmt.Sprintf("ancientt.%s", CSVOutputFormat)
-	_ = resultFile
-
-	// TODO
-
-	fileContent := []byte{}
-
-	return r.outputFile, fileContent, nil
+	return r.run.GetLogs()
 }
 
-func prepareConfigAndOutputDir(outputFormat OutputFormat) (string, string, error) {
-	// create a temporary directory
-	tmpDir, err := os.MkdirTemp("", "dir") // in Go version older than 1.17 you can use ioutil.TempDir
+func (r *Runner) GetResultFile() (string, string, []byte, error) {
+	r.mutex.Lock()
+	defer r.mutex.Unlock()
+
+	if r.run == nil || r.data == nil {
+		return "", "", []byte{}, fmt.Errorf("no run data found")
+	}
+
+	resultFilePath := path.Join(r.data.OutputDir, r.data.OutputFile)
+	out, err := os.ReadFile(resultFilePath)
 	if err != nil {
-		return "", "", err
+		return "", "", []byte{}, err
 	}
 
-	testdefsFilePath := path.Join(tmpDir, TestDefinitionsFileName)
-	testdefsFile, err := os.Create(testdefsFilePath)
-	if err != nil {
-		return "", "", err
-	}
-	defer testdefsFile.Close()
-
-	if err := renderConfigFile(testdefsFile, &TplData{
-		HostNetwork:  false,
-		OutputFormat: outputFormat,
-		OutputDir:    tmpDir,
-		OutputFile:   fmt.Sprintf("ancientt.%s", outputFormat),
-	}); err != nil {
-		return "", "", err
-	}
-
-	return tmpDir, testdefsFilePath, nil
-}
-
-func renderConfigFile(out io.Writer, tplData *TplData) error {
-	t, err := template.New("").ParseFS(testdefsTemplates, "**.tpl")
-	if err != nil {
-		return err
-	}
-
-	if err := t.ExecuteTemplate(out, "testdefinitions.yaml.tpl", tplData); err != nil {
-		return err
-	}
-
-	return nil
+	return resultFilePath, string(r.data.OutputFormat), out, nil
 }

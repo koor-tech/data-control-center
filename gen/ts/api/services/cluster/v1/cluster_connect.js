@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { CancelNetworkTestRequest, CancelNetworkTestResponse, GetKoorClusterRequest, GetKoorClusterResponse, GetNetworkTestResultsRequest, GetNetworkTestResultsResponse, GetTroubleshootReportRequest, GetTroubleshootReportResponse, SetScrubbingScheduleRequest, SetScrubbingScheduleResponse, StartNetworkTestRequest, StartNetworkTestResponse } from "./cluster_pb.js";
+import { CancelNetworkTestRequest, CancelNetworkTestResponse, GetKoorClusterRequest, GetKoorClusterResponse, GetNetworkTestResultsRequest, GetNetworkTestResultsResponse, GetNetworkTestStatusRequest, GetNetworkTestStatusResponse, GetTroubleshootReportRequest, GetTroubleshootReportResponse, SetScrubbingScheduleRequest, SetScrubbingScheduleResponse, StartNetworkTestRequest, StartNetworkTestResponse } from "./cluster_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -28,6 +28,15 @@ export const ClusterService = {
       name: "GetTroubleshootReport",
       I: GetTroubleshootReportRequest,
       O: GetTroubleshootReportResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc api.services.cluster.v1.ClusterService.GetNetworkTestStatus
+     */
+    getNetworkTestStatus: {
+      name: "GetNetworkTestStatus",
+      I: GetNetworkTestStatusRequest,
+      O: GetNetworkTestStatusResponse,
       kind: MethodKind.Unary,
     },
     /**

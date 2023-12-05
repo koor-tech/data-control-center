@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	ClusterService_GetKoorCluster_FullMethodName        = "/api.services.cluster.v1.ClusterService/GetKoorCluster"
 	ClusterService_GetTroubleshootReport_FullMethodName = "/api.services.cluster.v1.ClusterService/GetTroubleshootReport"
+	ClusterService_GetNetworkTestStatus_FullMethodName  = "/api.services.cluster.v1.ClusterService/GetNetworkTestStatus"
 	ClusterService_StartNetworkTest_FullMethodName      = "/api.services.cluster.v1.ClusterService/StartNetworkTest"
 	ClusterService_CancelNetworkTest_FullMethodName     = "/api.services.cluster.v1.ClusterService/CancelNetworkTest"
 	ClusterService_GetNetworkTestResults_FullMethodName = "/api.services.cluster.v1.ClusterService/GetNetworkTestResults"
@@ -33,6 +34,7 @@ const (
 type ClusterServiceClient interface {
 	GetKoorCluster(ctx context.Context, in *GetKoorClusterRequest, opts ...grpc.CallOption) (*GetKoorClusterResponse, error)
 	GetTroubleshootReport(ctx context.Context, in *GetTroubleshootReportRequest, opts ...grpc.CallOption) (*GetTroubleshootReportResponse, error)
+	GetNetworkTestStatus(ctx context.Context, in *GetNetworkTestStatusRequest, opts ...grpc.CallOption) (*GetNetworkTestStatusResponse, error)
 	StartNetworkTest(ctx context.Context, in *StartNetworkTestRequest, opts ...grpc.CallOption) (*StartNetworkTestResponse, error)
 	CancelNetworkTest(ctx context.Context, in *CancelNetworkTestRequest, opts ...grpc.CallOption) (*CancelNetworkTestResponse, error)
 	GetNetworkTestResults(ctx context.Context, in *GetNetworkTestResultsRequest, opts ...grpc.CallOption) (*GetNetworkTestResultsResponse, error)
@@ -59,6 +61,15 @@ func (c *clusterServiceClient) GetKoorCluster(ctx context.Context, in *GetKoorCl
 func (c *clusterServiceClient) GetTroubleshootReport(ctx context.Context, in *GetTroubleshootReportRequest, opts ...grpc.CallOption) (*GetTroubleshootReportResponse, error) {
 	out := new(GetTroubleshootReportResponse)
 	err := c.cc.Invoke(ctx, ClusterService_GetTroubleshootReport_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *clusterServiceClient) GetNetworkTestStatus(ctx context.Context, in *GetNetworkTestStatusRequest, opts ...grpc.CallOption) (*GetNetworkTestStatusResponse, error) {
+	out := new(GetNetworkTestStatusResponse)
+	err := c.cc.Invoke(ctx, ClusterService_GetNetworkTestStatus_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -107,6 +118,7 @@ func (c *clusterServiceClient) SetScrubbingSchedule(ctx context.Context, in *Set
 type ClusterServiceServer interface {
 	GetKoorCluster(context.Context, *GetKoorClusterRequest) (*GetKoorClusterResponse, error)
 	GetTroubleshootReport(context.Context, *GetTroubleshootReportRequest) (*GetTroubleshootReportResponse, error)
+	GetNetworkTestStatus(context.Context, *GetNetworkTestStatusRequest) (*GetNetworkTestStatusResponse, error)
 	StartNetworkTest(context.Context, *StartNetworkTestRequest) (*StartNetworkTestResponse, error)
 	CancelNetworkTest(context.Context, *CancelNetworkTestRequest) (*CancelNetworkTestResponse, error)
 	GetNetworkTestResults(context.Context, *GetNetworkTestResultsRequest) (*GetNetworkTestResultsResponse, error)
@@ -122,6 +134,9 @@ func (UnimplementedClusterServiceServer) GetKoorCluster(context.Context, *GetKoo
 }
 func (UnimplementedClusterServiceServer) GetTroubleshootReport(context.Context, *GetTroubleshootReportRequest) (*GetTroubleshootReportResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTroubleshootReport not implemented")
+}
+func (UnimplementedClusterServiceServer) GetNetworkTestStatus(context.Context, *GetNetworkTestStatusRequest) (*GetNetworkTestStatusResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetNetworkTestStatus not implemented")
 }
 func (UnimplementedClusterServiceServer) StartNetworkTest(context.Context, *StartNetworkTestRequest) (*StartNetworkTestResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method StartNetworkTest not implemented")
@@ -179,6 +194,24 @@ func _ClusterService_GetTroubleshootReport_Handler(srv interface{}, ctx context.
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ClusterServiceServer).GetTroubleshootReport(ctx, req.(*GetTroubleshootReportRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ClusterService_GetNetworkTestStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetNetworkTestStatusRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ClusterServiceServer).GetNetworkTestStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ClusterService_GetNetworkTestStatus_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ClusterServiceServer).GetNetworkTestStatus(ctx, req.(*GetNetworkTestStatusRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -269,6 +302,10 @@ var ClusterService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetTroubleshootReport",
 			Handler:    _ClusterService_GetTroubleshootReport_Handler,
+		},
+		{
+			MethodName: "GetNetworkTestStatus",
+			Handler:    _ClusterService_GetNetworkTestStatus_Handler,
 		},
 		{
 			MethodName: "StartNetworkTest",

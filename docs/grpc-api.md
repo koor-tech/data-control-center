@@ -72,12 +72,16 @@
     - [GetKoorClusterResponse](#api-services-cluster-v1-GetKoorClusterResponse)
     - [GetNetworkTestResultsRequest](#api-services-cluster-v1-GetNetworkTestResultsRequest)
     - [GetNetworkTestResultsResponse](#api-services-cluster-v1-GetNetworkTestResultsResponse)
+    - [GetNetworkTestStatusRequest](#api-services-cluster-v1-GetNetworkTestStatusRequest)
+    - [GetNetworkTestStatusResponse](#api-services-cluster-v1-GetNetworkTestStatusResponse)
     - [GetTroubleshootReportRequest](#api-services-cluster-v1-GetTroubleshootReportRequest)
     - [GetTroubleshootReportResponse](#api-services-cluster-v1-GetTroubleshootReportResponse)
     - [SetScrubbingScheduleRequest](#api-services-cluster-v1-SetScrubbingScheduleRequest)
     - [SetScrubbingScheduleResponse](#api-services-cluster-v1-SetScrubbingScheduleResponse)
     - [StartNetworkTestRequest](#api-services-cluster-v1-StartNetworkTestRequest)
     - [StartNetworkTestResponse](#api-services-cluster-v1-StartNetworkTestResponse)
+  
+    - [NetworkTestOutputFormat](#api-services-cluster-v1-NetworkTestOutputFormat)
   
     - [ClusterService](#api-services-cluster-v1-ClusterService)
   
@@ -1038,7 +1042,34 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | file_name | [string](#string) |  |  |
+| file_type | [string](#string) |  |  |
 | file_contents | [bytes](#bytes) |  |  |
+
+
+
+
+
+
+<a name="api-services-cluster-v1-GetNetworkTestStatusRequest"></a>
+
+### GetNetworkTestStatusRequest
+
+
+
+
+
+
+
+<a name="api-services-cluster-v1-GetNetworkTestStatusResponse"></a>
+
+### GetNetworkTestStatusResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| running | [bool](#bool) |  |  |
+| logs | [string](#string) |  |  |
 
 
 
@@ -1106,6 +1137,12 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 
 
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| host_network | [bool](#bool) |  |  |
+| output_format | [NetworkTestOutputFormat](#api-services-cluster-v1-NetworkTestOutputFormat) |  |  |
+
+
 
 
 
@@ -1126,6 +1163,19 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
  
 
+
+<a name="api-services-cluster-v1-NetworkTestOutputFormat"></a>
+
+### NetworkTestOutputFormat
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| NETWORK_TEST_OUTPUT_FORMAT_UNSPECIFIED | 0 |  |
+| NETWORK_TEST_OUTPUT_FORMAT_CSV | 1 |  |
+| NETWORK_TEST_OUTPUT_FORMAT_EXCELIZE | 2 |  |
+
+
  
 
  
@@ -1140,6 +1190,7 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 | ----------- | ------------ | ------------- | ------------|
 | GetKoorCluster | [GetKoorClusterRequest](#api-services-cluster-v1-GetKoorClusterRequest) | [GetKoorClusterResponse](#api-services-cluster-v1-GetKoorClusterResponse) |  |
 | GetTroubleshootReport | [GetTroubleshootReportRequest](#api-services-cluster-v1-GetTroubleshootReportRequest) | [GetTroubleshootReportResponse](#api-services-cluster-v1-GetTroubleshootReportResponse) |  |
+| GetNetworkTestStatus | [GetNetworkTestStatusRequest](#api-services-cluster-v1-GetNetworkTestStatusRequest) | [GetNetworkTestStatusResponse](#api-services-cluster-v1-GetNetworkTestStatusResponse) |  |
 | StartNetworkTest | [StartNetworkTestRequest](#api-services-cluster-v1-StartNetworkTestRequest) | [StartNetworkTestResponse](#api-services-cluster-v1-StartNetworkTestResponse) |  |
 | CancelNetworkTest | [CancelNetworkTestRequest](#api-services-cluster-v1-CancelNetworkTestRequest) | [CancelNetworkTestResponse](#api-services-cluster-v1-CancelNetworkTestResponse) |  |
 | GetNetworkTestResults | [GetNetworkTestResultsRequest](#api-services-cluster-v1-GetNetworkTestResultsRequest) | [GetNetworkTestResultsResponse](#api-services-cluster-v1-GetNetworkTestResultsResponse) |  |

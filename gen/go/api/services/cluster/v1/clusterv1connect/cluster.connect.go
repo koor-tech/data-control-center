@@ -39,6 +39,9 @@ const (
 	// ClusterServiceGetTroubleshootReportProcedure is the fully-qualified name of the ClusterService's
 	// GetTroubleshootReport RPC.
 	ClusterServiceGetTroubleshootReportProcedure = "/api.services.cluster.v1.ClusterService/GetTroubleshootReport"
+	// ClusterServiceGetNetworkTestStatusProcedure is the fully-qualified name of the ClusterService's
+	// GetNetworkTestStatus RPC.
+	ClusterServiceGetNetworkTestStatusProcedure = "/api.services.cluster.v1.ClusterService/GetNetworkTestStatus"
 	// ClusterServiceStartNetworkTestProcedure is the fully-qualified name of the ClusterService's
 	// StartNetworkTest RPC.
 	ClusterServiceStartNetworkTestProcedure = "/api.services.cluster.v1.ClusterService/StartNetworkTest"
@@ -57,6 +60,7 @@ const (
 type ClusterServiceClient interface {
 	GetKoorCluster(context.Context, *connect.Request[v1.GetKoorClusterRequest]) (*connect.Response[v1.GetKoorClusterResponse], error)
 	GetTroubleshootReport(context.Context, *connect.Request[v1.GetTroubleshootReportRequest]) (*connect.Response[v1.GetTroubleshootReportResponse], error)
+	GetNetworkTestStatus(context.Context, *connect.Request[v1.GetNetworkTestStatusRequest]) (*connect.Response[v1.GetNetworkTestStatusResponse], error)
 	StartNetworkTest(context.Context, *connect.Request[v1.StartNetworkTestRequest]) (*connect.Response[v1.StartNetworkTestResponse], error)
 	CancelNetworkTest(context.Context, *connect.Request[v1.CancelNetworkTestRequest]) (*connect.Response[v1.CancelNetworkTestResponse], error)
 	GetNetworkTestResults(context.Context, *connect.Request[v1.GetNetworkTestResultsRequest]) (*connect.Response[v1.GetNetworkTestResultsResponse], error)
@@ -81,6 +85,11 @@ func NewClusterServiceClient(httpClient connect.HTTPClient, baseURL string, opts
 		getTroubleshootReport: connect.NewClient[v1.GetTroubleshootReportRequest, v1.GetTroubleshootReportResponse](
 			httpClient,
 			baseURL+ClusterServiceGetTroubleshootReportProcedure,
+			opts...,
+		),
+		getNetworkTestStatus: connect.NewClient[v1.GetNetworkTestStatusRequest, v1.GetNetworkTestStatusResponse](
+			httpClient,
+			baseURL+ClusterServiceGetNetworkTestStatusProcedure,
 			opts...,
 		),
 		startNetworkTest: connect.NewClient[v1.StartNetworkTestRequest, v1.StartNetworkTestResponse](
@@ -110,6 +119,7 @@ func NewClusterServiceClient(httpClient connect.HTTPClient, baseURL string, opts
 type clusterServiceClient struct {
 	getKoorCluster        *connect.Client[v1.GetKoorClusterRequest, v1.GetKoorClusterResponse]
 	getTroubleshootReport *connect.Client[v1.GetTroubleshootReportRequest, v1.GetTroubleshootReportResponse]
+	getNetworkTestStatus  *connect.Client[v1.GetNetworkTestStatusRequest, v1.GetNetworkTestStatusResponse]
 	startNetworkTest      *connect.Client[v1.StartNetworkTestRequest, v1.StartNetworkTestResponse]
 	cancelNetworkTest     *connect.Client[v1.CancelNetworkTestRequest, v1.CancelNetworkTestResponse]
 	getNetworkTestResults *connect.Client[v1.GetNetworkTestResultsRequest, v1.GetNetworkTestResultsResponse]
@@ -124,6 +134,11 @@ func (c *clusterServiceClient) GetKoorCluster(ctx context.Context, req *connect.
 // GetTroubleshootReport calls api.services.cluster.v1.ClusterService.GetTroubleshootReport.
 func (c *clusterServiceClient) GetTroubleshootReport(ctx context.Context, req *connect.Request[v1.GetTroubleshootReportRequest]) (*connect.Response[v1.GetTroubleshootReportResponse], error) {
 	return c.getTroubleshootReport.CallUnary(ctx, req)
+}
+
+// GetNetworkTestStatus calls api.services.cluster.v1.ClusterService.GetNetworkTestStatus.
+func (c *clusterServiceClient) GetNetworkTestStatus(ctx context.Context, req *connect.Request[v1.GetNetworkTestStatusRequest]) (*connect.Response[v1.GetNetworkTestStatusResponse], error) {
+	return c.getNetworkTestStatus.CallUnary(ctx, req)
 }
 
 // StartNetworkTest calls api.services.cluster.v1.ClusterService.StartNetworkTest.
@@ -150,6 +165,7 @@ func (c *clusterServiceClient) SetScrubbingSchedule(ctx context.Context, req *co
 type ClusterServiceHandler interface {
 	GetKoorCluster(context.Context, *connect.Request[v1.GetKoorClusterRequest]) (*connect.Response[v1.GetKoorClusterResponse], error)
 	GetTroubleshootReport(context.Context, *connect.Request[v1.GetTroubleshootReportRequest]) (*connect.Response[v1.GetTroubleshootReportResponse], error)
+	GetNetworkTestStatus(context.Context, *connect.Request[v1.GetNetworkTestStatusRequest]) (*connect.Response[v1.GetNetworkTestStatusResponse], error)
 	StartNetworkTest(context.Context, *connect.Request[v1.StartNetworkTestRequest]) (*connect.Response[v1.StartNetworkTestResponse], error)
 	CancelNetworkTest(context.Context, *connect.Request[v1.CancelNetworkTestRequest]) (*connect.Response[v1.CancelNetworkTestResponse], error)
 	GetNetworkTestResults(context.Context, *connect.Request[v1.GetNetworkTestResultsRequest]) (*connect.Response[v1.GetNetworkTestResultsResponse], error)
@@ -170,6 +186,11 @@ func NewClusterServiceHandler(svc ClusterServiceHandler, opts ...connect.Handler
 	clusterServiceGetTroubleshootReportHandler := connect.NewUnaryHandler(
 		ClusterServiceGetTroubleshootReportProcedure,
 		svc.GetTroubleshootReport,
+		opts...,
+	)
+	clusterServiceGetNetworkTestStatusHandler := connect.NewUnaryHandler(
+		ClusterServiceGetNetworkTestStatusProcedure,
+		svc.GetNetworkTestStatus,
 		opts...,
 	)
 	clusterServiceStartNetworkTestHandler := connect.NewUnaryHandler(
@@ -198,6 +219,8 @@ func NewClusterServiceHandler(svc ClusterServiceHandler, opts ...connect.Handler
 			clusterServiceGetKoorClusterHandler.ServeHTTP(w, r)
 		case ClusterServiceGetTroubleshootReportProcedure:
 			clusterServiceGetTroubleshootReportHandler.ServeHTTP(w, r)
+		case ClusterServiceGetNetworkTestStatusProcedure:
+			clusterServiceGetNetworkTestStatusHandler.ServeHTTP(w, r)
 		case ClusterServiceStartNetworkTestProcedure:
 			clusterServiceStartNetworkTestHandler.ServeHTTP(w, r)
 		case ClusterServiceCancelNetworkTestProcedure:
@@ -221,6 +244,10 @@ func (UnimplementedClusterServiceHandler) GetKoorCluster(context.Context, *conne
 
 func (UnimplementedClusterServiceHandler) GetTroubleshootReport(context.Context, *connect.Request[v1.GetTroubleshootReportRequest]) (*connect.Response[v1.GetTroubleshootReportResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("api.services.cluster.v1.ClusterService.GetTroubleshootReport is not implemented"))
+}
+
+func (UnimplementedClusterServiceHandler) GetNetworkTestStatus(context.Context, *connect.Request[v1.GetNetworkTestStatusRequest]) (*connect.Response[v1.GetNetworkTestStatusResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("api.services.cluster.v1.ClusterService.GetNetworkTestStatus is not implemented"))
 }
 
 func (UnimplementedClusterServiceHandler) StartNetworkTest(context.Context, *connect.Request[v1.StartNetworkTestRequest]) (*connect.Response[v1.StartNetworkTestResponse], error) {
