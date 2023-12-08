@@ -20,7 +20,7 @@ require (
 	github.com/prometheus/client_golang v1.17.0
 	github.com/rook/rook v1.12.9
 	github.com/spf13/cobra v1.8.0
-	github.com/spf13/viper v1.18.0
+	github.com/spf13/viper v1.18.1
 	github.com/stretchr/testify v1.8.4
 	go.uber.org/fx v1.20.1
 	go.uber.org/multierr v1.11.0
