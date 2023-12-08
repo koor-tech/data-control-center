@@ -52,7 +52,7 @@ type RunParams struct {
 type Runner struct {
 	mutex sync.Mutex
 
-	run  *Run
+	run  IRun
 	data *TplData
 }
 

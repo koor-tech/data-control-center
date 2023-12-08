@@ -5,6 +5,13 @@ import (
 	"os/exec"
 )
 
+type IRun interface {
+	Start() error
+	IsRunning() bool
+	Stop() error
+	GetLogs() (string, error)
+}
+
 type Run struct {
 	cmd *exec.Cmd
 
@@ -12,7 +19,7 @@ type Run struct {
 	stderr io.ReadCloser
 }
 
-func NewRun(workingDir string, command string, args []string) (*Run, error) {
+func NewRun(workingDir string, command string, args []string) (IRun, error) {
 	r := &Run{
 		cmd: exec.Command(command, args...),
 	}
