@@ -4550,35 +4550,7 @@ esbuild@^0.18.10:
     "@esbuild/win32-ia32" "0.18.20"
     "@esbuild/win32-x64" "0.18.20"
 
-esbuild@^0.19.3, esbuild@^0.19.6:
-  version "0.19.7"
-  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.19.7.tgz#b9a7235097b81278dcf090e2532ed13c95a2ee84"
-  integrity sha512-6brbTZVqxhqgbpqBR5MzErImcpA0SQdoKOkcWK/U30HtQxnokIpG3TX2r0IJqbFUzqLjhU/zC1S5ndgakObVCQ==
-  optionalDependencies:
-    "@esbuild/android-arm" "0.19.7"
-    "@esbuild/android-arm64" "0.19.7"
-    "@esbuild/android-x64" "0.19.7"
-    "@esbuild/darwin-arm64" "0.19.7"
-    "@esbuild/darwin-x64" "0.19.7"
-    "@esbuild/freebsd-arm64" "0.19.7"
-    "@esbuild/freebsd-x64" "0.19.7"
-    "@esbuild/linux-arm" "0.19.7"
-    "@esbuild/linux-arm64" "0.19.7"
-    "@esbuild/linux-ia32" "0.19.7"
-    "@esbuild/linux-loong64" "0.19.7"
-    "@esbuild/linux-mips64el" "0.19.7"
-    "@esbuild/linux-ppc64" "0.19.7"
-    "@esbuild/linux-riscv64" "0.19.7"
-    "@esbuild/linux-s390x" "0.19.7"
-    "@esbuild/linux-x64" "0.19.7"
-    "@esbuild/netbsd-x64" "0.19.7"
-    "@esbuild/openbsd-x64" "0.19.7"
-    "@esbuild/sunos-x64" "0.19.7"
-    "@esbuild/win32-arm64" "0.19.7"
-    "@esbuild/win32-ia32" "0.19.7"
-    "@esbuild/win32-x64" "0.19.7"
-
-esbuild@^0.19.8:
+esbuild@^0.19.3, esbuild@^0.19.8:
   version "0.19.8"
   resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.19.8.tgz#ad05b72281d84483fa6b5345bd246c27a207b8f1"
   integrity sha512-l7iffQpT2OrZfH2rXIp7/FkmaeZM0vxbxN9KfiCwGYuZqzMg/JdvX26R31Zxn/Pxvsrg3Y9N6XTcnknqDyyv4w==
@@ -4605,6 +4577,34 @@ esbuild@^0.19.8:
     "@esbuild/win32-arm64" "0.19.8"
     "@esbuild/win32-ia32" "0.19.8"
     "@esbuild/win32-x64" "0.19.8"
+
+esbuild@^0.19.6:
+  version "0.19.7"
+  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.19.7.tgz#b9a7235097b81278dcf090e2532ed13c95a2ee84"
+  integrity sha512-6brbTZVqxhqgbpqBR5MzErImcpA0SQdoKOkcWK/U30HtQxnokIpG3TX2r0IJqbFUzqLjhU/zC1S5ndgakObVCQ==
+  optionalDependencies:
+    "@esbuild/android-arm" "0.19.7"
+    "@esbuild/android-arm64" "0.19.7"
+    "@esbuild/android-x64" "0.19.7"
+    "@esbuild/darwin-arm64" "0.19.7"
+    "@esbuild/darwin-x64" "0.19.7"
+    "@esbuild/freebsd-arm64" "0.19.7"
+    "@esbuild/freebsd-x64" "0.19.7"
+    "@esbuild/linux-arm" "0.19.7"
+    "@esbuild/linux-arm64" "0.19.7"
+    "@esbuild/linux-ia32" "0.19.7"
+    "@esbuild/linux-loong64" "0.19.7"
+    "@esbuild/linux-mips64el" "0.19.7"
+    "@esbuild/linux-ppc64" "0.19.7"
+    "@esbuild/linux-riscv64" "0.19.7"
+    "@esbuild/linux-s390x" "0.19.7"
+    "@esbuild/linux-x64" "0.19.7"
+    "@esbuild/netbsd-x64" "0.19.7"
+    "@esbuild/openbsd-x64" "0.19.7"
+    "@esbuild/sunos-x64" "0.19.7"
+    "@esbuild/win32-arm64" "0.19.7"
+    "@esbuild/win32-ia32" "0.19.7"
+    "@esbuild/win32-x64" "0.19.7"
 
 escalade@^3.1.1:
   version "3.1.1"
@@ -8692,26 +8692,7 @@ rollup@^3.27.1:
   optionalDependencies:
     fsevents "~2.3.2"
 
-rollup@^4.2.0, rollup@^4.5.0:
-  version "4.5.1"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-4.5.1.tgz#95661ead5373d46e1c91b38fc1549bc59fc72aa4"
-  integrity sha512-0EQribZoPKpb5z1NW/QYm3XSR//Xr8BeEXU49Lc/mQmpmVVG5jPUVrpc2iptup/0WMrY9mzas0fxH+TjYvG2CA==
-  optionalDependencies:
-    "@rollup/rollup-android-arm-eabi" "4.5.1"
-    "@rollup/rollup-android-arm64" "4.5.1"
-    "@rollup/rollup-darwin-arm64" "4.5.1"
-    "@rollup/rollup-darwin-x64" "4.5.1"
-    "@rollup/rollup-linux-arm-gnueabihf" "4.5.1"
-    "@rollup/rollup-linux-arm64-gnu" "4.5.1"
-    "@rollup/rollup-linux-arm64-musl" "4.5.1"
-    "@rollup/rollup-linux-x64-gnu" "4.5.1"
-    "@rollup/rollup-linux-x64-musl" "4.5.1"
-    "@rollup/rollup-win32-arm64-msvc" "4.5.1"
-    "@rollup/rollup-win32-ia32-msvc" "4.5.1"
-    "@rollup/rollup-win32-x64-msvc" "4.5.1"
-    fsevents "~2.3.2"
-
-rollup@^4.6.0:
+rollup@^4.2.0, rollup@^4.6.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/rollup/-/rollup-4.7.0.tgz#04173cb398cd7643b9f71846dfbbda0e94fd0b1f"
   integrity sha512-7Kw0dUP4BWH78zaZCqF1rPyQ8D5DSU6URG45v1dqS/faNsx9WXyess00uTOZxKr7oR/4TOjO1CPudT8L1UsEgw==
@@ -8729,6 +8710,25 @@ rollup@^4.6.0:
     "@rollup/rollup-win32-arm64-msvc" "4.7.0"
     "@rollup/rollup-win32-ia32-msvc" "4.7.0"
     "@rollup/rollup-win32-x64-msvc" "4.7.0"
+    fsevents "~2.3.2"
+
+rollup@^4.5.0:
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-4.5.1.tgz#95661ead5373d46e1c91b38fc1549bc59fc72aa4"
+  integrity sha512-0EQribZoPKpb5z1NW/QYm3XSR//Xr8BeEXU49Lc/mQmpmVVG5jPUVrpc2iptup/0WMrY9mzas0fxH+TjYvG2CA==
+  optionalDependencies:
+    "@rollup/rollup-android-arm-eabi" "4.5.1"
+    "@rollup/rollup-android-arm64" "4.5.1"
+    "@rollup/rollup-darwin-arm64" "4.5.1"
+    "@rollup/rollup-darwin-x64" "4.5.1"
+    "@rollup/rollup-linux-arm-gnueabihf" "4.5.1"
+    "@rollup/rollup-linux-arm64-gnu" "4.5.1"
+    "@rollup/rollup-linux-arm64-musl" "4.5.1"
+    "@rollup/rollup-linux-x64-gnu" "4.5.1"
+    "@rollup/rollup-linux-x64-musl" "4.5.1"
+    "@rollup/rollup-win32-arm64-msvc" "4.5.1"
+    "@rollup/rollup-win32-ia32-msvc" "4.5.1"
+    "@rollup/rollup-win32-x64-msvc" "4.5.1"
     fsevents "~2.3.2"
 
 run-applescript@^5.0.0:
@@ -10197,9 +10197,9 @@ vite-plugin-vue-inspector@^4.0.2:
     fsevents "~2.3.2"
 
 vite@^5.0.6:
-  version "5.0.6"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-5.0.6.tgz#f9e13503a4c5ccd67312c67803dec921f3bdea7c"
-  integrity sha512-MD3joyAEBtV7QZPl2JVVUai6zHms3YOmLR+BpMzLlX2Yzjfcc4gTgNi09d/Rua3F4EtC8zdwPU8eQYyib4vVMQ==
+  version "5.0.7"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-5.0.7.tgz#ad081d735f6769f76b556818500bdafb72c3fe93"
+  integrity sha512-B4T4rJCDPihrQo2B+h1MbeGL/k/GMAHzhQ8S0LjQ142s6/+l3hHTT095ORvsshj4QCkoWu3Xtmob5mazvakaOw==
   dependencies:
     esbuild "^0.19.3"
     postcss "^8.4.32"
