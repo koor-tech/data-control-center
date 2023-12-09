@@ -74,7 +74,7 @@ The following table lists the configurable parameters of the rook-operator chart
 | `autoscaling.maxReplicas` |  | `100` |
 | `autoscaling.minReplicas` |  | `1` |
 | `autoscaling.targetCPUUtilizationPercentage` |  | `80` |
-| `config` | data-control-center config, documentation here: https://github.com/koor-tech/data-control-center/blob/main/docs/configuration.md#reference | `{"ceph":{"api":{"insecureSSL":true,"password":null,"url":"https://rook-ceph-mgr-dashboard:8443/api","username":"data-control-center"}},"http":{"listen":":8282","sessions":{"cookieSecret":"your_generated_cookie_secret","domain":"localhost"}},"jwt":{"secret":"your_generated_jwt_secret"},"logLevel":"INFO","mode":"release","namespace":null,"oauth2":{"providers":[]},"readOnly":false,"updateCheck":{"enabled":true,"interval":"24h"},"users":[]}` |
+| `config` | data-control-center config, documentation here: https://github.com/koor-tech/data-control-center/blob/main/docs/configuration.md#reference | `{"ancienttCmd":"ancientt","ceph":{"api":{"insecureSSL":true,"password":null,"url":"https://rook-ceph-mgr-dashboard:8443/api","username":"data-control-center"}},"http":{"listen":":8282","sessions":{"cookieSecret":"your_generated_cookie_secret","domain":"localhost"}},"jwt":{"secret":"your_generated_jwt_secret"},"logLevel":"INFO","mode":"release","namespace":null,"oauth2":{"providers":[]},"readOnly":false,"updateCheck":{"enabled":true,"interval":"24h"},"users":[]}` |
 | `config.ceph.api.password` | Password is auto generated if not set and retrieved using helm's lookup function | `nil` |
 | `config.namespace` | The rook ceph namespace, if different from the current namespace. Defaults to the current namespace. | `nil` |
 | `fullnameOverride` |  | `""` |

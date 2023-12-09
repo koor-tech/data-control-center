@@ -66,6 +66,8 @@ type Config struct {
 	Users       []*User     `yaml:"users"`
 	Ceph        Ceph        `yaml:"ceph"`
 	UpdateCheck UpdateCheck `yaml:"updateCheck"`
+
+	AncienttCmd string `default:"ancientt" yaml:"ancienttCmd"`
 }
 
 type HTTP struct {

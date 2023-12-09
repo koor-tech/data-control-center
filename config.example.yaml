@@ -40,3 +40,4 @@ users: []
 updateCheck:
   enabled: true
   interval: 24h
+ancienttCmd: "ancientt"

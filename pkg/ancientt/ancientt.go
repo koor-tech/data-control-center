@@ -6,6 +6,8 @@ import (
 	"os"
 	"path"
 	"sync"
+
+	"github.com/koor-tech/data-control-center/pkg/config"
 )
 
 var (
@@ -52,13 +54,23 @@ type RunParams struct {
 type Runner struct {
 	mutex sync.Mutex
 
+	cmdPath string
+
 	run  IRun
 	data *TplData
 }
 
-func New() *Runner {
+func New(cfg *config.Config) *Runner {
+	command := "ancientt"
+
+	if cfg.AncienttCmd != "" {
+		command = cfg.AncienttCmd
+	}
+
 	return &Runner{
 		mutex: sync.Mutex{},
+
+		cmdPath: command,
 	}
 }
 
@@ -82,10 +94,9 @@ func (r *Runner) Start(p *RunParams) error {
 		return err
 	}
 
-	command := "ancientt"
-	args := []string{command, "--testdefinition=" + testDefsFile, "-y"}
+	args := []string{r.cmdPath, "--testdefinition=" + testDefsFile, "-y"}
 
-	run, err := NewRun(r.data.OutputDir, command, args)
+	run, err := NewRun(r.data.OutputDir, "ancientt", args)
 	if err != nil {
 		return err
 	}
