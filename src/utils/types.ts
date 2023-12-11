@@ -1,5 +1,6 @@
+import type { RoutesNamedLocations } from '@typed-router';
+// eslint-disable-next-line import/order
 import type { DefineComponent } from 'vue';
-import { type RoutesNamedLocations } from '~~/.nuxt/typed-router/__routes';
 
 export type CardElement = {
     title: string;

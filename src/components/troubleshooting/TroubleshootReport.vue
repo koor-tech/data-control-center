@@ -77,6 +77,7 @@ const onSubmitThrottle = useThrottleFn(async (_) => {
             <DataErrorBlock v-if="error" :retry="refresh" :message="error.message" />
             <DataPendingBlock v-else-if="pending" message="Loading Troubleshoot report" />
             <DataNoDataBlock v-else-if="report === null || report.report === undefined" />
+
             <template v-else>
                 <textarea
                     :value="report.report"

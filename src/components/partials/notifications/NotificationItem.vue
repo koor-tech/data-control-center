@@ -24,7 +24,10 @@ async function closeNotification(id: string): Promise<void> {
         leave-from-class="opacity-100"
         leave-to-class="opacity-0"
     >
-        <div class="z-50 w-full max-w-sm overflow-hidden bg-base-800 rounded-lg pointer-events-auto shadow-float text-neutral">
+        <div
+            v-if="notification"
+            class="z-50 w-full max-w-sm overflow-hidden bg-base-800 rounded-lg pointer-events-auto shadow-float text-neutral"
+        >
             <div class="p-4">
                 <div class="flex items-start">
                     <div v-if="notification.type" class="flex-shrink-0 w-8 my-auto">

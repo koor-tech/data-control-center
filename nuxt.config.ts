@@ -15,11 +15,12 @@ const config = defineNuxtConfig({
     ssr: false,
     modules: [
         '@nuxt/devtools',
-        '@pinia/nuxt',
-        '@pinia-plugin-persistedstate/nuxt',
         'nuxt-typed-router',
+        '@nuxtjs/eslint-module',
         '@nuxtjs/robots',
         '@nuxtjs/tailwindcss',
+        '@pinia/nuxt',
+        '@pinia-plugin-persistedstate/nuxt',
         '@vee-validate/nuxt',
     ],
     devtools: {

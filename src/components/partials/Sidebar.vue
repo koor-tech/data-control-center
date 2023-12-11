@@ -20,7 +20,7 @@ import {
 import { type DefineComponent } from 'vue';
 import { useAuthStore } from '~/store/auth';
 import { toTitleCase } from '~/utils/strings';
-import { type RoutesNamedLocations } from '~~/.nuxt/typed-router/__routes';
+import { type RoutesNamedLocations } from '@typed-router';
 
 const authStore = useAuthStore();
 const { accessToken } = storeToRefs(authStore);
