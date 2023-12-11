@@ -30,6 +30,9 @@ const config = defineNuxtConfig({
             enabled: true,
         },
     },
+    eslint: {
+        lintOnStart: false,
+    },
     robots: {
         rules: {
             UserAgent: '*',
