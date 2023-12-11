@@ -432,7 +432,7 @@ const appVersion = accessToken ? ' v' + __APP_VERSION__ + (import.meta.env.DEV ?
                                         <div class="flex items-center">
                                             <ChevronRightIcon class="flex-shrink-0 w-5 h-5 text-base-400" aria-hidden="true" />
                                             <NuxtLink
-                                                :to="{ path: page.href }"
+                                                :to="page.href"
                                                 :class="[
                                                     page.current ? 'font-bold text-base-200' : 'font-medium text-base-400',
                                                     'ml-4 text-sm hover:text-neutral hover:transition-colors',
