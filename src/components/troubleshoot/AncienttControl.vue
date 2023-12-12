@@ -152,7 +152,7 @@ async function getNetworkTestResults(): Promise<void> {
                 <button
                     v-if="testStatus.complete"
                     type="button"
-                    class="flex-1 flex justify-center w-full px-3 py-2 text-sm font-semibold transition-colors rounded-md text-neutral focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                    class="mt-4 flex-1 flex justify-center w-full px-3 py-2 text-sm font-semibold transition-colors rounded-md text-neutral focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                     :disabled="!canSubmit"
                     :class="[
                         !canSubmit

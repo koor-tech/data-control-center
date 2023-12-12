@@ -116,7 +116,7 @@ func (r *Runner) Start(p *RunParams) error {
 		return err
 	}
 
-	args := []string{r.cmdPath, "--testdefinition=" + testDefsFile, "-y"}
+	args := []string{r.cmdPath, "--testdefinition=" + testDefsFile, "--yes"}
 
 	run, err := NewRun(r.data.OutputDir, "ancientt", args)
 	if err != nil {
