@@ -1,9 +1,10 @@
 package cluster
 
 import (
-	"connectrpc.com/connect"
 	"context"
 	"fmt"
+
+	"connectrpc.com/connect"
 	"github.com/gin-gonic/gin"
 	cephv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/ceph/v1"
 	clusterpb "github.com/koor-tech/data-control-center/gen/go/api/services/cluster/v1"
@@ -33,6 +34,8 @@ type Server struct {
 
 type Params struct {
 	fx.In
+
+	LC fx.Lifecycle
 
 	Logger   *zap.Logger
 	GrpcAuth *auth.GRPCAuth

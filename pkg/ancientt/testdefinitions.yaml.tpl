@@ -43,8 +43,15 @@ tests:
     parallelcount: 1
   hosts:
     clients:
-    - name: all-host
-      all: true
+    - name: all-servers
+      #all: true
+      random: true
+      count: 1
+    servers:
+    - name: all-servers
+      #all: true
+      random: true
+      count: 1
   iperf3:
     udp: false
     duration: 10

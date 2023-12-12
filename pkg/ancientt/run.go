@@ -1,6 +1,7 @@
 package ancientt
 
 import (
+	"bytes"
 	"io"
 	"os/exec"
 )
@@ -15,28 +16,21 @@ type IRun interface {
 type Run struct {
 	cmd *exec.Cmd
 
-	stdout io.ReadCloser
-	stderr io.ReadCloser
+	buf  *bytes.Buffer
+	logs string
 }
 
 func NewRun(workingDir string, command string, args []string) (IRun, error) {
 	r := &Run{
-		cmd: exec.Command(command, args...),
+		cmd:  exec.Command(command, args...),
+		logs: "",
 	}
 
 	r.cmd.Dir = workingDir
 
-	stdout, err := r.cmd.StdoutPipe()
-	if err != nil {
-		return nil, err
-	}
-	r.stdout = stdout
-
-	stderr, err := r.cmd.StderrPipe()
-	if err != nil {
-		return nil, err
-	}
-	r.stderr = stderr
+	r.buf = new(bytes.Buffer)
+	r.cmd.Stdout = r.buf
+	r.cmd.Stderr = r.buf
 
 	return r, nil
 }
@@ -50,7 +44,7 @@ func (r *Run) Start() error {
 }
 
 func (r *Run) IsRunning() bool {
-	return !(r.cmd == nil || (r.cmd.ProcessState != nil && r.cmd.ProcessState.Exited()) || r.cmd.Process == nil)
+	return r.cmd != nil && ((r.cmd.ProcessState != nil && !r.cmd.ProcessState.Exited()) || r.cmd.Process != nil)
 }
 
 func (r *Run) Stop() error {
@@ -62,11 +56,12 @@ func (r *Run) Stop() error {
 }
 
 func (r *Run) GetLogs() (string, error) {
-	multi := io.MultiReader(r.stdout, r.stderr)
-	out, err := io.ReadAll(multi)
+	out, err := io.ReadAll(r.buf)
 	if err != nil {
 		return "", err
 	}
 
-	return string(out), nil
+	r.logs = string(out)
+
+	return r.logs, nil
 }

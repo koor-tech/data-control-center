@@ -1,6 +1,7 @@
 package ancientt
 
 import (
+	"context"
 	"embed"
 	"fmt"
 	"os"
@@ -8,6 +9,7 @@ import (
 	"sync"
 
 	"github.com/koor-tech/data-control-center/pkg/config"
+	"go.uber.org/fx"
 )
 
 var (
@@ -60,18 +62,24 @@ type Runner struct {
 	data *TplData
 }
 
-func New(cfg *config.Config) *Runner {
+func New(lc fx.Lifecycle, cfg *config.Config) *Runner {
 	command := "ancientt"
 
 	if cfg.AncienttCmd != "" {
 		command = cfg.AncienttCmd
 	}
 
-	return &Runner{
+	r := &Runner{
 		mutex: sync.Mutex{},
 
 		cmdPath: command,
 	}
+
+	lc.Append(fx.StopHook(func(_ context.Context) error {
+		return r.Cancel()
+	}))
+
+	return r
 }
 
 func (r *Runner) IsStarted() bool {
@@ -103,6 +111,10 @@ func (r *Runner) Start(p *RunParams) error {
 
 	r.run = run
 
+	if err := r.run.Start(); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -113,6 +125,8 @@ func (r *Runner) Cancel() error {
 	if err := r.run.Stop(); err != nil {
 		return err
 	}
+
+	r.run = nil
 
 	return nil
 }

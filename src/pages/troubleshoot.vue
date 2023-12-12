@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import AncienttControl from '~/components/troubleshooting/AncienttControl.vue';
-import TroubleshootReport from '~/components/troubleshooting/TroubleshootReport.vue';
+import Container from '~/components/partials/Container.vue';
+import AncienttControl from '~/components/troubleshoot/AncienttControl.vue';
+import TroubleshootReport from '~/components/troubleshoot/TroubleshootReport.vue';
 
 useHead({
     title: 'Troubleshoot',
@@ -12,8 +13,13 @@ definePageMeta({
 </script>
 
 <template>
-    <div>
-        <TroubleshootReport />
-        <AncienttControl />
+    <div class="p-2">
+        <Container>
+            <TroubleshootReport />
+        </Container>
+
+        <Container>
+            <AncienttControl />
+        </Container>
     </div>
 </template>
