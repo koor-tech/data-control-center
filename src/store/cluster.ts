@@ -55,13 +55,7 @@ export const useClusterStore = defineStore('cluster', {
             const { $grpc } = useNuxtApp();
             try {
                 const updateResource = {
-                    resource: {
-                        Name: name,
-                        Namespace: namespace,
-                        Content: content,
-                        Kind: kind,
-                        Object: object,
-                    },
+                    resource: { name, namespace, content, kind, object },
                 } as SaveResourcesRequest;
                 return await $grpc.getClusterClient().saveResources(updateResource);
             } catch (e) {

@@ -11,11 +11,11 @@ import { proto3 } from "@bufbuild/protobuf";
 export const Resource = proto3.makeMessageType(
   "api.resources.ceph.v1.Resource",
   () => [
-    { no: 1, name: "Name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "Content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "Namespace", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "Kind", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 5, name: "Object", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "namespace", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "kind", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "object", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ],
 );
 

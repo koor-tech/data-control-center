@@ -5,11 +5,11 @@ package api.resources.ceph.v1;
 option go_package = "github.com/koor-tech/data-control-center/gen/go/api/resources/ceph;ceph";
 
 message Resource {
-  string Name = 1;
-  string Content = 2;
-  string Namespace = 3;
-  string Kind = 4;
-  string Object = 5;
+  string name = 1;
+  string content = 2;
+  string namespace = 3;
+  string kind = 4;
+  string object = 5;
 }
 
 message Resources  {

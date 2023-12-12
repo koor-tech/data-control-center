@@ -23,7 +23,7 @@ interface CephResource {
     namespace: string;
     kind: string;
     content: string;
-    Object: string;
+    object: string;
     current: boolean;
 }
 
@@ -41,11 +41,11 @@ const { data: resources } = useLazyAsyncData('Resources', async () => {
         return resp.resources?.resources.map(
             (item, index) =>
                 ({
-                    name: item.Name,
-                    namespace: item.Namespace,
-                    kind: item.Kind,
-                    Object: item.Object,
-                    content: item.Content,
+                    name: item.name,
+                    namespace: item.namespace,
+                    kind: item.kind,
+                    object: item.object,
+                    content: item.content,
                     current: index === 0,
                 }) as CephResource,
         );
@@ -63,7 +63,7 @@ watch(
         if (Array.isArray(newValue) && newValue.length > 0) {
             selected.value = newValue[0] as CephResource;
         } else {
-            selected.value = { name: '', content: '', namespace: '', kind: '', cephObject: '', current: false };
+            selected.value = { name: '', content: '', namespace: '', kind: '', object: '', current: false };
         }
     },
     { immediate: true },
@@ -85,7 +85,7 @@ async function saveChanges() {
             resource?.name,
             resource?.namespace,
             resource?.kind,
-            resource?.Object,
+            resource?.object,
             updatedContent,
         );
         await delay(1000);
@@ -96,6 +96,7 @@ async function saveChanges() {
     }
 }
 </script>
+
 <template>
     <div class="p-2">
         <div class="mt-10 sm:mx-auto sm:w-2/3 mb-10">
@@ -168,13 +169,14 @@ async function saveChanges() {
                     </div>
                     <div class="pt-10">
                         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                            <AlertSuccess v-if="isSuccess"  @click.prevent="hideAlert" />
+                            <AlertSuccess v-if="isSuccess" @click.prevent="hideAlert" />
                             <dl v-if="selected" class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-1">
                                 <div
                                     class="overflow-hidden rounded-l-md rounded-r-md border-t border-gray-200 bg-gray-50 shadow sm:p-3 pl-4"
                                 >
                                     <dd class="tracking-tight text-gray-500">
-                                        {{ selected.name }} <span class="text-sm font-bold text-accent-500">{{ savingStatus }}</span>
+                                        {{ selected.name }}
+                                        <span class="text-sm font-bold text-accent-500">{{ savingStatus }}</span>
                                     </dd>
                                 </div>
                             </dl>

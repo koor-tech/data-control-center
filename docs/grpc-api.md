@@ -160,11 +160,11 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| Name | [string](#string) |  |  |
-| Content | [string](#string) |  |  |
-| Namespace | [string](#string) |  |  |
-| Kind | [string](#string) |  |  |
-| Object | [string](#string) |  |  |
+| name | [string](#string) |  |  |
+| content | [string](#string) |  |  |
+| namespace | [string](#string) |  |  |
+| kind | [string](#string) |  |  |
+| object | [string](#string) |  |  |
 
 
 

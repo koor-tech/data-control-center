@@ -11,29 +11,29 @@ import { Message, proto3 } from "@bufbuild/protobuf";
  */
 export declare class Resource extends Message<Resource> {
   /**
-   * @generated from field: string Name = 1;
+   * @generated from field: string name = 1;
    */
-  Name: string;
+  name: string;
 
   /**
-   * @generated from field: string Content = 2;
+   * @generated from field: string content = 2;
    */
-  Content: string;
+  content: string;
 
   /**
-   * @generated from field: string Namespace = 3;
+   * @generated from field: string namespace = 3;
    */
-  Namespace: string;
+  namespace: string;
 
   /**
-   * @generated from field: string Kind = 4;
+   * @generated from field: string kind = 4;
    */
-  Kind: string;
+  kind: string;
 
   /**
-   * @generated from field: string Object = 5;
+   * @generated from field: string object = 5;
    */
-  Object: string;
+  object: string;
 
   constructor(data?: PartialMessage<Resource>);
 
