@@ -20,7 +20,6 @@ export default defineComponent({
         let editor: monaco.editor.IStandaloneCodeEditor;
         const currentContent = ref(props.content);
 
-
         function validateYaml(content: string) {
             try {
                 yaml.load(content);

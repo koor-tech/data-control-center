@@ -102,30 +102,31 @@ async function saveChanges() {
         <div class="mt-10 sm:mx-auto sm:w-2/3 mb-10">
             <div class="overflow-hidden rounded-lg bg-white shadow">
                 <div class="bg-white p-6">
-                    <div class="sm:flex sm:items-center sm:justify-between">
+                    <div>
                         <div class="sm:flex sm:space-x-5">
                             <div class="flex-shrink-0">
                                 <FileDocumentEditIcon class="mx-auto h-20 w-20 rounded-full" />
                             </div>
                             <div class="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
                                 <p class="text-xl font-bold text-gray-900 sm:text-2xl">Koor Editor</p>
-                                <p class="pt-3">Please select the ceph object from the dropdown that you want to edit</p>
+                                <p class="pt-3">Please select the Ceph object from the dropdown that you want to edit</p>
                             </div>
                         </div>
-
-                        <Listbox v-if="selected" v-model="selected" as="div">
+                    </div>
+                    <div class="flex pt-4 w-full">
+                        <Listbox v-if="selected" v-model="selected" as="div" class="w-full">
                             <div class="relative">
-                                <div class="inline-flex divide-x divide-accent-500 rounded-md shadow-sm">
+                                <div class="w-full inline-flex divide-x divide-accent-500 rounded-md shadow-sm">
                                     <div
-                                        class="inline-flex items-center gap-x-1.5 rounded-l-md bg-accent-500 px-3 py-2 text-white shadow-sm"
+                                        class="w-full inline-flex items-center gap-x-1.5 rounded-l-md bg-accent-500 px-3 py-2 text-white shadow-sm"
                                     >
                                         <CheckIcon class="-ml-0.5 h-5 w-5" aria-hidden="true" />
-                                        <p class="text-sm font-semibold">{{ selected.name }}</p>
+                                        <p class="text-sm font-semibold">{{ selected.kind }} / {{ selected.name }}</p>
                                     </div>
                                     <ListboxButton
                                         class="inline-flex items-center rounded-l-none rounded-r-md bg-accent-500 p-2 hover:bg-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:ring-offset-2 focus:ring-offset-gray-50"
                                     >
-                                        <span class="sr-only">Change ceph object</span>
+                                        <span class="sr-only">Change Ceph object</span>
                                         <ChevronDownIcon class="h-5 w-5 text-white" aria-hidden="true" />
                                     </ListboxButton>
                                 </div>
@@ -135,7 +136,7 @@ async function saveChanges() {
                                     leave-to-class="opacity-0"
                                 >
                                     <ListboxOptions
-                                        class="absolute right-0 z-10 mt-2 w-72 origin-top-right divide-y divide-gray-200 overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                        class="w-full absolute z-10 w-72 origin-top-right divide-y divide-gray-200 overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                                     >
                                         <ListboxOption
                                             v-for="option in resources"
@@ -153,7 +154,7 @@ async function saveChanges() {
                                                 <div class="flex flex-col">
                                                     <div class="flex justify-between">
                                                         <p :class="current ? 'font-semibold' : 'font-normal'">
-                                                            {{ option?.name }}
+                                                            {{ option?.kind }} / {{ option?.name }}
                                                         </p>
                                                         <span v-if="current" :class="active ? 'text-white' : 'text-indigo-600'">
                                                             <CheckIcon class="h-5 w-5" aria-hidden="true" />
@@ -167,7 +168,7 @@ async function saveChanges() {
                             </div>
                         </Listbox>
                     </div>
-                    <div class="pt-10">
+                    <div class="pt-4">
                         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                             <AlertSuccess v-if="isSuccess" @click.prevent="hideAlert" />
                             <dl v-if="selected" class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-1">
@@ -175,7 +176,7 @@ async function saveChanges() {
                                     class="overflow-hidden rounded-l-md rounded-r-md border-t border-gray-200 bg-gray-50 shadow sm:p-3 pl-4"
                                 >
                                     <dd class="tracking-tight text-gray-500">
-                                        {{ selected.name }}
+                                        {{ selected.kind }} / {{ selected.name }}
                                         <span class="text-sm font-bold text-accent-500">{{ savingStatus }}</span>
                                     </dd>
                                 </div>
