@@ -70,7 +70,8 @@ export const GetNetworkTestStatusResponse = proto3.makeMessageType(
   "api.services.cluster.v1.GetNetworkTestStatusResponse",
   () => [
     { no: 1, name: "running", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 2, name: "logs", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "complete", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 3, name: "logs", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ],
 );
 

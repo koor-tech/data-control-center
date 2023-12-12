@@ -6,7 +6,9 @@ import (
 	"fmt"
 	"os"
 	"path"
+	"strings"
 	"sync"
+	"time"
 
 	"github.com/koor-tech/data-control-center/pkg/config"
 	"go.uber.org/fx"
@@ -82,15 +84,27 @@ func New(lc fx.Lifecycle, cfg *config.Config) *Runner {
 	return r
 }
 
-func (r *Runner) IsStarted() bool {
-	return r.run != nil
-}
-
 func (r *Runner) IsRunning() bool {
 	r.mutex.Lock()
 	defer r.mutex.Unlock()
 
 	return r.run != nil && r.run.IsRunning()
+}
+
+func (r *Runner) IsComplete() (bool, error) {
+	r.mutex.Lock()
+	defer r.mutex.Unlock()
+
+	if r.run == nil {
+		return false, nil
+	}
+
+	logs, err := r.run.GetLogs()
+	if err != nil {
+		return false, err
+	}
+
+	return strings.Contains(logs, "done with tests"), nil
 }
 
 func (r *Runner) Start(p *RunParams) error {
@@ -128,6 +142,12 @@ func (r *Runner) Cancel() error {
 
 	r.run = nil
 
+	if err := os.RemoveAll(r.data.OutputDir); err != nil {
+		return err
+	}
+
+	r.data = nil
+
 	return nil
 }
 
@@ -139,7 +159,11 @@ func (r *Runner) Stop() error {
 		return nil
 	}
 
-	return r.run.Stop()
+	if err := r.run.Stop(); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (r *Runner) GetLogs() (string, error) {
@@ -163,5 +187,6 @@ func (r *Runner) GetResultFile() (string, string, []byte, error) {
 		return "", "", []byte{}, err
 	}
 
-	return resultFilePath, string(r.data.OutputFormat), out, nil
+	fileMeta := OutputFormatToMetaMap[r.data.OutputFormat]
+	return fmt.Sprintf("ancientt-%s.csv", time.Now().Format("2006-01-02")), fileMeta, out, nil
 }

@@ -40,11 +40,13 @@ func (r *Run) Start() error {
 		return err
 	}
 
+	go r.cmd.Wait()
+
 	return nil
 }
 
 func (r *Run) IsRunning() bool {
-	return r.cmd != nil && ((r.cmd.ProcessState != nil && !r.cmd.ProcessState.Exited()) || r.cmd.Process != nil)
+	return r.cmd != nil && (r.cmd.Process != nil || r.cmd.ProcessState != nil && !r.cmd.ProcessState.Exited())
 }
 
 func (r *Run) Stop() error {
@@ -52,16 +54,32 @@ func (r *Run) Stop() error {
 		return nil
 	}
 
-	return r.cmd.Process.Kill()
+	if _, err := r.GetLogs(); err != nil {
+		return err
+	}
+
+	r.cmd.Process.Kill()
+
+	return nil
 }
 
 func (r *Run) GetLogs() (string, error) {
+	if r.buf == nil {
+		return r.logs, nil
+	}
+
 	out, err := io.ReadAll(r.buf)
 	if err != nil {
 		return "", err
 	}
 
-	r.logs = string(out)
+	if string(out) != "" {
+		r.logs = string(out)
+	}
+
+	if r.cmd.Process == nil {
+		r.buf = nil
+	}
 
 	return r.logs, nil
 }

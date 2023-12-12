@@ -1127,6 +1127,7 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | running | [bool](#bool) |  |  |
+| complete | [bool](#bool) |  |  |
 | logs | [string](#string) |  |  |
 
 

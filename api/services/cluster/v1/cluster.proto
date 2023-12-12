@@ -24,7 +24,8 @@ message GetNetworkTestStatusRequest {}
 
 message GetNetworkTestStatusResponse {
   bool running = 1;
-  string logs = 2;
+  bool complete = 2;
+  string logs = 3;
 }
 
 enum NetworkTestOutputFormat {

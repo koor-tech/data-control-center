@@ -603,6 +603,8 @@ func (m *GetNetworkTestStatusResponse) validate(all bool) error {
 
 	// no validation rules for Running
 
+	// no validation rules for Complete
+
 	// no validation rules for Logs
 
 	if len(errors) > 0 {

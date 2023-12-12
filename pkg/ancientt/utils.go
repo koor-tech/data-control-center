@@ -12,6 +12,7 @@ func (r *Runner) prepareConfigAndOutputDir(p *RunParams) (string, error) {
 	r.data = &TplData{
 		OutputFormat: p.OutputFormat,
 		HostNetwork:  p.HostNetwork,
+		OutputFile:   fmt.Sprintf("ancientt.%s", OutputFormatToFileExtensionMap[p.OutputFormat]),
 	}
 
 	// Create a temporary directory
@@ -33,7 +34,7 @@ func (r *Runner) prepareConfigAndOutputDir(p *RunParams) (string, error) {
 		HostNetwork:  p.HostNetwork,
 		OutputFormat: p.OutputFormat,
 		OutputDir:    tmpDir,
-		OutputFile:   fmt.Sprintf("ancientt.%s", OutputFormatToFileExtensionMap[p.OutputFormat]),
+		OutputFile:   r.data.OutputFile,
 	}); err != nil {
 		return "", err
 	}

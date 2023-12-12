@@ -143,7 +143,12 @@ export declare class GetNetworkTestStatusResponse extends Message<GetNetworkTest
   running: boolean;
 
   /**
-   * @generated from field: string logs = 2;
+   * @generated from field: bool complete = 2;
+   */
+  complete: boolean;
+
+  /**
+   * @generated from field: string logs = 3;
    */
   logs: string;
 

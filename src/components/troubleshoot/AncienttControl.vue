@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { saveAs } from 'file-saver';
 import { RefreshIcon } from 'mdi-vue3';
 import type { ConnectError } from '@connectrpc/connect';
 import { useThrottleFn } from '@vueuse/core';
@@ -39,7 +40,11 @@ async function startNetworkTest(): Promise<StartNetworkTestResponse | undefined>
 
         if (testStatus.value !== undefined && testStatus.value !== null) {
             testStatus.value.running = true;
+            testStatus.value.complete = false;
+            testStatus.value.logs = '';
         }
+
+        refresh();
 
         return resp;
     } catch (e) {
@@ -70,6 +75,17 @@ const onSubmitThrottle = useThrottleFn(async () => {
         startNetworkTest().finally(() => setTimeout(() => (canSubmit.value = true), 400));
     }
 }, 1000);
+
+async function getNetworkTestResults(): Promise<void> {
+    try {
+        const resp = await $grpc.getClusterClient().getNetworkTestResults({});
+
+        const blob = new Blob([resp.fileContents], { type: resp.fileType });
+        saveAs(blob, resp.fileName);
+    } catch (e) {
+        $grpc.handleError(e as ConnectError);
+    }
+}
 </script>
 
 <template>
@@ -115,21 +131,38 @@ const onSubmitThrottle = useThrottleFn(async () => {
             <template v-else>
                 <p class="font-semibold text-gray-700 text-sm">
                     <template v-if="testStatus">
-                        <span v-if="!testStatus.running"> No network Test seems to be running. </span>
-                        <span v-else> Network Test is currently running. </span>
+                        <span v-if="testStatus.running"> Network Test is currently running. </span>
+                        <span v-else> No network Test are currently running. </span>
                     </template>
                     <template v-else> N/A </template>
                 </p>
 
-                <GenericDivider label="Network Test Logs" />
+                <template v-if="testStatus.logs.length > 0">
+                    <GenericDivider label="Network Test Logs" />
 
-                <textarea
-                    :value="testStatus.logs"
-                    disabled
-                    rows="10"
-                    name="logs"
-                    class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
+                    <textarea
+                        :value="testStatus.logs"
+                        disabled
+                        rows="10"
+                        name="logs"
+                        class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    />
+                </template>
+
+                <button
+                    v-if="testStatus.complete"
+                    type="button"
+                    class="flex-1 flex justify-center w-full px-3 py-2 text-sm font-semibold transition-colors rounded-md text-neutral focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                    :disabled="!canSubmit"
+                    :class="[
+                        !canSubmit
+                            ? 'disabled bg-base-500 hover:bg-base-400 focus-visible:outline-base-500'
+                            : 'bg-primary-500 hover:bg-primary-400 focus-visible:outline-primary-500',
+                    ]"
+                    @click="getNetworkTestResults()"
+                >
+                    Download Test Results
+                </button>
             </template>
         </div>
     </div>

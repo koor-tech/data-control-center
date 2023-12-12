@@ -22,9 +22,15 @@ func (s *Server) GetNetworkTestStatus(ctx context.Context, req *connect.Request[
 		}
 	}
 
+	completed, err := s.ancientt.IsComplete()
+	if err != nil {
+		return nil, err
+	}
+
 	return connect.NewResponse(&clusterpb.GetNetworkTestStatusResponse{
-		Running: running,
-		Logs:    logs,
+		Running:  running && !completed,
+		Complete: completed,
+		Logs:     logs,
 	}), nil
 }
 
@@ -75,6 +81,15 @@ func (s *Server) CancelNetworkTest(ctx context.Context, req *connect.Request[clu
 func (s *Server) GetNetworkTestResults(ctx context.Context, req *connect.Request[clusterpb.GetNetworkTestResultsRequest]) (*connect.Response[clusterpb.GetNetworkTestResultsResponse], error) {
 	if s.readOnly {
 		return nil, grpcerrors.ErrReadOnly
+	}
+
+	completed, err := s.ancientt.IsComplete()
+	if err != nil {
+		return nil, err
+	}
+
+	if !completed {
+		return nil, connect.NewError(connect.CodeInvalidArgument, fmt.Errorf("Network Test is not complete yet!"))
 	}
 
 	name, fType, contents, err := s.ancientt.GetResultFile()
