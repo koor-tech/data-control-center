@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import LoadingBar from '~/components/partials/LoadingBar.vue';
 import NotificationProvider from '~/components/partials/notifications/NotificationProvider.vue';
 import Sidebar from '~/components/partials/Sidebar.vue';
 </script>
@@ -7,7 +8,7 @@ import Sidebar from '~/components/partials/Sidebar.vue';
     <NotificationProvider>
         <Sidebar>
             <div class="h-full">
-                <NuxtLoadingIndicator />
+                <LoadingBar />
                 <slot />
             </div>
         </Sidebar>
