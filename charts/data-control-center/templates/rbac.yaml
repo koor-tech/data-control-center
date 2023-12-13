@@ -129,7 +129,18 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 rules:
-  # Get nodes for, e.g., status
+  - apiGroups: [""]
+    resources: ["namespaces"]
+    verbs:
+      - get
+      - create
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs:
+      - get
+      - list
+      - create
+      - delete
   - apiGroups: [""]
     resources: ["nodes"]
     verbs:
