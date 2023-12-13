@@ -361,9 +361,9 @@
     mime "^3.0.0"
 
 "@connectrpc/connect-node@^1.1.4":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@connectrpc/connect-node/-/connect-node-1.1.4.tgz#30003547aaa7bf7341d40b3fa7dcd1f15f3a447b"
-  integrity sha512-1Pv4PSTh7k6+c8kNjVx9wZiWm8dChexsq+hW4EKcYItjSqvyKpmTfLBTl12y6W+RBQ9vCuFCu3xT79outhNY9g==
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@connectrpc/connect-node/-/connect-node-1.2.0.tgz#2246eecfe9f3c761d4fdf26a2680152dec306d26"
+  integrity sha512-mt/2qxYnxmdn3Dv9Jsy9nK9sizNsVsg/8TKU8cwO/exUoEgZCjIcCW602xgUqBXfFcbZklCbskvZIB2E94U1Ag==
   dependencies:
     undici "^5.26.2"
 
