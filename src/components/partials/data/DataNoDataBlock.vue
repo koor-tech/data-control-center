@@ -27,11 +27,11 @@ function click() {
     <button
         type="button"
         :disabled="!focus"
-        class="mt-4 relative block w-full p-12 text-center border-2 border-dashed rounded-lg bg-base-100 border-base-300 hover:border-base-400 focus:outline-none focus:ring-2 focus:ring-neutral focus:ring-offset-2"
+        class="mt-4 relative block w-full p-12 text-center border-2 border-dashed rounded-lg bg-gray-100 border-base-300 hover:border-base-400 focus:outline-none focus:ring-2 focus:ring-neutral focus:ring-offset-2"
         @click="click"
     >
-        <component :is="icon" class="w-12 h-12 mx-auto text-base-500" />
-        <span class="block mt-2 text-sm font-semibold text-base-500">
+        <component :is="icon" class="w-12 h-12 mx-auto text-base-600" />
+        <span class="block mt-2 text-sm font-semibold text-base-600">
             <span v-if="message">
                 {{ message }}
             </span>

@@ -16,11 +16,11 @@
         "cephapidummy": "npx ts-node-esm ./node/server.ts"
     },
     "dependencies": {
-        "@bufbuild/protobuf": "^1.5.1",
-        "@bufbuild/protoc-gen-es": "^1.5.1",
-        "@connectrpc/connect": "^1.1.4",
-        "@connectrpc/connect-node": "^1.1.4",
-        "@connectrpc/connect-web": "^1.1.4",
+        "@bufbuild/protobuf": "^1.6.0",
+        "@bufbuild/protoc-gen-es": "^1.6.0",
+        "@connectrpc/connect": "^1.2.0",
+        "@connectrpc/connect-node": "^1.2.0",
+        "@connectrpc/connect-web": "^1.2.0",
         "@fastify/cors": "^8.4.2",
         "@fontsource/inter": "^5.0.16",
         "@headlessui/vue": "^1.7.16",
@@ -32,7 +32,7 @@
         "@vueuse/core": "^10.7.0",
         "apexcharts": "^3.44.2",
         "d3": "^7.8.5",
-        "fastify": "^4.24.3",
+        "fastify": "^4.25.0",
         "file-saver": "^2.0.5",
         "flowbite": "^2.2.0",
         "google-protobuf": "^3.21.2",
@@ -46,7 +46,7 @@
         "vue3-apexcharts": "^1.4.4"
     },
     "devDependencies": {
-        "@nuxt/devtools": "^1.0.5",
+        "@nuxt/devtools": "^1.0.6",
         "@nuxtjs/eslint-config-typescript": "^12.1.0",
         "@nuxtjs/eslint-module": "^4.1.0",
         "@nuxtjs/tailwindcss": "^6.10.1",
@@ -62,7 +62,7 @@
         "@types/uuid": "^9.0.7",
         "@unhead/vue": "^1.8.9",
         "autoprefixer": "^10.4.16",
-        "cssnano": "^6.0.1",
+        "cssnano": "^6.0.2",
         "eslint": "^8.55.0",
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-prettier": "^5.0.1",

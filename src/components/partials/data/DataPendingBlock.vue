@@ -16,10 +16,10 @@ withDefaults(
     <button
         type="button"
         disabled
-        class="mt-8 relative block w-full p-12 text-center border-2 border-dotted rounded-lg bg-base-100 border-base-300 hover:border-base-400 focus:outline-none focus:ring-2 focus:ring-neutral focus:ring-offset-2"
+        class="mt-8 relative block w-full p-12 text-center border-2 border-dotted rounded-lg bg-gray-100 border-base-300 hover:border-base-400 focus:outline-none focus:ring-2 focus:ring-neutral focus:ring-offset-2"
     >
-        <PauseIcon v-if="paused" class="w-12 h-12 mx-auto text-base-500" />
-        <RefreshIcon v-else class="w-12 h-12 mx-auto text-base-500 animate-spin" />
+        <PauseIcon v-if="paused" class="w-12 h-12 mx-auto text-base-600" />
+        <RefreshIcon v-else class="w-12 h-12 mx-auto text-base-600 animate-spin" />
         <span class="block mt-2 text-sm font-semibold text-gray-300">
             {{ message }}
         </span>
