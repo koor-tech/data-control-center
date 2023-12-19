@@ -92,7 +92,7 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped>
 .editor-container {
     height: 500px;
 }
