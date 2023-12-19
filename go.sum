@@ -580,8 +580,8 @@ github.com/rogpeppe/go-internal v1.10.0 h1:TMyTOH3F/DB16zRVcYyreMH6GnZZrwQVAoYjR
 github.com/rogpeppe/go-internal v1.10.0/go.mod h1:UQnix2H7Ngw/k4C5ijL5+65zddjncjaFoBhdsK/akog=
 github.com/rook/rook v1.13.0 h1:1VjTVP+XJLbOg/ekbR08JSqLdEEFFR0HE+Jd2y3fOPI=
 github.com/rook/rook v1.13.0/go.mod h1:DECxswmG4hkm6AuzfBIJilLrDWVsc+G5UcO+UHH8Rbk=
-github.com/rook/rook/pkg/apis v0.0.0-20231204200402-5287527732f7 h1:jXRUM2OJDz6hwpO4fElAgUqdTKosO3LHV3fwEB6iYJM=
-github.com/rook/rook/pkg/apis v0.0.0-20231204200402-5287527732f7/go.mod h1:ZnB1JWtsxJLz2Q3ylHFS4lE/2A1lw2zIOKN0uAmhiZM=
+github.com/rook/rook/pkg/apis v0.0.0-20231219152316-ea4a3871ed48 h1:TOv/Ej1Ivg0wFQdpFuEm8WjnMAcpdF3sMS6sx8hgcnM=
+github.com/rook/rook/pkg/apis v0.0.0-20231219152316-ea4a3871ed48/go.mod h1:CfhzSHQQ5dvRQAlCQ6UvNhp2x7HRApLhqL3Bbxi2NtY=
 github.com/russross/blackfriday/v2 v2.1.0/go.mod h1:+Rmxgy9KzJVeS9/2gXHxylqXiyQDYRxCVz55jmeOWTM=
 github.com/ryanuber/columnize v2.1.0+incompatible/go.mod h1:sm1tb6uqfes/u+d4ooFouqFdy9/2g9QGwK3SQygK0Ts=
 github.com/ryanuber/go-glob v1.0.0 h1:iQh3xXAumdQ+4Ufa5b25cRpC5TYKlno6hsv6Cb3pkBk=
