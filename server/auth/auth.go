@@ -6,12 +6,12 @@ import (
 
 	"connectrpc.com/connect"
 	"github.com/gin-gonic/gin"
-	timestampv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/timestamp/v1"
 	pbauth "github.com/koor-tech/data-control-center/gen/go/api/services/auth/v1"
 	"github.com/koor-tech/data-control-center/gen/go/api/services/auth/v1/authv1connect"
 	"github.com/koor-tech/data-control-center/pkg/config"
 	"github.com/koor-tech/data-control-center/pkg/grpc/auth"
 	"golang.org/x/crypto/bcrypt"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 type Server struct {
@@ -79,7 +79,7 @@ func (s *Server) Login(ctx context.Context, req *connect.Request[pbauth.LoginReq
 	return &connect.Response[pbauth.LoginResponse]{
 		Msg: &pbauth.LoginResponse{
 			Token:     token,
-			Expires:   timestampv1.New(claims.ExpiresAt.Time),
+			Expires:   timestamppb.New(claims.ExpiresAt.Time),
 			AccountId: claims.AccID,
 		},
 	}, nil

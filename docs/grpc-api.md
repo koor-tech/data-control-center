@@ -6,6 +6,9 @@
 - [api/resources/ceph/v1/ceph.proto](#api_resources_ceph_v1_ceph-proto)
     - [User](#api-resources-ceph-v1-User)
   
+- [api/resources/ceph/v1/config.proto](#api_resources_ceph_v1_config-proto)
+    - [OSDScrubbingSchedule](#api-resources-ceph-v1-OSDScrubbingSchedule)
+  
 - [api/resources/ceph/v1/resources.proto](#api_resources_ceph_v1_resources-proto)
     - [Resource](#api-resources-ceph-v1-Resource)
     - [Resources](#api-resources-ceph-v1-Resources)
@@ -17,7 +20,6 @@
     - [KoorCluster](#api-resources-koor-v1-KoorCluster)
     - [KoorClusterSpec](#api-resources-koor-v1-KoorClusterSpec)
     - [KoorClusterStatus](#api-resources-koor-v1-KoorClusterStatus)
-    - [OSDScrubbingSchedule](#api-resources-koor-v1-OSDScrubbingSchedule)
     - [ProductVersions](#api-resources-koor-v1-ProductVersions)
     - [UpgradeOptions](#api-resources-koor-v1-UpgradeOptions)
   
@@ -45,9 +47,6 @@
     - [ClusterHealth](#api-resources-stats-v1-ClusterHealth)
     - [ReliabilityScore](#api-resources-stats-v1-ReliabilityScore)
     - [ResourceStatus](#api-resources-stats-v1-ResourceStatus)
-  
-- [api/resources/timestamp/v1/timestamp.proto](#api_resources_timestamp_v1_timestamp-proto)
-    - [Timestamp](#api-resources-timestamp-v1-Timestamp)
   
 - [api/services/auth/v1/auth.proto](#api_services_auth_v1_auth-proto)
     - [CheckTokenRequest](#api-services-auth-v1-CheckTokenRequest)
@@ -124,12 +123,52 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| Username | [string](#string) |  |  |
-| Name | [string](#string) |  |  |
-| Email | [string](#string) |  |  |
-| Password | [string](#string) |  |  |
-| Enabled | [bool](#bool) |  |  |
-| Roles | [string](#string) | repeated |  |
+| username | [string](#string) |  |  |
+| name | [string](#string) |  |  |
+| email | [string](#string) |  |  |
+| password | [string](#string) |  |  |
+| enabled | [bool](#bool) |  |  |
+| roles | [string](#string) | repeated |  |
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+<a name="api_resources_ceph_v1_config-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## api/resources/ceph/v1/config.proto
+
+
+
+<a name="api-resources-ceph-v1-OSDScrubbingSchedule"></a>
+
+### OSDScrubbingSchedule
+Osd Scrubbing schedule config
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| apply_schedule | [bool](#bool) |  |  |
+| max_scrub_ops | [int64](#int64) | optional |  |
+| begin_hour | [int64](#int64) | optional |  |
+| end_hour | [int64](#int64) | optional |  |
+| begin_week_day | [int64](#int64) | optional |  |
+| end_week_day | [int64](#int64) | optional |  |
+| min_scrub_interval | [string](#string) | optional |  |
+| max_scrub_interval | [string](#string) | optional |  |
+| deep_scrub_interval | [string](#string) | optional |  |
+| scrub_sleep_seconds | [string](#string) | optional |  |
 
 
 
@@ -289,7 +328,7 @@ Represents the state of KoorCluster
 | upgrade_options | [UpgradeOptions](#api-resources-koor-v1-UpgradeOptions) |  | Specifies the upgrade options for new ceph versions |
 | ksd_release_name | [string](#string) |  | The name to use for KSD helm release. |
 | ksd_cluster_release_name | [string](#string) |  | The name to use for KSD cluster helm release. |
-| osd_scrubbing_schedule | [OSDScrubbingSchedule](#api-resources-koor-v1-OSDScrubbingSchedule) |  | OSD scrubbing schedule config |
+| osd_scrubbing_schedule | [api.resources.ceph.v1.OSDScrubbingSchedule](#api-resources-ceph-v1-OSDScrubbingSchedule) |  | OSD scrubbing schedule config |
 
 
 
@@ -308,30 +347,6 @@ Represents the status of the KoorCluster CRD
 | meets_minimum_resources | [bool](#bool) |  | Does the cluster meet the minimum recommended resources |
 | current_versions | [ProductVersions](#api-resources-koor-v1-ProductVersions) |  | The current versions of rook and ceph |
 | latest_versions | [DetailedProductVersions](#api-resources-koor-v1-DetailedProductVersions) |  | The latest versions of rook and ceph |
-
-
-
-
-
-
-<a name="api-resources-koor-v1-OSDScrubbingSchedule"></a>
-
-### OSDScrubbingSchedule
-Osd Scrubbing schedule config
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| apply_schedule | [bool](#bool) |  |  |
-| max_scrub_ops | [int64](#int64) | optional |  |
-| begin_hour | [int64](#int64) | optional |  |
-| end_hour | [int64](#int64) | optional |  |
-| begin_week_day | [int64](#int64) | optional |  |
-| end_week_day | [int64](#int64) | optional |  |
-| min_scrub_interval | [string](#string) | optional |  |
-| max_scrub_interval | [string](#string) | optional |  |
-| deep_scrub_interval | [string](#string) | optional |  |
-| scrub_sleep_seconds | [string](#string) | optional |  |
 
 
 
@@ -760,41 +775,6 @@ The mode of the upgrade
 
 
 
-<a name="api_resources_timestamp_v1_timestamp-proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## api/resources/timestamp/v1/timestamp.proto
-
-
-
-<a name="api-resources-timestamp-v1-Timestamp"></a>
-
-### Timestamp
-Timestamp for storage messages.  We&#39;ve defined a new local type wrapper
-of google.protobuf.Timestamp so we can implement sql.Scanner and sql.Valuer
-interfaces.  See:
-https://golang.org/pkg/database/sql/#Scanner
-https://golang.org/pkg/database/sql/driver/#Valuer
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| timestamp | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
-
-
-
-
-
- 
-
- 
-
- 
-
- 
-
-
-
 <a name="api_services_auth_v1_auth-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -857,7 +837,7 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | token | [string](#string) |  |  |
-| expires | [api.resources.timestamp.v1.Timestamp](#api-resources-timestamp-v1-Timestamp) |  |  |
+| expires | [google.protobuf.Timestamp](#google-protobuf-Timestamp) |  |  |
 | account_id | [string](#string) |  |  |
 
 
@@ -1223,7 +1203,7 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| osd_scrubbing_schedule | [api.resources.koor.v1.OSDScrubbingSchedule](#api-resources-koor-v1-OSDScrubbingSchedule) |  |  |
+| osd_scrubbing_schedule | [api.resources.ceph.v1.OSDScrubbingSchedule](#api-resources-ceph-v1-OSDScrubbingSchedule) |  |  |
 
 
 
@@ -1238,7 +1218,7 @@ https://golang.org/pkg/database/sql/driver/#Valuer
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| osd_scrubbing_schedule | [api.resources.koor.v1.OSDScrubbingSchedule](#api-resources-koor-v1-OSDScrubbingSchedule) |  |  |
+| osd_scrubbing_schedule | [api.resources.ceph.v1.OSDScrubbingSchedule](#api-resources-ceph-v1-OSDScrubbingSchedule) |  |  |
 
 
 

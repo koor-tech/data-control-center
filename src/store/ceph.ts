@@ -41,11 +41,11 @@ export const useCephStore = defineStore('ceph', {
             try {
                 const createUser = {
                     cephUser: {
-                        Username: username,
-                        Name: name,
-                        Email: email,
-                        Password: password,
-                        Roles: [rol],
+                        username,
+                        name,
+                        email,
+                        password,
+                        roles: [rol],
                     },
                 } as CreateCephUserRequest;
                 const resp = await $grpc.getCephUsers().createCephUser(createUser);

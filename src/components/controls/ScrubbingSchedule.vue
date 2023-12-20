@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useNotificationsStore } from '~/store/notifications';
-import { OSDScrubbingSchedule } from '~~/gen/ts/api/resources/koor/v1/koor_pb';
+import { OSDScrubbingSchedule } from '~~/gen/ts/api/resources/ceph/v1/config_pb';
 
 const appConfig = useAppConfig();
 
@@ -134,7 +134,7 @@ watch(osdScrubbingSchedule.value, () => (osdScrubbingSchedule.value.applySchedul
                             <VeeField
                                 v-model="osdScrubbingSchedule.minScrubInterval"
                                 :disabled="!canSubmit || appConfig.readOnly"
-                                type="text"
+                                type="number"
                                 name="minScrubInterval"
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
@@ -142,7 +142,7 @@ watch(osdScrubbingSchedule.value, () => (osdScrubbingSchedule.value.applySchedul
                             <VeeField
                                 v-model="osdScrubbingSchedule.maxScrubInterval"
                                 :disabled="!canSubmit || appConfig.readOnly"
-                                type="text"
+                                type="number"
                                 name="maxScrubInterval"
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
@@ -150,7 +150,7 @@ watch(osdScrubbingSchedule.value, () => (osdScrubbingSchedule.value.applySchedul
                             <VeeField
                                 v-model="osdScrubbingSchedule.deepScrubInterval"
                                 :disabled="!canSubmit || appConfig.readOnly"
-                                type="text"
+                                type="number"
                                 name="deepScrubInterval"
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
@@ -164,7 +164,7 @@ watch(osdScrubbingSchedule.value, () => (osdScrubbingSchedule.value.applySchedul
                             <VeeField
                                 v-model="osdScrubbingSchedule.scrubSleepSeconds"
                                 :disabled="!canSubmit || appConfig.readOnly"
-                                type="text"
+                                type="number"
                                 name="scrubSleepSeconds"
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />

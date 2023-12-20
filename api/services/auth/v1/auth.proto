@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package api.services.auth.v1;
 
-import "api/resources/timestamp/v1/timestamp.proto";
+import "google/protobuf/timestamp.proto";
 import "validate/validate.proto";
 
 option go_package = "github.com/koor-tech/data-control-center/gen/go/api/services/auth;auth";
@@ -21,7 +21,7 @@ message LoginRequest {
 
 message LoginResponse {
   string token = 1;
-  api.resources.timestamp.v1.Timestamp expires = 2;
+  google.protobuf.Timestamp expires = 2;
   string account_id = 3;
 }
 
