@@ -18,7 +18,7 @@ require (
 	github.com/json-iterator/go v1.1.12
 	github.com/koor-tech/koor-operator v0.3.8
 	github.com/prometheus/client_golang v1.17.0
-	github.com/rook/rook v1.13.0
+	github.com/rook/rook v1.13.1
 	github.com/rook/rook/pkg/apis v0.0.0-20231219152316-ea4a3871ed48
 	github.com/spf13/cobra v1.8.0
 	github.com/spf13/viper v1.18.2
