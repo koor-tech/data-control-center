@@ -45,10 +45,15 @@ For running the data-control-center a kubeconfig file is currently required. A [
 
 #### Guidelines
 
+* Must run `go fmt` to format the Go code.
 * Must run `prettier` format on any changed files. For Codium/VSCode users that should automatically be configured due to the settings in [`.vscode/` folder](.vscode/).
+* ESLint must be used for style checking and formatting.
 * Protobuf files: Must follow the [Protobuf Style Guide - buf](https://buf.build/docs/best-practices/style-guide).
-* ESLint is used for style checking.
+* Vue components:
+    * Must use the [Composition API](https://vuejs.org/guide/extras/composition-api-faq.html) format/style.
+    * Must use the [SFC (single file component)](https://vuejs.org/guide/scaling-up/sfc.html) style.
 * Use Nuxt3 components/wrappers were it makes sense.
+* Errors for both front- and backend should be clear and concise. E.g., if a request to an external API fails due to a token being invalid/expired "unable to talk with API: invalid/expired auth token".
 
 ## License
 
