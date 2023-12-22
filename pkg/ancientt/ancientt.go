@@ -136,14 +136,18 @@ func (r *Runner) Cancel() error {
 	r.mutex.Lock()
 	defer r.mutex.Unlock()
 
-	if err := r.run.Stop(); err != nil {
-		return err
+	if r.run != nil {
+		if err := r.run.Stop(); err != nil {
+			return err
+		}
+
+		r.run = nil
 	}
 
-	r.run = nil
-
-	if err := os.RemoveAll(r.data.OutputDir); err != nil {
-		return err
+	if r.data != nil && r.data.OutputDir != "" {
+		if err := os.RemoveAll(r.data.OutputDir); err != nil {
+			return err
+		}
 	}
 
 	r.data = nil
