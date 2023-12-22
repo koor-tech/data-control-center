@@ -120,6 +120,9 @@ spec:
                 echo "Created new dashboard user!"
               fi
 
+              ceph dashboard ac-user-enable "$CEPH_DASHBOARD_USERNAME"
+              echo "Enabled dashboard user!"
+
               echo "Done."
           volumeMounts:
             - mountPath: /etc/ceph

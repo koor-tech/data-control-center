@@ -61,7 +61,7 @@ func (c *Client) auth(ctx context.Context) (string, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusCreated {
-		return "", fmt.Errorf("invalid request %w, status code: %d", err, resp.StatusCode)
+		return "", fmt.Errorf("wrong response code from auth endpoint, status code %d", resp.StatusCode)
 	}
 
 	var authData ResponseData
