@@ -69,44 +69,38 @@ The following table lists the configurable parameters of the rook-operator chart
 | Parameter | Description | Default |
 |-----------|-------------|---------|
 | `additionalEnv` | Will be put in a Secret and used as env vars | `{}` |
-| `affinity` |  | `{}` |
-| `autoscaling.enabled` |  | `false` |
-| `autoscaling.maxReplicas` |  | `100` |
-| `autoscaling.minReplicas` |  | `1` |
-| `autoscaling.targetCPUUtilizationPercentage` |  | `80` |
-| `config` | data-control-center config, documentation here: https://github.com/koor-tech/data-control-center/blob/main/docs/configuration.md#reference | `{"ancienttCmd":"ancientt","ceph":{"api":{"insecureSSL":true,"password":null,"url":"https://rook-ceph-mgr-dashboard:8443/api","username":"data-control-center"}},"http":{"listen":":8282","sessions":{"cookieSecret":"your_generated_cookie_secret","domain":"localhost"}},"jwt":{"secret":"your_generated_jwt_secret"},"logLevel":"INFO","mode":"release","namespace":null,"oauth2":{"providers":[]},"readOnly":false,"updateCheck":{"enabled":true,"interval":"24h"},"users":[]}` |
+| `affinity` | Pod Affinity options https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#affinity-v1-core | `{}` |
+| `config` | data-control-center config, documentation here: https://github.com/koor-tech/data-control-center/blob/main/docs/configuration.md#reference | `{"ancienttCmd":"ancientt","ceph":{"api":{"insecureSSL":true,"password":null,"url":"https://rook-ceph-mgr-dashboard:8443/api","username":"data-control-center"}},"http":{"listen":":8282","sessions":{"cookieSecret":"your_generated_cookie_secret","domain":"localhost"}},"jwt":{"secret":"your_generated_jwt_secret"},"logLevel":"INFO","mode":"release","namespace":"","oauth2":{"providers":[]},"readOnly":false,"updateCheck":{"enabled":true,"interval":"24h"},"users":[]}` |
 | `config.ceph.api.password` | Password is auto generated if not set and retrieved using helm's lookup function | `nil` |
-| `config.namespace` | The rook ceph namespace, if different from the current namespace. Defaults to the current namespace. | `nil` |
-| `fullnameOverride` |  | `""` |
-| `image.pullPolicy` |  | `"IfNotPresent"` |
-| `image.repository` |  | `"docker.io/koorinc/data-control-center"` |
-| `image.tag` |  | `""` |
-| `imagePullSecrets` |  | `[]` |
-| `ingress.annotations` |  | `{}` |
+| `config.namespace` | The rook ceph namespace, if different from the release namespace. Defaults to the release namespace. | `""` |
+| `fullnameOverride` | Overrides the chart's computed fullname | `""` |
+| `image.pullPolicy` | Image pull policy https://kubernetes.io/docs/concepts/containers/images#updating-images | `"IfNotPresent"` |
+| `image.repository` | Image repository | `"docker.io/koorinc/data-control-center"` |
+| `image.tag` | Overrides the image tag whose default is the chart appVersion. | `""` |
+| `imagePullSecrets` | Specifiy image pull secrets https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod | `[]` |
+| `ingress.annotations` | Annotations to add to Ingress | `{}` |
 | `ingress.className` | Ingress class name | `""` |
 | `ingress.enabled` | If an Ingress object should be created. | `false` |
-| `ingress.hosts[0].host` |  | `"chart-example.local"` |
-| `ingress.hosts[0].paths[0].path` |  | `"/"` |
-| `ingress.hosts[0].paths[0].pathType` |  | `"ImplementationSpecific"` |
-| `ingress.tls` |  | `[]` |
-| `nameOverride` |  | `""` |
-| `nodeSelector` |  | `{}` |
-| `podAnnotations` |  | `{}` |
-| `podSecurityContext` |  | `{}` |
+| `ingress.hosts` | List of Ingress hosts/paths to expose via an Ingress object | `[{"host":"chart-example.local","paths":[{"path":"/","pathType":"ImplementationSpecific"}]}]` |
+| `ingress.tls` | Ingress TLS config https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#ingresstls-v1-networking-k8s-io | `[]` |
+| `nameOverride` | Overrides the chart's name | `""` |
+| `nodeSelector` | Node selector https://kubernetes.io/docs/concepts/configuration/assign-pod-node/ | `{}` |
+| `podAnnotations` | Additional annotations to add to the pods | `{}` |
+| `podSecurityContext` | Pod security context https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ | `{}` |
 | `postInstallJob.enabled` | If enabled,  will create a Ceph dashboard admin user `data-control-center` either on Rook/Ceph cluster pre upgrade(when having data-control-center as a helm dependency) or on post install of data-control-center (needs existing Rook/Ceph cluster). This user will be used for retrieving cluster info and stats. | `true` |
-| `rbac.ancientt` |  | `true` |
-| `rbac.annotations` |  | `{}` |
-| `rbac.create` |  | `true` |
-| `rbac.name` |  | `""` |
-| `replicaCount` |  | `2` |
-| `resources` |  | `{}` |
-| `securityContext` |  | `{}` |
-| `service.port` |  | `8282` |
-| `service.type` |  | `"ClusterIP"` |
-| `serviceAccount.annotations` |  | `{}` |
-| `serviceAccount.create` |  | `true` |
-| `serviceAccount.name` |  | `""` |
-| `tolerations` |  | `[]` |
+| `rbac.ancientt` | Setup RBAC for running ancientt network tests | `true` |
+| `rbac.annotations` | Annotations to add to the service account | `{}` |
+| `rbac.create` | Specifies wheter RBAC roles should be created | `true` |
+| `rbac.name` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template. | `""` |
+| `replicaCount` | Replica count to run. | `1` |
+| `resources` | Resources to set for the container https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#resourcerequirements-v1-core | `{}` |
+| `securityContext` | Container security context https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ | `{}` |
+| `service.port` | Service port number | `8282` |
+| `service.type` | Service type (Default `ClusterIP`) | `"ClusterIP"` |
+| `serviceAccount.annotations` | Annotations to add to the service account | `{}` |
+| `serviceAccount.create` | Specifies whether a service account should be created | `true` |
+| `serviceAccount.name` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template. | `""` |
+| `tolerations` | List of Tolerations https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#toleration-v1-core | `[]` |
 
 ## Uninstalling the Chart
 

@@ -142,6 +142,11 @@ rules:
       - create
       - delete
   - apiGroups: [""]
+    resources: ["pods/log"]
+    verbs:
+      - "get"
+      - "list"
+  - apiGroups: [""]
     resources: ["nodes"]
     verbs:
       - get

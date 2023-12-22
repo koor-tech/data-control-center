@@ -5,9 +5,7 @@ metadata:
   labels:
     {{- include "data-control-center.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
-  {{- end }}
   selector:
     matchLabels:
       {{- include "data-control-center.selectorLabels" . | nindent 6 }}
@@ -36,7 +34,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
+              containerPort: 8282
               protocol: TCP
           livenessProbe:
             httpGet:
