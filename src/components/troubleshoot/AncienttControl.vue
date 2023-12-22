@@ -141,7 +141,7 @@ async function getNetworkTestResults(): Promise<void> {
                     <GenericDivider label="Network Test Logs" />
 
                     <textarea
-                        :value="testStatus.logs"
+                        :value="testStatus.logs.split('\n').reverse().join('\n')"
                         disabled
                         rows="10"
                         name="logs"
