@@ -143,7 +143,7 @@ var cephObjects = []string{
 	"cephcosidrivers",
 	"cephfilesystemmirrors",
 	"cephfilesystems",
-	"cephfilesystemsubvolumegroup",
+	"cephfilesystemsubvolumegroups",
 	"cephnfses",
 	"cephobjectrealms",
 	"cephobjectstores",
