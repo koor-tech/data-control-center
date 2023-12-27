@@ -6607,9 +6607,9 @@ make-fetch-happen@^13.0.0:
     ssri "^10.0.0"
 
 mdi-vue3@^7.3.67:
-  version "7.3.67"
-  resolved "https://registry.yarnpkg.com/mdi-vue3/-/mdi-vue3-7.3.67.tgz#06af6d78bd34bc8825a0d7d18576089bb5883b19"
-  integrity sha512-eldwdxyTC+gBaH2gjUMJnOxoR2Q0rxwlzmjNOYPpLwPtLuxV7AgbltQk8gQAzR2BE/JgQhUP2cC9UXcCh8HOgA==
+  version "7.4.47"
+  resolved "https://registry.yarnpkg.com/mdi-vue3/-/mdi-vue3-7.4.47.tgz#1415b3322f58b5b262c94730478e118b7009143c"
+  integrity sha512-zUOqx/1TaPBCQMQvz8vcFyxSiRJzrbmfvLiute5PAoAKnNDkc7l2JuXE9K/CcU4CScTkttWmhWSnhMVcUi0KVA==
 
 mdn-data@2.0.28:
   version "2.0.28"
