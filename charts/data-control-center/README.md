@@ -69,6 +69,8 @@ The following table lists the configurable parameters of the rook-operator chart
 | Parameter | Description | Default |
 |-----------|-------------|---------|
 | `additionalEnv` | Will be put in a Secret and used as env vars | `{}` |
+| `additionalVolumeMounts` | Extra volume mounts to add to the data-control-center deployment | `[]` |
+| `additionalVolumes` | Extra volumes to add to the data-control-center deployment | `[]` |
 | `affinity` | Pod Affinity options https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#affinity-v1-core | `{}` |
 | `config` | data-control-center config, documentation here: https://github.com/koor-tech/data-control-center/blob/main/docs/configuration.md#reference | `{"ancienttCmd":"ancientt","ceph":{"api":{"insecureSSL":true,"password":null,"url":"https://rook-ceph-mgr-dashboard:8443/api","username":"data-control-center"}},"http":{"listen":":8282","sessions":{"cookieSecret":"your_generated_cookie_secret","domain":"localhost"}},"jwt":{"secret":"your_generated_jwt_secret"},"logLevel":"INFO","mode":"release","namespace":"","oauth2":{"providers":[]},"readOnly":false,"updateCheck":{"enabled":true,"interval":"24h"},"users":[]}` |
 | `config.ceph.api.password` | Password is auto generated if not set and retrieved using helm's lookup function | `nil` |

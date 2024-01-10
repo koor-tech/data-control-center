@@ -163,3 +163,9 @@ config:
     enabled: true
     interval: 24h
   ancienttCmd: "ancientt"
+
+# -- Extra volumes to add to the data-control-center deployment
+additionalVolumes: []
+
+# -- Extra volume mounts to add to the data-control-center deployment
+additionalVolumeMounts: []

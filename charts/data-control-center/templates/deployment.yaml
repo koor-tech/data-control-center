@@ -52,12 +52,18 @@ spec:
             - name: config
               mountPath: /config
               readOnly: true
+          {{- with .Values.additionalVolumeMounts }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
         - name: config
           secret:
             secretName: {{ include "data-control-center.fullname" . }}-config
+      {{- with .Values.additionalVolumes }}
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
