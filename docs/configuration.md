@@ -40,6 +40,9 @@ Changes to the config file are not auto detected, they require a (manual) restar
         * `authURL`: OpenID authentication endpoint. Example for Keycloak: 'https://keycloak.example.com/auth/realms/yourrealm/protocol/openid-connect/auth'
         * `tokenURL`: OpenID token endpoint. Example for Keycloak: 'https://keycloak.example.com/auth/realms/yourrealm/protocol/openid-connect/token'
         * `userInfoURL`: OpenID user info endpoint. Example for Keycloak: 'https://keycloak.example.com/auth/realms/yourrealm/protocol/openid-connect/userinfo'
+    * `mapping`: User info fields mapping.
+        * `id`: User ID to use. Example for Keycloak: `sub`.
+        * `username`: Username to use. Example for Keycloak: `preferred_username`.
 
 For more information on creating the appropriate OAuth2/OpenID clients in your identity provider, please checkout [SSO client config](./sso.md).
 
@@ -49,6 +52,19 @@ List of user logins, an entry looks like this:
 
 * `username`: Username of the user.
 * `password`: Password of the user.
+
+### `updateCheck` Section
+
+Update check settings:
+
+* `enabled`: Default: `true`.
+* `interval`: Update check interval. Default: `24h`.
+
+The update check requires internet access to `https://api.github.com`.
+
+### Misc Settings
+
+* `ancienttCmd`: Path to the `ancientt` command binary.
 
 ## Kubernetes Cluster Access
 
