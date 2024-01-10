@@ -58,6 +58,11 @@ oauth2:
         authURL: 'https://keycloak.example.com/auth/realms/yourrealm/protocol/openid-connect/auth'
         tokenURL: 'https://keycloak.example.com/auth/realms/yourrealm/protocol/openid-connect/token'
         userInfoURL: 'https://keycloak.example.com/auth/realms/yourrealm/protocol/openid-connect/userinfo'
+      mapping:
+        # Map the OpenID `sub` field to be the user ID
+        id: "sub"
+        # Use Keycloak's `preferred_username` for the user's username
+        username: "preferred_username"
 # [...]
 ```
 
