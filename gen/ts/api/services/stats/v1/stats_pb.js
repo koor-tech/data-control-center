@@ -4,7 +4,8 @@
 // @ts-nocheck
 
 import { proto3 } from "@bufbuild/protobuf";
-import { ClusterRadar, ClusterStats, NodeInfo, ResourceInfo } from "../../../resources/stats/v1/stats_pb.js";
+import { ClusterRadar, ClusterStats } from "../../../resources/ceph/v1/stats_pb.js";
+import { NodeInfo, ResourceInfo } from "../../../resources/k8s/v1/resources_pb.js";
 
 /**
  * @generated from message api.services.stats.v1.GetClusterStatsRequest

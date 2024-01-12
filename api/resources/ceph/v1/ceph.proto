@@ -4,7 +4,7 @@ package api.resources.ceph.v1;
 
 import "validate/validate.proto";
 
-option go_package = "github.com/koor-tech/data-control-center/gen/go/api/resources/ceph;ceph";
+option go_package = "github.com/koor-tech/data-control-center/gen/go/api/resources/ceph";
 
 message User {
   string username = 1 [(validate.rules).string = {

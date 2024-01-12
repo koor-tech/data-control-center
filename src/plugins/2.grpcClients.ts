@@ -118,7 +118,7 @@ export class GRPCClients {
         );
     }
 
-    getCephUsers(): PromiseClient<typeof CephService> {
+    listCephUsers(): PromiseClient<typeof CephService> {
         return createPromiseClient(
             CephService,
             createConnectTransport({

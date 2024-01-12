@@ -5,8 +5,7 @@ import (
 	"sync"
 	"time"
 
-	koorv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/koor/v1"
-	statsv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/stats/v1"
+	k8sv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/k8s/v1"
 	"github.com/koor-tech/data-control-center/pkg/cache"
 	"github.com/koor-tech/data-control-center/pkg/config"
 	"github.com/koor-tech/data-control-center/pkg/k8s"
@@ -39,10 +38,9 @@ type Cache struct {
 	k8s       *k8s.K8s
 	namespace string
 
-	clusterDeployments cache.CacheEntry[[]*statsv1.ResourceInfo]
-	cephResources      cache.CacheEntry[[]*statsv1.ResourceInfo]
-	storageNodes       cache.CacheEntry[[]*statsv1.NodeInfo]
-	koorCluster        cache.CacheEntry[*koorv1.KoorCluster]
+	clusterDeployments cache.CacheEntry[[]*k8sv1.ResourceInfo]
+	cephResources      cache.CacheEntry[[]*k8sv1.ResourceInfo]
+	storageNodes       cache.CacheEntry[[]*k8sv1.NodeInfo]
 }
 
 type Params struct {
@@ -151,18 +149,14 @@ func (c *Cache) run(ctx context.Context) error {
 	return errs
 }
 
-func (c *Cache) GetClusterDeployments(namespace string) ([]*statsv1.ResourceInfo, bool) {
+func (c *Cache) GetClusterDeployments(namespace string) ([]*k8sv1.ResourceInfo, bool) {
 	return c.clusterDeployments.Get()
 }
 
-func (c *Cache) GetStorageNodes(namespace string) ([]*statsv1.NodeInfo, bool) {
+func (c *Cache) GetStorageNodes(namespace string) ([]*k8sv1.NodeInfo, bool) {
 	return c.storageNodes.Get()
 }
 
-func (c *Cache) GetCephResources(namespace string) ([]*statsv1.ResourceInfo, bool) {
+func (c *Cache) GetCephResources(namespace string) ([]*k8sv1.ResourceInfo, bool) {
 	return c.cephResources.Get()
-}
-
-func (c *Cache) GetKoorCluster(namespace string) (*koorv1.KoorCluster, bool) {
-	return c.koorCluster.Get()
 }

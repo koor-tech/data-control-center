@@ -1,0 +1,112 @@
+syntax = "proto3";
+
+package api.resources.ceph.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/koor-tech/data-control-center/gen/go/api/resources/ceph";
+
+enum ClusterHealth {
+  CLUSTER_HEALTH_UNSPECIFIED = 0;
+  CLUSTER_HEALTH_OFFLINE = 1;
+  CLUSTER_HEALTH_OK = 2;
+  CLUSTER_HEALTH_WARN = 3;
+  CLUSTER_HEALTH_ERR = 4;
+}
+
+message MonService {
+  int32 daemon_count = 1;
+  repeated string quorum = 2;
+  google.protobuf.Timestamp created_since = 5;
+  google.protobuf.Timestamp updated_since = 6;
+}
+
+message MgrService {
+  string active = 1;
+  repeated string standbys = 2;
+  google.protobuf.Timestamp updated_since = 6;
+}
+
+message MdsService {
+  int32 daemons_up = 1;
+  int32 hot_standby_count = 2;
+}
+
+message OsdService {
+  int32 osd_count = 1;
+  int32 osd_up = 2;
+  int32 osd_in = 3;
+  google.protobuf.Timestamp osd_up_updated_since = 6;
+  google.protobuf.Timestamp osd_in_updated_since = 7;
+}
+
+message RgwService {
+  int32 active_daemon = 1;
+  int32 host_count = 2;
+  int32 zone_count = 3;
+}
+
+message Services {
+  MonService mon = 1;
+  MgrService mgr = 2;
+  MdsService mds = 3;
+  OsdService osd = 4;
+  RgwService rgw = 5;
+}
+
+message PGs {
+  int32 active_clean = 1;
+}
+
+message Pools {
+  int32 pools = 1;
+  PGs pgs = 2;
+}
+
+message Objects {
+  int32 object_count = 1;
+  int64 size = 2;
+}
+
+message Usage {
+  int64 used = 1;
+  int64 available = 2;
+  int64 total = 3;
+}
+
+message Data {
+  int32 volumes = 1;
+  Pools pools = 2;
+  Objects objects = 3;
+  Usage usage = 4;
+}
+
+message IOPS {
+  int64 client_read = 1;
+  int64 client_write = 2;
+  int64 client_read_ops = 3;
+  int64 client_write_ops = 4;
+}
+
+message Crash {
+  string description = 1;
+}
+
+message ClusterStats {
+  string id = 1;
+  ClusterHealth status = 2;
+  repeated Crash crashes = 3;
+  Services services = 4;
+  Data data = 5;
+  string test = 6;
+  IOPS iops = 7;
+}
+
+message ClusterRadar {
+  float cluster_health = 1;
+  float nodes_health = 2;
+  float capacity_available = 3;
+  float stability = 4;
+  float reliability = 5;
+}
+

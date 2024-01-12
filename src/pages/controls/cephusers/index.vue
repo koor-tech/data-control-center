@@ -25,7 +25,7 @@ const cephStore = useCephStore();
 
 const { data: cephUsers } = useLazyAsyncData('cephUsers', async () => {
     try {
-        return await cephStore.getCephUsers();
+        return await cephStore.listCephUsers();
     } catch (e) {
         $grpc.handleError(e as ConnectError);
     }
@@ -41,7 +41,7 @@ const deleteCephUser = async function (): Promise<void> {
         await cephStore.deleteCephUser(username.value);
         console.log('removing username.value', username.value);
         modalWindowOpen.value = false;
-        cephUsers.value = await cephStore.getCephUsers();
+        cephUsers.value = await cephStore.listCephUsers();
     } catch (e) {
         $grpc.handleError(e as ConnectError);
     }

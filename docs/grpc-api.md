@@ -6,47 +6,44 @@
 - [api/resources/ceph/v1/ceph.proto](#api_resources_ceph_v1_ceph-proto)
     - [User](#api-resources-ceph-v1-User)
   
-- [api/resources/ceph/v1/config.proto](#api_resources_ceph_v1_config-proto)
+- [api/resources/ceph/v1/controls.proto](#api_resources_ceph_v1_controls-proto)
     - [OSDScrubbingSchedule](#api-resources-ceph-v1-OSDScrubbingSchedule)
   
-- [api/resources/ceph/v1/resources.proto](#api_resources_ceph_v1_resources-proto)
-    - [Resource](#api-resources-ceph-v1-Resource)
-    - [Resources](#api-resources-ceph-v1-Resources)
+- [api/resources/ceph/v1/stats.proto](#api_resources_ceph_v1_stats-proto)
+    - [ClusterRadar](#api-resources-ceph-v1-ClusterRadar)
+    - [ClusterStats](#api-resources-ceph-v1-ClusterStats)
+    - [Crash](#api-resources-ceph-v1-Crash)
+    - [Data](#api-resources-ceph-v1-Data)
+    - [IOPS](#api-resources-ceph-v1-IOPS)
+    - [MdsService](#api-resources-ceph-v1-MdsService)
+    - [MgrService](#api-resources-ceph-v1-MgrService)
+    - [MonService](#api-resources-ceph-v1-MonService)
+    - [Objects](#api-resources-ceph-v1-Objects)
+    - [OsdService](#api-resources-ceph-v1-OsdService)
+    - [PGs](#api-resources-ceph-v1-PGs)
+    - [Pools](#api-resources-ceph-v1-Pools)
+    - [RgwService](#api-resources-ceph-v1-RgwService)
+    - [Services](#api-resources-ceph-v1-Services)
+    - [Usage](#api-resources-ceph-v1-Usage)
   
-- [api/resources/koor/v1/koor.proto](#api_resources_koor_v1_koor-proto)
-    - [ClusterResources](#api-resources-koor-v1-ClusterResources)
-    - [DetailedProductVersions](#api-resources-koor-v1-DetailedProductVersions)
-    - [DetailedVersion](#api-resources-koor-v1-DetailedVersion)
-    - [KoorCluster](#api-resources-koor-v1-KoorCluster)
-    - [KoorClusterSpec](#api-resources-koor-v1-KoorClusterSpec)
-    - [KoorClusterStatus](#api-resources-koor-v1-KoorClusterStatus)
-    - [ProductVersions](#api-resources-koor-v1-ProductVersions)
-    - [UpgradeOptions](#api-resources-koor-v1-UpgradeOptions)
+    - [ClusterHealth](#api-resources-ceph-v1-ClusterHealth)
   
-    - [UpgradeMode](#api-resources-koor-v1-UpgradeMode)
+- [api/resources/k8s/v1/resources.proto](#api_resources_k8s_v1_resources-proto)
+    - [NodeInfo](#api-resources-k8s-v1-NodeInfo)
+    - [Resource](#api-resources-k8s-v1-Resource)
+    - [ResourceInfo](#api-resources-k8s-v1-ResourceInfo)
+    - [Resources](#api-resources-k8s-v1-Resources)
   
-- [api/resources/stats/v1/stats.proto](#api_resources_stats_v1_stats-proto)
-    - [ClusterRadar](#api-resources-stats-v1-ClusterRadar)
-    - [ClusterStats](#api-resources-stats-v1-ClusterStats)
-    - [Crash](#api-resources-stats-v1-Crash)
-    - [Data](#api-resources-stats-v1-Data)
-    - [IOPS](#api-resources-stats-v1-IOPS)
-    - [MdsService](#api-resources-stats-v1-MdsService)
-    - [MgrService](#api-resources-stats-v1-MgrService)
-    - [MonService](#api-resources-stats-v1-MonService)
-    - [NodeInfo](#api-resources-stats-v1-NodeInfo)
-    - [Objects](#api-resources-stats-v1-Objects)
-    - [OsdService](#api-resources-stats-v1-OsdService)
-    - [PGs](#api-resources-stats-v1-PGs)
-    - [Pools](#api-resources-stats-v1-Pools)
-    - [ResourceInfo](#api-resources-stats-v1-ResourceInfo)
-    - [RgwService](#api-resources-stats-v1-RgwService)
-    - [Services](#api-resources-stats-v1-Services)
-    - [Usage](#api-resources-stats-v1-Usage)
+    - [ReliabilityScore](#api-resources-k8s-v1-ReliabilityScore)
+    - [ResourceStatus](#api-resources-k8s-v1-ResourceStatus)
   
-    - [ClusterHealth](#api-resources-stats-v1-ClusterHealth)
-    - [ReliabilityScore](#api-resources-stats-v1-ReliabilityScore)
-    - [ResourceStatus](#api-resources-stats-v1-ResourceStatus)
+- [api/resources/versionservice/v1/versions.proto](#api_resources_versionservice_v1_versions-proto)
+    - [DetailedProductVersions](#api-resources-versionservice-v1-DetailedProductVersions)
+    - [DetailedVersion](#api-resources-versionservice-v1-DetailedVersion)
+    - [ProductVersions](#api-resources-versionservice-v1-ProductVersions)
+    - [UpgradeOptions](#api-resources-versionservice-v1-UpgradeOptions)
+  
+    - [UpgradeMode](#api-resources-versionservice-v1-UpgradeMode)
   
 - [api/services/auth/v1/auth.proto](#api_services_auth_v1_auth-proto)
     - [CheckTokenRequest](#api-services-auth-v1-CheckTokenRequest)
@@ -58,41 +55,31 @@
   
     - [AuthService](#api-services-auth-v1-AuthService)
   
-- [api/services/ceph/v1/ceph.proto](#api_services_ceph_v1_ceph-proto)
+- [api/services/ceph/v1/users.proto](#api_services_ceph_v1_users-proto)
     - [CreateCephUserRequest](#api-services-ceph-v1-CreateCephUserRequest)
     - [CreateCephUserResponse](#api-services-ceph-v1-CreateCephUserResponse)
     - [DeleteCephUserRequest](#api-services-ceph-v1-DeleteCephUserRequest)
     - [DeleteCephUserResponse](#api-services-ceph-v1-DeleteCephUserResponse)
-    - [GetCephUsersRequest](#api-services-ceph-v1-GetCephUsersRequest)
-    - [GetCephUsersResponse](#api-services-ceph-v1-GetCephUsersResponse)
+    - [ListCephUsersRequest](#api-services-ceph-v1-ListCephUsersRequest)
+    - [ListCephUsersResponse](#api-services-ceph-v1-ListCephUsersResponse)
   
-    - [CephService](#api-services-ceph-v1-CephService)
+    - [CephUsersService](#api-services-ceph-v1-CephUsersService)
   
-- [api/services/cluster/v1/cluster.proto](#api_services_cluster_v1_cluster-proto)
-    - [CancelNetworkTestRequest](#api-services-cluster-v1-CancelNetworkTestRequest)
-    - [CancelNetworkTestResponse](#api-services-cluster-v1-CancelNetworkTestResponse)
-    - [GetKoorClusterRequest](#api-services-cluster-v1-GetKoorClusterRequest)
-    - [GetKoorClusterResponse](#api-services-cluster-v1-GetKoorClusterResponse)
-    - [GetNetworkTestResultsRequest](#api-services-cluster-v1-GetNetworkTestResultsRequest)
-    - [GetNetworkTestResultsResponse](#api-services-cluster-v1-GetNetworkTestResultsResponse)
-    - [GetNetworkTestStatusRequest](#api-services-cluster-v1-GetNetworkTestStatusRequest)
-    - [GetNetworkTestStatusResponse](#api-services-cluster-v1-GetNetworkTestStatusResponse)
-    - [GetResourcesRequest](#api-services-cluster-v1-GetResourcesRequest)
-    - [GetResourcesResponse](#api-services-cluster-v1-GetResourcesResponse)
-    - [GetScrubbingScheduleRequest](#api-services-cluster-v1-GetScrubbingScheduleRequest)
-    - [GetScrubbingScheduleResponse](#api-services-cluster-v1-GetScrubbingScheduleResponse)
-    - [GetTroubleshootReportRequest](#api-services-cluster-v1-GetTroubleshootReportRequest)
-    - [GetTroubleshootReportResponse](#api-services-cluster-v1-GetTroubleshootReportResponse)
-    - [SaveResourcesRequest](#api-services-cluster-v1-SaveResourcesRequest)
-    - [SaveResourcesResponse](#api-services-cluster-v1-SaveResourcesResponse)
-    - [SetScrubbingScheduleRequest](#api-services-cluster-v1-SetScrubbingScheduleRequest)
-    - [SetScrubbingScheduleResponse](#api-services-cluster-v1-SetScrubbingScheduleResponse)
-    - [StartNetworkTestRequest](#api-services-cluster-v1-StartNetworkTestRequest)
-    - [StartNetworkTestResponse](#api-services-cluster-v1-StartNetworkTestResponse)
+- [api/services/controls/v1/osds.proto](#api_services_controls_v1_osds-proto)
+    - [GetScrubbingScheduleRequest](#api-services-controls-v1-GetScrubbingScheduleRequest)
+    - [GetScrubbingScheduleResponse](#api-services-controls-v1-GetScrubbingScheduleResponse)
+    - [SetScrubbingScheduleRequest](#api-services-controls-v1-SetScrubbingScheduleRequest)
+    - [SetScrubbingScheduleResponse](#api-services-controls-v1-SetScrubbingScheduleResponse)
   
-    - [NetworkTestOutputFormat](#api-services-cluster-v1-NetworkTestOutputFormat)
+    - [OSDsService](#api-services-controls-v1-OSDsService)
   
-    - [ClusterService](#api-services-cluster-v1-ClusterService)
+- [api/services/k8sresources/v1/editor.proto](#api_services_k8sresources_v1_editor-proto)
+    - [GetResourcesRequest](#api-services-k8sresources-v1-GetResourcesRequest)
+    - [GetResourcesResponse](#api-services-k8sresources-v1-GetResourcesResponse)
+    - [SaveResourcesRequest](#api-services-k8sresources-v1-SaveResourcesRequest)
+    - [SaveResourcesResponse](#api-services-k8sresources-v1-SaveResourcesResponse)
+  
+    - [K8sResourcesService](#api-services-k8sresources-v1-K8sResourcesService)
   
 - [api/services/stats/v1/stats.proto](#api_services_stats_v1_stats-proto)
     - [GetClusterNodesRequest](#api-services-stats-v1-GetClusterNodesRequest)
@@ -105,6 +92,22 @@
     - [GetClusterStatsResponse](#api-services-stats-v1-GetClusterStatsResponse)
   
     - [StatsService](#api-services-stats-v1-StatsService)
+  
+- [api/services/troubleshooting/v1/troubleshooting.proto](#api_services_troubleshooting_v1_troubleshooting-proto)
+    - [CancelNetworkTestRequest](#api-services-troubleshooting-v1-CancelNetworkTestRequest)
+    - [CancelNetworkTestResponse](#api-services-troubleshooting-v1-CancelNetworkTestResponse)
+    - [GetNetworkTestResultsRequest](#api-services-troubleshooting-v1-GetNetworkTestResultsRequest)
+    - [GetNetworkTestResultsResponse](#api-services-troubleshooting-v1-GetNetworkTestResultsResponse)
+    - [GetNetworkTestStatusRequest](#api-services-troubleshooting-v1-GetNetworkTestStatusRequest)
+    - [GetNetworkTestStatusResponse](#api-services-troubleshooting-v1-GetNetworkTestStatusResponse)
+    - [GetTroubleshootReportRequest](#api-services-troubleshooting-v1-GetTroubleshootReportRequest)
+    - [GetTroubleshootReportResponse](#api-services-troubleshooting-v1-GetTroubleshootReportResponse)
+    - [StartNetworkTestRequest](#api-services-troubleshooting-v1-StartNetworkTestRequest)
+    - [StartNetworkTestResponse](#api-services-troubleshooting-v1-StartNetworkTestResponse)
+  
+    - [NetworkTestOutputFormat](#api-services-troubleshooting-v1-NetworkTestOutputFormat)
+  
+    - [TroubleshootingService](#api-services-troubleshooting-v1-TroubleshootingService)
   
 - [Scalar Value Types](#scalar-value-types)
 
@@ -146,10 +149,10 @@
 
 
 
-<a name="api_resources_ceph_v1_config-proto"></a>
+<a name="api_resources_ceph_v1_controls-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## api/resources/ceph/v1/config.proto
+## api/resources/ceph/v1/controls.proto
 
 
 
@@ -186,241 +189,14 @@ Osd Scrubbing schedule config
 
 
 
-<a name="api_resources_ceph_v1_resources-proto"></a>
+<a name="api_resources_ceph_v1_stats-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## api/resources/ceph/v1/resources.proto
+## api/resources/ceph/v1/stats.proto
 
 
 
-<a name="api-resources-ceph-v1-Resource"></a>
-
-### Resource
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| name | [string](#string) |  |  |
-| content | [string](#string) |  |  |
-| namespace | [string](#string) |  |  |
-| kind | [string](#string) |  |  |
-| object | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="api-resources-ceph-v1-Resources"></a>
-
-### Resources
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| resources | [Resource](#api-resources-ceph-v1-Resource) | repeated |  |
-
-
-
-
-
- 
-
- 
-
- 
-
- 
-
-
-
-<a name="api_resources_koor_v1_koor-proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## api/resources/koor/v1/koor.proto
-
-
-
-<a name="api-resources-koor-v1-ClusterResources"></a>
-
-### ClusterResources
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| nodes | [string](#string) |  | The number of nodes in the cluster |
-| storage | [string](#string) |  | Ephemeral Storage available |
-| cpu | [string](#string) |  | CPU cores available |
-| memory | [string](#string) |  | Memory available |
-
-
-
-
-
-
-<a name="api-resources-koor-v1-DetailedProductVersions"></a>
-
-### DetailedProductVersions
-Represents a map of products to detailed versions, which include images or helm charts.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| koor_operator | [DetailedVersion](#api-resources-koor-v1-DetailedVersion) |  | The detailed Koor Operator version. |
-| ksd | [DetailedVersion](#api-resources-koor-v1-DetailedVersion) |  | The detailed Koor Storage Distribution version. |
-| ceph | [DetailedVersion](#api-resources-koor-v1-DetailedVersion) |  | The detailed Ceph version. |
-
-
-
-
-
-
-<a name="api-resources-koor-v1-DetailedVersion"></a>
-
-### DetailedVersion
-Defines a detailed version of a product, which includes a container image or a helm chart.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| version | [string](#string) |  | The product version, must be a valid semver. |
-| image_uri | [string](#string) |  | The URI of the container image. |
-| image_hash | [string](#string) |  | The hash of the container image. |
-| helm_repository | [string](#string) |  | The URI of the helm repository. |
-| helm_chart | [string](#string) |  | The name of the helm chart in the repository. |
-
-
-
-
-
-
-<a name="api-resources-koor-v1-KoorCluster"></a>
-
-### KoorCluster
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| name | [string](#string) |  |  |
-| namespace | [string](#string) |  |  |
-| spec | [KoorClusterSpec](#api-resources-koor-v1-KoorClusterSpec) |  |  |
-| status | [KoorClusterStatus](#api-resources-koor-v1-KoorClusterStatus) |  |  |
-
-
-
-
-
-
-<a name="api-resources-koor-v1-KoorClusterSpec"></a>
-
-### KoorClusterSpec
-Represents the state of KoorCluster
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| use_all_devices | [google.protobuf.BoolValue](#google-protobuf-BoolValue) |  | Use all devices on nodes |
-| monitoring_enabled | [google.protobuf.BoolValue](#google-protobuf-BoolValue) |  | Enable monitoring. Requires Prometheus to be pre-installed. |
-| dashboard_enabled | [google.protobuf.BoolValue](#google-protobuf-BoolValue) |  | Enable the ceph dashboard for viewing cluster status |
-| toolbox_enabled | [google.protobuf.BoolValue](#google-protobuf-BoolValue) |  | Installs a debugging toolbox deployment |
-| upgrade_options | [UpgradeOptions](#api-resources-koor-v1-UpgradeOptions) |  | Specifies the upgrade options for new ceph versions |
-| ksd_release_name | [string](#string) |  | The name to use for KSD helm release. |
-| ksd_cluster_release_name | [string](#string) |  | The name to use for KSD cluster helm release. |
-| osd_scrubbing_schedule | [api.resources.ceph.v1.OSDScrubbingSchedule](#api-resources-ceph-v1-OSDScrubbingSchedule) |  | OSD scrubbing schedule config |
-
-
-
-
-
-
-<a name="api-resources-koor-v1-KoorClusterStatus"></a>
-
-### KoorClusterStatus
-Represents the status of the KoorCluster CRD
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| total_resources | [ClusterResources](#api-resources-koor-v1-ClusterResources) |  | The total resources available in the cluster nodes |
-| meets_minimum_resources | [bool](#bool) |  | Does the cluster meet the minimum recommended resources |
-| current_versions | [ProductVersions](#api-resources-koor-v1-ProductVersions) |  | The current versions of rook and ceph |
-| latest_versions | [DetailedProductVersions](#api-resources-koor-v1-DetailedProductVersions) |  | The latest versions of rook and ceph |
-
-
-
-
-
-
-<a name="api-resources-koor-v1-ProductVersions"></a>
-
-### ProductVersions
-Represents a map of products to version strings.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| kube | [string](#string) |  | Kubernetes version, must be a valid semver. |
-| koor_operator | [string](#string) |  | Koor Operator version, must be a valid semver. |
-| ksd | [string](#string) |  | Koor Storage Distribution version, must be a valid semver. |
-| ceph | [string](#string) |  | Ceph version, must be a valid semver. |
-
-
-
-
-
-
-<a name="api-resources-koor-v1-UpgradeOptions"></a>
-
-### UpgradeOptions
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| mode | [UpgradeMode](#api-resources-koor-v1-UpgradeMode) |  | Upgrade mode |
-| endpoint | [string](#string) |  | The api endpoint used to find the ceph latest version |
-| schedule | [string](#string) |  | The schedule to check for new versions. Uses CRON format as specified by https://github.com/robfig/cron/tree/v3. Defaults to everyday at midnight in the local timezone. To change the timezone, prefix the schedule with CRON_TZ=&lt;Timezone&gt;. For example: &#34;CRON_TZ=UTC 0 0 * * *&#34; is midnight UTC. |
-
-
-
-
-
- 
-
-
-<a name="api-resources-koor-v1-UpgradeMode"></a>
-
-### UpgradeMode
-The mode of the upgrade
-
-| Name | Number | Description |
-| ---- | ------ | ----------- |
-| UPGRADE_MODE_UNSPECIFIED | 0 |  |
-| UPGRADE_MODE_DISABLED | 1 | Disable upgrades |
-| UPGRADE_MODE_NOTIFY | 2 | Notify about new upgrades but do not apply them |
-| UPGRADE_MODE_UPGRADE | 3 | Notify about new upgrades and apply them |
-
-
- 
-
- 
-
- 
-
-
-
-<a name="api_resources_stats_v1_stats-proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## api/resources/stats/v1/stats.proto
-
-
-
-<a name="api-resources-stats-v1-ClusterRadar"></a>
+<a name="api-resources-ceph-v1-ClusterRadar"></a>
 
 ### ClusterRadar
 
@@ -439,7 +215,7 @@ The mode of the upgrade
 
 
 
-<a name="api-resources-stats-v1-ClusterStats"></a>
+<a name="api-resources-ceph-v1-ClusterStats"></a>
 
 ### ClusterStats
 
@@ -448,19 +224,19 @@ The mode of the upgrade
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | id | [string](#string) |  |  |
-| status | [ClusterHealth](#api-resources-stats-v1-ClusterHealth) |  |  |
-| crashes | [Crash](#api-resources-stats-v1-Crash) | repeated |  |
-| services | [Services](#api-resources-stats-v1-Services) |  |  |
-| data | [Data](#api-resources-stats-v1-Data) |  |  |
+| status | [ClusterHealth](#api-resources-ceph-v1-ClusterHealth) |  |  |
+| crashes | [Crash](#api-resources-ceph-v1-Crash) | repeated |  |
+| services | [Services](#api-resources-ceph-v1-Services) |  |  |
+| data | [Data](#api-resources-ceph-v1-Data) |  |  |
 | test | [string](#string) |  |  |
-| iops | [IOPS](#api-resources-stats-v1-IOPS) |  |  |
+| iops | [IOPS](#api-resources-ceph-v1-IOPS) |  |  |
 
 
 
 
 
 
-<a name="api-resources-stats-v1-Crash"></a>
+<a name="api-resources-ceph-v1-Crash"></a>
 
 ### Crash
 
@@ -475,7 +251,7 @@ The mode of the upgrade
 
 
 
-<a name="api-resources-stats-v1-Data"></a>
+<a name="api-resources-ceph-v1-Data"></a>
 
 ### Data
 
@@ -484,16 +260,16 @@ The mode of the upgrade
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | volumes | [int32](#int32) |  |  |
-| pools | [Pools](#api-resources-stats-v1-Pools) |  |  |
-| objects | [Objects](#api-resources-stats-v1-Objects) |  |  |
-| usage | [Usage](#api-resources-stats-v1-Usage) |  |  |
+| pools | [Pools](#api-resources-ceph-v1-Pools) |  |  |
+| objects | [Objects](#api-resources-ceph-v1-Objects) |  |  |
+| usage | [Usage](#api-resources-ceph-v1-Usage) |  |  |
 
 
 
 
 
 
-<a name="api-resources-stats-v1-IOPS"></a>
+<a name="api-resources-ceph-v1-IOPS"></a>
 
 ### IOPS
 
@@ -511,7 +287,7 @@ The mode of the upgrade
 
 
 
-<a name="api-resources-stats-v1-MdsService"></a>
+<a name="api-resources-ceph-v1-MdsService"></a>
 
 ### MdsService
 
@@ -527,7 +303,7 @@ The mode of the upgrade
 
 
 
-<a name="api-resources-stats-v1-MgrService"></a>
+<a name="api-resources-ceph-v1-MgrService"></a>
 
 ### MgrService
 
@@ -544,7 +320,7 @@ The mode of the upgrade
 
 
 
-<a name="api-resources-stats-v1-MonService"></a>
+<a name="api-resources-ceph-v1-MonService"></a>
 
 ### MonService
 
@@ -562,27 +338,7 @@ The mode of the upgrade
 
 
 
-<a name="api-resources-stats-v1-NodeInfo"></a>
-
-### NodeInfo
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| name | [string](#string) |  |  |
-| status | [ResourceStatus](#api-resources-stats-v1-ResourceStatus) |  |  |
-| roles | [string](#string) | repeated |  |
-| internal_ip | [string](#string) | optional |  |
-| external_ip | [string](#string) | optional |  |
-| age | [google.protobuf.Timestamp](#google-protobuf-Timestamp) | optional |  |
-
-
-
-
-
-
-<a name="api-resources-stats-v1-Objects"></a>
+<a name="api-resources-ceph-v1-Objects"></a>
 
 ### Objects
 
@@ -598,7 +354,7 @@ The mode of the upgrade
 
 
 
-<a name="api-resources-stats-v1-OsdService"></a>
+<a name="api-resources-ceph-v1-OsdService"></a>
 
 ### OsdService
 
@@ -617,7 +373,7 @@ The mode of the upgrade
 
 
 
-<a name="api-resources-stats-v1-PGs"></a>
+<a name="api-resources-ceph-v1-PGs"></a>
 
 ### PGs
 
@@ -632,7 +388,7 @@ The mode of the upgrade
 
 
 
-<a name="api-resources-stats-v1-Pools"></a>
+<a name="api-resources-ceph-v1-Pools"></a>
 
 ### Pools
 
@@ -641,36 +397,14 @@ The mode of the upgrade
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | pools | [int32](#int32) |  |  |
-| pgs | [PGs](#api-resources-stats-v1-PGs) |  |  |
+| pgs | [PGs](#api-resources-ceph-v1-PGs) |  |  |
 
 
 
 
 
 
-<a name="api-resources-stats-v1-ResourceInfo"></a>
-
-### ResourceInfo
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| apiversion | [string](#string) |  |  |
-| kind | [string](#string) |  |  |
-| namespace | [string](#string) |  |  |
-| name | [string](#string) |  |  |
-| status | [ResourceStatus](#api-resources-stats-v1-ResourceStatus) |  |  |
-| replicas | [int32](#int32) |  |  |
-| reliability | [ReliabilityScore](#api-resources-stats-v1-ReliabilityScore) |  |  |
-| version | [string](#string) | optional |  |
-
-
-
-
-
-
-<a name="api-resources-stats-v1-RgwService"></a>
+<a name="api-resources-ceph-v1-RgwService"></a>
 
 ### RgwService
 
@@ -687,7 +421,7 @@ The mode of the upgrade
 
 
 
-<a name="api-resources-stats-v1-Services"></a>
+<a name="api-resources-ceph-v1-Services"></a>
 
 ### Services
 
@@ -695,18 +429,18 @@ The mode of the upgrade
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| mon | [MonService](#api-resources-stats-v1-MonService) |  |  |
-| mgr | [MgrService](#api-resources-stats-v1-MgrService) |  |  |
-| mds | [MdsService](#api-resources-stats-v1-MdsService) |  |  |
-| osd | [OsdService](#api-resources-stats-v1-OsdService) |  |  |
-| rgw | [RgwService](#api-resources-stats-v1-RgwService) |  |  |
+| mon | [MonService](#api-resources-ceph-v1-MonService) |  |  |
+| mgr | [MgrService](#api-resources-ceph-v1-MgrService) |  |  |
+| mds | [MdsService](#api-resources-ceph-v1-MdsService) |  |  |
+| osd | [OsdService](#api-resources-ceph-v1-OsdService) |  |  |
+| rgw | [RgwService](#api-resources-ceph-v1-RgwService) |  |  |
 
 
 
 
 
 
-<a name="api-resources-stats-v1-Usage"></a>
+<a name="api-resources-ceph-v1-Usage"></a>
 
 ### Usage
 
@@ -725,7 +459,7 @@ The mode of the upgrade
  
 
 
-<a name="api-resources-stats-v1-ClusterHealth"></a>
+<a name="api-resources-ceph-v1-ClusterHealth"></a>
 
 ### ClusterHealth
 
@@ -739,8 +473,100 @@ The mode of the upgrade
 | CLUSTER_HEALTH_ERR | 4 |  |
 
 
+ 
 
-<a name="api-resources-stats-v1-ReliabilityScore"></a>
+ 
+
+ 
+
+
+
+<a name="api_resources_k8s_v1_resources-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## api/resources/k8s/v1/resources.proto
+
+
+
+<a name="api-resources-k8s-v1-NodeInfo"></a>
+
+### NodeInfo
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| name | [string](#string) |  |  |
+| status | [ResourceStatus](#api-resources-k8s-v1-ResourceStatus) |  |  |
+| roles | [string](#string) | repeated |  |
+| internal_ip | [string](#string) | optional |  |
+| external_ip | [string](#string) | optional |  |
+| age | [google.protobuf.Timestamp](#google-protobuf-Timestamp) | optional |  |
+
+
+
+
+
+
+<a name="api-resources-k8s-v1-Resource"></a>
+
+### Resource
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| name | [string](#string) |  |  |
+| content | [string](#string) |  |  |
+| namespace | [string](#string) |  |  |
+| kind | [string](#string) |  |  |
+| object | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="api-resources-k8s-v1-ResourceInfo"></a>
+
+### ResourceInfo
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| apiversion | [string](#string) |  |  |
+| kind | [string](#string) |  |  |
+| namespace | [string](#string) |  |  |
+| name | [string](#string) |  |  |
+| status | [ResourceStatus](#api-resources-k8s-v1-ResourceStatus) |  |  |
+| replicas | [int32](#int32) |  |  |
+| reliability | [ReliabilityScore](#api-resources-k8s-v1-ReliabilityScore) |  |  |
+| version | [string](#string) | optional |  |
+
+
+
+
+
+
+<a name="api-resources-k8s-v1-Resources"></a>
+
+### Resources
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resources | [Resource](#api-resources-k8s-v1-Resource) | repeated |  |
+
+
+
+
+
+ 
+
+
+<a name="api-resources-k8s-v1-ReliabilityScore"></a>
 
 ### ReliabilityScore
 
@@ -755,7 +581,7 @@ The mode of the upgrade
 
 
 
-<a name="api-resources-stats-v1-ResourceStatus"></a>
+<a name="api-resources-k8s-v1-ResourceStatus"></a>
 
 ### ResourceStatus
 
@@ -767,6 +593,107 @@ The mode of the upgrade
 | RESOURCE_STATUS_READY | 2 |  |
 | RESOURCE_STATUS_PROGRESSING | 3 |  |
 | RESOURCE_STATUS_NOT_READY | 4 |  |
+
+
+ 
+
+ 
+
+ 
+
+
+
+<a name="api_resources_versionservice_v1_versions-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## api/resources/versionservice/v1/versions.proto
+
+
+
+<a name="api-resources-versionservice-v1-DetailedProductVersions"></a>
+
+### DetailedProductVersions
+Represents a map of products to detailed versions, which include images or helm charts.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| koor_operator | [DetailedVersion](#api-resources-versionservice-v1-DetailedVersion) |  | The detailed Koor Operator version. |
+| ksd | [DetailedVersion](#api-resources-versionservice-v1-DetailedVersion) |  | The detailed Koor Storage Distribution version. |
+| ceph | [DetailedVersion](#api-resources-versionservice-v1-DetailedVersion) |  | The detailed Ceph version. |
+
+
+
+
+
+
+<a name="api-resources-versionservice-v1-DetailedVersion"></a>
+
+### DetailedVersion
+Defines a detailed version of a product, which includes a container image or a helm chart.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| version | [string](#string) |  | The product version, must be a valid semver. |
+| image_uri | [string](#string) |  | The URI of the container image. |
+| image_hash | [string](#string) |  | The hash of the container image. |
+| helm_repository | [string](#string) |  | The URI of the helm repository. |
+| helm_chart | [string](#string) |  | The name of the helm chart in the repository. |
+
+
+
+
+
+
+<a name="api-resources-versionservice-v1-ProductVersions"></a>
+
+### ProductVersions
+Represents a map of products to version strings.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| kube | [string](#string) |  | Kubernetes version, must be a valid semver. |
+| koor_operator | [string](#string) |  | Koor Operator version, must be a valid semver. |
+| ksd | [string](#string) |  | Koor Storage Distribution version, must be a valid semver. |
+| ceph | [string](#string) |  | Ceph version, must be a valid semver. |
+
+
+
+
+
+
+<a name="api-resources-versionservice-v1-UpgradeOptions"></a>
+
+### UpgradeOptions
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| mode | [UpgradeMode](#api-resources-versionservice-v1-UpgradeMode) |  | Upgrade mode |
+| endpoint | [string](#string) |  | The api endpoint used to find the ceph latest version |
+| schedule | [string](#string) |  | The schedule to check for new versions. Uses CRON format as specified by https://github.com/robfig/cron/tree/v3. Defaults to everyday at midnight in the local timezone. To change the timezone, prefix the schedule with CRON_TZ=&lt;Timezone&gt;. For example: &#34;CRON_TZ=UTC 0 0 * * *&#34; is midnight UTC. |
+
+
+
+
+
+ 
+
+
+<a name="api-resources-versionservice-v1-UpgradeMode"></a>
+
+### UpgradeMode
+The mode of the upgrade
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| UPGRADE_MODE_UNSPECIFIED | 0 |  |
+| UPGRADE_MODE_DISABLED | 1 | Disable upgrades |
+| UPGRADE_MODE_NOTIFY | 2 | Notify about new upgrades but do not apply them |
+| UPGRADE_MODE_UPGRADE | 3 | Notify about new upgrades and apply them |
 
 
  
@@ -893,10 +820,10 @@ The mode of the upgrade
 
 
 
-<a name="api_services_ceph_v1_ceph-proto"></a>
+<a name="api_services_ceph_v1_users-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## api/services/ceph/v1/ceph.proto
+## api/services/ceph/v1/users.proto
 
 
 
@@ -960,19 +887,19 @@ The mode of the upgrade
 
 
 
-<a name="api-services-ceph-v1-GetCephUsersRequest"></a>
+<a name="api-services-ceph-v1-ListCephUsersRequest"></a>
 
-### GetCephUsersRequest
-
-
+### ListCephUsersRequest
 
 
 
 
 
-<a name="api-services-ceph-v1-GetCephUsersResponse"></a>
 
-### GetCephUsersResponse
+
+<a name="api-services-ceph-v1-ListCephUsersResponse"></a>
+
+### ListCephUsersResponse
 
 
 
@@ -991,14 +918,14 @@ The mode of the upgrade
  
 
 
-<a name="api-services-ceph-v1-CephService"></a>
+<a name="api-services-ceph-v1-CephUsersService"></a>
 
-### CephService
+### CephUsersService
 
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| GetCephUsers | [GetCephUsersRequest](#api-services-ceph-v1-GetCephUsersRequest) | [GetCephUsersResponse](#api-services-ceph-v1-GetCephUsersResponse) |  |
+| ListCephUsers | [ListCephUsersRequest](#api-services-ceph-v1-ListCephUsersRequest) | [ListCephUsersResponse](#api-services-ceph-v1-ListCephUsersResponse) |  |
 | CreateCephUser | [CreateCephUserRequest](#api-services-ceph-v1-CreateCephUserRequest) | [CreateCephUserResponse](#api-services-ceph-v1-CreateCephUserResponse) |  |
 | DeleteCephUser | [DeleteCephUserRequest](#api-services-ceph-v1-DeleteCephUserRequest) | [DeleteCephUserResponse](#api-services-ceph-v1-DeleteCephUserResponse) |  |
 
@@ -1006,143 +933,14 @@ The mode of the upgrade
 
 
 
-<a name="api_services_cluster_v1_cluster-proto"></a>
+<a name="api_services_controls_v1_osds-proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## api/services/cluster/v1/cluster.proto
+## api/services/controls/v1/osds.proto
 
 
 
-<a name="api-services-cluster-v1-CancelNetworkTestRequest"></a>
-
-### CancelNetworkTestRequest
-
-
-
-
-
-
-
-<a name="api-services-cluster-v1-CancelNetworkTestResponse"></a>
-
-### CancelNetworkTestResponse
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| not_running | [bool](#bool) |  |  |
-
-
-
-
-
-
-<a name="api-services-cluster-v1-GetKoorClusterRequest"></a>
-
-### GetKoorClusterRequest
-
-
-
-
-
-
-
-<a name="api-services-cluster-v1-GetKoorClusterResponse"></a>
-
-### GetKoorClusterResponse
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| koor_cluster | [api.resources.koor.v1.KoorCluster](#api-resources-koor-v1-KoorCluster) |  |  |
-
-
-
-
-
-
-<a name="api-services-cluster-v1-GetNetworkTestResultsRequest"></a>
-
-### GetNetworkTestResultsRequest
-
-
-
-
-
-
-
-<a name="api-services-cluster-v1-GetNetworkTestResultsResponse"></a>
-
-### GetNetworkTestResultsResponse
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| file_name | [string](#string) |  |  |
-| file_type | [string](#string) |  |  |
-| file_contents | [bytes](#bytes) |  |  |
-
-
-
-
-
-
-<a name="api-services-cluster-v1-GetNetworkTestStatusRequest"></a>
-
-### GetNetworkTestStatusRequest
-
-
-
-
-
-
-
-<a name="api-services-cluster-v1-GetNetworkTestStatusResponse"></a>
-
-### GetNetworkTestStatusResponse
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| running | [bool](#bool) |  |  |
-| complete | [bool](#bool) |  |  |
-| logs | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="api-services-cluster-v1-GetResourcesRequest"></a>
-
-### GetResourcesRequest
-
-
-
-
-
-
-
-<a name="api-services-cluster-v1-GetResourcesResponse"></a>
-
-### GetResourcesResponse
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| resources | [api.resources.ceph.v1.Resources](#api-resources-ceph-v1-Resources) |  |  |
-
-
-
-
-
-
-<a name="api-services-cluster-v1-GetScrubbingScheduleRequest"></a>
+<a name="api-services-controls-v1-GetScrubbingScheduleRequest"></a>
 
 ### GetScrubbingScheduleRequest
 
@@ -1152,7 +950,7 @@ The mode of the upgrade
 
 
 
-<a name="api-services-cluster-v1-GetScrubbingScheduleResponse"></a>
+<a name="api-services-controls-v1-GetScrubbingScheduleResponse"></a>
 
 ### GetScrubbingScheduleResponse
 
@@ -1167,62 +965,7 @@ The mode of the upgrade
 
 
 
-<a name="api-services-cluster-v1-GetTroubleshootReportRequest"></a>
-
-### GetTroubleshootReportRequest
-
-
-
-
-
-
-
-<a name="api-services-cluster-v1-GetTroubleshootReportResponse"></a>
-
-### GetTroubleshootReportResponse
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| report | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="api-services-cluster-v1-SaveResourcesRequest"></a>
-
-### SaveResourcesRequest
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| resource | [api.resources.ceph.v1.Resource](#api-resources-ceph-v1-Resource) |  |  |
-
-
-
-
-
-
-<a name="api-services-cluster-v1-SaveResourcesResponse"></a>
-
-### SaveResourcesResponse
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| resource | [api.resources.ceph.v1.Resource](#api-resources-ceph-v1-Resource) |  |  |
-
-
-
-
-
-
-<a name="api-services-cluster-v1-SetScrubbingScheduleRequest"></a>
+<a name="api-services-controls-v1-SetScrubbingScheduleRequest"></a>
 
 ### SetScrubbingScheduleRequest
 
@@ -1237,7 +980,7 @@ The mode of the upgrade
 
 
 
-<a name="api-services-cluster-v1-SetScrubbingScheduleResponse"></a>
+<a name="api-services-controls-v1-SetScrubbingScheduleResponse"></a>
 
 ### SetScrubbingScheduleResponse
 
@@ -1251,74 +994,104 @@ The mode of the upgrade
 
 
 
-
-<a name="api-services-cluster-v1-StartNetworkTestRequest"></a>
-
-### StartNetworkTestRequest
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| host_network | [bool](#bool) |  |  |
-| output_format | [NetworkTestOutputFormat](#api-services-cluster-v1-NetworkTestOutputFormat) |  |  |
-
-
-
-
-
-
-<a name="api-services-cluster-v1-StartNetworkTestResponse"></a>
-
-### StartNetworkTestResponse
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| already_running | [bool](#bool) |  |  |
-
-
-
-
-
  
-
-
-<a name="api-services-cluster-v1-NetworkTestOutputFormat"></a>
-
-### NetworkTestOutputFormat
-
-
-| Name | Number | Description |
-| ---- | ------ | ----------- |
-| NETWORK_TEST_OUTPUT_FORMAT_UNSPECIFIED | 0 |  |
-| NETWORK_TEST_OUTPUT_FORMAT_CSV | 1 |  |
-| NETWORK_TEST_OUTPUT_FORMAT_EXCELIZE | 2 |  |
-
 
  
 
  
 
 
-<a name="api-services-cluster-v1-ClusterService"></a>
+<a name="api-services-controls-v1-OSDsService"></a>
 
-### ClusterService
+### OSDsService
 
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| GetKoorCluster | [GetKoorClusterRequest](#api-services-cluster-v1-GetKoorClusterRequest) | [GetKoorClusterResponse](#api-services-cluster-v1-GetKoorClusterResponse) |  |
-| GetTroubleshootReport | [GetTroubleshootReportRequest](#api-services-cluster-v1-GetTroubleshootReportRequest) | [GetTroubleshootReportResponse](#api-services-cluster-v1-GetTroubleshootReportResponse) |  |
-| GetNetworkTestStatus | [GetNetworkTestStatusRequest](#api-services-cluster-v1-GetNetworkTestStatusRequest) | [GetNetworkTestStatusResponse](#api-services-cluster-v1-GetNetworkTestStatusResponse) |  |
-| StartNetworkTest | [StartNetworkTestRequest](#api-services-cluster-v1-StartNetworkTestRequest) | [StartNetworkTestResponse](#api-services-cluster-v1-StartNetworkTestResponse) |  |
-| CancelNetworkTest | [CancelNetworkTestRequest](#api-services-cluster-v1-CancelNetworkTestRequest) | [CancelNetworkTestResponse](#api-services-cluster-v1-CancelNetworkTestResponse) |  |
-| GetNetworkTestResults | [GetNetworkTestResultsRequest](#api-services-cluster-v1-GetNetworkTestResultsRequest) | [GetNetworkTestResultsResponse](#api-services-cluster-v1-GetNetworkTestResultsResponse) |  |
-| GetScrubbingSchedule | [GetScrubbingScheduleRequest](#api-services-cluster-v1-GetScrubbingScheduleRequest) | [GetScrubbingScheduleResponse](#api-services-cluster-v1-GetScrubbingScheduleResponse) |  |
-| SetScrubbingSchedule | [SetScrubbingScheduleRequest](#api-services-cluster-v1-SetScrubbingScheduleRequest) | [SetScrubbingScheduleResponse](#api-services-cluster-v1-SetScrubbingScheduleResponse) |  |
-| GetResources | [GetResourcesRequest](#api-services-cluster-v1-GetResourcesRequest) | [GetResourcesResponse](#api-services-cluster-v1-GetResourcesResponse) |  |
-| SaveResources | [SaveResourcesRequest](#api-services-cluster-v1-SaveResourcesRequest) | [SaveResourcesResponse](#api-services-cluster-v1-SaveResourcesResponse) |  |
+| GetScrubbingSchedule | [GetScrubbingScheduleRequest](#api-services-controls-v1-GetScrubbingScheduleRequest) | [GetScrubbingScheduleResponse](#api-services-controls-v1-GetScrubbingScheduleResponse) |  |
+| SetScrubbingSchedule | [SetScrubbingScheduleRequest](#api-services-controls-v1-SetScrubbingScheduleRequest) | [SetScrubbingScheduleResponse](#api-services-controls-v1-SetScrubbingScheduleResponse) |  |
+
+ 
+
+
+
+<a name="api_services_k8sresources_v1_editor-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## api/services/k8sresources/v1/editor.proto
+
+
+
+<a name="api-services-k8sresources-v1-GetResourcesRequest"></a>
+
+### GetResourcesRequest
+
+
+
+
+
+
+
+<a name="api-services-k8sresources-v1-GetResourcesResponse"></a>
+
+### GetResourcesResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resources | [api.resources.k8s.v1.Resources](#api-resources-k8s-v1-Resources) |  |  |
+
+
+
+
+
+
+<a name="api-services-k8sresources-v1-SaveResourcesRequest"></a>
+
+### SaveResourcesRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource | [api.resources.k8s.v1.Resource](#api-resources-k8s-v1-Resource) |  |  |
+
+
+
+
+
+
+<a name="api-services-k8sresources-v1-SaveResourcesResponse"></a>
+
+### SaveResourcesResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| resource | [api.resources.k8s.v1.Resource](#api-resources-k8s-v1-Resource) |  |  |
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+
+<a name="api-services-k8sresources-v1-K8sResourcesService"></a>
+
+### K8sResourcesService
+
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| GetResources | [GetResourcesRequest](#api-services-k8sresources-v1-GetResourcesRequest) | [GetResourcesResponse](#api-services-k8sresources-v1-GetResourcesResponse) |  |
+| SaveResources | [SaveResourcesRequest](#api-services-k8sresources-v1-SaveResourcesRequest) | [SaveResourcesResponse](#api-services-k8sresources-v1-SaveResourcesResponse) |  |
 
  
 
@@ -1349,7 +1122,7 @@ The mode of the upgrade
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| nodes | [api.resources.stats.v1.NodeInfo](#api-resources-stats-v1-NodeInfo) | repeated |  |
+| nodes | [api.resources.k8s.v1.NodeInfo](#api-resources-k8s-v1-NodeInfo) | repeated |  |
 
 
 
@@ -1374,7 +1147,7 @@ The mode of the upgrade
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| radar | [api.resources.stats.v1.ClusterRadar](#api-resources-stats-v1-ClusterRadar) |  |  |
+| radar | [api.resources.ceph.v1.ClusterRadar](#api-resources-ceph-v1-ClusterRadar) |  |  |
 
 
 
@@ -1399,8 +1172,8 @@ The mode of the upgrade
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| resources | [api.resources.stats.v1.ResourceInfo](#api-resources-stats-v1-ResourceInfo) | repeated |  |
-| deployments | [api.resources.stats.v1.ResourceInfo](#api-resources-stats-v1-ResourceInfo) | repeated |  |
+| resources | [api.resources.k8s.v1.ResourceInfo](#api-resources-k8s-v1-ResourceInfo) | repeated |  |
+| deployments | [api.resources.k8s.v1.ResourceInfo](#api-resources-k8s-v1-ResourceInfo) | repeated |  |
 
 
 
@@ -1425,7 +1198,7 @@ The mode of the upgrade
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| stats | [api.resources.stats.v1.ClusterStats](#api-resources-stats-v1-ClusterStats) |  |  |
+| stats | [api.resources.ceph.v1.ClusterStats](#api-resources-ceph-v1-ClusterStats) |  |  |
 
 
 
@@ -1449,6 +1222,184 @@ The mode of the upgrade
 | GetClusterResources | [GetClusterResourcesRequest](#api-services-stats-v1-GetClusterResourcesRequest) | [GetClusterResourcesResponse](#api-services-stats-v1-GetClusterResourcesResponse) |  |
 | GetClusterNodes | [GetClusterNodesRequest](#api-services-stats-v1-GetClusterNodesRequest) | [GetClusterNodesResponse](#api-services-stats-v1-GetClusterNodesResponse) |  |
 | GetClusterRadar | [GetClusterRadarRequest](#api-services-stats-v1-GetClusterRadarRequest) | [GetClusterRadarResponse](#api-services-stats-v1-GetClusterRadarResponse) |  |
+
+ 
+
+
+
+<a name="api_services_troubleshooting_v1_troubleshooting-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## api/services/troubleshooting/v1/troubleshooting.proto
+
+
+
+<a name="api-services-troubleshooting-v1-CancelNetworkTestRequest"></a>
+
+### CancelNetworkTestRequest
+
+
+
+
+
+
+
+<a name="api-services-troubleshooting-v1-CancelNetworkTestResponse"></a>
+
+### CancelNetworkTestResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| not_running | [bool](#bool) |  |  |
+
+
+
+
+
+
+<a name="api-services-troubleshooting-v1-GetNetworkTestResultsRequest"></a>
+
+### GetNetworkTestResultsRequest
+
+
+
+
+
+
+
+<a name="api-services-troubleshooting-v1-GetNetworkTestResultsResponse"></a>
+
+### GetNetworkTestResultsResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| file_name | [string](#string) |  |  |
+| file_type | [string](#string) |  |  |
+| file_contents | [bytes](#bytes) |  |  |
+
+
+
+
+
+
+<a name="api-services-troubleshooting-v1-GetNetworkTestStatusRequest"></a>
+
+### GetNetworkTestStatusRequest
+
+
+
+
+
+
+
+<a name="api-services-troubleshooting-v1-GetNetworkTestStatusResponse"></a>
+
+### GetNetworkTestStatusResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| running | [bool](#bool) |  |  |
+| complete | [bool](#bool) |  |  |
+| logs | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="api-services-troubleshooting-v1-GetTroubleshootReportRequest"></a>
+
+### GetTroubleshootReportRequest
+
+
+
+
+
+
+
+<a name="api-services-troubleshooting-v1-GetTroubleshootReportResponse"></a>
+
+### GetTroubleshootReportResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| report | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="api-services-troubleshooting-v1-StartNetworkTestRequest"></a>
+
+### StartNetworkTestRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| host_network | [bool](#bool) |  |  |
+| output_format | [NetworkTestOutputFormat](#api-services-troubleshooting-v1-NetworkTestOutputFormat) |  |  |
+
+
+
+
+
+
+<a name="api-services-troubleshooting-v1-StartNetworkTestResponse"></a>
+
+### StartNetworkTestResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| already_running | [bool](#bool) |  |  |
+
+
+
+
+
+ 
+
+
+<a name="api-services-troubleshooting-v1-NetworkTestOutputFormat"></a>
+
+### NetworkTestOutputFormat
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| NETWORK_TEST_OUTPUT_FORMAT_UNSPECIFIED | 0 |  |
+| NETWORK_TEST_OUTPUT_FORMAT_CSV | 1 |  |
+| NETWORK_TEST_OUTPUT_FORMAT_EXCELIZE | 2 |  |
+
+
+ 
+
+ 
+
+
+<a name="api-services-troubleshooting-v1-TroubleshootingService"></a>
+
+### TroubleshootingService
+
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| GetTroubleshootReport | [GetTroubleshootReportRequest](#api-services-troubleshooting-v1-GetTroubleshootReportRequest) | [GetTroubleshootReportResponse](#api-services-troubleshooting-v1-GetTroubleshootReportResponse) |  |
+| GetNetworkTestStatus | [GetNetworkTestStatusRequest](#api-services-troubleshooting-v1-GetNetworkTestStatusRequest) | [GetNetworkTestStatusResponse](#api-services-troubleshooting-v1-GetNetworkTestStatusResponse) |  |
+| StartNetworkTest | [StartNetworkTestRequest](#api-services-troubleshooting-v1-StartNetworkTestRequest) | [StartNetworkTestResponse](#api-services-troubleshooting-v1-StartNetworkTestResponse) |  |
+| CancelNetworkTest | [CancelNetworkTestRequest](#api-services-troubleshooting-v1-CancelNetworkTestRequest) | [CancelNetworkTestResponse](#api-services-troubleshooting-v1-CancelNetworkTestResponse) |  |
+| GetNetworkTestResults | [GetNetworkTestResultsRequest](#api-services-troubleshooting-v1-GetNetworkTestResultsRequest) | [GetNetworkTestResultsResponse](#api-services-troubleshooting-v1-GetNetworkTestResultsResponse) |  |
 
  
 

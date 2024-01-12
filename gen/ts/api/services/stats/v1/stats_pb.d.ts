@@ -5,7 +5,8 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3 } from "@bufbuild/protobuf";
-import type { ClusterRadar, ClusterStats, NodeInfo, ResourceInfo } from "../../../resources/stats/v1/stats_pb.js";
+import type { ClusterRadar, ClusterStats } from "../../../resources/ceph/v1/stats_pb.js";
+import type { NodeInfo, ResourceInfo } from "../../../resources/k8s/v1/resources_pb.js";
 
 /**
  * @generated from message api.services.stats.v1.GetClusterStatsRequest
@@ -31,7 +32,7 @@ export declare class GetClusterStatsRequest extends Message<GetClusterStatsReque
  */
 export declare class GetClusterStatsResponse extends Message<GetClusterStatsResponse> {
   /**
-   * @generated from field: api.resources.stats.v1.ClusterStats stats = 1;
+   * @generated from field: api.resources.ceph.v1.ClusterStats stats = 1;
    */
   stats?: ClusterStats;
 
@@ -74,12 +75,12 @@ export declare class GetClusterResourcesRequest extends Message<GetClusterResour
  */
 export declare class GetClusterResourcesResponse extends Message<GetClusterResourcesResponse> {
   /**
-   * @generated from field: repeated api.resources.stats.v1.ResourceInfo resources = 1;
+   * @generated from field: repeated api.resources.k8s.v1.ResourceInfo resources = 1;
    */
   resources: ResourceInfo[];
 
   /**
-   * @generated from field: repeated api.resources.stats.v1.ResourceInfo deployments = 2;
+   * @generated from field: repeated api.resources.k8s.v1.ResourceInfo deployments = 2;
    */
   deployments: ResourceInfo[];
 
@@ -122,7 +123,7 @@ export declare class GetClusterNodesRequest extends Message<GetClusterNodesReque
  */
 export declare class GetClusterNodesResponse extends Message<GetClusterNodesResponse> {
   /**
-   * @generated from field: repeated api.resources.stats.v1.NodeInfo nodes = 1;
+   * @generated from field: repeated api.resources.k8s.v1.NodeInfo nodes = 1;
    */
   nodes: NodeInfo[];
 
@@ -165,7 +166,7 @@ export declare class GetClusterRadarRequest extends Message<GetClusterRadarReque
  */
 export declare class GetClusterRadarResponse extends Message<GetClusterRadarResponse> {
   /**
-   * @generated from field: api.resources.stats.v1.ClusterRadar radar = 1;
+   * @generated from field: api.resources.ceph.v1.ClusterRadar radar = 1;
    */
   radar?: ClusterRadar;
 

@@ -6,58 +6,11 @@ import (
 	"math"
 
 	"connectrpc.com/connect"
-	"github.com/gin-gonic/gin"
-	statsv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/stats/v1"
+	cephv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/ceph/v1"
+	k8sv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/k8s/v1"
 	statspb "github.com/koor-tech/data-control-center/gen/go/api/services/stats/v1"
-	"github.com/koor-tech/data-control-center/gen/go/api/services/stats/v1/statsv1connect"
-	cephcache "github.com/koor-tech/data-control-center/pkg/ceph/cache"
-	"github.com/koor-tech/data-control-center/pkg/config"
-	"github.com/koor-tech/data-control-center/pkg/grpc/auth"
-	k8scache "github.com/koor-tech/data-control-center/pkg/k8s/cache"
-	"go.uber.org/fx"
-	"go.uber.org/zap"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
-
-// Server is used to implement stats services.
-type Server struct {
-	statsv1connect.StatsServiceHandler
-
-	readOnly  bool
-	logger    *zap.Logger
-	auth      *auth.GRPCAuth
-	ceph      *cephcache.Cache
-	k         *k8scache.Cache
-	Namespace string
-}
-
-type Params struct {
-	fx.In
-
-	Logger   *zap.Logger
-	GrpcAuth *auth.GRPCAuth
-	K8S      *k8scache.Cache
-	Ceph     *cephcache.Cache
-	Cfg      *config.Config
-}
-
-func New(p Params) (*Server, error) {
-	return &Server{
-		readOnly:  p.Cfg.ReadOnly,
-		logger:    p.Logger,
-		auth:      p.GrpcAuth,
-		ceph:      p.Ceph,
-		k:         p.K8S,
-		Namespace: p.Cfg.Namespace,
-	}, nil
-}
-
-func (s *Server) RegisterService(g *gin.RouterGroup) {
-	path, handler := statsv1connect.NewStatsServiceHandler(s, connect.WithInterceptors(
-		s.auth.NewAuthInterceptor(),
-	))
-	g.Any(path+"/*path", gin.WrapH(handler))
-}
 
 func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[statspb.GetClusterStatsRequest]) (*connect.Response[statspb.GetClusterStatsResponse], error) {
 	st, _ := s.ceph.GetHealthFull(ctx)
@@ -109,58 +62,58 @@ func (s *Server) GetClusterStats(ctx context.Context, req *connect.Request[stats
 	volumes := len(blockImages)
 
 	resp := &statspb.GetClusterStatsResponse{
-		Stats: &statsv1.ClusterStats{
+		Stats: &cephv1.ClusterStats{
 			Id:      st.MonStatus.Monmap.Fsid,
 			Status:  st.ClusterHealthStatus(),
 			Crashes: st.Crashes(),
-			Services: &statsv1.Services{
-				Mon: &statsv1.MonService{
+			Services: &cephv1.Services{
+				Mon: &cephv1.MonService{
 					DaemonCount:  int32(len(st.MonStatus.Monmap.Mons)),
 					Quorum:       monNames,
 					CreatedSince: timestamppb.New(st.MonStatus.Monmap.Created),
 					UpdatedSince: timestamppb.New(st.MonStatus.Monmap.Modified),
 				},
-				Mgr: &statsv1.MgrService{
+				Mgr: &cephv1.MgrService{
 					Active:       st.MgrMap.ActiveName,
 					Standbys:     standBys,
 					UpdatedSince: timestamppb.New(st.MgrMap.ActiveChange.Time),
 				},
-				Mds: &statsv1.MdsService{
+				Mds: &cephv1.MdsService{
 					DaemonsUp:       int32(daemonsUp),
 					HotStandbyCount: int32(standbyCountWanted),
 				},
-				Osd: &statsv1.OsdService{
+				Osd: &cephv1.OsdService{
 					OsdCount:          int32(osdCount),
 					OsdUp:             int32(osdUp),
 					OsdIn:             int32(osdIn),
 					OsdInUpdatedSince: timestamppb.New(st.OsdMap.LastInChange.Time),
 					OsdUpUpdatedSince: timestamppb.New(st.OsdMap.LastUpChange.Time),
 				},
-				Rgw: &statsv1.RgwService{
+				Rgw: &cephv1.RgwService{
 					ActiveDaemon: int32(st.Rgw),
 					HostCount:    int32(st.Hosts),
 					ZoneCount:    1, // TODO still figuring out https://linear.app/koorinc/issue/KSD-290/
 				},
 			},
-			Data: &statsv1.Data{
+			Data: &cephv1.Data{
 				Volumes: int32(volumes),
-				Pools: &statsv1.Pools{
+				Pools: &cephv1.Pools{
 					Pools: int32(poolCount),
-					Pgs: &statsv1.PGs{
+					Pgs: &cephv1.PGs{
 						ActiveClean: int32(activeAndCleanPGs),
 					},
 				},
-				Objects: &statsv1.Objects{
+				Objects: &cephv1.Objects{
 					ObjectCount: int32(st.PGInfo.ObjectStats.NumObjects),
 					Size:        st.ObjectSize(),
 				},
-				Usage: &statsv1.Usage{
+				Usage: &cephv1.Usage{
 					Used:      st.DF.Stats.TotalUsedBytes,
 					Available: st.DF.Stats.TotalAvailBytes,
 					Total:     st.DF.Stats.TotalBytes,
 				},
 			},
-			Iops: &statsv1.IOPS{
+			Iops: &cephv1.IOPS{
 				ClientRead:     int64(st.ClientPerf.ReadBytesSec),
 				ClientWrite:    int64(st.ClientPerf.WriteBytesSec),
 				ClientReadOps:  int64(st.ClientPerf.ReadOpPerSec),
@@ -219,7 +172,7 @@ func (s *Server) GetClusterNodes(ctx context.Context, req *connect.Request[stats
 }
 
 func (s *Server) GetClusterRadar(ctx context.Context, req *connect.Request[statspb.GetClusterRadarRequest]) (*connect.Response[statspb.GetClusterRadarResponse], error) {
-	radar := &statsv1.ClusterRadar{}
+	radar := &cephv1.ClusterRadar{}
 
 	// Cluster Health
 	cephStatus, _ := s.ceph.GetHealthFull(ctx)
@@ -231,7 +184,7 @@ func (s *Server) GetClusterRadar(ctx context.Context, req *connect.Request[stats
 	totalNodes := len(nodes)
 	healthyNodes := 0
 	for _, node := range nodes {
-		if node.Status == statsv1.ResourceStatus_RESOURCE_STATUS_READY {
+		if node.Status == k8sv1.ResourceStatus_RESOURCE_STATUS_READY {
 			healthyNodes++
 		}
 	}

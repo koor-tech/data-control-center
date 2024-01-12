@@ -5,7 +5,7 @@ package api.services.auth.v1;
 import "google/protobuf/timestamp.proto";
 import "validate/validate.proto";
 
-option go_package = "github.com/koor-tech/data-control-center/gen/go/api/services/auth;auth";
+option go_package = "github.com/koor-tech/data-control-center/gen/go/api/services/auth";
 
 message LoginRequest {
   string username = 1 [(validate.rules).string = {

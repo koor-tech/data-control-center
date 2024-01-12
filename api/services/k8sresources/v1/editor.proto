@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package api.services.k8sresources.v1;
+
+import "api/resources/k8s/v1/resources.proto";
+
+option go_package = "github.com/koor-tech/data-control-center/gen/go/api/services/k8sresources";
+
+message GetResourcesResponse {
+  api.resources.k8s.v1.Resources resources = 1;
+}
+
+message GetResourcesRequest{}
+
+message SaveResourcesRequest {
+  api.resources.k8s.v1.Resource resource = 1;
+}
+
+message SaveResourcesResponse{
+  api.resources.k8s.v1.Resource resource = 1;
+}
+
+service K8sResourcesService {
+  rpc GetResources(GetResourcesRequest) returns (GetResourcesResponse) {}
+  rpc SaveResources(SaveResourcesRequest) returns (SaveResourcesResponse) {}
+}

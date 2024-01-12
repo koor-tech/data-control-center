@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package api.services.controls.v1;
+
+import "api/resources/ceph/v1/controls.proto";
+
+option go_package = "github.com/koor-tech/data-control-center/gen/go/api/services/controls";
+
+message GetScrubbingScheduleRequest {}
+
+message GetScrubbingScheduleResponse {
+  api.resources.ceph.v1.OSDScrubbingSchedule osd_scrubbing_schedule = 1;
+}
+
+message SetScrubbingScheduleRequest {
+  api.resources.ceph.v1.OSDScrubbingSchedule osd_scrubbing_schedule = 1;
+}
+
+message SetScrubbingScheduleResponse {
+  api.resources.ceph.v1.OSDScrubbingSchedule osd_scrubbing_schedule = 1;
+}
+
+service OSDsService {
+  rpc GetScrubbingSchedule(GetScrubbingScheduleRequest) returns (GetScrubbingScheduleResponse) {}
+  rpc SetScrubbingSchedule(SetScrubbingScheduleRequest) returns (SetScrubbingScheduleResponse) {}
+}

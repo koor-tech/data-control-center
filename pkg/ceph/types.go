@@ -5,7 +5,7 @@ import (
 	"errors"
 	"time"
 
-	statsv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/stats/v1"
+	cephv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/ceph/v1"
 )
 
 type Summary struct {
@@ -208,27 +208,27 @@ func (hs *HealthStatus) ClusterHealth() float32 {
 	}
 }
 
-func (hs *HealthStatus) ClusterHealthStatus() statsv1.ClusterHealth {
-	clusterHealthStatus := statsv1.ClusterHealth_CLUSTER_HEALTH_OFFLINE
+func (hs *HealthStatus) ClusterHealthStatus() cephv1.ClusterHealth {
+	clusterHealthStatus := cephv1.ClusterHealth_CLUSTER_HEALTH_OFFLINE
 	switch hs.Health.Status {
 	case "HEALTH_OK":
-		clusterHealthStatus = statsv1.ClusterHealth_CLUSTER_HEALTH_OK
+		clusterHealthStatus = cephv1.ClusterHealth_CLUSTER_HEALTH_OK
 	case "HEALTH_WARN":
-		clusterHealthStatus = statsv1.ClusterHealth_CLUSTER_HEALTH_WARN
+		clusterHealthStatus = cephv1.ClusterHealth_CLUSTER_HEALTH_WARN
 	case "HEALTH_ERR":
 		fallthrough
 	default:
-		clusterHealthStatus = statsv1.ClusterHealth_CLUSTER_HEALTH_ERR
+		clusterHealthStatus = cephv1.ClusterHealth_CLUSTER_HEALTH_ERR
 	}
 
 	return clusterHealthStatus
 }
 
-func (hs *HealthStatus) Crashes() []*statsv1.Crash {
-	var crashes []*statsv1.Crash
+func (hs *HealthStatus) Crashes() []*cephv1.Crash {
+	var crashes []*cephv1.Crash
 
 	for _, check := range hs.Health.Checks {
-		crashes = append(crashes, &statsv1.Crash{Description: check.Summary.Message})
+		crashes = append(crashes, &cephv1.Crash{Description: check.Summary.Message})
 	}
 	return crashes
 }

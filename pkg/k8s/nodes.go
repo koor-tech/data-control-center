@@ -4,20 +4,20 @@ import (
 	"context"
 	"strings"
 
-	statsv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/stats/v1"
+	k8sv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/k8s/v1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	kubectldescribe "k8s.io/kubectl/pkg/describe"
 )
 
-func (k *K8s) transformNodeIntoNodeInfo(node *corev1.Node) *statsv1.NodeInfo {
-	status := statsv1.ResourceStatus_RESOURCE_STATUS_UNKNOWN
+func (k *K8s) transformNodeIntoNodeInfo(node *corev1.Node) *k8sv1.NodeInfo {
+	status := k8sv1.ResourceStatus_RESOURCE_STATUS_UNKNOWN
 	for _, cond := range node.Status.Conditions {
 		if cond.Type == corev1.NodeReady {
 			if cond.Status == "True" {
-				status = statsv1.ResourceStatus_RESOURCE_STATUS_READY
+				status = k8sv1.ResourceStatus_RESOURCE_STATUS_READY
 			} else {
-				status = statsv1.ResourceStatus_RESOURCE_STATUS_NOT_READY
+				status = k8sv1.ResourceStatus_RESOURCE_STATUS_NOT_READY
 			}
 			break
 		}
@@ -51,7 +51,7 @@ func (k *K8s) transformNodeIntoNodeInfo(node *corev1.Node) *statsv1.NodeInfo {
 		}
 	}
 
-	return &statsv1.NodeInfo{
+	return &k8sv1.NodeInfo{
 		Name:       node.Name,
 		Roles:      roles,
 		InternalIp: internalIP,
@@ -60,7 +60,7 @@ func (k *K8s) transformNodeIntoNodeInfo(node *corev1.Node) *statsv1.NodeInfo {
 	}
 }
 
-func (k *K8s) GetStorageNodes(ctx context.Context, namespace string) ([]*statsv1.NodeInfo, error) {
+func (k *K8s) GetStorageNodes(ctx context.Context, namespace string) ([]*k8sv1.NodeInfo, error) {
 	pods, err := k.client.CoreV1().Pods(namespace).List(ctx, metav1.ListOptions{
 		LabelSelector: RookCephPodsLabel,
 	})
@@ -77,7 +77,7 @@ func (k *K8s) GetStorageNodes(ctx context.Context, namespace string) ([]*statsv1
 		}
 	}
 
-	storageNodes := []*statsv1.NodeInfo{}
+	storageNodes := []*k8sv1.NodeInfo{}
 	for nodeName := range nodes {
 		node, err := k.client.CoreV1().Nodes().Get(ctx, nodeName, metav1.GetOptions{})
 		if err != nil {

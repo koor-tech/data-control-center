@@ -19,10 +19,10 @@ export const useCephStore = defineStore('ceph', {
         }) as CephState,
     persist: false,
     actions: {
-        async getCephUsers(): Promise<User[]> {
+        async listCephUsers(): Promise<User[]> {
             const { $grpc } = useNuxtApp();
             try {
-                const resp = await $grpc.getCephUsers().getCephUsers({});
+                const resp = await $grpc.listCephUsers().listCephUsers({});
 
                 return resp.cephUsers;
             } catch (e) {
@@ -48,7 +48,7 @@ export const useCephStore = defineStore('ceph', {
                         roles: [rol],
                     },
                 } as CreateCephUserRequest;
-                const resp = await $grpc.getCephUsers().createCephUser(createUser);
+                const resp = await $grpc.listCephUsers().createCephUser(createUser);
 
                 return resp;
             } catch (e) {
@@ -62,7 +62,7 @@ export const useCephStore = defineStore('ceph', {
                 const deleteUser = {
                     username,
                 } as DeleteCephUserRequest;
-                return await $grpc.getCephUsers().deleteCephUser(deleteUser);
+                return await $grpc.listCephUsers().deleteCephUser(deleteUser);
             } catch (e) {
                 if (e instanceof ConnectError) $grpc.handleError(e as ConnectError);
                 throw e;

@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package api.resources.versionservice.v1;
+
+import "validate/validate.proto";
+
+option go_package = "github.com/koor-tech/data-control-center/gen/go/api/resources/versionservice";
+
+/*
+ * Koor Operator Options
+ */
+// Represents a map of products to version strings.
+message ProductVersions {
+  // Kubernetes version, must be a valid semver.
+  string kube = 1 [(validate.rules).string.pattern = "^v?\\d+(?:\\.\\d+){0,2}(?:\\-\\d+)?$"];
+
+  // Koor Operator version, must be a valid semver.
+  string koor_operator = 2 [(validate.rules).string.pattern = "^v?\\d+(?:\\.\\d+){0,2}(?:\\-\\d+)?$"];
+
+  // Koor Storage Distribution version, must be a valid semver.
+  string ksd = 3 [(validate.rules).string.pattern = "^v?\\d+(?:\\.\\d+){0,2}(?:\\-\\d+)?$"];
+
+  // Ceph version, must be a valid semver.
+  string ceph = 4 [(validate.rules).string.pattern = "^v?\\d+(?:\\.\\d+){0,2}(?:\\-\\d+)?$"];
+}
+
+// Defines a detailed version of a product, which includes a container image or a helm chart.
+message DetailedVersion {
+  // The product version, must be a valid semver.
+  string version = 1 [(validate.rules).string.pattern = "^v?\\d+(?:\\.\\d+){0,2}(?:\\-\\d+)?$"];
+
+  // The URI of the container image.
+  string image_uri = 2 [(validate.rules).string.uri = true];
+
+  // The hash of the container image.
+  string image_hash = 3;
+
+  // The URI of the helm repository.
+  string helm_repository = 4 [(validate.rules).string.uri = true];
+
+  // The name of the helm chart in the repository.
+  string helm_chart = 5;
+}
+
+// Represents a map of products to detailed versions, which include images or helm charts.
+message DetailedProductVersions {
+  DetailedVersion koor_operator = 1; // The detailed Koor Operator version.
+  DetailedVersion ksd = 2; // The detailed Koor Storage Distribution version.
+  DetailedVersion ceph = 3; // The detailed Ceph version.
+}
+
+// The mode of the upgrade
+enum UpgradeMode {
+  UPGRADE_MODE_UNSPECIFIED = 0;
+  UPGRADE_MODE_DISABLED = 1; // Disable upgrades
+  UPGRADE_MODE_NOTIFY = 2; // Notify about new upgrades but do not apply them
+  UPGRADE_MODE_UPGRADE = 3; // Notify about new upgrades and apply them
+}
+
+message UpgradeOptions {
+  UpgradeMode mode = 1; // Upgrade mode
+  string endpoint = 2; // The api endpoint used to find the ceph latest version
+
+  /*
+   * The schedule to check for new versions. Uses CRON format as specified by https://github.com/robfig/cron/tree/v3.
+   * Defaults to everyday at midnight in the local timezone.
+   * To change the timezone, prefix the schedule with CRON_TZ=<Timezone>.
+   * For example: "CRON_TZ=UTC 0 0 * * *" is midnight UTC.
+   */
+  string schedule = 3;
+}
