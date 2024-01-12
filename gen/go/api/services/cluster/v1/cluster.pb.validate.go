@@ -1325,6 +1325,241 @@ var _ interface {
 	ErrorName() string
 } = GetNetworkTestResultsResponseValidationError{}
 
+// Validate checks the field values on GetScrubbingScheduleRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetScrubbingScheduleRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetScrubbingScheduleRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetScrubbingScheduleRequestMultiError, or nil if none found.
+func (m *GetScrubbingScheduleRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetScrubbingScheduleRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return GetScrubbingScheduleRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetScrubbingScheduleRequestMultiError is an error wrapping multiple
+// validation errors returned by GetScrubbingScheduleRequest.ValidateAll() if
+// the designated constraints aren't met.
+type GetScrubbingScheduleRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetScrubbingScheduleRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetScrubbingScheduleRequestMultiError) AllErrors() []error { return m }
+
+// GetScrubbingScheduleRequestValidationError is the validation error returned
+// by GetScrubbingScheduleRequest.Validate if the designated constraints
+// aren't met.
+type GetScrubbingScheduleRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetScrubbingScheduleRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetScrubbingScheduleRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetScrubbingScheduleRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetScrubbingScheduleRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetScrubbingScheduleRequestValidationError) ErrorName() string {
+	return "GetScrubbingScheduleRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetScrubbingScheduleRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetScrubbingScheduleRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetScrubbingScheduleRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetScrubbingScheduleRequestValidationError{}
+
+// Validate checks the field values on GetScrubbingScheduleResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetScrubbingScheduleResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetScrubbingScheduleResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetScrubbingScheduleResponseMultiError, or nil if none found.
+func (m *GetScrubbingScheduleResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetScrubbingScheduleResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetOsdScrubbingSchedule()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetScrubbingScheduleResponseValidationError{
+					field:  "OsdScrubbingSchedule",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetScrubbingScheduleResponseValidationError{
+					field:  "OsdScrubbingSchedule",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetOsdScrubbingSchedule()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetScrubbingScheduleResponseValidationError{
+				field:  "OsdScrubbingSchedule",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetScrubbingScheduleResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetScrubbingScheduleResponseMultiError is an error wrapping multiple
+// validation errors returned by GetScrubbingScheduleResponse.ValidateAll() if
+// the designated constraints aren't met.
+type GetScrubbingScheduleResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetScrubbingScheduleResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetScrubbingScheduleResponseMultiError) AllErrors() []error { return m }
+
+// GetScrubbingScheduleResponseValidationError is the validation error returned
+// by GetScrubbingScheduleResponse.Validate if the designated constraints
+// aren't met.
+type GetScrubbingScheduleResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetScrubbingScheduleResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetScrubbingScheduleResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetScrubbingScheduleResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetScrubbingScheduleResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetScrubbingScheduleResponseValidationError) ErrorName() string {
+	return "GetScrubbingScheduleResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetScrubbingScheduleResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetScrubbingScheduleResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetScrubbingScheduleResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetScrubbingScheduleResponseValidationError{}
+
 // Validate checks the field values on SetScrubbingScheduleRequest with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.

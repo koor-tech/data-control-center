@@ -76,6 +76,7 @@ export const useAuthStore = defineStore('auth', {
         },
         async doLogout(): Promise<void> {
             const { $grpc } = useNuxtApp();
+
             try {
                 await $grpc.getAuthClient().logout({});
                 this.clearAuthInfo();

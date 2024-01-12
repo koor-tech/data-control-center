@@ -136,6 +136,24 @@ export const GetNetworkTestResultsResponse = proto3.makeMessageType(
 );
 
 /**
+ * @generated from message api.services.cluster.v1.GetScrubbingScheduleRequest
+ */
+export const GetScrubbingScheduleRequest = proto3.makeMessageType(
+  "api.services.cluster.v1.GetScrubbingScheduleRequest",
+  [],
+);
+
+/**
+ * @generated from message api.services.cluster.v1.GetScrubbingScheduleResponse
+ */
+export const GetScrubbingScheduleResponse = proto3.makeMessageType(
+  "api.services.cluster.v1.GetScrubbingScheduleResponse",
+  () => [
+    { no: 1, name: "osd_scrubbing_schedule", kind: "message", T: OSDScrubbingSchedule },
+  ],
+);
+
+/**
  * @generated from message api.services.cluster.v1.SetScrubbingScheduleRequest
  */
 export const SetScrubbingScheduleRequest = proto3.makeMessageType(

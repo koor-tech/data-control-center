@@ -2,6 +2,7 @@ package k8s
 
 import (
 	"context"
+
 	koorv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/ceph/v1"
 	statsv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/stats/v1"
 	cephv1 "github.com/rook/rook/pkg/apis/ceph.rook.io/v1"
@@ -205,11 +206,10 @@ func (k *K8s) GetYamlCephResources(ctx context.Context, namespace string) ([]Res
 }
 
 func (k *K8s) SaveResource(ctx context.Context, resource *koorv1.Resource) error {
-	var (
-		object *unstructured.Unstructured
-		err    error
-	)
-	err = yaml.Unmarshal([]byte(resource.Content), &object)
+	var object *unstructured.Unstructured
+	if err := yaml.Unmarshal([]byte(resource.Content), &object); err != nil {
+		return err
+	}
 
 	resourceId := schema.GroupVersionResource{
 		Group:    cephGroupResource,

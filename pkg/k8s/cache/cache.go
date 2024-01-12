@@ -13,7 +13,6 @@ import (
 	"go.uber.org/fx"
 	"go.uber.org/multierr"
 	"go.uber.org/zap"
-	"k8s.io/apimachinery/pkg/api/errors"
 )
 
 var Module = fx.Module("k8s_cache",
@@ -145,21 +144,6 @@ func (c *Cache) run(ctx context.Context) error {
 			return
 		}
 		c.cephResources.Set(resources)
-	}()
-
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		cluster, err := c.k8s.GetKoorCluster(ctx, c.namespace)
-		if err != nil {
-			// Ignore if the cluster doesn't have the koor-operator CRDs already
-			if !errors.IsNotFound(err) {
-				c.logger.Error("failed to update koor cluster cache", zap.Error(err))
-				errs = multierr.Append(errs, err)
-			}
-			return
-		}
-		c.koorCluster.Set(cluster)
 	}()
 
 	wg.Wait()

@@ -318,6 +318,49 @@ export declare class GetNetworkTestResultsResponse extends Message<GetNetworkTes
 }
 
 /**
+ * @generated from message api.services.cluster.v1.GetScrubbingScheduleRequest
+ */
+export declare class GetScrubbingScheduleRequest extends Message<GetScrubbingScheduleRequest> {
+  constructor(data?: PartialMessage<GetScrubbingScheduleRequest>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "api.services.cluster.v1.GetScrubbingScheduleRequest";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetScrubbingScheduleRequest;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetScrubbingScheduleRequest;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetScrubbingScheduleRequest;
+
+  static equals(a: GetScrubbingScheduleRequest | PlainMessage<GetScrubbingScheduleRequest> | undefined, b: GetScrubbingScheduleRequest | PlainMessage<GetScrubbingScheduleRequest> | undefined): boolean;
+}
+
+/**
+ * @generated from message api.services.cluster.v1.GetScrubbingScheduleResponse
+ */
+export declare class GetScrubbingScheduleResponse extends Message<GetScrubbingScheduleResponse> {
+  /**
+   * @generated from field: api.resources.ceph.v1.OSDScrubbingSchedule osd_scrubbing_schedule = 1;
+   */
+  osdScrubbingSchedule?: OSDScrubbingSchedule;
+
+  constructor(data?: PartialMessage<GetScrubbingScheduleResponse>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "api.services.cluster.v1.GetScrubbingScheduleResponse";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetScrubbingScheduleResponse;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetScrubbingScheduleResponse;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetScrubbingScheduleResponse;
+
+  static equals(a: GetScrubbingScheduleResponse | PlainMessage<GetScrubbingScheduleResponse> | undefined, b: GetScrubbingScheduleResponse | PlainMessage<GetScrubbingScheduleResponse> | undefined): boolean;
+}
+
+/**
  * @generated from message api.services.cluster.v1.SetScrubbingScheduleRequest
  */
 export declare class SetScrubbingScheduleRequest extends Message<SetScrubbingScheduleRequest> {

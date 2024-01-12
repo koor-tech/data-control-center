@@ -62,6 +62,7 @@ func convertKoorCluster(koorCluster *kopv1.KoorCluster) *koorv1.KoorCluster {
 			Ceph:         convertDetailedVersion(koorCluster.Status.LatestVersions.Ceph),
 		}
 	}
+
 	return res
 }
 

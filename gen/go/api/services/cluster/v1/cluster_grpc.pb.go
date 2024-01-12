@@ -25,6 +25,7 @@ const (
 	ClusterService_StartNetworkTest_FullMethodName      = "/api.services.cluster.v1.ClusterService/StartNetworkTest"
 	ClusterService_CancelNetworkTest_FullMethodName     = "/api.services.cluster.v1.ClusterService/CancelNetworkTest"
 	ClusterService_GetNetworkTestResults_FullMethodName = "/api.services.cluster.v1.ClusterService/GetNetworkTestResults"
+	ClusterService_GetScrubbingSchedule_FullMethodName  = "/api.services.cluster.v1.ClusterService/GetScrubbingSchedule"
 	ClusterService_SetScrubbingSchedule_FullMethodName  = "/api.services.cluster.v1.ClusterService/SetScrubbingSchedule"
 	ClusterService_GetResources_FullMethodName          = "/api.services.cluster.v1.ClusterService/GetResources"
 	ClusterService_SaveResources_FullMethodName         = "/api.services.cluster.v1.ClusterService/SaveResources"
@@ -40,6 +41,7 @@ type ClusterServiceClient interface {
 	StartNetworkTest(ctx context.Context, in *StartNetworkTestRequest, opts ...grpc.CallOption) (*StartNetworkTestResponse, error)
 	CancelNetworkTest(ctx context.Context, in *CancelNetworkTestRequest, opts ...grpc.CallOption) (*CancelNetworkTestResponse, error)
 	GetNetworkTestResults(ctx context.Context, in *GetNetworkTestResultsRequest, opts ...grpc.CallOption) (*GetNetworkTestResultsResponse, error)
+	GetScrubbingSchedule(ctx context.Context, in *GetScrubbingScheduleRequest, opts ...grpc.CallOption) (*GetScrubbingScheduleResponse, error)
 	SetScrubbingSchedule(ctx context.Context, in *SetScrubbingScheduleRequest, opts ...grpc.CallOption) (*SetScrubbingScheduleResponse, error)
 	GetResources(ctx context.Context, in *GetResourcesRequest, opts ...grpc.CallOption) (*GetResourcesResponse, error)
 	SaveResources(ctx context.Context, in *SaveResourcesRequest, opts ...grpc.CallOption) (*SaveResourcesResponse, error)
@@ -107,6 +109,15 @@ func (c *clusterServiceClient) GetNetworkTestResults(ctx context.Context, in *Ge
 	return out, nil
 }
 
+func (c *clusterServiceClient) GetScrubbingSchedule(ctx context.Context, in *GetScrubbingScheduleRequest, opts ...grpc.CallOption) (*GetScrubbingScheduleResponse, error) {
+	out := new(GetScrubbingScheduleResponse)
+	err := c.cc.Invoke(ctx, ClusterService_GetScrubbingSchedule_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *clusterServiceClient) SetScrubbingSchedule(ctx context.Context, in *SetScrubbingScheduleRequest, opts ...grpc.CallOption) (*SetScrubbingScheduleResponse, error) {
 	out := new(SetScrubbingScheduleResponse)
 	err := c.cc.Invoke(ctx, ClusterService_SetScrubbingSchedule_FullMethodName, in, out, opts...)
@@ -144,6 +155,7 @@ type ClusterServiceServer interface {
 	StartNetworkTest(context.Context, *StartNetworkTestRequest) (*StartNetworkTestResponse, error)
 	CancelNetworkTest(context.Context, *CancelNetworkTestRequest) (*CancelNetworkTestResponse, error)
 	GetNetworkTestResults(context.Context, *GetNetworkTestResultsRequest) (*GetNetworkTestResultsResponse, error)
+	GetScrubbingSchedule(context.Context, *GetScrubbingScheduleRequest) (*GetScrubbingScheduleResponse, error)
 	SetScrubbingSchedule(context.Context, *SetScrubbingScheduleRequest) (*SetScrubbingScheduleResponse, error)
 	GetResources(context.Context, *GetResourcesRequest) (*GetResourcesResponse, error)
 	SaveResources(context.Context, *SaveResourcesRequest) (*SaveResourcesResponse, error)
@@ -170,6 +182,9 @@ func (UnimplementedClusterServiceServer) CancelNetworkTest(context.Context, *Can
 }
 func (UnimplementedClusterServiceServer) GetNetworkTestResults(context.Context, *GetNetworkTestResultsRequest) (*GetNetworkTestResultsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetNetworkTestResults not implemented")
+}
+func (UnimplementedClusterServiceServer) GetScrubbingSchedule(context.Context, *GetScrubbingScheduleRequest) (*GetScrubbingScheduleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetScrubbingSchedule not implemented")
 }
 func (UnimplementedClusterServiceServer) SetScrubbingSchedule(context.Context, *SetScrubbingScheduleRequest) (*SetScrubbingScheduleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetScrubbingSchedule not implemented")
@@ -300,6 +315,24 @@ func _ClusterService_GetNetworkTestResults_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ClusterService_GetScrubbingSchedule_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetScrubbingScheduleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ClusterServiceServer).GetScrubbingSchedule(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ClusterService_GetScrubbingSchedule_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ClusterServiceServer).GetScrubbingSchedule(ctx, req.(*GetScrubbingScheduleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _ClusterService_SetScrubbingSchedule_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SetScrubbingScheduleRequest)
 	if err := dec(in); err != nil {
@@ -384,6 +417,10 @@ var ClusterService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetNetworkTestResults",
 			Handler:    _ClusterService_GetNetworkTestResults_Handler,
+		},
+		{
+			MethodName: "GetScrubbingSchedule",
+			Handler:    _ClusterService_GetScrubbingSchedule_Handler,
 		},
 		{
 			MethodName: "SetScrubbingSchedule",

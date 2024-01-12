@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { CancelNetworkTestRequest, CancelNetworkTestResponse, GetKoorClusterRequest, GetKoorClusterResponse, GetNetworkTestResultsRequest, GetNetworkTestResultsResponse, GetNetworkTestStatusRequest, GetNetworkTestStatusResponse, GetResourcesRequest, GetResourcesResponse, GetTroubleshootReportRequest, GetTroubleshootReportResponse, SaveResourcesRequest, SaveResourcesResponse, SetScrubbingScheduleRequest, SetScrubbingScheduleResponse, StartNetworkTestRequest, StartNetworkTestResponse } from "./cluster_pb.js";
+import { CancelNetworkTestRequest, CancelNetworkTestResponse, GetKoorClusterRequest, GetKoorClusterResponse, GetNetworkTestResultsRequest, GetNetworkTestResultsResponse, GetNetworkTestStatusRequest, GetNetworkTestStatusResponse, GetResourcesRequest, GetResourcesResponse, GetScrubbingScheduleRequest, GetScrubbingScheduleResponse, GetTroubleshootReportRequest, GetTroubleshootReportResponse, SaveResourcesRequest, SaveResourcesResponse, SetScrubbingScheduleRequest, SetScrubbingScheduleResponse, StartNetworkTestRequest, StartNetworkTestResponse } from "./cluster_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -64,6 +64,15 @@ export declare const ClusterService: {
       readonly name: "GetNetworkTestResults",
       readonly I: typeof GetNetworkTestResultsRequest,
       readonly O: typeof GetNetworkTestResultsResponse,
+      readonly kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc api.services.cluster.v1.ClusterService.GetScrubbingSchedule
+     */
+    readonly getScrubbingSchedule: {
+      readonly name: "GetScrubbingSchedule",
+      readonly I: typeof GetScrubbingScheduleRequest,
+      readonly O: typeof GetScrubbingScheduleResponse,
       readonly kind: MethodKind.Unary,
     },
     /**

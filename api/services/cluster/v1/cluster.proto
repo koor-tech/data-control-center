@@ -58,6 +58,12 @@ message GetNetworkTestResultsResponse {
   bytes file_contents = 3;
 }
 
+message GetScrubbingScheduleRequest {}
+
+message GetScrubbingScheduleResponse {
+  api.resources.ceph.v1.OSDScrubbingSchedule osd_scrubbing_schedule = 1;
+}
+
 message SetScrubbingScheduleRequest {
   api.resources.ceph.v1.OSDScrubbingSchedule osd_scrubbing_schedule = 1;
 }
@@ -89,6 +95,7 @@ service ClusterService {
   rpc CancelNetworkTest(CancelNetworkTestRequest) returns (CancelNetworkTestResponse) {}
   rpc GetNetworkTestResults(GetNetworkTestResultsRequest) returns (GetNetworkTestResultsResponse) {}
 
+  rpc GetScrubbingSchedule(GetScrubbingScheduleRequest) returns (GetScrubbingScheduleResponse) {}
   rpc SetScrubbingSchedule(SetScrubbingScheduleRequest) returns (SetScrubbingScheduleResponse) {}
 
   rpc GetResources(GetResourcesRequest) returns (GetResourcesResponse) {}

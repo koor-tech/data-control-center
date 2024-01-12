@@ -79,6 +79,8 @@
     - [GetNetworkTestStatusResponse](#api-services-cluster-v1-GetNetworkTestStatusResponse)
     - [GetResourcesRequest](#api-services-cluster-v1-GetResourcesRequest)
     - [GetResourcesResponse](#api-services-cluster-v1-GetResourcesResponse)
+    - [GetScrubbingScheduleRequest](#api-services-cluster-v1-GetScrubbingScheduleRequest)
+    - [GetScrubbingScheduleResponse](#api-services-cluster-v1-GetScrubbingScheduleResponse)
     - [GetTroubleshootReportRequest](#api-services-cluster-v1-GetTroubleshootReportRequest)
     - [GetTroubleshootReportResponse](#api-services-cluster-v1-GetTroubleshootReportResponse)
     - [SaveResourcesRequest](#api-services-cluster-v1-SaveResourcesRequest)
@@ -1140,6 +1142,31 @@ The mode of the upgrade
 
 
 
+<a name="api-services-cluster-v1-GetScrubbingScheduleRequest"></a>
+
+### GetScrubbingScheduleRequest
+
+
+
+
+
+
+
+<a name="api-services-cluster-v1-GetScrubbingScheduleResponse"></a>
+
+### GetScrubbingScheduleResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| osd_scrubbing_schedule | [api.resources.ceph.v1.OSDScrubbingSchedule](#api-resources-ceph-v1-OSDScrubbingSchedule) |  |  |
+
+
+
+
+
+
 <a name="api-services-cluster-v1-GetTroubleshootReportRequest"></a>
 
 ### GetTroubleshootReportRequest
@@ -1288,6 +1315,7 @@ The mode of the upgrade
 | StartNetworkTest | [StartNetworkTestRequest](#api-services-cluster-v1-StartNetworkTestRequest) | [StartNetworkTestResponse](#api-services-cluster-v1-StartNetworkTestResponse) |  |
 | CancelNetworkTest | [CancelNetworkTestRequest](#api-services-cluster-v1-CancelNetworkTestRequest) | [CancelNetworkTestResponse](#api-services-cluster-v1-CancelNetworkTestResponse) |  |
 | GetNetworkTestResults | [GetNetworkTestResultsRequest](#api-services-cluster-v1-GetNetworkTestResultsRequest) | [GetNetworkTestResultsResponse](#api-services-cluster-v1-GetNetworkTestResultsResponse) |  |
+| GetScrubbingSchedule | [GetScrubbingScheduleRequest](#api-services-cluster-v1-GetScrubbingScheduleRequest) | [GetScrubbingScheduleResponse](#api-services-cluster-v1-GetScrubbingScheduleResponse) |  |
 | SetScrubbingSchedule | [SetScrubbingScheduleRequest](#api-services-cluster-v1-SetScrubbingScheduleRequest) | [SetScrubbingScheduleResponse](#api-services-cluster-v1-SetScrubbingScheduleResponse) |  |
 | GetResources | [GetResourcesRequest](#api-services-cluster-v1-GetResourcesRequest) | [GetResourcesResponse](#api-services-cluster-v1-GetResourcesResponse) |  |
 | SaveResources | [SaveResourcesRequest](#api-services-cluster-v1-SaveResourcesRequest) | [SaveResourcesResponse](#api-services-cluster-v1-SaveResourcesResponse) |  |
