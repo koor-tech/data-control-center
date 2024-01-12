@@ -128,16 +128,15 @@ Osd Scrubbing schedule config
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| apply_schedule | [bool](#bool) |  |  |
 | max_scrub_ops | [int64](#int64) | optional |  |
 | begin_hour | [int64](#int64) | optional |  |
 | end_hour | [int64](#int64) | optional |  |
 | begin_week_day | [int64](#int64) | optional |  |
 | end_week_day | [int64](#int64) | optional |  |
-| min_scrub_interval | [string](#string) | optional |  |
-| max_scrub_interval | [string](#string) | optional |  |
-| deep_scrub_interval | [string](#string) | optional |  |
-| scrub_sleep_seconds | [string](#string) | optional |  |
+| min_scrub_interval | [int64](#int64) | optional |  |
+| max_scrub_interval | [int64](#int64) | optional |  |
+| deep_scrub_interval | [int64](#int64) | optional |  |
+| scrub_sleep_seconds | [float](#float) | optional |  |
 
 
 

@@ -13,11 +13,6 @@ import { Message, proto3 } from "@bufbuild/protobuf";
  */
 export declare class OSDScrubbingSchedule extends Message<OSDScrubbingSchedule> {
   /**
-   * @generated from field: bool apply_schedule = 1;
-   */
-  applySchedule: boolean;
-
-  /**
    * @generated from field: optional int64 max_scrub_ops = 2;
    */
   maxScrubOps?: bigint;
@@ -43,24 +38,24 @@ export declare class OSDScrubbingSchedule extends Message<OSDScrubbingSchedule> 
   endWeekDay?: bigint;
 
   /**
-   * @generated from field: optional string min_scrub_interval = 7;
+   * @generated from field: optional int64 min_scrub_interval = 7;
    */
-  minScrubInterval?: string;
+  minScrubInterval?: bigint;
 
   /**
-   * @generated from field: optional string max_scrub_interval = 8;
+   * @generated from field: optional int64 max_scrub_interval = 8;
    */
-  maxScrubInterval?: string;
+  maxScrubInterval?: bigint;
 
   /**
-   * @generated from field: optional string deep_scrub_interval = 9;
+   * @generated from field: optional int64 deep_scrub_interval = 9;
    */
-  deepScrubInterval?: string;
+  deepScrubInterval?: bigint;
 
   /**
-   * @generated from field: optional string scrub_sleep_seconds = 10;
+   * @generated from field: optional float scrub_sleep_seconds = 10;
    */
-  scrubSleepSeconds?: string;
+  scrubSleepSeconds?: number;
 
   constructor(data?: PartialMessage<OSDScrubbingSchedule>);
 

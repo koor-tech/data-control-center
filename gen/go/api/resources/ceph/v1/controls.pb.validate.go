@@ -57,8 +57,6 @@ func (m *OSDScrubbingSchedule) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ApplySchedule
-
 	if m.MaxScrubOps != nil {
 
 		if val := m.GetMaxScrubOps(); val < 0 || val >= 9999999 {
@@ -136,32 +134,10 @@ func (m *OSDScrubbingSchedule) validate(all bool) error {
 
 	if m.MinScrubInterval != nil {
 
-		if utf8.RuneCountInString(m.GetMinScrubInterval()) < 3 {
+		if val := m.GetMinScrubInterval(); val < 0 || val >= 9999999999 {
 			err := OSDScrubbingScheduleValidationError{
 				field:  "MinScrubInterval",
-				reason: "value length must be at least 3 runes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if len(m.GetMinScrubInterval()) > 16 {
-			err := OSDScrubbingScheduleValidationError{
-				field:  "MinScrubInterval",
-				reason: "value length must be at most 16 bytes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if !_OSDScrubbingSchedule_MinScrubInterval_Pattern.MatchString(m.GetMinScrubInterval()) {
-			err := OSDScrubbingScheduleValidationError{
-				field:  "MinScrubInterval",
-				reason: "value does not match regex pattern \"^([0-9]+(\\\\.[0-9]+)?(ns|us|µs|ms|s|m|h))+$\"",
+				reason: "value must be inside range [0, 9999999999)",
 			}
 			if !all {
 				return err
@@ -173,32 +149,10 @@ func (m *OSDScrubbingSchedule) validate(all bool) error {
 
 	if m.MaxScrubInterval != nil {
 
-		if utf8.RuneCountInString(m.GetMaxScrubInterval()) < 3 {
+		if val := m.GetMaxScrubInterval(); val < 0 || val >= 9999999999 {
 			err := OSDScrubbingScheduleValidationError{
 				field:  "MaxScrubInterval",
-				reason: "value length must be at least 3 runes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if len(m.GetMaxScrubInterval()) > 16 {
-			err := OSDScrubbingScheduleValidationError{
-				field:  "MaxScrubInterval",
-				reason: "value length must be at most 16 bytes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if !_OSDScrubbingSchedule_MaxScrubInterval_Pattern.MatchString(m.GetMaxScrubInterval()) {
-			err := OSDScrubbingScheduleValidationError{
-				field:  "MaxScrubInterval",
-				reason: "value does not match regex pattern \"^([0-9]+(\\\\.[0-9]+)?(ns|us|µs|ms|s|m|h))+$\"",
+				reason: "value must be inside range [0, 9999999999)",
 			}
 			if !all {
 				return err
@@ -210,32 +164,10 @@ func (m *OSDScrubbingSchedule) validate(all bool) error {
 
 	if m.DeepScrubInterval != nil {
 
-		if utf8.RuneCountInString(m.GetDeepScrubInterval()) < 3 {
+		if val := m.GetDeepScrubInterval(); val < 0 || val >= 9999999999 {
 			err := OSDScrubbingScheduleValidationError{
 				field:  "DeepScrubInterval",
-				reason: "value length must be at least 3 runes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if len(m.GetDeepScrubInterval()) > 16 {
-			err := OSDScrubbingScheduleValidationError{
-				field:  "DeepScrubInterval",
-				reason: "value length must be at most 16 bytes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if !_OSDScrubbingSchedule_DeepScrubInterval_Pattern.MatchString(m.GetDeepScrubInterval()) {
-			err := OSDScrubbingScheduleValidationError{
-				field:  "DeepScrubInterval",
-				reason: "value does not match regex pattern \"^([0-9]+(\\\\.[0-9]+)?(ns|us|µs|ms|s|m|h))+$\"",
+				reason: "value must be inside range [0, 9999999999)",
 			}
 			if !all {
 				return err
@@ -247,32 +179,10 @@ func (m *OSDScrubbingSchedule) validate(all bool) error {
 
 	if m.ScrubSleepSeconds != nil {
 
-		if utf8.RuneCountInString(m.GetScrubSleepSeconds()) < 3 {
+		if val := m.GetScrubSleepSeconds(); val < 0 || val >= 1e+10 {
 			err := OSDScrubbingScheduleValidationError{
 				field:  "ScrubSleepSeconds",
-				reason: "value length must be at least 3 runes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if len(m.GetScrubSleepSeconds()) > 16 {
-			err := OSDScrubbingScheduleValidationError{
-				field:  "ScrubSleepSeconds",
-				reason: "value length must be at most 16 bytes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-		if !_OSDScrubbingSchedule_ScrubSleepSeconds_Pattern.MatchString(m.GetScrubSleepSeconds()) {
-			err := OSDScrubbingScheduleValidationError{
-				field:  "ScrubSleepSeconds",
-				reason: "value does not match regex pattern \"^([0-9]+(\\\\.[0-9]+)?(ns|us|µs|ms|s|m|h))+$\"",
+				reason: "value must be inside range [0, 1e+10)",
 			}
 			if !all {
 				return err
@@ -361,11 +271,3 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = OSDScrubbingScheduleValidationError{}
-
-var _OSDScrubbingSchedule_MinScrubInterval_Pattern = regexp.MustCompile("^([0-9]+(\\.[0-9]+)?(ns|us|µs|ms|s|m|h))+$")
-
-var _OSDScrubbingSchedule_MaxScrubInterval_Pattern = regexp.MustCompile("^([0-9]+(\\.[0-9]+)?(ns|us|µs|ms|s|m|h))+$")
-
-var _OSDScrubbingSchedule_DeepScrubInterval_Pattern = regexp.MustCompile("^([0-9]+(\\.[0-9]+)?(ns|us|µs|ms|s|m|h))+$")
-
-var _OSDScrubbingSchedule_ScrubSleepSeconds_Pattern = regexp.MustCompile("^([0-9]+(\\.[0-9]+)?(ns|us|µs|ms|s|m|h))+$")
