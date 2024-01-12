@@ -1,4 +1,4 @@
-import { ResourceStatus } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
+import { ResourceStatus } from '~~/gen/ts/api/resources/k8s/v1/resources_pb';
 
 export function resourceStatusToBGColor(status: ResourceStatus | undefined): string {
     switch (status) {

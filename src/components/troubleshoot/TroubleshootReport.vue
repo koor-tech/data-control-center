@@ -5,12 +5,9 @@ import GenericDivider from '~/components/partials/GenericDivider.vue';
 import DataErrorBlock from '~/components/partials/data/DataErrorBlock.vue';
 import DataNoDataBlock from '~/components/partials/data/DataNoDataBlock.vue';
 import DataPendingBlock from '~/components/partials/data/DataPendingBlock.vue';
-import { useClusterStore } from '~/store/cluster';
 import { useNotificationsStore } from '~/store/notifications';
 
 const { $grpc } = useNuxtApp();
-
-const clusterStore = useClusterStore();
 
 const {
     data: report,
@@ -21,9 +18,10 @@ const {
     'cluster-troubleshoot_report',
     async () => {
         try {
-            return await clusterStore.getTroubleshootReport();
+            return await $grpc.getTroubleshootingClient().getTroubleshootReport({});
         } catch (e) {
-            $grpc.handleError(e as ConnectError);
+            if (e instanceof ConnectError) $grpc.handleError(e as ConnectError);
+            throw e;
         }
     },
     { immediate: false },

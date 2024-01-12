@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { max, min, required } from '@vee-validate/rules';
 import { defineRule } from 'vee-validate';
-import Alert from '~/components/partials/elements/Alert.vue';
-import { useCephStore } from '~/store/ceph';
+import { createCephUser } from '~/composables/clients/ceph_users';
 
 useHead({
     title: 'Add new Ceph dashboard user',
@@ -11,10 +10,6 @@ definePageMeta({
     title: 'Add new Ceph dashboard user',
     requiresAuth: true,
 });
-
-const cephStorage = useCephStore();
-const { createCephUser } = cephStorage;
-const { addError } = storeToRefs(cephStorage);
 
 defineRule('required', required);
 defineRule('min', min);
@@ -137,7 +132,6 @@ const onSubmit = handleSubmit(async function (values): Promise<any> {
                     </button>
                 </div>
             </form>
-            <Alert v-if="addError" title="Error during add user" :message="addError" />
         </div>
     </div>
 </template>

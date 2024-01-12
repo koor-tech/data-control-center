@@ -14,7 +14,7 @@ const {
     refresh,
     pending,
 } = useLazyAsyncData(`clusterRadar`, async () => {
-    const response = await $grpc.getClusterClient().getScrubbingSchedule({});
+    const response = await $grpc.getControlsOSDsClient().getScrubbingSchedule({});
 
     return response.osdScrubbingSchedule!;
 });

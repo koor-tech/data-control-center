@@ -3,9 +3,6 @@
 
 ## Table of Contents
 
-- [api/resources/ceph/v1/ceph.proto](#api_resources_ceph_v1_ceph-proto)
-    - [User](#api-resources-ceph-v1-User)
-  
 - [api/resources/ceph/v1/controls.proto](#api_resources_ceph_v1_controls-proto)
     - [OSDScrubbingSchedule](#api-resources-ceph-v1-OSDScrubbingSchedule)
   
@@ -27,6 +24,9 @@
     - [Usage](#api-resources-ceph-v1-Usage)
   
     - [ClusterHealth](#api-resources-ceph-v1-ClusterHealth)
+  
+- [api/resources/ceph/v1/users.proto](#api_resources_ceph_v1_users-proto)
+    - [User](#api-resources-ceph-v1-User)
   
 - [api/resources/k8s/v1/resources.proto](#api_resources_k8s_v1_resources-proto)
     - [NodeInfo](#api-resources-k8s-v1-NodeInfo)
@@ -76,8 +76,8 @@
 - [api/services/k8sresources/v1/editor.proto](#api_services_k8sresources_v1_editor-proto)
     - [GetResourcesRequest](#api-services-k8sresources-v1-GetResourcesRequest)
     - [GetResourcesResponse](#api-services-k8sresources-v1-GetResourcesResponse)
-    - [SaveResourcesRequest](#api-services-k8sresources-v1-SaveResourcesRequest)
-    - [SaveResourcesResponse](#api-services-k8sresources-v1-SaveResourcesResponse)
+    - [SaveResourceRequest](#api-services-k8sresources-v1-SaveResourceRequest)
+    - [SaveResourceResponse](#api-services-k8sresources-v1-SaveResourceResponse)
   
     - [K8sResourcesService](#api-services-k8sresources-v1-K8sResourcesService)
   
@@ -110,42 +110,6 @@
     - [TroubleshootingService](#api-services-troubleshooting-v1-TroubleshootingService)
   
 - [Scalar Value Types](#scalar-value-types)
-
-
-
-<a name="api_resources_ceph_v1_ceph-proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## api/resources/ceph/v1/ceph.proto
-
-
-
-<a name="api-resources-ceph-v1-User"></a>
-
-### User
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| username | [string](#string) |  |  |
-| name | [string](#string) |  |  |
-| email | [string](#string) |  |  |
-| password | [string](#string) |  |  |
-| enabled | [bool](#bool) |  |  |
-| roles | [string](#string) | repeated |  |
-
-
-
-
-
- 
-
- 
-
- 
-
- 
 
 
 
@@ -472,6 +436,42 @@ Osd Scrubbing schedule config
 | CLUSTER_HEALTH_WARN | 3 |  |
 | CLUSTER_HEALTH_ERR | 4 |  |
 
+
+ 
+
+ 
+
+ 
+
+
+
+<a name="api_resources_ceph_v1_users-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## api/resources/ceph/v1/users.proto
+
+
+
+<a name="api-resources-ceph-v1-User"></a>
+
+### User
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| username | [string](#string) |  |  |
+| name | [string](#string) |  |  |
+| email | [string](#string) |  |  |
+| password | [string](#string) |  |  |
+| enabled | [bool](#bool) |  |  |
+| roles | [string](#string) | repeated |  |
+
+
+
+
+
+ 
 
  
 
@@ -1047,9 +1047,9 @@ The mode of the upgrade
 
 
 
-<a name="api-services-k8sresources-v1-SaveResourcesRequest"></a>
+<a name="api-services-k8sresources-v1-SaveResourceRequest"></a>
 
-### SaveResourcesRequest
+### SaveResourceRequest
 
 
 
@@ -1062,9 +1062,9 @@ The mode of the upgrade
 
 
 
-<a name="api-services-k8sresources-v1-SaveResourcesResponse"></a>
+<a name="api-services-k8sresources-v1-SaveResourceResponse"></a>
 
-### SaveResourcesResponse
+### SaveResourceResponse
 
 
 
@@ -1091,7 +1091,7 @@ The mode of the upgrade
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
 | GetResources | [GetResourcesRequest](#api-services-k8sresources-v1-GetResourcesRequest) | [GetResourcesResponse](#api-services-k8sresources-v1-GetResourcesResponse) |  |
-| SaveResources | [SaveResourcesRequest](#api-services-k8sresources-v1-SaveResourcesRequest) | [SaveResourcesResponse](#api-services-k8sresources-v1-SaveResourcesResponse) |  |
+| SaveResource | [SaveResourceRequest](#api-services-k8sresources-v1-SaveResourceRequest) | [SaveResourceResponse](#api-services-k8sresources-v1-SaveResourceResponse) |  |
 
  
 

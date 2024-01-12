@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ClusterStats } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
+import { type ClusterStats } from '~~/gen/ts/api/resources/ceph/v1/stats_pb';
 import IopsStats from '~/components/cluster/services/IopsStats.vue';
 import MdsService from '~/components/cluster/services/MdsService.vue';
 import MgrService from '~/components/cluster/services/MgrService.vue';

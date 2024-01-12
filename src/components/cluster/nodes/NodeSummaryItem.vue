@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { resourceStatusToTextColor } from '~/components/helpers';
-import { NodeInfo, ResourceStatus } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
+import { NodeInfo, ResourceStatus } from '~~/gen/ts/api/resources/k8s/v1/resources_pb';
 
 defineProps<{
     node: NodeInfo;

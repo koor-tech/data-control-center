@@ -19,8 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	K8SResourcesService_GetResources_FullMethodName  = "/api.services.k8sresources.v1.K8sResourcesService/GetResources"
-	K8SResourcesService_SaveResources_FullMethodName = "/api.services.k8sresources.v1.K8sResourcesService/SaveResources"
+	K8SResourcesService_GetResources_FullMethodName = "/api.services.k8sresources.v1.K8sResourcesService/GetResources"
+	K8SResourcesService_SaveResource_FullMethodName = "/api.services.k8sresources.v1.K8sResourcesService/SaveResource"
 )
 
 // K8SResourcesServiceClient is the client API for K8SResourcesService service.
@@ -28,7 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type K8SResourcesServiceClient interface {
 	GetResources(ctx context.Context, in *GetResourcesRequest, opts ...grpc.CallOption) (*GetResourcesResponse, error)
-	SaveResources(ctx context.Context, in *SaveResourcesRequest, opts ...grpc.CallOption) (*SaveResourcesResponse, error)
+	SaveResource(ctx context.Context, in *SaveResourceRequest, opts ...grpc.CallOption) (*SaveResourceResponse, error)
 }
 
 type k8SResourcesServiceClient struct {
@@ -48,9 +48,9 @@ func (c *k8SResourcesServiceClient) GetResources(ctx context.Context, in *GetRes
 	return out, nil
 }
 
-func (c *k8SResourcesServiceClient) SaveResources(ctx context.Context, in *SaveResourcesRequest, opts ...grpc.CallOption) (*SaveResourcesResponse, error) {
-	out := new(SaveResourcesResponse)
-	err := c.cc.Invoke(ctx, K8SResourcesService_SaveResources_FullMethodName, in, out, opts...)
+func (c *k8SResourcesServiceClient) SaveResource(ctx context.Context, in *SaveResourceRequest, opts ...grpc.CallOption) (*SaveResourceResponse, error) {
+	out := new(SaveResourceResponse)
+	err := c.cc.Invoke(ctx, K8SResourcesService_SaveResource_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -62,7 +62,7 @@ func (c *k8SResourcesServiceClient) SaveResources(ctx context.Context, in *SaveR
 // for forward compatibility
 type K8SResourcesServiceServer interface {
 	GetResources(context.Context, *GetResourcesRequest) (*GetResourcesResponse, error)
-	SaveResources(context.Context, *SaveResourcesRequest) (*SaveResourcesResponse, error)
+	SaveResource(context.Context, *SaveResourceRequest) (*SaveResourceResponse, error)
 }
 
 // UnimplementedK8SResourcesServiceServer should be embedded to have forward compatible implementations.
@@ -72,8 +72,8 @@ type UnimplementedK8SResourcesServiceServer struct {
 func (UnimplementedK8SResourcesServiceServer) GetResources(context.Context, *GetResourcesRequest) (*GetResourcesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetResources not implemented")
 }
-func (UnimplementedK8SResourcesServiceServer) SaveResources(context.Context, *SaveResourcesRequest) (*SaveResourcesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SaveResources not implemented")
+func (UnimplementedK8SResourcesServiceServer) SaveResource(context.Context, *SaveResourceRequest) (*SaveResourceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SaveResource not implemented")
 }
 
 // UnsafeK8SResourcesServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -105,20 +105,20 @@ func _K8SResourcesService_GetResources_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
-func _K8SResourcesService_SaveResources_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SaveResourcesRequest)
+func _K8SResourcesService_SaveResource_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SaveResourceRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(K8SResourcesServiceServer).SaveResources(ctx, in)
+		return srv.(K8SResourcesServiceServer).SaveResource(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: K8SResourcesService_SaveResources_FullMethodName,
+		FullMethod: K8SResourcesService_SaveResource_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(K8SResourcesServiceServer).SaveResources(ctx, req.(*SaveResourcesRequest))
+		return srv.(K8SResourcesServiceServer).SaveResource(ctx, req.(*SaveResourceRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -135,8 +135,8 @@ var K8SResourcesService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _K8SResourcesService_GetResources_Handler,
 		},
 		{
-			MethodName: "SaveResources",
-			Handler:    _K8SResourcesService_SaveResources_Handler,
+			MethodName: "SaveResource",
+			Handler:    _K8SResourcesService_SaveResource_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

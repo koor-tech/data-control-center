@@ -2,7 +2,7 @@
 import type { ApexOptions } from 'apexcharts';
 import VueApexCharts from 'vue3-apexcharts';
 import Container from '~/components/partials/Container.vue';
-import { ClusterRadar } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
+import { ClusterRadar } from '~~/gen/ts/api/resources/ceph/v1/stats_pb';
 
 const props = defineProps<{
     radar: ClusterRadar;

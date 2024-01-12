@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import DialIndicator from '~/components/partials/DialIndicator.vue';
-import { ClusterRadar } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
+import { ClusterRadar } from '~~/gen/ts/api/resources/ceph/v1/stats_pb';
 
 const props = defineProps<{
     radar: ClusterRadar;

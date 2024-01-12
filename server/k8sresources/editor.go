@@ -35,7 +35,7 @@ func (s *Server) GetResources(ctx context.Context, _ *connect.Request[k8sresourc
 	return res, nil
 }
 
-func (s *Server) SaveResources(ctx context.Context, req *connect.Request[k8sresourcespb.SaveResourcesRequest]) (*connect.Response[k8sresourcespb.SaveResourcesResponse], error) {
+func (s *Server) SaveResource(ctx context.Context, req *connect.Request[k8sresourcespb.SaveResourceRequest]) (*connect.Response[k8sresourcespb.SaveResourceResponse], error) {
 	requestResource := req.Msg.Resource
 	resource := k8sv1.Resource{
 		Name:      requestResource.Name,
@@ -54,7 +54,7 @@ func (s *Server) SaveResources(ctx context.Context, req *connect.Request[k8sreso
 		return nil, connect.NewError(connect.CodeInternal, fmt.Errorf("error caused by %w", err))
 	}
 
-	res := connect.NewResponse(&k8sresourcespb.SaveResourcesResponse{
+	res := connect.NewResponse(&k8sresourcespb.SaveResourceResponse{
 		Resource: &resource,
 	})
 	return res, nil

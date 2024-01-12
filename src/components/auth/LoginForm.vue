@@ -2,7 +2,7 @@
 // eslint-disable-next-line camelcase
 import { alpha_dash, max, min, required } from '@vee-validate/rules';
 import { defineRule } from 'vee-validate';
-import Alert from '~/components/partials/elements/Alert.vue';
+import GenericAlert from '~/components/partials/elements/GenericAlert.vue';
 import { useAuthStore } from '~/store/auth';
 
 const authStore = useAuthStore();
@@ -95,5 +95,5 @@ const onSubmit = handleSubmit(async (values): Promise<void> => await doLogin(val
         </div>
     </form>
 
-    <Alert v-if="loginError" title="Error during Login" :message="loginError" />
+    <GenericAlert v-if="loginError" title="Error during Login" :message="loginError" />
 </template>

@@ -36,16 +36,16 @@ const (
 	// K8SResourcesServiceGetResourcesProcedure is the fully-qualified name of the K8sResourcesService's
 	// GetResources RPC.
 	K8SResourcesServiceGetResourcesProcedure = "/api.services.k8sresources.v1.K8sResourcesService/GetResources"
-	// K8SResourcesServiceSaveResourcesProcedure is the fully-qualified name of the
-	// K8sResourcesService's SaveResources RPC.
-	K8SResourcesServiceSaveResourcesProcedure = "/api.services.k8sresources.v1.K8sResourcesService/SaveResources"
+	// K8SResourcesServiceSaveResourceProcedure is the fully-qualified name of the K8sResourcesService's
+	// SaveResource RPC.
+	K8SResourcesServiceSaveResourceProcedure = "/api.services.k8sresources.v1.K8sResourcesService/SaveResource"
 )
 
 // K8SResourcesServiceClient is a client for the api.services.k8sresources.v1.K8sResourcesService
 // service.
 type K8SResourcesServiceClient interface {
 	GetResources(context.Context, *connect.Request[v1.GetResourcesRequest]) (*connect.Response[v1.GetResourcesResponse], error)
-	SaveResources(context.Context, *connect.Request[v1.SaveResourcesRequest]) (*connect.Response[v1.SaveResourcesResponse], error)
+	SaveResource(context.Context, *connect.Request[v1.SaveResourceRequest]) (*connect.Response[v1.SaveResourceResponse], error)
 }
 
 // NewK8SResourcesServiceClient constructs a client for the
@@ -64,9 +64,9 @@ func NewK8SResourcesServiceClient(httpClient connect.HTTPClient, baseURL string,
 			baseURL+K8SResourcesServiceGetResourcesProcedure,
 			opts...,
 		),
-		saveResources: connect.NewClient[v1.SaveResourcesRequest, v1.SaveResourcesResponse](
+		saveResource: connect.NewClient[v1.SaveResourceRequest, v1.SaveResourceResponse](
 			httpClient,
-			baseURL+K8SResourcesServiceSaveResourcesProcedure,
+			baseURL+K8SResourcesServiceSaveResourceProcedure,
 			opts...,
 		),
 	}
@@ -74,8 +74,8 @@ func NewK8SResourcesServiceClient(httpClient connect.HTTPClient, baseURL string,
 
 // k8SResourcesServiceClient implements K8SResourcesServiceClient.
 type k8SResourcesServiceClient struct {
-	getResources  *connect.Client[v1.GetResourcesRequest, v1.GetResourcesResponse]
-	saveResources *connect.Client[v1.SaveResourcesRequest, v1.SaveResourcesResponse]
+	getResources *connect.Client[v1.GetResourcesRequest, v1.GetResourcesResponse]
+	saveResource *connect.Client[v1.SaveResourceRequest, v1.SaveResourceResponse]
 }
 
 // GetResources calls api.services.k8sresources.v1.K8sResourcesService.GetResources.
@@ -83,16 +83,16 @@ func (c *k8SResourcesServiceClient) GetResources(ctx context.Context, req *conne
 	return c.getResources.CallUnary(ctx, req)
 }
 
-// SaveResources calls api.services.k8sresources.v1.K8sResourcesService.SaveResources.
-func (c *k8SResourcesServiceClient) SaveResources(ctx context.Context, req *connect.Request[v1.SaveResourcesRequest]) (*connect.Response[v1.SaveResourcesResponse], error) {
-	return c.saveResources.CallUnary(ctx, req)
+// SaveResource calls api.services.k8sresources.v1.K8sResourcesService.SaveResource.
+func (c *k8SResourcesServiceClient) SaveResource(ctx context.Context, req *connect.Request[v1.SaveResourceRequest]) (*connect.Response[v1.SaveResourceResponse], error) {
+	return c.saveResource.CallUnary(ctx, req)
 }
 
 // K8SResourcesServiceHandler is an implementation of the
 // api.services.k8sresources.v1.K8sResourcesService service.
 type K8SResourcesServiceHandler interface {
 	GetResources(context.Context, *connect.Request[v1.GetResourcesRequest]) (*connect.Response[v1.GetResourcesResponse], error)
-	SaveResources(context.Context, *connect.Request[v1.SaveResourcesRequest]) (*connect.Response[v1.SaveResourcesResponse], error)
+	SaveResource(context.Context, *connect.Request[v1.SaveResourceRequest]) (*connect.Response[v1.SaveResourceResponse], error)
 }
 
 // NewK8SResourcesServiceHandler builds an HTTP handler from the service implementation. It returns
@@ -106,17 +106,17 @@ func NewK8SResourcesServiceHandler(svc K8SResourcesServiceHandler, opts ...conne
 		svc.GetResources,
 		opts...,
 	)
-	k8SResourcesServiceSaveResourcesHandler := connect.NewUnaryHandler(
-		K8SResourcesServiceSaveResourcesProcedure,
-		svc.SaveResources,
+	k8SResourcesServiceSaveResourceHandler := connect.NewUnaryHandler(
+		K8SResourcesServiceSaveResourceProcedure,
+		svc.SaveResource,
 		opts...,
 	)
 	return "/api.services.k8sresources.v1.K8sResourcesService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case K8SResourcesServiceGetResourcesProcedure:
 			k8SResourcesServiceGetResourcesHandler.ServeHTTP(w, r)
-		case K8SResourcesServiceSaveResourcesProcedure:
-			k8SResourcesServiceSaveResourcesHandler.ServeHTTP(w, r)
+		case K8SResourcesServiceSaveResourceProcedure:
+			k8SResourcesServiceSaveResourceHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -130,6 +130,6 @@ func (UnimplementedK8SResourcesServiceHandler) GetResources(context.Context, *co
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("api.services.k8sresources.v1.K8sResourcesService.GetResources is not implemented"))
 }
 
-func (UnimplementedK8SResourcesServiceHandler) SaveResources(context.Context, *connect.Request[v1.SaveResourcesRequest]) (*connect.Response[v1.SaveResourcesResponse], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("api.services.k8sresources.v1.K8sResourcesService.SaveResources is not implemented"))
+func (UnimplementedK8SResourcesServiceHandler) SaveResource(context.Context, *connect.Request[v1.SaveResourceRequest]) (*connect.Response[v1.SaveResourceResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("api.services.k8sresources.v1.K8sResourcesService.SaveResource is not implemented"))
 }

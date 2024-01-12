@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { GetResourcesRequest, GetResourcesResponse, SaveResourcesRequest, SaveResourcesResponse } from "./editor_pb.js";
+import { GetResourcesRequest, GetResourcesResponse, SaveResourceRequest, SaveResourceResponse } from "./editor_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -22,12 +22,12 @@ export declare const K8sResourcesService: {
       readonly kind: MethodKind.Unary,
     },
     /**
-     * @generated from rpc api.services.k8sresources.v1.K8sResourcesService.SaveResources
+     * @generated from rpc api.services.k8sresources.v1.K8sResourcesService.SaveResource
      */
-    readonly saveResources: {
-      readonly name: "SaveResources",
-      readonly I: typeof SaveResourcesRequest,
-      readonly O: typeof SaveResourcesResponse,
+    readonly saveResource: {
+      readonly name: "SaveResource",
+      readonly I: typeof SaveResourceRequest,
+      readonly O: typeof SaveResourceResponse,
       readonly kind: MethodKind.Unary,
     },
   }

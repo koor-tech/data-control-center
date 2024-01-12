@@ -2,7 +2,6 @@
 import { ConnectError } from '@connectrpc/connect';
 import ClusterHealthBar from '~/components/cluster/ClusterHealthBar.vue';
 import ClusterServices from '~/components/cluster/ClusterServices.vue';
-import { useStatsStore } from '~/store/stats';
 
 useHead({
     title: 'Health Stats',
@@ -14,11 +13,11 @@ definePageMeta({
 
 const { $grpc } = useNuxtApp();
 
-const statsStore = useStatsStore();
-
 const { data: stats } = useLazyAsyncData('clusterStats', async () => {
     try {
-        return await statsStore.getClusterStats();
+        const response = await $grpc.getStatsClient().getClusterStats({});
+
+        return response.stats!;
     } catch (e) {
         $grpc.handleError(e as ConnectError);
     }

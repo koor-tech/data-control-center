@@ -5,7 +5,7 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3 } from "@bufbuild/protobuf";
-import type { User } from "../../../resources/ceph/v1/ceph_pb.js";
+import type { User } from "../../../resources/ceph/v1/users_pb.js";
 
 /**
  * @generated from message api.services.ceph.v1.ListCephUsersRequest

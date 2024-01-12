@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { AlertBoxIcon } from 'mdi-vue3';
-import type { Crash } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
+import { type Crash } from '~~/gen/ts/api/resources/ceph/v1/stats_pb';
 import ServiceLiItem from '~/components/cluster/services/ServiceLiItem.vue';
 import ServiceBox from '~/components/cluster/services/ServiceBox.vue';
 

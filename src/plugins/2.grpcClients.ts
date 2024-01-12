@@ -4,9 +4,11 @@ import { type Notification } from '~/composables/notification/interfaces/Notific
 import { useAuthStore } from '~/store/auth';
 import { useNotificationsStore } from '~/store/notifications';
 import { AuthService } from '~~/gen/ts/api/services/auth/v1/auth_connect';
-import { CephService } from '~~/gen/ts/api/services/ceph/v1/ceph_connect';
-import { ClusterService } from '~~/gen/ts/api/services/cluster/v1/cluster_connect';
+import { CephUsersService } from '~~/gen/ts/api/services/ceph/v1/users_connect';
+import { OSDsService } from '~~/gen/ts/api/services/controls/v1/osds_connect';
+import { K8sResourcesService } from '~~/gen/ts/api/services/k8sresources/v1/editor_connect';
 import { StatsService } from '~~/gen/ts/api/services/stats/v1/stats_connect';
+import { TroubleshootingService } from '~~/gen/ts/api/services/troubleshooting/v1/troubleshooting_connect';
 
 export default defineNuxtPlugin(() => {
     return {
@@ -108,6 +110,36 @@ export class GRPCClients {
         );
     }
 
+    getCephUsersClient(): PromiseClient<typeof CephUsersService> {
+        return createPromiseClient(
+            CephUsersService,
+            createConnectTransport({
+                baseUrl: '/api',
+                interceptors: [authInterceptor],
+            }),
+        );
+    }
+
+    getControlsOSDsClient(): PromiseClient<typeof OSDsService> {
+        return createPromiseClient(
+            OSDsService,
+            createConnectTransport({
+                baseUrl: '/api',
+                interceptors: [authInterceptor],
+            }),
+        );
+    }
+
+    getK8sResourcesClient(): PromiseClient<typeof K8sResourcesService> {
+        return createPromiseClient(
+            K8sResourcesService,
+            createConnectTransport({
+                baseUrl: '/api',
+                interceptors: [authInterceptor],
+            }),
+        );
+    }
+
     getStatsClient(): PromiseClient<typeof StatsService> {
         return createPromiseClient(
             StatsService,
@@ -118,19 +150,9 @@ export class GRPCClients {
         );
     }
 
-    listCephUsers(): PromiseClient<typeof CephService> {
+    getTroubleshootingClient(): PromiseClient<typeof TroubleshootingService> {
         return createPromiseClient(
-            CephService,
-            createConnectTransport({
-                baseUrl: '/api',
-                interceptors: [authInterceptor],
-            }),
-        );
-    }
-
-    getClusterClient(): PromiseClient<typeof ClusterService> {
-        return createPromiseClient(
-            ClusterService,
+            TroubleshootingService,
             createConnectTransport({
                 baseUrl: '/api',
                 interceptors: [authInterceptor],

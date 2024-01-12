@@ -268,22 +268,22 @@ var _ interface {
 	ErrorName() string
 } = GetResourcesRequestValidationError{}
 
-// Validate checks the field values on SaveResourcesRequest with the rules
+// Validate checks the field values on SaveResourceRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *SaveResourcesRequest) Validate() error {
+func (m *SaveResourceRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on SaveResourcesRequest with the rules
+// ValidateAll checks the field values on SaveResourceRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// SaveResourcesRequestMultiError, or nil if none found.
-func (m *SaveResourcesRequest) ValidateAll() error {
+// SaveResourceRequestMultiError, or nil if none found.
+func (m *SaveResourceRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *SaveResourcesRequest) validate(all bool) error {
+func (m *SaveResourceRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -294,7 +294,7 @@ func (m *SaveResourcesRequest) validate(all bool) error {
 		switch v := interface{}(m.GetResource()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, SaveResourcesRequestValidationError{
+				errors = append(errors, SaveResourceRequestValidationError{
 					field:  "Resource",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -302,7 +302,7 @@ func (m *SaveResourcesRequest) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, SaveResourcesRequestValidationError{
+				errors = append(errors, SaveResourceRequestValidationError{
 					field:  "Resource",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -311,7 +311,7 @@ func (m *SaveResourcesRequest) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetResource()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return SaveResourcesRequestValidationError{
+			return SaveResourceRequestValidationError{
 				field:  "Resource",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -320,19 +320,19 @@ func (m *SaveResourcesRequest) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return SaveResourcesRequestMultiError(errors)
+		return SaveResourceRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-// SaveResourcesRequestMultiError is an error wrapping multiple validation
-// errors returned by SaveResourcesRequest.ValidateAll() if the designated
+// SaveResourceRequestMultiError is an error wrapping multiple validation
+// errors returned by SaveResourceRequest.ValidateAll() if the designated
 // constraints aren't met.
-type SaveResourcesRequestMultiError []error
+type SaveResourceRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m SaveResourcesRequestMultiError) Error() string {
+func (m SaveResourceRequestMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -341,11 +341,11 @@ func (m SaveResourcesRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m SaveResourcesRequestMultiError) AllErrors() []error { return m }
+func (m SaveResourceRequestMultiError) AllErrors() []error { return m }
 
-// SaveResourcesRequestValidationError is the validation error returned by
-// SaveResourcesRequest.Validate if the designated constraints aren't met.
-type SaveResourcesRequestValidationError struct {
+// SaveResourceRequestValidationError is the validation error returned by
+// SaveResourceRequest.Validate if the designated constraints aren't met.
+type SaveResourceRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -353,24 +353,24 @@ type SaveResourcesRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e SaveResourcesRequestValidationError) Field() string { return e.field }
+func (e SaveResourceRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e SaveResourcesRequestValidationError) Reason() string { return e.reason }
+func (e SaveResourceRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e SaveResourcesRequestValidationError) Cause() error { return e.cause }
+func (e SaveResourceRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e SaveResourcesRequestValidationError) Key() bool { return e.key }
+func (e SaveResourceRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e SaveResourcesRequestValidationError) ErrorName() string {
-	return "SaveResourcesRequestValidationError"
+func (e SaveResourceRequestValidationError) ErrorName() string {
+	return "SaveResourceRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e SaveResourcesRequestValidationError) Error() string {
+func (e SaveResourceRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -382,14 +382,14 @@ func (e SaveResourcesRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sSaveResourcesRequest.%s: %s%s",
+		"invalid %sSaveResourceRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = SaveResourcesRequestValidationError{}
+var _ error = SaveResourceRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -397,24 +397,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = SaveResourcesRequestValidationError{}
+} = SaveResourceRequestValidationError{}
 
-// Validate checks the field values on SaveResourcesResponse with the rules
+// Validate checks the field values on SaveResourceResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *SaveResourcesResponse) Validate() error {
+func (m *SaveResourceResponse) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on SaveResourcesResponse with the rules
+// ValidateAll checks the field values on SaveResourceResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// SaveResourcesResponseMultiError, or nil if none found.
-func (m *SaveResourcesResponse) ValidateAll() error {
+// SaveResourceResponseMultiError, or nil if none found.
+func (m *SaveResourceResponse) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *SaveResourcesResponse) validate(all bool) error {
+func (m *SaveResourceResponse) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -425,7 +425,7 @@ func (m *SaveResourcesResponse) validate(all bool) error {
 		switch v := interface{}(m.GetResource()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, SaveResourcesResponseValidationError{
+				errors = append(errors, SaveResourceResponseValidationError{
 					field:  "Resource",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -433,7 +433,7 @@ func (m *SaveResourcesResponse) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, SaveResourcesResponseValidationError{
+				errors = append(errors, SaveResourceResponseValidationError{
 					field:  "Resource",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -442,7 +442,7 @@ func (m *SaveResourcesResponse) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetResource()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return SaveResourcesResponseValidationError{
+			return SaveResourceResponseValidationError{
 				field:  "Resource",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -451,19 +451,19 @@ func (m *SaveResourcesResponse) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return SaveResourcesResponseMultiError(errors)
+		return SaveResourceResponseMultiError(errors)
 	}
 
 	return nil
 }
 
-// SaveResourcesResponseMultiError is an error wrapping multiple validation
-// errors returned by SaveResourcesResponse.ValidateAll() if the designated
+// SaveResourceResponseMultiError is an error wrapping multiple validation
+// errors returned by SaveResourceResponse.ValidateAll() if the designated
 // constraints aren't met.
-type SaveResourcesResponseMultiError []error
+type SaveResourceResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m SaveResourcesResponseMultiError) Error() string {
+func (m SaveResourceResponseMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -472,11 +472,11 @@ func (m SaveResourcesResponseMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m SaveResourcesResponseMultiError) AllErrors() []error { return m }
+func (m SaveResourceResponseMultiError) AllErrors() []error { return m }
 
-// SaveResourcesResponseValidationError is the validation error returned by
-// SaveResourcesResponse.Validate if the designated constraints aren't met.
-type SaveResourcesResponseValidationError struct {
+// SaveResourceResponseValidationError is the validation error returned by
+// SaveResourceResponse.Validate if the designated constraints aren't met.
+type SaveResourceResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -484,24 +484,24 @@ type SaveResourcesResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e SaveResourcesResponseValidationError) Field() string { return e.field }
+func (e SaveResourceResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e SaveResourcesResponseValidationError) Reason() string { return e.reason }
+func (e SaveResourceResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e SaveResourcesResponseValidationError) Cause() error { return e.cause }
+func (e SaveResourceResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e SaveResourcesResponseValidationError) Key() bool { return e.key }
+func (e SaveResourceResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e SaveResourcesResponseValidationError) ErrorName() string {
-	return "SaveResourcesResponseValidationError"
+func (e SaveResourceResponseValidationError) ErrorName() string {
+	return "SaveResourceResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e SaveResourcesResponseValidationError) Error() string {
+func (e SaveResourceResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -513,14 +513,14 @@ func (e SaveResourcesResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sSaveResourcesResponse.%s: %s%s",
+		"invalid %sSaveResourceResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = SaveResourcesResponseValidationError{}
+var _ error = SaveResourceResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -528,4 +528,4 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = SaveResourcesResponseValidationError{}
+} = SaveResourceResponseValidationError{}

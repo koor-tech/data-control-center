@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ClipboardIcon } from 'mdi-vue3';
-import type { MgrService } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
+import type { MgrService } from '~~/gen/ts/api/resources/ceph/v1/stats_pb';
 import ServiceLiItem from '~/components/cluster/services/ServiceLiItem.vue';
 import ServiceBox from '~/components/cluster/services/ServiceBox.vue';
 import Time from '~/components/partials/elements/Time.vue';

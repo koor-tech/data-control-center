@@ -11,7 +11,7 @@ import {
     GetNetworkTestStatusResponse,
     NetworkTestOutputFormat,
     StartNetworkTestResponse,
-} from '~~/gen/ts/api/services/cluster/v1/cluster_pb';
+} from '~~/gen/ts/api/services/troubleshooting/v1/troubleshooting_pb';
 import GenericDivider from '~/components/partials/GenericDivider.vue';
 
 const { $grpc } = useNuxtApp();
@@ -25,7 +25,7 @@ const {
 
 async function getNetworkTestStatus(): Promise<GetNetworkTestStatusResponse | undefined> {
     try {
-        return await $grpc.getClusterClient().getNetworkTestStatus({});
+        return await $grpc.getTroubleshootingClient().getNetworkTestStatus({});
     } catch (e) {
         $grpc.handleError(e as ConnectError);
     }
@@ -33,7 +33,7 @@ async function getNetworkTestStatus(): Promise<GetNetworkTestStatusResponse | un
 
 async function startNetworkTest(): Promise<StartNetworkTestResponse | undefined> {
     try {
-        const resp = await $grpc.getClusterClient().startNetworkTest({
+        const resp = await $grpc.getTroubleshootingClient().startNetworkTest({
             hostNetwork: false,
             outputFormat: NetworkTestOutputFormat.CSV,
         });
@@ -54,7 +54,7 @@ async function startNetworkTest(): Promise<StartNetworkTestResponse | undefined>
 
 async function cancelNetworkTest(): Promise<CancelNetworkTestResponse | undefined> {
     try {
-        const resp = await $grpc.getClusterClient().cancelNetworkTest({});
+        const resp = await $grpc.getTroubleshootingClient().cancelNetworkTest({});
 
         if (testStatus.value !== undefined && testStatus.value !== null) {
             testStatus.value.running = false;
@@ -78,7 +78,7 @@ const onSubmitThrottle = useThrottleFn(async () => {
 
 async function getNetworkTestResults(): Promise<void> {
     try {
-        const resp = await $grpc.getClusterClient().getNetworkTestResults({});
+        const resp = await $grpc.getTroubleshootingClient().getNetworkTestResults({});
 
         const blob = new Blob([resp.fileContents], { type: resp.fileType });
         saveAs(blob, resp.fileName);

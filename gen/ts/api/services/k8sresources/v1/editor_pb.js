@@ -25,20 +25,20 @@ export const GetResourcesRequest = proto3.makeMessageType(
 );
 
 /**
- * @generated from message api.services.k8sresources.v1.SaveResourcesRequest
+ * @generated from message api.services.k8sresources.v1.SaveResourceRequest
  */
-export const SaveResourcesRequest = proto3.makeMessageType(
-  "api.services.k8sresources.v1.SaveResourcesRequest",
+export const SaveResourceRequest = proto3.makeMessageType(
+  "api.services.k8sresources.v1.SaveResourceRequest",
   () => [
     { no: 1, name: "resource", kind: "message", T: Resource },
   ],
 );
 
 /**
- * @generated from message api.services.k8sresources.v1.SaveResourcesResponse
+ * @generated from message api.services.k8sresources.v1.SaveResourceResponse
  */
-export const SaveResourcesResponse = proto3.makeMessageType(
-  "api.services.k8sresources.v1.SaveResourcesResponse",
+export const SaveResourceResponse = proto3.makeMessageType(
+  "api.services.k8sresources.v1.SaveResourceResponse",
   () => [
     { no: 1, name: "resource", kind: "message", T: Resource },
   ],

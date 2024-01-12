@@ -51,50 +51,50 @@ export declare class GetResourcesRequest extends Message<GetResourcesRequest> {
 }
 
 /**
- * @generated from message api.services.k8sresources.v1.SaveResourcesRequest
+ * @generated from message api.services.k8sresources.v1.SaveResourceRequest
  */
-export declare class SaveResourcesRequest extends Message<SaveResourcesRequest> {
+export declare class SaveResourceRequest extends Message<SaveResourceRequest> {
   /**
    * @generated from field: api.resources.k8s.v1.Resource resource = 1;
    */
   resource?: Resource;
 
-  constructor(data?: PartialMessage<SaveResourcesRequest>);
+  constructor(data?: PartialMessage<SaveResourceRequest>);
 
   static readonly runtime: typeof proto3;
-  static readonly typeName = "api.services.k8sresources.v1.SaveResourcesRequest";
+  static readonly typeName = "api.services.k8sresources.v1.SaveResourceRequest";
   static readonly fields: FieldList;
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SaveResourcesRequest;
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SaveResourceRequest;
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SaveResourcesRequest;
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SaveResourceRequest;
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SaveResourcesRequest;
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SaveResourceRequest;
 
-  static equals(a: SaveResourcesRequest | PlainMessage<SaveResourcesRequest> | undefined, b: SaveResourcesRequest | PlainMessage<SaveResourcesRequest> | undefined): boolean;
+  static equals(a: SaveResourceRequest | PlainMessage<SaveResourceRequest> | undefined, b: SaveResourceRequest | PlainMessage<SaveResourceRequest> | undefined): boolean;
 }
 
 /**
- * @generated from message api.services.k8sresources.v1.SaveResourcesResponse
+ * @generated from message api.services.k8sresources.v1.SaveResourceResponse
  */
-export declare class SaveResourcesResponse extends Message<SaveResourcesResponse> {
+export declare class SaveResourceResponse extends Message<SaveResourceResponse> {
   /**
    * @generated from field: api.resources.k8s.v1.Resource resource = 1;
    */
   resource?: Resource;
 
-  constructor(data?: PartialMessage<SaveResourcesResponse>);
+  constructor(data?: PartialMessage<SaveResourceResponse>);
 
   static readonly runtime: typeof proto3;
-  static readonly typeName = "api.services.k8sresources.v1.SaveResourcesResponse";
+  static readonly typeName = "api.services.k8sresources.v1.SaveResourceResponse";
   static readonly fields: FieldList;
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SaveResourcesResponse;
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SaveResourceResponse;
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SaveResourcesResponse;
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SaveResourceResponse;
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SaveResourcesResponse;
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SaveResourceResponse;
 
-  static equals(a: SaveResourcesResponse | PlainMessage<SaveResourcesResponse> | undefined, b: SaveResourcesResponse | PlainMessage<SaveResourcesResponse> | undefined): boolean;
+  static equals(a: SaveResourceResponse | PlainMessage<SaveResourceResponse> | undefined, b: SaveResourceResponse | PlainMessage<SaveResourceResponse> | undefined): boolean;
 }
 

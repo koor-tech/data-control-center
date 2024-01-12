@@ -1,10 +1,7 @@
 <script setup lang="ts">
-import { ConnectError } from '@connectrpc/connect';
-
-import { ref } from 'vue';
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue';
 import { CloseIcon, TrashCanIcon } from 'mdi-vue3';
-import { useCephStore } from '~/store/ceph';
+import { listCephUsers, deleteCephUser } from '~/composables/clients/ceph_users';
 import GenericBadge from '~/components/partials/GenericBadge.vue';
 
 useHead({
@@ -18,34 +15,22 @@ definePageMeta({
 const appConfig = useAppConfig();
 
 const modalWindowOpen = ref(false);
-const username = ref();
+const username = ref('');
 
-const { $grpc } = useNuxtApp();
-const cephStore = useCephStore();
+const { data: cephUsers, refresh } = useLazyAsyncData('cephUsers', async () => await listCephUsers());
 
-const { data: cephUsers } = useLazyAsyncData('cephUsers', async () => {
-    try {
-        return await cephStore.listCephUsers();
-    } catch (e) {
-        $grpc.handleError(e as ConnectError);
-    }
-});
-
-const displayConfirmation = function (Username: string) {
+const displayConfirmation = function (name: string) {
+    username.value = name;
     modalWindowOpen.value = true;
-    username.value = Username;
 };
 
-const deleteCephUser = async function (): Promise<void> {
-    try {
-        await cephStore.deleteCephUser(username.value);
-        console.log('removing username.value', username.value);
-        modalWindowOpen.value = false;
-        cephUsers.value = await cephStore.listCephUsers();
-    } catch (e) {
-        $grpc.handleError(e as ConnectError);
-    }
-};
+async function removeCephUser(username: string): Promise<void> {
+    console.log('removing username.value', username);
+    await deleteCephUser(username);
+
+    modalWindowOpen.value = false;
+    refresh();
+}
 </script>
 <template>
     <div class="p-2">
@@ -81,7 +66,7 @@ const deleteCephUser = async function (): Promise<void> {
                                     >
                                         Username
                                     </th>
-                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Roles</th>
+                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">roles</th>
                                     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                         Enabled
                                     </th>
@@ -95,15 +80,15 @@ const deleteCephUser = async function (): Promise<void> {
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200 bg-white">
-                                <tr v-for="{ Enabled, Roles, Username } in cephUsers" :key="Username">
+                                <tr v-for="user in cephUsers" :key="user.username">
                                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                        {{ Username }}
+                                        {{ user.username }}
                                     </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                        <GenericBadge v-for="role in Roles" :key="role">{{ role }}</GenericBadge>
+                                        <GenericBadge v-for="role in user.roles" :key="role">{{ role }}</GenericBadge>
                                     </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                        {{ Enabled }}
+                                        {{ user.enabled }}
                                     </td>
                                     <td
                                         v-if="!appConfig.readOnly"
@@ -112,7 +97,7 @@ const deleteCephUser = async function (): Promise<void> {
                                         <button
                                             type="button"
                                             class="text-indigo-600 hover:text-indigo-900"
-                                            @click="displayConfirmation(Username)"
+                                            @click="displayConfirmation(user.username)"
                                         >
                                             <TrashCanIcon class="w-5 h-5" /> <span class="sr-only">Delete</span>
                                         </button>
@@ -176,7 +161,7 @@ const deleteCephUser = async function (): Promise<void> {
                                                     <button
                                                         type="button"
                                                         class="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
-                                                        @click="deleteCephUser()"
+                                                        @click="removeCephUser(username)"
                                                     >
                                                         Delete
                                                     </button>

@@ -2,10 +2,10 @@
 import { CheckIcon, ChevronDownIcon, FileDocumentEditIcon } from 'mdi-vue3';
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/vue';
 import { ConnectError } from '@connectrpc/connect';
-import { ref } from 'vue';
 import MonacoEditor from '~/components/editor/MonacoEditor.vue';
-import { useClusterStore } from '~/store/cluster';
-import AlertSuccess from '~/components/editor/AlertSuccess.vue';
+import * as k8sresources from '~/composables/clients/k8sresources_editor';
+import GenericAlert from '~/components/partials/elements/GenericAlert.vue';
+
 useHead({
     title: 'Koor objects Editor',
 });
@@ -15,8 +15,6 @@ definePageMeta({
 });
 
 const { $grpc } = useNuxtApp();
-
-const clusterStore = useClusterStore();
 
 interface CephResource {
     name: string;
@@ -36,7 +34,7 @@ function hideAlert() {
 
 const { data: resources } = useLazyAsyncData('Resources', async () => {
     try {
-        const resp = await clusterStore.getCustomResources();
+        const resp = await k8sresources.getResources();
 
         return resp.resources?.resources.map(
             (item, index) =>
@@ -77,11 +75,12 @@ function delay(ms: number): Promise<void> {
 
 async function saveChanges() {
     savingStatus.value = '.........saving';
+
     if (monacoEditor.value) {
         const updatedContent = monacoEditor.value.getCurrentContent();
         const resource = selected.value;
         console.log(selected.value);
-        const res = await clusterStore.updateResource(
+        const res = await k8sresources.saveResource(
             resource?.name,
             resource?.namespace,
             resource?.kind,
@@ -170,7 +169,14 @@ async function saveChanges() {
                     </div>
                     <div class="pt-4">
                         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                            <AlertSuccess v-if="isSuccess" @click.prevent="hideAlert" />
+                            <GenericAlert
+                                v-if="isSuccess"
+                                box-class="bg-success-100"
+                                icon-class="text-success-400"
+                                text-class="text-success-600"
+                                title="Your resource has been updated!"
+                                @click.prevent="hideAlert"
+                            />
                             <dl v-if="selected" class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-1">
                                 <div
                                     class="overflow-hidden rounded-l-md rounded-r-md border-t border-gray-200 bg-gray-50 shadow sm:p-3 pl-4"

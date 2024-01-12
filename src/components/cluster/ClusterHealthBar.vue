@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { clusterHealthToBGColor, clusterHealthToTextColor } from '~/components/cluster/helpers';
 import Container from '~/components/partials/Container.vue';
-import { ClusterHealth } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
+import { ClusterHealth } from '~~/gen/ts/api/resources/ceph/v1/stats_pb';
 
 defineProps<{
     clusterId: string;

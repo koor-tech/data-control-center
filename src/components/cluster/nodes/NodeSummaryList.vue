@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import NodeSummaryItem from '~/components/cluster/nodes/NodeSummaryItem.vue';
 import Container from '~/components/partials/Container.vue';
-import type { NodeInfo } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
+import type { NodeInfo } from '~~/gen/ts/api/resources/k8s/v1/resources_pb';
 
 defineProps<{
     nodes: NodeInfo[];

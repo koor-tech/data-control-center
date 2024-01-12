@@ -4,11 +4,11 @@ import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue';
 import { ChevronDownIcon } from 'mdi-vue3';
 import ClusterRadar from '~/components/cluster/ClusterRadar.vue';
 import NodeSummaryList from '~/components/cluster/nodes/NodeSummaryList.vue';
-import StatusDials from '~/components/StatusDials.vue';
+import StatusDials from '~/components/cluster/StatusDials.vue';
 import ClusterHealthBar from '~/components/cluster/ClusterHealthBar.vue';
 import Container from '~/components/partials/Container.vue';
-import { useStatsStore } from '~/store/stats';
 import ClusterServices from '~/components/cluster/ClusterServices.vue';
+import ResourceInfoList from '~/components/cluster/ResourceInfoList.vue';
 
 useHead({
     title: 'Overview',
@@ -20,11 +20,11 @@ definePageMeta({
 
 const { $grpc } = useNuxtApp();
 
-const statsStore = useStatsStore();
-
 const { data: stats } = useLazyAsyncData('clusterStats', async () => {
     try {
-        return await statsStore.getClusterStats();
+        const response = await $grpc.getStatsClient().getClusterStats({});
+
+        return response.stats!;
     } catch (e) {
         $grpc.handleError(e as ConnectError);
     }

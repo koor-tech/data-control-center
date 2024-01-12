@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import { proto3 } from "@bufbuild/protobuf";
-import { User } from "../../../resources/ceph/v1/ceph_pb.js";
+import { User } from "../../../resources/ceph/v1/users_pb.js";
 
 /**
  * @generated from message api.services.ceph.v1.ListCephUsersRequest

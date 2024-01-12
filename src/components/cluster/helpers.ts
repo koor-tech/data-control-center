@@ -1,4 +1,4 @@
-import { ClusterHealth } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
+import { ClusterHealth } from '~~/gen/ts/api/resources/ceph/v1/stats_pb';
 
 export function clusterHealthToBGColor(status: ClusterHealth | undefined): string {
     switch (status) {

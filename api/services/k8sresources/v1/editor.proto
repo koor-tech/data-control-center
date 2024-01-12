@@ -12,15 +12,15 @@ message GetResourcesResponse {
 
 message GetResourcesRequest{}
 
-message SaveResourcesRequest {
+message SaveResourceRequest {
   api.resources.k8s.v1.Resource resource = 1;
 }
 
-message SaveResourcesResponse{
+message SaveResourceResponse{
   api.resources.k8s.v1.Resource resource = 1;
 }
 
 service K8sResourcesService {
   rpc GetResources(GetResourcesRequest) returns (GetResourcesResponse) {}
-  rpc SaveResources(SaveResourcesRequest) returns (SaveResourcesResponse) {}
+  rpc SaveResource(SaveResourceRequest) returns (SaveResourceResponse) {}
 }

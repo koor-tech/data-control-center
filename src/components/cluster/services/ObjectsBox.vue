@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { CubeIcon } from 'mdi-vue3';
-import type { Objects } from '~~/gen/ts/api/resources/stats/v1/stats_pb';
+import type { Objects } from '~~/gen/ts/api/resources/ceph/v1/stats_pb';
 import ServiceLiItem from '~/components/cluster/services/ServiceLiItem.vue';
 import ServiceBox from '~/components/cluster/services/ServiceBox.vue';
 import { formatBytesBigInt } from '~/utils/strings';
