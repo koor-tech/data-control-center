@@ -17,6 +17,18 @@ This guide assumes that you already have your custom CA certificate available in
             mountPath: /certs
             readOnly: true
         ```
+    2. Example for a CA certificate being in a Secret:
+       ```yaml
+       additionalVolumes:
+          - name: ca-cert
+            secret:
+              secretName: custom-ca-cert
+
+        additionalVolumeMounts:
+          - name: ca-cert
+            mountPath: /certs
+            readOnly: true
+       ```
 2. Add the env variable `SSL_CERT_FILE` with the path to the certificate to your `values.yaml` like this.
    1. Find or add the following to your `values.yaml`:
         ```yaml

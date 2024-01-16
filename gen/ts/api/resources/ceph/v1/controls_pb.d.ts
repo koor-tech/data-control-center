@@ -13,44 +13,44 @@ import { Message, proto3 } from "@bufbuild/protobuf";
  */
 export declare class OSDScrubbingSchedule extends Message<OSDScrubbingSchedule> {
   /**
-   * @generated from field: optional int64 max_scrub_ops = 2;
+   * @generated from field: optional int64 max_scrub_ops = 2 [jstype = JS_STRING];
    */
-  maxScrubOps?: bigint;
+  maxScrubOps?: string;
 
   /**
-   * @generated from field: optional int64 begin_hour = 3;
+   * @generated from field: optional int64 begin_hour = 3 [jstype = JS_STRING];
    */
-  beginHour?: bigint;
+  beginHour?: string;
 
   /**
-   * @generated from field: optional int64 end_hour = 4;
+   * @generated from field: optional int64 end_hour = 4 [jstype = JS_STRING];
    */
-  endHour?: bigint;
+  endHour?: string;
 
   /**
-   * @generated from field: optional int64 begin_week_day = 5;
+   * @generated from field: optional int64 begin_week_day = 5 [jstype = JS_STRING];
    */
-  beginWeekDay?: bigint;
+  beginWeekDay?: string;
 
   /**
-   * @generated from field: optional int64 end_week_day = 6;
+   * @generated from field: optional int64 end_week_day = 6 [jstype = JS_STRING];
    */
-  endWeekDay?: bigint;
+  endWeekDay?: string;
 
   /**
-   * @generated from field: optional int64 min_scrub_interval = 7;
+   * @generated from field: optional int64 min_scrub_interval = 7 [jstype = JS_STRING];
    */
-  minScrubInterval?: bigint;
+  minScrubInterval?: string;
 
   /**
-   * @generated from field: optional int64 max_scrub_interval = 8;
+   * @generated from field: optional int64 max_scrub_interval = 8 [jstype = JS_STRING];
    */
-  maxScrubInterval?: bigint;
+  maxScrubInterval?: string;
 
   /**
-   * @generated from field: optional int64 deep_scrub_interval = 9;
+   * @generated from field: optional int64 deep_scrub_interval = 9 [jstype = JS_STRING];
    */
-  deepScrubInterval?: bigint;
+  deepScrubInterval?: string;
 
   /**
    * @generated from field: optional float scrub_sleep_seconds = 10;

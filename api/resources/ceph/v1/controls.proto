@@ -8,13 +8,13 @@ option go_package = "github.com/koor-tech/data-control-center/gen/go/api/resourc
 
 // Osd Scrubbing schedule config
 message OSDScrubbingSchedule {
-  optional int64 max_scrub_ops = 2 [(validate.rules).int64 = {gte: 0, lt: 9999999}];
-  optional int64 begin_hour = 3 [(validate.rules).int64 = {gte: 0, lt: 23}];
-  optional int64 end_hour = 4 [(validate.rules).int64 = {gte: 0, lt: 23}];
-  optional int64 begin_week_day = 5 [(validate.rules).int64 = {gte: 0, lt: 6}];
-  optional int64 end_week_day = 6 [(validate.rules).int64 = {gte: 0, lt: 6}];
-  optional int64 min_scrub_interval = 7 [(validate.rules).int64 = {gte: 0, lt: 9999999999}];
-  optional int64 max_scrub_interval = 8 [(validate.rules).int64 = {gte: 0, lt: 9999999999}];
-  optional int64 deep_scrub_interval = 9 [(validate.rules).int64 = {gte: 0, lt: 9999999999}];
+  optional int64 max_scrub_ops = 2 [(validate.rules).int64 = {gte: 0, lt: 9999999}, jstype = JS_STRING];
+  optional int64 begin_hour = 3 [(validate.rules).int64 = {gte: 0, lt: 23}, jstype = JS_STRING];
+  optional int64 end_hour = 4 [(validate.rules).int64 = {gte: 0, lt: 23}, jstype = JS_STRING];
+  optional int64 begin_week_day = 5 [(validate.rules).int64 = {gte: 0, lt: 6}, jstype = JS_STRING];
+  optional int64 end_week_day = 6 [(validate.rules).int64 = {gte: 0, lt: 6}, jstype = JS_STRING];
+  optional int64 min_scrub_interval = 7 [(validate.rules).int64 = {gte: 0, lt: 9999999999}, jstype = JS_STRING];
+  optional int64 max_scrub_interval = 8 [(validate.rules).int64 = {gte: 0, lt: 9999999999}, jstype = JS_STRING];
+  optional int64 deep_scrub_interval = 9 [(validate.rules).int64 = {gte: 0, lt: 9999999999}, jstype = JS_STRING];
   optional float scrub_sleep_seconds = 10 [(validate.rules).float = {gte: 0, lt: 9999999999}];
 }
