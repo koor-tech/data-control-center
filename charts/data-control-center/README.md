@@ -68,7 +68,7 @@ The following table lists the configurable parameters of the rook-operator chart
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
-| `additionalEnv` | Will be put in a Secret and used as env vars | `{}` |
+| `additionalEnv` | Will be put in a Secret and used as env vars (key value pairs) | `{}` |
 | `additionalVolumeMounts` | Extra volume mounts to add to the data-control-center deployment | `[]` |
 | `additionalVolumes` | Extra volumes to add to the data-control-center deployment | `[]` |
 | `affinity` | Pod Affinity options https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#affinity-v1-core | `{}` |

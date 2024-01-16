@@ -33,6 +33,5 @@ This guide assumes that you already have your custom CA certificate available in
    1. Find or add the following to your `values.yaml`:
         ```yaml
         additionalEnv:
-          - name: SSL_CERT_FILE
-            value: "/certs/ca.pem"
+          SSL_CERT_FILE: "/certs/ca.pem"
         ```

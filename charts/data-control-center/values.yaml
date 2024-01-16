@@ -104,7 +104,7 @@ tolerations: []
 # -- Pod Affinity options https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#affinity-v1-core
 affinity: {}
 
-# -- Will be put in a Secret and used as env vars
+# -- Will be put in a Secret and used as env vars (key value pairs)
 additionalEnv: {}
 
 postInstallJob:
