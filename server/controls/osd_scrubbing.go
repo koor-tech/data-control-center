@@ -2,11 +2,13 @@ package controls
 
 import (
 	"context"
+	"errors"
 	"strconv"
 
 	"connectrpc.com/connect"
 	cephv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/ceph/v1"
 	pb "github.com/koor-tech/data-control-center/gen/go/api/services/controls/v1"
+	grpcerrors "github.com/koor-tech/data-control-center/pkg/grpc/errors"
 	rookcephv1 "github.com/rook/rook/pkg/apis/ceph.rook.io/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -141,6 +143,10 @@ func (s *Server) GetScrubbingSchedule(ctx context.Context, req *connect.Request[
 }
 
 func (s *Server) SetScrubbingSchedule(ctx context.Context, req *connect.Request[pb.SetScrubbingScheduleRequest]) (*connect.Response[pb.SetScrubbingScheduleResponse], error) {
+	if s.readOnly {
+		return nil, grpcerrors.ErrReadOnly
+	}
+
 	schedule := req.Msg.OsdScrubbingSchedule
 	schedule.Default()
 
@@ -154,6 +160,10 @@ func (s *Server) SetScrubbingSchedule(ctx context.Context, req *connect.Request[
 	for _, c := range list.Items {
 		cluster = c
 		break
+	}
+
+	if cluster.Spec.CephConfig == nil {
+		return nil, errors.New("")
 	}
 
 	cephConfig := cluster.Spec.CephConfig

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Container from '~/components/partials/Container.vue';
-import AncienttControl from '~/components/troubleshoot/AncienttControl.vue';
-import TroubleshootReport from '~/components/troubleshoot/TroubleshootReport.vue';
+import AncienttControl from '~/components/troubleshooting/AncienttControl.vue';
+import TroubleshootReport from '~/components/troubleshooting/TroubleshootReport.vue';
 
 useHead({
     title: 'Troubleshoot',

@@ -6269,6 +6269,11 @@ make-fetch-happen@^13.0.0:
     promise-retry "^2.0.1"
     ssri "^10.0.0"
 
+maska@^2.1.11:
+  version "2.1.11"
+  resolved "https://registry.yarnpkg.com/maska/-/maska-2.1.11.tgz#71ef39a0c7121beda374f9a309bded5c129dd3f1"
+  integrity sha512-IGqWjBnKxMYcVa06pb4mPfag9sJjnR2T15CdGfQ2llR3gajiSd4AxXCvNqHMEq9W3UBhjjTazgWumsP3sWrUSg==
+
 mdi-vue3@^7.4.47:
   version "7.4.47"
   resolved "https://registry.yarnpkg.com/mdi-vue3/-/mdi-vue3-7.4.47.tgz#1415b3322f58b5b262c94730478e118b7009143c"
@@ -9720,6 +9725,7 @@ wide-align@^1.1.2:
     string-width "^1.0.2 || 2 || 3 || 4"
 
 "wrap-ansi-cjs@npm:wrap-ansi@^7.0.0", wrap-ansi@^7.0.0:
+  name wrap-ansi-cjs
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
   integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==

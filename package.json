@@ -37,6 +37,7 @@
         "flowbite": "^2.2.1",
         "google-protobuf": "^3.21.2",
         "js-yaml": "^4.1.0",
+        "maska": "^2.1.11",
         "mdi-vue3": "^7.4.47",
         "monaco-editor": "^0.45.0",
         "pinia": "^2.1.7",

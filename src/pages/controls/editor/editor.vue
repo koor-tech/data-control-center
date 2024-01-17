@@ -2,15 +2,15 @@
 import { CheckIcon, ChevronDownIcon, FileDocumentEditIcon } from 'mdi-vue3';
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/vue';
 import { ConnectError } from '@connectrpc/connect';
-import MonacoEditor from '~/components/editor/MonacoEditor.vue';
+import MonacoEditor from '~/components/controls/editor/MonacoEditor.vue';
 import * as k8sresources from '~/composables/clients/k8sresources_editor';
 import GenericAlert from '~/components/partials/elements/GenericAlert.vue';
 
 useHead({
-    title: 'Koor objects Editor',
+    title: 'Resource Editor',
 });
 definePageMeta({
-    title: 'Koor objects Editor',
+    title: 'Resource Editor',
     requiresAuth: true,
 });
 

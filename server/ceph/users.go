@@ -87,8 +87,7 @@ func (s *CephUsersServer) CreateCephUser(ctx context.Context, req *connect.Reque
 		Enabled:  req.Msg.CephUser.Enabled,
 		Roles:    req.Msg.CephUser.Roles,
 	}
-	err := s.ceph.CreateCephUser(ctx, userCreate)
-	if err != nil {
+	if err := s.ceph.CreateCephUser(ctx, userCreate); err != nil {
 		return nil, connect.NewError(connect.CodeInternal, fmt.Errorf("error caused by %w", err))
 	}
 

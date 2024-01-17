@@ -7,6 +7,7 @@ import (
 	"connectrpc.com/connect"
 	k8sv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/k8s/v1"
 	k8sresourcespb "github.com/koor-tech/data-control-center/gen/go/api/services/k8sresources/v1"
+	grpcerrors "github.com/koor-tech/data-control-center/pkg/grpc/errors"
 )
 
 func (s *Server) GetResources(ctx context.Context, _ *connect.Request[k8sresourcespb.GetResourcesRequest]) (*connect.Response[k8sresourcespb.GetResourcesResponse], error) {
@@ -36,6 +37,10 @@ func (s *Server) GetResources(ctx context.Context, _ *connect.Request[k8sresourc
 }
 
 func (s *Server) SaveResource(ctx context.Context, req *connect.Request[k8sresourcespb.SaveResourceRequest]) (*connect.Response[k8sresourcespb.SaveResourceResponse], error) {
+	if s.readOnly {
+		return nil, grpcerrors.ErrReadOnly
+	}
+
 	requestResource := req.Msg.Resource
 	resource := k8sv1.Resource{
 		Name:      requestResource.Name,

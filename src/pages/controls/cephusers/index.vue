@@ -5,10 +5,10 @@ import { listCephUsers, deleteCephUser } from '~/composables/clients/ceph_users'
 import GenericBadge from '~/components/partials/GenericBadge.vue';
 
 useHead({
-    title: 'MGR Dashboard Users',
+    title: 'Ceph Dashboard Users',
 });
 definePageMeta({
-    title: 'MGR Dashboard Users',
+    title: 'Ceph Dashboard Users',
     requiresAuth: true,
 });
 
@@ -34,7 +34,7 @@ async function removeCephUser(username: string): Promise<void> {
 </script>
 <template>
     <div class="p-2">
-        <h2 class="text-xl q-mt-lg text-center">Ceph Users</h2>
+        <h2 class="text-xl q-mt-lg text-center">Ceph Dashboard Users</h2>
         <div class="px-4 sm:px-6 lg:px-8">
             <div class="sm:flex sm:items-center">
                 <div class="sm:flex-auto">

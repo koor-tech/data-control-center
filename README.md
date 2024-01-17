@@ -8,6 +8,10 @@ You can install/run the Koor data-control-center as a [binary](https://github.co
 
 Using the Helm chart to run in Kubernetes is the recommended way.
 
+### Requirements
+
+* Rook Ceph version `v1.13.0` or higher
+
 ### Configuration
 
 Checkout the [configuration documentation here](docs/configuration.md).

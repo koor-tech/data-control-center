@@ -35,7 +35,9 @@ import (
 	serverauth "github.com/koor-tech/data-control-center/server/auth"
 	serverceph "github.com/koor-tech/data-control-center/server/ceph"
 	servercontrols "github.com/koor-tech/data-control-center/server/controls"
+	serverk8sresources "github.com/koor-tech/data-control-center/server/k8sresources"
 	serverstats "github.com/koor-tech/data-control-center/server/stats"
+	servertroubleshooting "github.com/koor-tech/data-control-center/server/troubleshooting"
 )
 
 var HTTPServerModule = fx.Module("httpserver",
@@ -197,9 +199,11 @@ func StartHTTPServer() {
 		// Connect Services - Need to be added here
 		fx.Provide(
 			AsService(serverauth.New),
+			AsService(serverceph.New),
 			AsService(servercontrols.New),
 			AsService(serverstats.New),
-			AsService(serverceph.New),
+			AsService(serverk8sresources.New),
+			AsService(servertroubleshooting.New),
 		),
 
 		fx.Invoke(func(*update.Checker) {}),
