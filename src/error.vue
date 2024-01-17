@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useClipboard } from '@vueuse/core';
 import HeroFull from '~/components/partials/HeroFull.vue';
+import LoadingBar from '~/components/partials/LoadingBar.vue';
+import ContentCenterWrapper from '~/components/partials/ContentCenterWrapper.vue';
 
 useHead({
     title: 'Error occured - Data Control Center',
@@ -38,32 +40,36 @@ startButtonTimer();
 </script>
 
 <template>
-    <div class="h-dscreen bg-black-100">
+    <div class="h-dscreen">
+        <LoadingBar />
         <HeroFull>
-            <NuxtLoadingIndicator />
-            <div class="max-w-3xl mx-auto text-center">
-                <KoorLogo class="w-20 h-20" title="Koor Data Control Center" />
+            <ContentCenterWrapper class="max-w-3xl mx-auto text-center">
+                <KoorLogo class="h-auto w-24 mx-auto mb-2" />
 
-                <h1 class="text-5xl font-bold text-neutral">Error</h1>
+                <h1 class="text-5xl font-bold text-neutral">Error occured</h1>
                 <h2 class="text-xl text-neutral">Critical Error Occured</h2>
                 <div class="py-2 text-neutral mb-4">
                     <p class="py-2 font-semibold">Error Message:</p>
                     <span v-if="error">
                         <!-- @vue-expect-error -->
-                        <pre v-if="error.statusMessage">
-                            <!-- @vue-expect-error -->
-                            {{ error.statusMessage }}
-                        </pre>
+                        <pre
+                            v-if="error.statusMessage"
+                            v-text="
+                                // @ts-ignore
+                                error.statusMessage
+                            "
+                        />
                         <!-- @vue-expect-error -->
                         <pre
                             v-else-if="
-                                //@ts-ignore
+                                // @ts-ignore
                                 error.message
                             "
-                        >
-                            <!-- @vue-expect-error -->
-                            {{ error.message }}
-                        </pre>
+                            v-text="
+                                // @ts-ignore
+                                error.message
+                            "
+                        />
                         <pre v-else>Unable to get error message</pre>
                     </span>
                     <span v-else>
@@ -107,7 +113,7 @@ startButtonTimer();
                         Copy Error
                     </button>
                 </div>
-            </div>
+            </ContentCenterWrapper>
         </HeroFull>
     </div>
 </template>
