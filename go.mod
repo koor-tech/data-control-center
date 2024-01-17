@@ -6,7 +6,7 @@ require (
 	connectrpc.com/connect v1.14.0
 	github.com/Masterminds/sprig/v3 v3.2.3
 	github.com/creasty/defaults v1.7.0
-	github.com/envoyproxy/protoc-gen-validate v1.0.3
+	github.com/envoyproxy/protoc-gen-validate v1.0.4
 	github.com/gin-contrib/sessions v0.0.5
 	github.com/gin-contrib/static v0.0.1
 	github.com/gin-contrib/zap v0.2.0
