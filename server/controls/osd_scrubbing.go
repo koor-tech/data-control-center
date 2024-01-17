@@ -163,7 +163,7 @@ func (s *Server) SetScrubbingSchedule(ctx context.Context, req *connect.Request[
 	}
 
 	if cluster.Spec.CephConfig == nil {
-		return nil, errors.New("")
+		return nil, errors.New("Make sure that your Rook Ceph operator is running v1.13.x or higher")
 	}
 
 	cephConfig := cluster.Spec.CephConfig
