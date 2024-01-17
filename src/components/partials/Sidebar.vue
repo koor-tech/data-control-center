@@ -210,7 +210,7 @@ const appVersion = accessToken ? ' v' + __APP_VERSION__ + (import.meta.env.DEV ?
             <div class="flex flex-col items-center w-full py-6 h-full">
                 <div class="flex items-center flex-shrink-0">
                     <NuxtLink :to="{ name: 'index' }" aria-current-value="page">
-                        <KoorLogo class="w-20 h-20" :title="'Koor Data Control Center' + appVersion" />
+                        <KoorLogo class="w-20 h-20" :title="`Koor Data Control Center ${appVersion}`" />
                     </NuxtLink>
                 </div>
                 <div class="flex-grow w-full px-2 mt-6 space-y-1 text-center">
@@ -313,7 +313,7 @@ const appVersion = accessToken ? ' v' + __APP_VERSION__ + (import.meta.env.DEV ?
                                 </div>
                             </TransitionChild>
                             <div class="flex items-center flex-shrink-0 px-4">
-                                <KoorLogo class="w-20 h-20" :title="'Koor Data Control Center' + appVersion" />
+                                <KoorLogo class="w-20 h-20" :title="`Koor Data Control Center ${appVersion}`" />
                             </div>
                             <div class="flex-grow h-0 px-2 mt-5 overflow-y-auto">
                                 <nav class="flex flex-col h-full">
