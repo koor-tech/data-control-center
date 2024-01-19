@@ -3,6 +3,8 @@ package auth
 import (
 	"context"
 	"fmt"
+	"net/url"
+	"strings"
 
 	"connectrpc.com/connect"
 	"github.com/gin-gonic/gin"
@@ -10,6 +12,7 @@ import (
 	"github.com/koor-tech/data-control-center/gen/go/api/services/auth/v1/authv1connect"
 	"github.com/koor-tech/data-control-center/pkg/config"
 	"github.com/koor-tech/data-control-center/pkg/grpc/auth"
+	"github.com/koor-tech/data-control-center/pkg/server/oauth2/providers"
 	"golang.org/x/crypto/bcrypt"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
@@ -19,11 +22,12 @@ type Server struct {
 
 	tm *auth.TokenMgr
 
-	oauth2Enabled bool
-	users         []*config.User
+	oauth2Enabled   bool
+	oauth2Providers map[string]providers.IProvider
+	users           []*config.User
 }
 
-func New(tm *auth.TokenMgr, cfg *config.Config) (*Server, error) {
+func New(tm *auth.TokenMgr, cfg *config.Config, oauth2Providers map[string]providers.IProvider) (*Server, error) {
 	// TODO find a better way to store the passwords in memory
 	users := []*config.User{}
 	for _, user := range cfg.Users {
@@ -37,9 +41,10 @@ func New(tm *auth.TokenMgr, cfg *config.Config) (*Server, error) {
 	}
 
 	return &Server{
-		tm:            tm,
-		oauth2Enabled: len(cfg.OAuth2.Providers) > 0,
-		users:         users,
+		tm:              tm,
+		oauth2Enabled:   len(oauth2Providers) > 0,
+		oauth2Providers: oauth2Providers,
+		users:           users,
 	}, nil
 }
 
@@ -70,7 +75,7 @@ func (s *Server) Login(ctx context.Context, req *connect.Request[pbauth.LoginReq
 		return nil, connect.NewError(connect.CodeInvalidArgument, fmt.Errorf("Wrong username or password"))
 	}
 
-	claims := auth.BuildTokenClaimsFromAccount("data-control-center-user-login-"+user.Username, user.Username)
+	claims := auth.BuildTokenClaimsFromAccount("data-control-center-user-login-"+user.Username, user.Username, "", "")
 	token, err := s.tm.NewWithClaims(claims)
 	if err != nil {
 		return nil, err
@@ -86,9 +91,47 @@ func (s *Server) Login(ctx context.Context, req *connect.Request[pbauth.LoginReq
 }
 
 func (s *Server) Logout(ctx context.Context, req *connect.Request[pbauth.LogoutRequest]) (*connect.Response[pbauth.LogoutResponse], error) {
+	var redirectTo *string
+	if s.oauth2Enabled {
+		t := req.Header().Get("authorization")
+
+		if t == "" {
+			return nil, fmt.Errorf("no auth token in logout request")
+		}
+
+		t = strings.TrimPrefix(t, "Bearer ")
+		// Parse token only returns the token info when the token is still valid
+		tInfo, err := s.tm.ParseWithClaims(t)
+		if err != nil {
+			return nil, fmt.Errorf("invalid user info retrieved from context")
+		}
+
+		if tInfo.Oauth2Provider == "" || tInfo.Oauth2Token == "" {
+			return nil, fmt.Errorf("invalid oauth2 provider info retrieved from context")
+		}
+
+		if provider, ok := s.oauth2Providers[tInfo.Oauth2Provider]; ok {
+			logoutURL := provider.GetLogoutURL(tInfo.Oauth2Token)
+			if logoutURL != "" {
+				parsed, err := url.Parse(logoutURL)
+				if err != nil {
+					return nil, fmt.Errorf("failed to parse logout url")
+				}
+
+				q := parsed.Query()
+				q.Add("client_id", provider.GetOauthConfig().ClientID)
+				parsed.RawQuery = q.Encode()
+				logoutURL = parsed.String()
+
+				redirectTo = &logoutURL
+			}
+		}
+	}
+
 	return &connect.Response[pbauth.LogoutResponse]{
 		Msg: &pbauth.LogoutResponse{
-			Success: true,
+			Success:    true,
+			RedirectTo: redirectTo,
 		},
 	}, nil
 }

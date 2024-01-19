@@ -45,6 +45,8 @@ export const useAuthStore = defineStore('auth', {
             this.accessToken = null;
             this.accessTokenExpiration = null;
             this.accountID = 0n;
+            this.loggingIn = false;
+            this.loginError = null;
             this.permissions = [];
             this.username = null;
         },
@@ -78,12 +80,15 @@ export const useAuthStore = defineStore('auth', {
             const { $grpc } = useNuxtApp();
 
             try {
-                await $grpc.getAuthClient().logout({});
+                const response = await $grpc.getAuthClient().logout({});
                 this.clearAuthInfo();
-            } catch (e) {
-                if (e instanceof ConnectError) $grpc.handleError(e as ConnectError);
 
+                if (response.redirectTo) {
+                    navigateTo(response.redirectTo, { external: true });
+                }
+            } catch (e) {
                 this.clearAuthInfo();
+                if (e instanceof ConnectError) $grpc.handleError(e as ConnectError);
 
                 useNotificationsStore().dispatchNotification({
                     title: 'Error while logging you out',

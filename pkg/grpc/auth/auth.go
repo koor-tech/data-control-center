@@ -20,8 +20,8 @@ const (
 var UserInfoKey struct{}
 
 var (
-	ErrNoToken      = connect.NewError(connect.CodeUnauthenticated, fmt.Errorf("no token given, please login!"))
-	ErrInvalidToken = connect.NewError(connect.CodeUnauthenticated, fmt.Errorf("invalid token! Please login again."))
+	ErrNoToken      = connect.NewError(connect.CodeUnauthenticated, fmt.Errorf("no token given, please login again"))
+	ErrInvalidToken = connect.NewError(connect.CodeUnauthenticated, fmt.Errorf("invalid token! Please login again"))
 )
 
 type GRPCAuth struct {
@@ -54,8 +54,10 @@ func (g *GRPCAuth) NewAuthInterceptor() connect.UnaryInterceptorFunc {
 			}
 
 			ctx = context.WithValue(ctx, UserInfoKey, &userinfo.UserInfo{
-				AccId:    tInfo.AccID,
-				Username: tInfo.Username,
+				AccId:          tInfo.AccID,
+				Username:       tInfo.Username,
+				Oauth2Provider: tInfo.Oauth2Provider,
+				Oauth2Token:    tInfo.Oauth2Token,
 			})
 
 			return next(ctx, req)

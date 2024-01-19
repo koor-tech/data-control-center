@@ -792,6 +792,7 @@ The mode of the upgrade
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | success | [bool](#bool) |  |  |
+| redirect_to | [string](#string) | optional |  |
 
 
 

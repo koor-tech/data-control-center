@@ -9,6 +9,7 @@ import (
 var json = jsoniter.ConfigCompatibleWithStandardLibrary
 
 type IProvider interface {
+	GetOauthConfig() *oauth2.Config
 	SetOauthConfig(*oauth2.Config)
 	SetMapping(*config.OAuth2Mapping)
 
@@ -16,15 +17,21 @@ type IProvider interface {
 
 	GetRedirect(state string) string
 	GetUserInfo(string) (*UserInfo, error)
+	GetLogoutURL(token string) string
 }
 
 type BaseProvider struct {
-	oauthConfig *oauth2.Config
-	mapping     *config.OAuth2Mapping
+	oauthConfig    *oauth2.Config
+	ProviderConfig *config.OAuth2Provider
+	mapping        *config.OAuth2Mapping
 
 	UserInfoURL string
 
 	Name string
+}
+
+func (b *BaseProvider) GetOauthConfig() *oauth2.Config {
+	return b.oauthConfig
 }
 
 func (b *BaseProvider) SetOauthConfig(cfg *oauth2.Config) {
@@ -43,7 +50,12 @@ func (b *BaseProvider) GetRedirect(state string) string {
 	return b.oauthConfig.AuthCodeURL(state)
 }
 
+func (b *BaseProvider) GetLogoutURL(token string) string {
+	return b.ProviderConfig.Endpoints.LogoutURL
+}
+
 type UserInfo struct {
 	ID       string
 	Username string
+	Token    string
 }

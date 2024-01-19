@@ -8,12 +8,10 @@ import (
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
-	"github.com/koor-tech/data-control-center/pkg/config"
 	"github.com/koor-tech/data-control-center/pkg/grpc/auth"
 	"github.com/koor-tech/data-control-center/pkg/server/oauth2/providers"
 	"github.com/koor-tech/data-control-center/pkg/utils"
 	"go.uber.org/zap"
-	"golang.org/x/oauth2"
 )
 
 type OAuth2 struct {
@@ -23,40 +21,11 @@ type OAuth2 struct {
 	oauthConfigs map[string]providers.IProvider
 }
 
-func New(logger *zap.Logger, tm *auth.TokenMgr, oAuth2Providers []*config.OAuth2Provider) *OAuth2 {
+func New(logger *zap.Logger, tm *auth.TokenMgr, oAuth2Providers map[string]providers.IProvider) *OAuth2 {
 	o := &OAuth2{
 		logger:       logger,
 		tm:           tm,
-		oauthConfigs: make(map[string]providers.IProvider, len(oAuth2Providers)),
-	}
-
-	for _, p := range oAuth2Providers {
-		cfg := &oauth2.Config{
-			RedirectURL:  p.RedirectURL,
-			ClientID:     p.ClientID,
-			ClientSecret: p.ClientSecret,
-			Scopes:       p.Scopes,
-			Endpoint: oauth2.Endpoint{
-				AuthURL:   p.Endpoints.AuthURL,
-				TokenURL:  p.Endpoints.TokenURL,
-				AuthStyle: oauth2.AuthStyleInParams,
-			},
-		}
-		var provider providers.IProvider
-		switch p.Type {
-		default:
-			provider = &providers.Generic{
-				BaseProvider: providers.BaseProvider{
-					Name:        p.Name,
-					UserInfoURL: p.Endpoints.UserInfoURL,
-				},
-			}
-		}
-
-		provider.SetOauthConfig(cfg)
-		provider.SetMapping(p.Mapping)
-
-		o.oauthConfigs[p.Name] = provider
+		oauthConfigs: oAuth2Providers,
 	}
 
 	return o
@@ -197,7 +166,8 @@ func (o *OAuth2) Callback(c *gin.Context) {
 		return
 	}
 
-	userInfo, err := provider.GetUserInfo(c.Request.FormValue("code"))
+	code := c.Request.FormValue("code")
+	userInfo, err := provider.GetUserInfo(code)
 	if err != nil {
 		o.logger.Error("failed to get userinfo from provider", zap.Error(err))
 		o.handleRedirect(c, err, connectOnly, false, "provider_failed")
@@ -223,7 +193,8 @@ func (o *OAuth2) Callback(c *gin.Context) {
 		return
 	}
 
-	claims := auth.BuildTokenClaimsFromAccount(userInfo.ID, userInfo.Username)
+	providerName := provider.GetName()
+	claims := auth.BuildTokenClaimsFromAccount(userInfo.ID, userInfo.Username, providerName, code)
 	newToken, err := o.tm.NewWithClaims(claims)
 	if err != nil {
 		o.handleRedirect(c, err, connectOnly, true, "internal_error")

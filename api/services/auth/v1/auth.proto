@@ -29,6 +29,7 @@ message LogoutRequest {}
 
 message LogoutResponse {
   bool success = 1;
+  optional string redirect_to = 2;
 }
 
 message CheckTokenRequest {

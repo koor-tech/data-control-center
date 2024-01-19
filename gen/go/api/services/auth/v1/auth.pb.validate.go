@@ -437,6 +437,10 @@ func (m *LogoutResponse) validate(all bool) error {
 
 	// no validation rules for Success
 
+	if m.RedirectTo != nil {
+		// no validation rules for RedirectTo
+	}
+
 	if len(errors) > 0 {
 		return LogoutResponseMultiError(errors)
 	}

@@ -112,6 +112,7 @@ type OAuth2Endpoints struct {
 	AuthURL     string `yaml:"authURL"`
 	TokenURL    string `yaml:"tokenURL"`
 	UserInfoURL string `yaml:"userInfoURL"`
+	LogoutURL   string `yaml:"logoutURL"`
 }
 
 type OAuth2Mapping struct {

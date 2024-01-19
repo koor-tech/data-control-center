@@ -15,8 +15,10 @@ const (
 )
 
 type UserInfoClaims struct {
-	AccID    string `json:"accid"`
-	Username string `json:"usr"`
+	AccID          string `json:"accid"`
+	Username       string `json:"usr"`
+	Oauth2Provider string `json:"oa2p"`
+	Oauth2Token    string `json:"oa2t"`
 
 	jwt.RegisteredClaims
 }
@@ -55,10 +57,12 @@ func (t *TokenMgr) ParseWithClaims(tokenString string) (*UserInfoClaims, error) 
 	return nil, errors.New("failed to parse token claims")
 }
 
-func BuildTokenClaimsFromAccount(accountID string, username string) *UserInfoClaims {
+func BuildTokenClaimsFromAccount(accountID string, username string, provider string, token string) *UserInfoClaims {
 	claims := &UserInfoClaims{
-		AccID:    accountID,
-		Username: username,
+		AccID:          accountID,
+		Username:       username,
+		Oauth2Provider: provider,
+		Oauth2Token:    token,
 		RegisteredClaims: jwt.RegisteredClaims{
 			Issuer:   "data-control-center",
 			Subject:  accountID,

@@ -43,6 +43,7 @@ export const LogoutResponse = proto3.makeMessageType(
   "api.services.auth.v1.LogoutResponse",
   () => [
     { no: 1, name: "success", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 2, name: "redirect_to", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ],
 );
 

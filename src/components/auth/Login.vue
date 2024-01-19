@@ -20,9 +20,9 @@ if (query.t && query.t !== '' && query.exp) {
         type: 'info',
     });
 
-    await navigateTo({ name: 'index' });
-    // `oauth2Login` can be `failed` (with `reason`)
+    navigateTo({ name: 'index' });
 } else if (query.oauth2Login && query.oauth2Login === 'failed') {
+    // `oauth2Login` can be `failed` (with `reason`)
     const reason = query.reason ?? 'N/A';
 
     notifications.dispatchNotification({

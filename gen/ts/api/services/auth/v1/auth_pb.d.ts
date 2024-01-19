@@ -97,6 +97,11 @@ export declare class LogoutResponse extends Message<LogoutResponse> {
    */
   success: boolean;
 
+  /**
+   * @generated from field: optional string redirect_to = 2;
+   */
+  redirectTo?: string;
+
   constructor(data?: PartialMessage<LogoutResponse>);
 
   static readonly runtime: typeof proto3;

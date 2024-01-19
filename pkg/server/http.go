@@ -25,6 +25,7 @@ import (
 	k8scache "github.com/koor-tech/data-control-center/pkg/k8s/cache"
 	"github.com/koor-tech/data-control-center/pkg/server/httpapi"
 	"github.com/koor-tech/data-control-center/pkg/server/oauth2"
+	"github.com/koor-tech/data-control-center/pkg/server/oauth2/providers"
 	"github.com/koor-tech/data-control-center/pkg/update"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
@@ -56,7 +57,8 @@ type ServerParams struct {
 	Config   *config.Config
 	TokenMgr *auth.TokenMgr
 
-	Routes *httpapi.Routes
+	Routes          *httpapi.Routes
+	OAuth2Providers map[string]providers.IProvider
 
 	Services []Service `group:"connectServices"`
 }
@@ -129,8 +131,8 @@ func setupHTTPServer(p ServerParams) *gin.Engine {
 	// Register HTTP API routes
 	p.Routes.Register(e)
 
-	if len(p.Config.OAuth2.Providers) > 0 {
-		oauth := oauth2.New(p.Logger.Named("oauth"), p.TokenMgr, p.Config.OAuth2.Providers)
+	if len(p.OAuth2Providers) > 0 {
+		oauth := oauth2.New(p.Logger.Named("oauth"), p.TokenMgr, p.OAuth2Providers)
 		oauth.Register(e)
 	}
 
@@ -195,6 +197,7 @@ func StartHTTPServer() {
 		cephcache.Module,
 		update.Module,
 		ancientt.Module,
+		oauth2.ConfigModule,
 
 		// Connect Services - Need to be added here
 		fx.Provide(
