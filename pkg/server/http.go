@@ -21,6 +21,7 @@ import (
 	cephcache "github.com/koor-tech/data-control-center/pkg/ceph/cache"
 	"github.com/koor-tech/data-control-center/pkg/config"
 	"github.com/koor-tech/data-control-center/pkg/grpc/auth"
+	"github.com/koor-tech/data-control-center/pkg/httpclient"
 	"github.com/koor-tech/data-control-center/pkg/k8s"
 	k8scache "github.com/koor-tech/data-control-center/pkg/k8s/cache"
 	"github.com/koor-tech/data-control-center/pkg/server/httpapi"
@@ -53,9 +54,10 @@ type ServerParams struct {
 
 	LC fx.Lifecycle
 
-	Logger   *zap.Logger
-	Config   *config.Config
-	TokenMgr *auth.TokenMgr
+	Logger     *zap.Logger
+	Config     *config.Config
+	TokenMgr   *auth.TokenMgr
+	HttpClient *http.Client
 
 	Routes          *httpapi.Routes
 	OAuth2Providers map[string]providers.IProvider
@@ -132,7 +134,7 @@ func setupHTTPServer(p ServerParams) *gin.Engine {
 	p.Routes.Register(e)
 
 	if len(p.OAuth2Providers) > 0 {
-		oauth := oauth2.New(p.Logger.Named("oauth"), p.TokenMgr, p.OAuth2Providers)
+		oauth := oauth2.New(p.Logger.Named("oauth"), p.TokenMgr, p.HttpClient, p.OAuth2Providers)
 		oauth.Register(e)
 	}
 
@@ -198,6 +200,7 @@ func StartHTTPServer() {
 		update.Module,
 		ancientt.Module,
 		oauth2.ConfigModule,
+		httpclient.Module,
 
 		// Connect Services - Need to be added here
 		fx.Provide(

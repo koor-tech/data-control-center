@@ -2,6 +2,7 @@ package update
 
 import (
 	"context"
+	"net/http"
 	"strings"
 	"time"
 
@@ -19,8 +20,9 @@ var Module = fx.Module("update_checker",
 )
 
 type Checker struct {
-	ctx    context.Context
-	logger *zap.Logger
+	ctx        context.Context
+	logger     *zap.Logger
+	httpClient *http.Client
 
 	routes *httpapi.Routes
 
@@ -32,8 +34,9 @@ type Params struct {
 
 	LC fx.Lifecycle
 
-	Logger *zap.Logger
-	Cfg    *config.Config
+	Logger     *zap.Logger
+	Cfg        *config.Config
+	HttpClient *http.Client
 
 	Routes *httpapi.Routes
 }
@@ -42,8 +45,9 @@ func New(p Params) *Checker {
 	ctx, cancel := context.WithCancel(context.Background())
 
 	c := &Checker{
-		ctx:    ctx,
-		logger: p.Logger.Named("update_checker"),
+		ctx:        ctx,
+		logger:     p.Logger.Named("update_checker"),
+		httpClient: p.HttpClient,
 
 		routes: p.Routes,
 
@@ -85,7 +89,7 @@ func (c *Checker) check(ctx context.Context) error {
 	ctx, cancel := context.WithTimeout(ctx, 15*time.Second)
 	defer cancel()
 
-	latest, err := GetLatestRelease(ctx)
+	latest, err := c.GetLatestRelease(ctx)
 	if err != nil {
 		return err
 	}

@@ -29,9 +29,12 @@ This guide assumes that you already have your custom CA certificate available in
             mountPath: /certs
             readOnly: true
        ```
-2. Add the env variable `SSL_CERT_FILE` with the path to the certificate to your `values.yaml` like this.
-   1. Find or add the following to your `values.yaml`:
+2. Add the CA cert to the list of (custom) certificates for the data-control-center to load in your `values.yaml` like this.
+   1. Find the `config:` section and in the `certs:`  sub section add the certs path in the container/Pod like this:
         ```yaml
-        additionalEnv:
-          SSL_CERT_FILE: "/certs/ca.pem"
+        config:
+            # [...]
+          certs:
+            caCerts:
+              - /certs/ca.pem
         ```

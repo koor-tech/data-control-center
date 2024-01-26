@@ -1,6 +1,7 @@
 package oauth2
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -12,19 +13,22 @@ import (
 	"github.com/koor-tech/data-control-center/pkg/server/oauth2/providers"
 	"github.com/koor-tech/data-control-center/pkg/utils"
 	"go.uber.org/zap"
+	"golang.org/x/oauth2"
 )
 
 type OAuth2 struct {
-	logger *zap.Logger
-	tm     *auth.TokenMgr
+	logger     *zap.Logger
+	tm         *auth.TokenMgr
+	httpClient *http.Client
 
 	oauthConfigs map[string]providers.IProvider
 }
 
-func New(logger *zap.Logger, tm *auth.TokenMgr, oAuth2Providers map[string]providers.IProvider) *OAuth2 {
+func New(logger *zap.Logger, tm *auth.TokenMgr, httpClient *http.Client, oAuth2Providers map[string]providers.IProvider) *OAuth2 {
 	o := &OAuth2{
 		logger:       logger,
 		tm:           tm,
+		httpClient:   httpClient,
 		oauthConfigs: oAuth2Providers,
 	}
 
@@ -167,7 +171,8 @@ func (o *OAuth2) Callback(c *gin.Context) {
 	}
 
 	code := c.Request.FormValue("code")
-	userInfo, err := provider.GetUserInfo(code)
+	ctx := context.WithValue(c, oauth2.HTTPClient, o.httpClient)
+	userInfo, err := provider.GetUserInfo(ctx, code)
 	if err != nil {
 		o.logger.Error("failed to get userinfo from provider", zap.Error(err))
 		o.handleRedirect(c, err, connectOnly, false, "provider_failed")

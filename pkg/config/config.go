@@ -68,6 +68,8 @@ type Config struct {
 	UpdateCheck UpdateCheck `yaml:"updateCheck"`
 
 	AncienttCmd string `default:"ancientt" yaml:"ancienttCmd"`
+
+	Certs Certs `yaml:"certs"`
 }
 
 type HTTP struct {
@@ -130,13 +132,18 @@ type Ceph struct {
 }
 
 type API struct {
-	Url         string `yaml:"url"`
-	Username    string `yaml:"username"`
-	Password    string `yaml:"password"`
-	InsecureSSL bool   `yaml:"insecureSSL"`
+	Url                string `yaml:"url"`
+	Username           string `yaml:"username"`
+	Password           string `yaml:"password"`
+	InsecureSkipVerify bool   `yaml:"insecureSkipVerify"`
 }
 
 type UpdateCheck struct {
 	Enabled  bool          `default:"true" yaml:"enabled"`
 	Interval time.Duration `default:"24h" yaml:"interval"`
+}
+
+type Certs struct {
+	InsecureSkipVerify bool     `yaml:"insecureSkipVerify"`
+	CACerts            []string `yaml:"caCerts"`
 }

@@ -23,7 +23,7 @@ Changes to the config file are not auto detected, they require a (manual) restar
     * `url`: Ceph dashboard API URL, if run inside the data-control-center in same cluster your Rook/Koor Ceph cluster is running use `https://rook-ceph-mgr-dashboard:8443/api` (assumes that SSL is enabled on the dashboard, if not change `https` to `http`). The Ceph dashboard is part of the Ceph MGR component exposed on the configured port.
     * `username`: Username of Ceph dashboard user to use.
     * `password`: Password of Ceph dashboard user to use.
-    * `insecureSSL`: If the certificate of the Ceph dashboard API should be verified or not.
+    * `insecureSkipVerify`: If the certificate of the Ceph dashboard API should be verified or not.
 
 ### `oauth2` Section
 

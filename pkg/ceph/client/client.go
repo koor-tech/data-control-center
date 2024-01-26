@@ -26,7 +26,7 @@ type Client struct {
 
 func NewClient(apiConfig config.API) *Client {
 	customTransport := http.DefaultTransport.(*http.Transport).Clone()
-	if apiConfig.InsecureSSL {
+	if apiConfig.InsecureSkipVerify {
 		customTransport.TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
 	}
 

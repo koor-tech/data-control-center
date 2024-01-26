@@ -1,6 +1,8 @@
 package providers
 
 import (
+	"context"
+
 	jsoniter "github.com/json-iterator/go"
 	"github.com/koor-tech/data-control-center/pkg/config"
 	"golang.org/x/oauth2"
@@ -16,7 +18,7 @@ type IProvider interface {
 	GetName() string
 
 	GetRedirect(state string) string
-	GetUserInfo(string) (*UserInfo, error)
+	GetUserInfo(ctx context.Context, code string) (*UserInfo, error)
 	GetLogoutURL(token string) string
 }
 

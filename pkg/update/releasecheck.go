@@ -19,7 +19,7 @@ type release struct {
 	Draft   bool   `json:"draft"`
 }
 
-func GetLatestRelease(ctx context.Context) (string, error) {
+func (c *Checker) GetLatestRelease(ctx context.Context) (string, error) {
 	req, err := http.NewRequestWithContext(ctx, "GET", "https://api.github.com/repos/koor-tech/data-control-center/releases", nil)
 	if err != nil {
 		return "", err
@@ -28,8 +28,7 @@ func GetLatestRelease(ctx context.Context) (string, error) {
 	req.Header.Set("Accept", "application/vnd.github+json")
 	req.Header.Set("X-GitHub-Api-Version", "2022-11-28")
 
-	client := http.DefaultClient
-	res, err := client.Do(req)
+	res, err := c.httpClient.Do(req)
 	if err != nil {
 		log.Fatalf("%v", err)
 	}

@@ -18,7 +18,7 @@ ceph:
     url: 'http://localhost:8383/api'
     username: 'admin'
     password: 'admin'
-    insecureSSL: false
+    insecureSkipVerify: false
 oauth2:
   providers:
     - name: 'keycloak'
@@ -45,3 +45,6 @@ updateCheck:
   enabled: true
   interval: 24h
 ancienttCmd: 'ancientt'
+certs:
+  caCerts: []
+  insecureSkipVerify: false

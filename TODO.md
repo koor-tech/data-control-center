@@ -1,0 +1,10 @@
+- [ ] Rework caching logic to be non-blocking. -> Either a "cluster is detected and stats is available" or there is no stats of the cluster.
+  - [ ] Clearly communicate to the user if the data is "live" or not. Adding auto refresh.
+- [ ] Look into "basic IF condition"-AI for the data-control-center -> Recommendation system
+  - [ ] "Reliability"-score on steroids -> Always give a why.
+  - [ ] Ideas: "It is recommended to ..."
+    - [ ] Set a custom OSD scrubbing schedule.
+    - [ ] Set K8S resources requests/limits for the Ceph components.
+    - [ ] At least replicated.size 3 or higher for production.
+    - [ ] Other important config aspects to check for?
+- [ ] Fix SSL CA custom cert issue
