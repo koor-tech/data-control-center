@@ -2,6 +2,16 @@ apiVersion: v1
 entries:
   data-control-center:
   - apiVersion: v2
+    appVersion: v0.5.6
+    created: "2024-01-26T17:55:39.068968401Z"
+    description: A Helm chart for Koor's data-control-center
+    digest: 3b7dfeba668cb26c6922befbc3239139951c674665dd62edd4966a99b0f94071
+    name: data-control-center
+    type: application
+    urls:
+    - https://github.com/koor-tech/data-control-center/releases/download/data-control-center-0.3.5/data-control-center-0.3.5.tgz
+    version: 0.3.5
+  - apiVersion: v2
     appVersion: v0.5.5
     created: "2024-01-26T11:22:05.271354406Z"
     description: A Helm chart for Koor's data-control-center
@@ -361,4 +371,4 @@ entries:
     urls:
     - https://github.com/koor-tech/data-control-center/releases/download/data-control-center-0.1.1/data-control-center-0.1.1.tgz
     version: 0.1.1
-generated: "2024-01-26T11:22:05.27158685Z"
+generated: "2024-01-26T17:55:39.069556373Z"
