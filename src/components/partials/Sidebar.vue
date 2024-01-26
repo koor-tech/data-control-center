@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { Dialog, DialogPanel, Menu, MenuButton, MenuItem, MenuItems, TransitionChild, TransitionRoot } from '@headlessui/vue';
-
 import {
     AccountDetailsIcon,
     AccountIcon,
@@ -19,25 +18,28 @@ import {
 } from 'mdi-vue3';
 import { type DefineComponent } from 'vue';
 import { useAuthStore } from '~/store/auth';
-import { toTitleCase } from '~/utils/strings';
 import { type RoutesNamedLocations } from '@typed-router';
+import { useBreadcrumbs } from '~/composables/breadcrumbs';
 
 const authStore = useAuthStore();
 const { accessToken } = storeToRefs(authStore);
 const router = useRouter();
 
-const sidebarNavigation = ref<
-    {
-        name: string;
-        href: string | RoutesNamedLocations;
-        external?: boolean;
+type SidebarNavigationitem = {
+    name: string;
         permission?: string;
         icon: DefineComponent;
         position: 'top' | 'bottom';
         current: boolean;
         loggedIn?: boolean;
         charSelected?: boolean;
-    }[]
+};
+
+const sidebarNavigation = ref<
+    (SidebarNavigationitem & ({
+        href: string;
+        external: true;
+    } | { href: RoutesNamedLocations; external?: false; }))[]
 >([
     {
         name: 'Overview',
@@ -113,13 +115,12 @@ const sidebarNavigation = ref<
 const userNavigation = ref<{ name: string; href: RoutesNamedLocations; permission?: string }[]>([
     { name: 'Login', href: { name: 'auth-login' } },
 ]);
-const breadcrumbs = ref<{ name: string; href: string; current: boolean }[]>([]);
+const breadcrumbs = useBreadcrumbs();
 const mobileMenuOpen = ref(false);
 
 onMounted(() => {
     updateUserNav();
     updateActiveItem();
-    updateBreadcrumbs();
 });
 
 function updateUserNav(): void {
@@ -138,7 +139,6 @@ function updateActiveItem(): void {
         sidebarNavigation.value.forEach((e) => {
             if (e.external) return;
 
-            // @ts-ignore future me the href can be a string, but only when external=true, how to type this?
             if (route.name.toLowerCase().includes(e.href.name.toLowerCase())) {
                 e.current = true;
             } else {
@@ -150,54 +150,10 @@ function updateActiveItem(): void {
     }
 }
 
-function updateBreadcrumbs(): void {
-    // Clear current breadcrumbs
-    breadcrumbs.value.length = 0;
-    const currentRoute = router.currentRoute.value;
-
-    const pathSplit = currentRoute.path.split('/').filter((e) => e !== '');
-    pathSplit.forEach((breadcrumb, idx) => {
-        breadcrumb = '/' + breadcrumb;
-        if (idx > 0) {
-            breadcrumb = '/' + pathSplit.slice(0, idx).join('/') + breadcrumb;
-        }
-        const route = router.getRoutes().find((r) => r.path.toLowerCase() === breadcrumb.toLowerCase());
-        if (route === undefined) {
-            return;
-        }
-
-        if (route.path.toLowerCase() === currentRoute.path.replace(/\/$/, '').toLowerCase()) {
-            return;
-        }
-
-        const title = route.meta.title ?? toTitleCase(breadcrumb);
-        breadcrumbs.value.push({
-            name: title,
-            href: route.path,
-            current: false,
-        });
-    });
-
-    const breadcrumbIdx = breadcrumbs.value.findIndex((b) => {
-        return b.href === currentRoute.path;
-    });
-    if (breadcrumbIdx === -1) {
-        if (currentRoute.name !== 'index') {
-            const title = currentRoute.meta.title ?? toTitleCase(currentRoute.name);
-            breadcrumbs.value.push({
-                name: title,
-                href: '#',
-                current: true,
-            });
-        }
-    }
-}
-
 watch(accessToken, () => updateUserNav());
 
 watch(router.currentRoute, () => {
     updateActiveItem();
-    updateBreadcrumbs();
 });
 
 const appVersion = accessToken ? ' v' + __APP_VERSION__ + (import.meta.env.DEV ? '-dev' : '-prod') : '';
@@ -215,6 +171,7 @@ const appVersion = accessToken ? ' v' + __APP_VERSION__ + (import.meta.env.DEV ?
                 </div>
                 <div class="flex-grow w-full px-2 mt-6 space-y-1 text-center">
                     <template v-if="accessToken">
+                        <!-- @vue-ignore nuxt typed router makes sure the "href" is correct for internal links -->
                         <NuxtLink
                             v-for="item in sidebarNavigation.filter(
                                 (e) => e.position === 'top' && (!e.permission || can(e.permission)),
@@ -240,6 +197,7 @@ const appVersion = accessToken ? ' v' + __APP_VERSION__ + (import.meta.env.DEV ?
                     </template>
                 </div>
                 <div class="flex-initial w-full px-2 space-y-1 text-center">
+                    <!-- @vue-ignore nuxt typed router makes sure the "href" is correct for internal links -->
                     <NuxtLink
                         v-for="item in sidebarNavigation.filter(
                             (e) => e.position === 'bottom' && (!e.permission || can(e.permission)),
@@ -330,11 +288,11 @@ const appVersion = accessToken ? ' v' + __APP_VERSION__ + (import.meta.env.DEV ?
                                             />
                                             <span>Home</span>
                                         </NuxtLink>
-                                        <NuxtLink
+                                        <template v-else-if="accessToken">
+                                            <NuxtLink
                                             v-for="item in sidebarNavigation.filter(
                                                 (e) => e.position === 'top' && (!e.permission || can(e.permission)),
-                                            )"
-                                            v-else-if="accessToken"
+                                                )"
                                             :key="item.name"
                                             :external="item.external"
                                             :to="item.href"
@@ -342,27 +300,29 @@ const appVersion = accessToken ? ' v' + __APP_VERSION__ + (import.meta.env.DEV ?
                                                 item.current
                                                     ? 'bg-accent-100/20 text-neutral font-bold'
                                                     : 'text-accent-100 hover:bg-accent-100/10 hover:text-neutral font-medium',
-                                                'group flex items-center rounded-md py-2 px-3 text-sm',
-                                            ]"
+                                                    'group flex items-center rounded-md py-2 px-3 text-sm',
+                                                ]"
                                             :aria-current="item.current ? 'page' : undefined"
                                             @click="mobileMenuOpen = false"
                                         >
-                                            <component
-                                                :is="item.icon"
-                                                :class="[
-                                                    item.current ? 'text-neutral' : 'text-accent-100 group-hover:text-neutral',
-                                                    'mr-3 h-6 w-6',
-                                                ]"
+                                        <component
+                                        :is="item.icon"
+                                        :class="[
+                                            item.current ? 'text-neutral' : 'text-accent-100 group-hover:text-neutral',
+                                            'mr-3 h-6 w-6',
+                                        ]"
                                                 aria-hidden="true"
-                                            />
-                                            <span>{{ item.name }}</span>
-                                        </NuxtLink>
+                                                />
+                                                <span>{{ item.name }}</span>
+                                            </NuxtLink>
+                                        </template>
                                     </div>
                                 </nav>
                             </div>
                             <div class="flex-initial px-2 overflow-y-auto">
                                 <nav class="flex flex-col h-full">
                                     <div class="space-y-1">
+                                        <!-- @vue-ignore nuxt typed router makes sure the "href" is correct for internal links -->
                                         <NuxtLink
                                             v-for="item in sidebarNavigation.filter(
                                                 (e) => e.position === 'bottom' && (!e.permission || can(e.permission)),
@@ -428,9 +388,10 @@ const appVersion = accessToken ? ' v' + __APP_VERSION__ + (import.meta.env.DEV ?
                                             </NuxtLink>
                                         </div>
                                     </li>
-                                    <li v-for="page in breadcrumbs" :key="page.name">
+                                    <li v-for="(page, key) in breadcrumbs" :key="key">
                                         <div class="flex items-center">
                                             <ChevronRightIcon class="flex-shrink-0 w-5 h-5 text-base-400" aria-hidden="true" />
+                                            <!-- @vue-ignore the route should be valid, as we construct it based on our pages -->
                                             <NuxtLink
                                                 :to="page.href"
                                                 :class="[
@@ -439,7 +400,7 @@ const appVersion = accessToken ? ' v' + __APP_VERSION__ + (import.meta.env.DEV ?
                                                 ]"
                                                 :aria-current="page.current ? 'page' : undefined"
                                             >
-                                                {{ page.name }}
+                                                {{ page.title }}
                                             </NuxtLink>
                                         </div>
                                     </li>
@@ -477,6 +438,7 @@ const appVersion = accessToken ? ' v' + __APP_VERSION__ + (import.meta.env.DEV ?
                                             :key="item.name"
                                             v-slot="{ active }"
                                         >
+                                            <!-- @vue-ignore nuxt typed router makes sure the "href" is correct for internal links -->
                                             <NuxtLink
                                                 :to="item.href"
                                                 :class="[

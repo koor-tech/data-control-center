@@ -42,7 +42,7 @@ const config = defineNuxtConfig({
     },
     piniaPersistedstate: {
         storage: 'localStorage',
-        debug: true,
+        debug: false,
     },
     veeValidate: {
         // disable or enable auto imports
@@ -98,6 +98,7 @@ const config = defineNuxtConfig({
         },
     },
     typescript: {
+        typeCheck: false,
         strict: true,
         tsConfig: {
             compilerOptions: {

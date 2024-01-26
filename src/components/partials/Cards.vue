@@ -44,6 +44,7 @@ defineEmits<{
                     <div class="mt-4" @click="$emit('selected', itemIdx)">
                         <h3 class="text-base font-semibold leading-6 text-neutral">
                             <template v-if="item.href !== undefined">
+                                <!-- @vue-ignore nuxt typed router makes sure the "href" is correct for internal links -->
                                 <NuxtLink :to="item.href" class="focus:outline-none">
                                     <!-- Extend touch target to entire panel -->
                                     <span class="absolute inset-0" aria-hidden="true" />

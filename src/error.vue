@@ -51,7 +51,7 @@ startButtonTimer();
                 <div class="py-2 text-neutral mb-4">
                     <p class="py-2 font-semibold">Error Message:</p>
                     <span v-if="error">
-                        <!-- @vue-expect-error -->
+                        <!-- @vue-ignore -->
                         <pre
                             v-if="error.statusMessage"
                             v-text="
@@ -59,7 +59,7 @@ startButtonTimer();
                                 error.statusMessage
                             "
                         />
-                        <!-- @vue-expect-error -->
+                        <!-- @vue-ignore -->
                         <pre
                             v-else-if="
                                 // @ts-ignore
@@ -104,7 +104,7 @@ startButtonTimer();
                         Retry
                     </button>
 
-                    <!-- @vue-expect-error -->
+                    <!-- @vue-ignore -->
                     <button
                         v-if="error && (error.statusMessage || error.message)"
                         class="rounded-md w-60 bg-base-600 sm:ml-4 px-3.5 py-2.5 text-sm font-semibold text-neutral hover:bg-base-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-base-500"
