@@ -9,7 +9,7 @@ RUN apt-get update && \
     make build-go
 
 # Ancientt
-FROM docker.io/library/alpine:3.19.0 AS ancientt
+FROM docker.io/library/alpine:3.19.1 AS ancientt
 ADD https://github.com/galexrt/ancientt/releases/download/v0.3.0/ancientt-0.3.0.linux-amd64.tar.gz ancientt.tar.gz
 # Checksum taken from ancientt amd64 release v0.3.0 `sha256sums.txt` artifact
 RUN test "84f186a2150552df4bb63892b77b6db2399464934f90cd0b3927aa3da137e0b3  ancientt.tar.gz" = "$(sha256sum ancientt.tar.gz)" && \
