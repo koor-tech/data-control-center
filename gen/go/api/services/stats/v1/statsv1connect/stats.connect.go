@@ -45,6 +45,9 @@ const (
 	// StatsServiceGetClusterRadarProcedure is the fully-qualified name of the StatsService's
 	// GetClusterRadar RPC.
 	StatsServiceGetClusterRadarProcedure = "/api.services.stats.v1.StatsService/GetClusterRadar"
+	// StatsServiceListClusterRecommendationsProcedure is the fully-qualified name of the StatsService's
+	// ListClusterRecommendations RPC.
+	StatsServiceListClusterRecommendationsProcedure = "/api.services.stats.v1.StatsService/ListClusterRecommendations"
 )
 
 // StatsServiceClient is a client for the api.services.stats.v1.StatsService service.
@@ -53,6 +56,7 @@ type StatsServiceClient interface {
 	GetClusterResources(context.Context, *connect.Request[v1.GetClusterResourcesRequest]) (*connect.Response[v1.GetClusterResourcesResponse], error)
 	GetClusterNodes(context.Context, *connect.Request[v1.GetClusterNodesRequest]) (*connect.Response[v1.GetClusterNodesResponse], error)
 	GetClusterRadar(context.Context, *connect.Request[v1.GetClusterRadarRequest]) (*connect.Response[v1.GetClusterRadarResponse], error)
+	ListClusterRecommendations(context.Context, *connect.Request[v1.ListClusterRecommendationsRequest]) (*connect.Response[v1.ListClusterRecommendationsResponse], error)
 }
 
 // NewStatsServiceClient constructs a client for the api.services.stats.v1.StatsService service. By
@@ -85,15 +89,21 @@ func NewStatsServiceClient(httpClient connect.HTTPClient, baseURL string, opts .
 			baseURL+StatsServiceGetClusterRadarProcedure,
 			opts...,
 		),
+		listClusterRecommendations: connect.NewClient[v1.ListClusterRecommendationsRequest, v1.ListClusterRecommendationsResponse](
+			httpClient,
+			baseURL+StatsServiceListClusterRecommendationsProcedure,
+			opts...,
+		),
 	}
 }
 
 // statsServiceClient implements StatsServiceClient.
 type statsServiceClient struct {
-	getClusterStats     *connect.Client[v1.GetClusterStatsRequest, v1.GetClusterStatsResponse]
-	getClusterResources *connect.Client[v1.GetClusterResourcesRequest, v1.GetClusterResourcesResponse]
-	getClusterNodes     *connect.Client[v1.GetClusterNodesRequest, v1.GetClusterNodesResponse]
-	getClusterRadar     *connect.Client[v1.GetClusterRadarRequest, v1.GetClusterRadarResponse]
+	getClusterStats            *connect.Client[v1.GetClusterStatsRequest, v1.GetClusterStatsResponse]
+	getClusterResources        *connect.Client[v1.GetClusterResourcesRequest, v1.GetClusterResourcesResponse]
+	getClusterNodes            *connect.Client[v1.GetClusterNodesRequest, v1.GetClusterNodesResponse]
+	getClusterRadar            *connect.Client[v1.GetClusterRadarRequest, v1.GetClusterRadarResponse]
+	listClusterRecommendations *connect.Client[v1.ListClusterRecommendationsRequest, v1.ListClusterRecommendationsResponse]
 }
 
 // GetClusterStats calls api.services.stats.v1.StatsService.GetClusterStats.
@@ -116,12 +126,18 @@ func (c *statsServiceClient) GetClusterRadar(ctx context.Context, req *connect.R
 	return c.getClusterRadar.CallUnary(ctx, req)
 }
 
+// ListClusterRecommendations calls api.services.stats.v1.StatsService.ListClusterRecommendations.
+func (c *statsServiceClient) ListClusterRecommendations(ctx context.Context, req *connect.Request[v1.ListClusterRecommendationsRequest]) (*connect.Response[v1.ListClusterRecommendationsResponse], error) {
+	return c.listClusterRecommendations.CallUnary(ctx, req)
+}
+
 // StatsServiceHandler is an implementation of the api.services.stats.v1.StatsService service.
 type StatsServiceHandler interface {
 	GetClusterStats(context.Context, *connect.Request[v1.GetClusterStatsRequest]) (*connect.Response[v1.GetClusterStatsResponse], error)
 	GetClusterResources(context.Context, *connect.Request[v1.GetClusterResourcesRequest]) (*connect.Response[v1.GetClusterResourcesResponse], error)
 	GetClusterNodes(context.Context, *connect.Request[v1.GetClusterNodesRequest]) (*connect.Response[v1.GetClusterNodesResponse], error)
 	GetClusterRadar(context.Context, *connect.Request[v1.GetClusterRadarRequest]) (*connect.Response[v1.GetClusterRadarResponse], error)
+	ListClusterRecommendations(context.Context, *connect.Request[v1.ListClusterRecommendationsRequest]) (*connect.Response[v1.ListClusterRecommendationsResponse], error)
 }
 
 // NewStatsServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -150,6 +166,11 @@ func NewStatsServiceHandler(svc StatsServiceHandler, opts ...connect.HandlerOpti
 		svc.GetClusterRadar,
 		opts...,
 	)
+	statsServiceListClusterRecommendationsHandler := connect.NewUnaryHandler(
+		StatsServiceListClusterRecommendationsProcedure,
+		svc.ListClusterRecommendations,
+		opts...,
+	)
 	return "/api.services.stats.v1.StatsService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case StatsServiceGetClusterStatsProcedure:
@@ -160,6 +181,8 @@ func NewStatsServiceHandler(svc StatsServiceHandler, opts ...connect.HandlerOpti
 			statsServiceGetClusterNodesHandler.ServeHTTP(w, r)
 		case StatsServiceGetClusterRadarProcedure:
 			statsServiceGetClusterRadarHandler.ServeHTTP(w, r)
+		case StatsServiceListClusterRecommendationsProcedure:
+			statsServiceListClusterRecommendationsHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -183,4 +206,8 @@ func (UnimplementedStatsServiceHandler) GetClusterNodes(context.Context, *connec
 
 func (UnimplementedStatsServiceHandler) GetClusterRadar(context.Context, *connect.Request[v1.GetClusterRadarRequest]) (*connect.Response[v1.GetClusterRadarResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("api.services.stats.v1.StatsService.GetClusterRadar is not implemented"))
+}
+
+func (UnimplementedStatsServiceHandler) ListClusterRecommendations(context.Context, *connect.Request[v1.ListClusterRecommendationsRequest]) (*connect.Response[v1.ListClusterRecommendationsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("api.services.stats.v1.StatsService.ListClusterRecommendations is not implemented"))
 }

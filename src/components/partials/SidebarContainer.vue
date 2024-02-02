@@ -11,6 +11,7 @@ import {
     HelpBoxMultipleIcon,
     HomeIcon,
     MenuIcon,
+    PlusBoxMultipleIcon,
     SchoolIcon,
     TuneIcon,
     TwitterIcon,
@@ -27,19 +28,23 @@ const router = useRouter();
 
 type SidebarNavigationitem = {
     name: string;
-        permission?: string;
-        icon: DefineComponent;
-        position: 'top' | 'bottom';
-        current: boolean;
-        loggedIn?: boolean;
-        charSelected?: boolean;
+    permission?: string;
+    icon: DefineComponent;
+    position: 'top' | 'bottom';
+    current: boolean;
+    loggedIn?: boolean;
+    charSelected?: boolean;
 };
 
 const sidebarNavigation = ref<
-    (SidebarNavigationitem & ({
-        href: string;
-        external: true;
-    } | { href: RoutesNamedLocations; external?: false; }))[]
+    (SidebarNavigationitem &
+        (
+            | {
+                  href: string;
+                  external: true;
+              }
+            | { href: RoutesNamedLocations; external?: false }
+        ))[]
 >([
     {
         name: 'Overview',
@@ -59,6 +64,13 @@ const sidebarNavigation = ref<
         name: 'Controls',
         href: { name: 'controls' },
         icon: markRaw(TuneIcon),
+        position: 'top',
+        current: false,
+    },
+    {
+        name: 'Recommender',
+        href: { name: 'recommender' },
+        icon: markRaw(PlusBoxMultipleIcon),
         position: 'top',
         current: false,
     },
@@ -290,28 +302,30 @@ const appVersion = accessToken ? ' v' + __APP_VERSION__ + (import.meta.env.DEV ?
                                         </NuxtLink>
                                         <template v-else-if="accessToken">
                                             <NuxtLink
-                                            v-for="item in sidebarNavigation.filter(
-                                                (e) => e.position === 'top' && (!e.permission || can(e.permission)),
+                                                v-for="item in sidebarNavigation.filter(
+                                                    (e) => e.position === 'top' && (!e.permission || can(e.permission)),
                                                 )"
-                                            :key="item.name"
-                                            :external="item.external"
-                                            :to="item.href"
-                                            :class="[
-                                                item.current
-                                                    ? 'bg-accent-100/20 text-neutral font-bold'
-                                                    : 'text-accent-100 hover:bg-accent-100/10 hover:text-neutral font-medium',
+                                                :key="item.name"
+                                                :external="item.external"
+                                                :to="item.href"
+                                                :class="[
+                                                    item.current
+                                                        ? 'bg-accent-100/20 text-neutral font-bold'
+                                                        : 'text-accent-100 hover:bg-accent-100/10 hover:text-neutral font-medium',
                                                     'group flex items-center rounded-md py-2 px-3 text-sm',
                                                 ]"
-                                            :aria-current="item.current ? 'page' : undefined"
-                                            @click="mobileMenuOpen = false"
-                                        >
-                                        <component
-                                        :is="item.icon"
-                                        :class="[
-                                            item.current ? 'text-neutral' : 'text-accent-100 group-hover:text-neutral',
-                                            'mr-3 h-6 w-6',
-                                        ]"
-                                                aria-hidden="true"
+                                                :aria-current="item.current ? 'page' : undefined"
+                                                @click="mobileMenuOpen = false"
+                                            >
+                                                <component
+                                                    :is="item.icon"
+                                                    :class="[
+                                                        item.current
+                                                            ? 'text-neutral'
+                                                            : 'text-accent-100 group-hover:text-neutral',
+                                                        'mr-3 h-6 w-6',
+                                                    ]"
+                                                    aria-hidden="true"
                                                 />
                                                 <span>{{ item.name }}</span>
                                             </NuxtLink>

@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package api.services.stats.v1;
 
+import "api/resources/ceph/v1/recommendations.proto";
 import "api/resources/ceph/v1/stats.proto";
 import "api/resources/k8s/v1/resources.proto";
 
@@ -32,9 +33,17 @@ message GetClusterRadarResponse {
   api.resources.ceph.v1.ClusterRadar radar = 1;
 }
 
+message ListClusterRecommendationsRequest {}
+
+message ListClusterRecommendationsResponse {
+  repeated api.resources.ceph.v1.ClusterRecommendation recommendations = 1;
+}
+
 service StatsService {
   rpc GetClusterStats(GetClusterStatsRequest) returns (GetClusterStatsResponse) {}
   rpc GetClusterResources(GetClusterResourcesRequest) returns (GetClusterResourcesResponse) {}
   rpc GetClusterNodes(GetClusterNodesRequest) returns (GetClusterNodesResponse) {}
   rpc GetClusterRadar(GetClusterRadarRequest) returns (GetClusterRadarResponse) {}
+
+  rpc ListClusterRecommendations(ListClusterRecommendationsRequest) returns (ListClusterRecommendationsResponse) {}
 }

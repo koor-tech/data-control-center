@@ -1011,3 +1011,247 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetClusterRadarResponseValidationError{}
+
+// Validate checks the field values on ListClusterRecommendationsRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *ListClusterRecommendationsRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListClusterRecommendationsRequest
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// ListClusterRecommendationsRequestMultiError, or nil if none found.
+func (m *ListClusterRecommendationsRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListClusterRecommendationsRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return ListClusterRecommendationsRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListClusterRecommendationsRequestMultiError is an error wrapping multiple
+// validation errors returned by
+// ListClusterRecommendationsRequest.ValidateAll() if the designated
+// constraints aren't met.
+type ListClusterRecommendationsRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListClusterRecommendationsRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListClusterRecommendationsRequestMultiError) AllErrors() []error { return m }
+
+// ListClusterRecommendationsRequestValidationError is the validation error
+// returned by ListClusterRecommendationsRequest.Validate if the designated
+// constraints aren't met.
+type ListClusterRecommendationsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListClusterRecommendationsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListClusterRecommendationsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListClusterRecommendationsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListClusterRecommendationsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListClusterRecommendationsRequestValidationError) ErrorName() string {
+	return "ListClusterRecommendationsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListClusterRecommendationsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListClusterRecommendationsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListClusterRecommendationsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListClusterRecommendationsRequestValidationError{}
+
+// Validate checks the field values on ListClusterRecommendationsResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *ListClusterRecommendationsResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListClusterRecommendationsResponse
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// ListClusterRecommendationsResponseMultiError, or nil if none found.
+func (m *ListClusterRecommendationsResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListClusterRecommendationsResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetRecommendations() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ListClusterRecommendationsResponseValidationError{
+						field:  fmt.Sprintf("Recommendations[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ListClusterRecommendationsResponseValidationError{
+						field:  fmt.Sprintf("Recommendations[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ListClusterRecommendationsResponseValidationError{
+					field:  fmt.Sprintf("Recommendations[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ListClusterRecommendationsResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListClusterRecommendationsResponseMultiError is an error wrapping multiple
+// validation errors returned by
+// ListClusterRecommendationsResponse.ValidateAll() if the designated
+// constraints aren't met.
+type ListClusterRecommendationsResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListClusterRecommendationsResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListClusterRecommendationsResponseMultiError) AllErrors() []error { return m }
+
+// ListClusterRecommendationsResponseValidationError is the validation error
+// returned by ListClusterRecommendationsResponse.Validate if the designated
+// constraints aren't met.
+type ListClusterRecommendationsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListClusterRecommendationsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListClusterRecommendationsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListClusterRecommendationsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListClusterRecommendationsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListClusterRecommendationsResponseValidationError) ErrorName() string {
+	return "ListClusterRecommendationsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListClusterRecommendationsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListClusterRecommendationsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListClusterRecommendationsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListClusterRecommendationsResponseValidationError{}

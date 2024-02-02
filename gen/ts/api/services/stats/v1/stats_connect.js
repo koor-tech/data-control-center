@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { GetClusterNodesRequest, GetClusterNodesResponse, GetClusterRadarRequest, GetClusterRadarResponse, GetClusterResourcesRequest, GetClusterResourcesResponse, GetClusterStatsRequest, GetClusterStatsResponse } from "./stats_pb.js";
+import { GetClusterNodesRequest, GetClusterNodesResponse, GetClusterRadarRequest, GetClusterRadarResponse, GetClusterResourcesRequest, GetClusterResourcesResponse, GetClusterStatsRequest, GetClusterStatsResponse, ListClusterRecommendationsRequest, ListClusterRecommendationsResponse } from "./stats_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -46,6 +46,15 @@ export const StatsService = {
       name: "GetClusterRadar",
       I: GetClusterRadarRequest,
       O: GetClusterRadarResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc api.services.stats.v1.StatsService.ListClusterRecommendations
+     */
+    listClusterRecommendations: {
+      name: "ListClusterRecommendations",
+      I: ListClusterRecommendationsRequest,
+      O: ListClusterRecommendationsResponse,
       kind: MethodKind.Unary,
     },
   }

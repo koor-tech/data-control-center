@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package api.resources.ceph.v1;
+
+option go_package = "github.com/koor-tech/data-control-center/gen/go/api/resources/ceph";
+
+enum RecommendationLevel {
+  RECOMMENDATION_LEVEL_UNSPECIFIED = 0;
+}
+
+message ClusterRecommendation {
+  string title = 1;
+  string description = 2;
+  RecommendationLevel level = 3;
+}

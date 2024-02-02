@@ -6,6 +6,11 @@
 - [api/resources/ceph/v1/controls.proto](#api_resources_ceph_v1_controls-proto)
     - [OSDScrubbingSchedule](#api-resources-ceph-v1-OSDScrubbingSchedule)
   
+- [api/resources/ceph/v1/recommendations.proto](#api_resources_ceph_v1_recommendations-proto)
+    - [ClusterRecommendation](#api-resources-ceph-v1-ClusterRecommendation)
+  
+    - [RecommendationLevel](#api-resources-ceph-v1-RecommendationLevel)
+  
 - [api/resources/ceph/v1/stats.proto](#api_resources_ceph_v1_stats-proto)
     - [ClusterRadar](#api-resources-ceph-v1-ClusterRadar)
     - [ClusterStats](#api-resources-ceph-v1-ClusterStats)
@@ -90,6 +95,8 @@
     - [GetClusterResourcesResponse](#api-services-stats-v1-GetClusterResourcesResponse)
     - [GetClusterStatsRequest](#api-services-stats-v1-GetClusterStatsRequest)
     - [GetClusterStatsResponse](#api-services-stats-v1-GetClusterStatsResponse)
+    - [ListClusterRecommendationsRequest](#api-services-stats-v1-ListClusterRecommendationsRequest)
+    - [ListClusterRecommendationsResponse](#api-services-stats-v1-ListClusterRecommendationsResponse)
   
     - [StatsService](#api-services-stats-v1-StatsService)
   
@@ -143,6 +150,50 @@ Osd Scrubbing schedule config
 
 
  
+
+ 
+
+ 
+
+ 
+
+
+
+<a name="api_resources_ceph_v1_recommendations-proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## api/resources/ceph/v1/recommendations.proto
+
+
+
+<a name="api-resources-ceph-v1-ClusterRecommendation"></a>
+
+### ClusterRecommendation
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| title | [string](#string) |  |  |
+| description | [string](#string) |  |  |
+| level | [RecommendationLevel](#api-resources-ceph-v1-RecommendationLevel) |  |  |
+
+
+
+
+
+ 
+
+
+<a name="api-resources-ceph-v1-RecommendationLevel"></a>
+
+### RecommendationLevel
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| RECOMMENDATION_LEVEL_UNSPECIFIED | 0 |  |
+
 
  
 
@@ -1204,6 +1255,31 @@ The mode of the upgrade
 
 
 
+
+<a name="api-services-stats-v1-ListClusterRecommendationsRequest"></a>
+
+### ListClusterRecommendationsRequest
+
+
+
+
+
+
+
+<a name="api-services-stats-v1-ListClusterRecommendationsResponse"></a>
+
+### ListClusterRecommendationsResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| recommendations | [api.resources.ceph.v1.ClusterRecommendation](#api-resources-ceph-v1-ClusterRecommendation) | repeated |  |
+
+
+
+
+
  
 
  
@@ -1222,6 +1298,7 @@ The mode of the upgrade
 | GetClusterResources | [GetClusterResourcesRequest](#api-services-stats-v1-GetClusterResourcesRequest) | [GetClusterResourcesResponse](#api-services-stats-v1-GetClusterResourcesResponse) |  |
 | GetClusterNodes | [GetClusterNodesRequest](#api-services-stats-v1-GetClusterNodesRequest) | [GetClusterNodesResponse](#api-services-stats-v1-GetClusterNodesResponse) |  |
 | GetClusterRadar | [GetClusterRadarRequest](#api-services-stats-v1-GetClusterRadarRequest) | [GetClusterRadarResponse](#api-services-stats-v1-GetClusterRadarResponse) |  |
+| ListClusterRecommendations | [ListClusterRecommendationsRequest](#api-services-stats-v1-ListClusterRecommendationsRequest) | [ListClusterRecommendationsResponse](#api-services-stats-v1-ListClusterRecommendationsResponse) |  |
 
  
 

@@ -1,4 +1,4 @@
-package cache
+package cephcache
 
 import (
 	"context"
