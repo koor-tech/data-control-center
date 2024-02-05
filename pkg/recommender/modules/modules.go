@@ -6,7 +6,7 @@ import (
 
 	cephv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/ceph/v1"
 	cephcache "github.com/koor-tech/data-control-center/pkg/ceph/cache"
-	k8scache "github.com/koor-tech/data-control-center/pkg/k8s/cache"
+	"github.com/koor-tech/data-control-center/pkg/k8s"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
 )
@@ -20,7 +20,7 @@ type Params struct {
 	Namespace string
 
 	Ceph *cephcache.Cache
-	K8S  *k8scache.Cache
+	K8S  *k8s.K8s
 }
 
 type NewModuleFn = func() (Module, error)

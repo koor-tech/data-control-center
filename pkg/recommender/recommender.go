@@ -8,7 +8,7 @@ import (
 	cephv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/ceph/v1"
 	cephcache "github.com/koor-tech/data-control-center/pkg/ceph/cache"
 	"github.com/koor-tech/data-control-center/pkg/config"
-	k8scache "github.com/koor-tech/data-control-center/pkg/k8s/cache"
+	"github.com/koor-tech/data-control-center/pkg/k8s"
 	recommendermodules "github.com/koor-tech/data-control-center/pkg/recommender/modules"
 	"go.uber.org/fx"
 	"go.uber.org/multierr"
@@ -28,7 +28,7 @@ type Params struct {
 	Logger *zap.Logger
 
 	Ceph *cephcache.Cache
-	K8S  *k8scache.Cache
+	K8S  *k8s.K8s
 	Cfg  *config.Config
 }
 
@@ -37,7 +37,7 @@ type Recommender struct {
 	logger *zap.Logger
 
 	ceph      *cephcache.Cache
-	k8s       *k8scache.Cache
+	k8s       *k8s.K8s
 	namespace string
 
 	mutex           sync.Mutex

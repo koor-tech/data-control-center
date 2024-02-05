@@ -12,6 +12,10 @@ export const RecommendationLevel = proto3.makeEnum(
   "api.resources.ceph.v1.RecommendationLevel",
   [
     {no: 0, name: "RECOMMENDATION_LEVEL_UNSPECIFIED", localName: "UNSPECIFIED"},
+    {no: 2, name: "RECOMMENDATION_LEVEL_LOW", localName: "LOW"},
+    {no: 3, name: "RECOMMENDATION_LEVEL_MEDIUM", localName: "MEDIUM"},
+    {no: 4, name: "RECOMMENDATION_LEVEL_HIGH", localName: "HIGH"},
+    {no: 5, name: "RECOMMENDATION_LEVEL_CRITICAL", localName: "CRITICAL"},
   ],
 );
 

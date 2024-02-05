@@ -193,6 +193,10 @@ Osd Scrubbing schedule config
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 | RECOMMENDATION_LEVEL_UNSPECIFIED | 0 |  |
+| RECOMMENDATION_LEVEL_LOW | 2 |  |
+| RECOMMENDATION_LEVEL_MEDIUM | 3 |  |
+| RECOMMENDATION_LEVEL_HIGH | 4 |  |
+| RECOMMENDATION_LEVEL_CRITICAL | 5 |  |
 
 
  

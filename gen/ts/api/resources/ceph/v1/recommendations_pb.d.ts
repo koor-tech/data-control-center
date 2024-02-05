@@ -14,6 +14,26 @@ export declare enum RecommendationLevel {
    * @generated from enum value: RECOMMENDATION_LEVEL_UNSPECIFIED = 0;
    */
   UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: RECOMMENDATION_LEVEL_LOW = 2;
+   */
+  LOW = 2,
+
+  /**
+   * @generated from enum value: RECOMMENDATION_LEVEL_MEDIUM = 3;
+   */
+  MEDIUM = 3,
+
+  /**
+   * @generated from enum value: RECOMMENDATION_LEVEL_HIGH = 4;
+   */
+  HIGH = 4,
+
+  /**
+   * @generated from enum value: RECOMMENDATION_LEVEL_CRITICAL = 5;
+   */
+  CRITICAL = 5,
 }
 
 /**
