@@ -18,8 +18,8 @@ import {
     YoutubeIcon,
 } from 'mdi-vue3';
 import { type DefineComponent } from 'vue';
-import { useAuthStore } from '~/store/auth';
 import { type NuxtRoute, type RoutesNamedLocations, type RoutesNamesList } from '@typed-router';
+import { useAuthStore } from '~/store/auth';
 import { useBreadcrumbs } from '~/composables/breadcrumbs';
 
 const authStore = useAuthStore();
