@@ -1,5 +1,30 @@
-package modules
+package recommendermodules
+
+import (
+	"context"
+
+	cephv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/ceph/v1"
+)
 
 func init() {
-	// TODO Register module
+	moduleFactories["pool_sizes"] = NewPoolSizes
+}
+
+func NewPoolSizes() (Module, error) {
+	return nil, nil
+}
+
+type PoolSizes struct {
+	Module
+}
+
+func (m *PoolSizes) GetName() string {
+	return "pool_sizes"
+}
+
+func (m *PoolSizes) Run(ctx context.Context, p *Params) ([]*cephv1.ClusterRecommendation, error) {
+
+	// TODO iterate over every Ceph* object and make sure pool sizes are safe
+
+	return nil, nil
 }

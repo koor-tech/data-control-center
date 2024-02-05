@@ -24,6 +24,7 @@ import (
 	"github.com/koor-tech/data-control-center/pkg/httpclient"
 	"github.com/koor-tech/data-control-center/pkg/k8s"
 	k8scache "github.com/koor-tech/data-control-center/pkg/k8s/cache"
+	"github.com/koor-tech/data-control-center/pkg/recommender"
 	"github.com/koor-tech/data-control-center/pkg/server/httpapi"
 	"github.com/koor-tech/data-control-center/pkg/server/oauth2"
 	"github.com/koor-tech/data-control-center/pkg/server/oauth2/providers"
@@ -201,6 +202,7 @@ func StartHTTPServer() {
 		ancientt.Module,
 		oauth2.ConfigModule,
 		httpclient.Module,
+		recommender.Module,
 
 		// Connect Services - Need to be added here
 		fx.Provide(

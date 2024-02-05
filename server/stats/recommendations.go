@@ -8,6 +8,11 @@ import (
 )
 
 func (s *Server) ListClusterRecommendations(ctx context.Context, req *connect.Request[statspb.ListClusterRecommendationsRequest]) (*connect.Response[statspb.ListClusterRecommendationsResponse], error) {
+	recs := s.rec.GetRecommendations()
 
-	return nil, nil
+	return &connect.Response[statspb.ListClusterRecommendationsResponse]{
+		Msg: &statspb.ListClusterRecommendationsResponse{
+			Recommendations: recs,
+		},
+	}, nil
 }

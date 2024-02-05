@@ -8,9 +8,21 @@ import (
 	"github.com/koor-tech/data-control-center/pkg/config"
 	"github.com/koor-tech/data-control-center/pkg/grpc/auth"
 	k8scache "github.com/koor-tech/data-control-center/pkg/k8s/cache"
+	"github.com/koor-tech/data-control-center/pkg/recommender"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
 )
+
+type Params struct {
+	fx.In
+
+	Logger      *zap.Logger
+	GrpcAuth    *auth.GRPCAuth
+	K8S         *k8scache.Cache
+	Ceph        *cephcache.Cache
+	Cfg         *config.Config
+	Recommender *recommender.Recommender
+}
 
 // Server is used to implement stats services.
 type Server struct {
@@ -22,16 +34,8 @@ type Server struct {
 	ceph      *cephcache.Cache
 	k         *k8scache.Cache
 	Namespace string
-}
 
-type Params struct {
-	fx.In
-
-	Logger   *zap.Logger
-	GrpcAuth *auth.GRPCAuth
-	K8S      *k8scache.Cache
-	Ceph     *cephcache.Cache
-	Cfg      *config.Config
+	rec *recommender.Recommender
 }
 
 func New(p Params) (*Server, error) {
@@ -42,6 +46,7 @@ func New(p Params) (*Server, error) {
 		ceph:      p.Ceph,
 		k:         p.K8S,
 		Namespace: p.Cfg.Namespace,
+		rec:       p.Recommender,
 	}, nil
 }
 
