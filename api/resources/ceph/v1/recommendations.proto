@@ -12,8 +12,29 @@ enum RecommendationLevel {
   RECOMMENDATION_LEVEL_CRITICAL = 5;
 }
 
+enum RecommendationType {
+  RECOMMENDATION_TYPE_UNSPECIFIED = 0;
+  RECOMMENDATION_TYPE_MISC = 1;
+  RECOMMENDATION_TYPE_EXTERNAL = 2;
+  RECOMMENDATION_TYPE_CLUSTER = 3;
+  RECOMMENDATION_TYPE_POOL = 4;
+  RECOMMENDATION_TYPE_OSD = 5;
+  RECOMMENDATION_TYPE_MON = 6;
+  RECOMMENDATION_TYPE_MGR = 7;
+}
+
 message ClusterRecommendation {
   string title = 1;
   string description = 2;
   RecommendationLevel level = 3;
+  RecommendationType type = 4;
+
+  oneof extra_data {
+    RecommendedValue recommended_value = 5;
+  }
+}
+
+message RecommendedValue {
+  string current = 1;
+  string expected = 2;
 }

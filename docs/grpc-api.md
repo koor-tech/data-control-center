@@ -8,8 +8,10 @@
   
 - [api/resources/ceph/v1/recommendations.proto](#api_resources_ceph_v1_recommendations-proto)
     - [ClusterRecommendation](#api-resources-ceph-v1-ClusterRecommendation)
+    - [RecommendedValue](#api-resources-ceph-v1-RecommendedValue)
   
     - [RecommendationLevel](#api-resources-ceph-v1-RecommendationLevel)
+    - [RecommendationType](#api-resources-ceph-v1-RecommendationType)
   
 - [api/resources/ceph/v1/stats.proto](#api_resources_ceph_v1_stats-proto)
     - [ClusterRadar](#api-resources-ceph-v1-ClusterRadar)
@@ -177,6 +179,24 @@ Osd Scrubbing schedule config
 | title | [string](#string) |  |  |
 | description | [string](#string) |  |  |
 | level | [RecommendationLevel](#api-resources-ceph-v1-RecommendationLevel) |  |  |
+| type | [RecommendationType](#api-resources-ceph-v1-RecommendationType) |  |  |
+| recommended_value | [RecommendedValue](#api-resources-ceph-v1-RecommendedValue) |  |  |
+
+
+
+
+
+
+<a name="api-resources-ceph-v1-RecommendedValue"></a>
+
+### RecommendedValue
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| current | [string](#string) |  |  |
+| expected | [string](#string) |  |  |
 
 
 
@@ -197,6 +217,24 @@ Osd Scrubbing schedule config
 | RECOMMENDATION_LEVEL_MEDIUM | 3 |  |
 | RECOMMENDATION_LEVEL_HIGH | 4 |  |
 | RECOMMENDATION_LEVEL_CRITICAL | 5 |  |
+
+
+
+<a name="api-resources-ceph-v1-RecommendationType"></a>
+
+### RecommendationType
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| RECOMMENDATION_TYPE_UNSPECIFIED | 0 |  |
+| RECOMMENDATION_TYPE_MISC | 1 |  |
+| RECOMMENDATION_TYPE_EXTERNAL | 2 |  |
+| RECOMMENDATION_TYPE_CLUSTER | 3 |  |
+| RECOMMENDATION_TYPE_POOL | 4 |  |
+| RECOMMENDATION_TYPE_OSD | 5 |  |
+| RECOMMENDATION_TYPE_MON | 6 |  |
+| RECOMMENDATION_TYPE_MGR | 7 |  |
 
 
  

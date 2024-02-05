@@ -3,6 +3,7 @@ package recommendermodules
 import (
 	"context"
 	"fmt"
+	"strconv"
 
 	cephv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/ceph/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -44,8 +45,15 @@ func (m *PoolSizes) Run(ctx context.Context, p *Params) ([]*cephv1.ClusterRecomm
 
 				recs = append(recs, &cephv1.ClusterRecommendation{
 					Title:       fmt.Sprintf("Pool - %s: Replicated size less than 3", poolName),
-					Description: "Pool replicated size Should be 3 or higher in production environments.",
+					Description: "Pool replicated size should be 3 or higher in production environments.",
 					Level:       cephv1.RecommendationLevel_RECOMMENDATION_LEVEL_HIGH,
+					Type:        cephv1.RecommendationType_RECOMMENDATION_TYPE_POOL,
+					ExtraData: &cephv1.ClusterRecommendation_RecommendedValue{
+						RecommendedValue: &cephv1.RecommendedValue{
+							Current:  strconv.Itoa(int(bp.Spec.Replicated.Size)),
+							Expected: "3",
+						},
+					},
 				})
 			}
 		} else if bp.Spec.IsHybridStoragePool() {

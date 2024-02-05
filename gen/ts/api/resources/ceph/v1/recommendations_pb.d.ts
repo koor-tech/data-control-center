@@ -37,6 +37,51 @@ export declare enum RecommendationLevel {
 }
 
 /**
+ * @generated from enum api.resources.ceph.v1.RecommendationType
+ */
+export declare enum RecommendationType {
+  /**
+   * @generated from enum value: RECOMMENDATION_TYPE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: RECOMMENDATION_TYPE_MISC = 1;
+   */
+  MISC = 1,
+
+  /**
+   * @generated from enum value: RECOMMENDATION_TYPE_EXTERNAL = 2;
+   */
+  EXTERNAL = 2,
+
+  /**
+   * @generated from enum value: RECOMMENDATION_TYPE_CLUSTER = 3;
+   */
+  CLUSTER = 3,
+
+  /**
+   * @generated from enum value: RECOMMENDATION_TYPE_POOL = 4;
+   */
+  POOL = 4,
+
+  /**
+   * @generated from enum value: RECOMMENDATION_TYPE_OSD = 5;
+   */
+  OSD = 5,
+
+  /**
+   * @generated from enum value: RECOMMENDATION_TYPE_MON = 6;
+   */
+  MON = 6,
+
+  /**
+   * @generated from enum value: RECOMMENDATION_TYPE_MGR = 7;
+   */
+  MGR = 7,
+}
+
+/**
  * @generated from message api.resources.ceph.v1.ClusterRecommendation
  */
 export declare class ClusterRecommendation extends Message<ClusterRecommendation> {
@@ -55,6 +100,22 @@ export declare class ClusterRecommendation extends Message<ClusterRecommendation
    */
   level: RecommendationLevel;
 
+  /**
+   * @generated from field: api.resources.ceph.v1.RecommendationType type = 4;
+   */
+  type: RecommendationType;
+
+  /**
+   * @generated from oneof api.resources.ceph.v1.ClusterRecommendation.extra_data
+   */
+  extraData: {
+    /**
+     * @generated from field: api.resources.ceph.v1.RecommendedValue recommended_value = 5;
+     */
+    value: RecommendedValue;
+    case: "recommendedValue";
+  } | { case: undefined; value?: undefined };
+
   constructor(data?: PartialMessage<ClusterRecommendation>);
 
   static readonly runtime: typeof proto3;
@@ -68,5 +129,34 @@ export declare class ClusterRecommendation extends Message<ClusterRecommendation
   static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ClusterRecommendation;
 
   static equals(a: ClusterRecommendation | PlainMessage<ClusterRecommendation> | undefined, b: ClusterRecommendation | PlainMessage<ClusterRecommendation> | undefined): boolean;
+}
+
+/**
+ * @generated from message api.resources.ceph.v1.RecommendedValue
+ */
+export declare class RecommendedValue extends Message<RecommendedValue> {
+  /**
+   * @generated from field: string current = 1;
+   */
+  current: string;
+
+  /**
+   * @generated from field: string expected = 2;
+   */
+  expected: string;
+
+  constructor(data?: PartialMessage<RecommendedValue>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "api.resources.ceph.v1.RecommendedValue";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): RecommendedValue;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): RecommendedValue;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): RecommendedValue;
+
+  static equals(a: RecommendedValue | PlainMessage<RecommendedValue> | undefined, b: RecommendedValue | PlainMessage<RecommendedValue> | undefined): boolean;
 }
 

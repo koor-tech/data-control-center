@@ -63,6 +63,54 @@ func (m *ClusterRecommendation) validate(all bool) error {
 
 	// no validation rules for Level
 
+	// no validation rules for Type
+
+	switch v := m.ExtraData.(type) {
+	case *ClusterRecommendation_RecommendedValue:
+		if v == nil {
+			err := ClusterRecommendationValidationError{
+				field:  "ExtraData",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetRecommendedValue()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ClusterRecommendationValidationError{
+						field:  "RecommendedValue",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ClusterRecommendationValidationError{
+						field:  "RecommendedValue",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetRecommendedValue()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ClusterRecommendationValidationError{
+					field:  "RecommendedValue",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+
 	if len(errors) > 0 {
 		return ClusterRecommendationMultiError(errors)
 	}
@@ -142,3 +190,107 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ClusterRecommendationValidationError{}
+
+// Validate checks the field values on RecommendedValue with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *RecommendedValue) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RecommendedValue with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RecommendedValueMultiError, or nil if none found.
+func (m *RecommendedValue) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RecommendedValue) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Current
+
+	// no validation rules for Expected
+
+	if len(errors) > 0 {
+		return RecommendedValueMultiError(errors)
+	}
+
+	return nil
+}
+
+// RecommendedValueMultiError is an error wrapping multiple validation errors
+// returned by RecommendedValue.ValidateAll() if the designated constraints
+// aren't met.
+type RecommendedValueMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RecommendedValueMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RecommendedValueMultiError) AllErrors() []error { return m }
+
+// RecommendedValueValidationError is the validation error returned by
+// RecommendedValue.Validate if the designated constraints aren't met.
+type RecommendedValueValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RecommendedValueValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RecommendedValueValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RecommendedValueValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RecommendedValueValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RecommendedValueValidationError) ErrorName() string { return "RecommendedValueValidationError" }
+
+// Error satisfies the builtin error interface
+func (e RecommendedValueValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRecommendedValue.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RecommendedValueValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RecommendedValueValidationError{}

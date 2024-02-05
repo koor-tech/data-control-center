@@ -20,6 +20,23 @@ export const RecommendationLevel = proto3.makeEnum(
 );
 
 /**
+ * @generated from enum api.resources.ceph.v1.RecommendationType
+ */
+export const RecommendationType = proto3.makeEnum(
+  "api.resources.ceph.v1.RecommendationType",
+  [
+    {no: 0, name: "RECOMMENDATION_TYPE_UNSPECIFIED", localName: "UNSPECIFIED"},
+    {no: 1, name: "RECOMMENDATION_TYPE_MISC", localName: "MISC"},
+    {no: 2, name: "RECOMMENDATION_TYPE_EXTERNAL", localName: "EXTERNAL"},
+    {no: 3, name: "RECOMMENDATION_TYPE_CLUSTER", localName: "CLUSTER"},
+    {no: 4, name: "RECOMMENDATION_TYPE_POOL", localName: "POOL"},
+    {no: 5, name: "RECOMMENDATION_TYPE_OSD", localName: "OSD"},
+    {no: 6, name: "RECOMMENDATION_TYPE_MON", localName: "MON"},
+    {no: 7, name: "RECOMMENDATION_TYPE_MGR", localName: "MGR"},
+  ],
+);
+
+/**
  * @generated from message api.resources.ceph.v1.ClusterRecommendation
  */
 export const ClusterRecommendation = proto3.makeMessageType(
@@ -28,6 +45,19 @@ export const ClusterRecommendation = proto3.makeMessageType(
     { no: 1, name: "title", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "level", kind: "enum", T: proto3.getEnumType(RecommendationLevel) },
+    { no: 4, name: "type", kind: "enum", T: proto3.getEnumType(RecommendationType) },
+    { no: 5, name: "recommended_value", kind: "message", T: RecommendedValue, oneof: "extra_data" },
+  ],
+);
+
+/**
+ * @generated from message api.resources.ceph.v1.RecommendedValue
+ */
+export const RecommendedValue = proto3.makeMessageType(
+  "api.resources.ceph.v1.RecommendedValue",
+  () => [
+    { no: 1, name: "current", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "expected", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ],
 );
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ContentCenterWrapper from '~/components/partials/ContentCenterWrapper.vue';
+import ContentWrapper from '~/components/partials/ContentWrapper.vue';
 
 useHead({
     title: 'Recommender',
@@ -11,7 +11,7 @@ definePageMeta({
 </script>
 
 <template>
-    <ContentCenterWrapper>
+    <ContentWrapper>
         <RecommenderList />
-    </ContentCenterWrapper>
+    </ContentWrapper>
 </template>
