@@ -16,6 +16,11 @@ export declare enum RecommendationLevel {
   UNSPECIFIED = 0,
 
   /**
+   * @generated from enum value: RECOMMENDATION_LEVEL_INFORMAL = 1;
+   */
+  INFORMAL = 1,
+
+  /**
    * @generated from enum value: RECOMMENDATION_LEVEL_LOW = 2;
    */
   LOW = 2,
