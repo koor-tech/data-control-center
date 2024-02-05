@@ -19,7 +19,7 @@ import {
 } from 'mdi-vue3';
 import { type DefineComponent } from 'vue';
 import { useAuthStore } from '~/store/auth';
-import { type RoutesNamedLocations } from '@typed-router';
+import { type NuxtRoute, type RoutesNamedLocations, type RoutesNamesList } from '@typed-router';
 import { useBreadcrumbs } from '~/composables/breadcrumbs';
 
 const authStore = useAuthStore();
@@ -33,7 +33,6 @@ type SidebarNavigationitem = {
     position: 'top' | 'bottom';
     current: boolean;
     loggedIn?: boolean;
-    charSelected?: boolean;
 };
 
 const sidebarNavigation = ref<
@@ -43,40 +42,40 @@ const sidebarNavigation = ref<
                   href: string;
                   external: true;
               }
-            | { href: RoutesNamedLocations; external?: false }
+            | { href: NuxtRoute<RoutesNamesList, string>; external?: false }
         ))[]
 >([
     {
         name: 'Overview',
-        href: { name: 'index' },
+        href: '/',
         icon: markRaw(GlassesIcon),
         position: 'top',
         current: false,
     },
     {
         name: 'Stats',
-        href: { name: 'health' },
+        href: '/health',
         icon: markRaw(AntennaIcon),
         position: 'top',
         current: false,
     },
     {
         name: 'Controls',
-        href: { name: 'controls' },
+        href: '/controls',
         icon: markRaw(TuneIcon),
         position: 'top',
         current: false,
     },
     {
         name: 'Recommender',
-        href: { name: 'recommender' },
+        href: '/recommender',
         icon: markRaw(PlusBoxMultipleIcon),
         position: 'top',
         current: false,
     },
     {
         name: 'Troubleshooting',
-        href: { name: 'troubleshoot' },
+        href: '/troubleshoot',
         icon: markRaw(HelpBoxMultipleIcon),
         position: 'top',
         current: false,
@@ -149,9 +148,14 @@ function updateActiveItem(): void {
     const route = router.currentRoute.value;
     if (route.name) {
         sidebarNavigation.value.forEach((e) => {
-            if (e.external) return;
+            if (e.external || e.href === false) {
+                return;
+            }
 
-            if (route.name.toLowerCase().includes(e.href.name.toLowerCase())) {
+            if (route.path === '/' && e.href === '/') {
+                console.log(e.href);
+                e.current = true;
+            } else if (e.href !== '/' && route.path.toLowerCase().includes(typeof e.href === 'string' ? e.href : '')) {
                 e.current = true;
             } else {
                 e.current = false;
@@ -183,7 +187,6 @@ const appVersion = accessToken ? ' v' + __APP_VERSION__ + (import.meta.env.DEV ?
                 </div>
                 <div class="flex-grow w-full px-2 mt-6 space-y-1 text-center">
                     <template v-if="accessToken">
-                        <!-- @vue-ignore nuxt typed router makes sure the "href" is correct for internal links -->
                         <NuxtLink
                             v-for="item in sidebarNavigation.filter(
                                 (e) => e.position === 'top' && (!e.permission || can(e.permission)),

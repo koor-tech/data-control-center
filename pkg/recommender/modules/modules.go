@@ -16,10 +16,11 @@ var ErrModuleNotFound = fmt.Errorf("module not found")
 type Params struct {
 	fx.In
 
-	Logger *zap.Logger
+	Logger    *zap.Logger
+	Namespace string
 
-	K8S  *k8scache.Cache
 	Ceph *cephcache.Cache
+	K8S  *k8scache.Cache
 }
 
 type NewModuleFn = func() (Module, error)

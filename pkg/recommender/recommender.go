@@ -7,6 +7,7 @@ import (
 
 	cephv1 "github.com/koor-tech/data-control-center/gen/go/api/resources/ceph/v1"
 	cephcache "github.com/koor-tech/data-control-center/pkg/ceph/cache"
+	"github.com/koor-tech/data-control-center/pkg/config"
 	k8scache "github.com/koor-tech/data-control-center/pkg/k8s/cache"
 	recommendermodules "github.com/koor-tech/data-control-center/pkg/recommender/modules"
 	"go.uber.org/fx"
@@ -26,16 +27,18 @@ type Params struct {
 	LC     fx.Lifecycle
 	Logger *zap.Logger
 
-	K8S  *k8scache.Cache
 	Ceph *cephcache.Cache
+	K8S  *k8scache.Cache
+	Cfg  *config.Config
 }
 
 type Recommender struct {
 	ctx    context.Context
 	logger *zap.Logger
 
-	k8s  *k8scache.Cache
-	ceph *cephcache.Cache
+	ceph      *cephcache.Cache
+	k8s       *k8scache.Cache
+	namespace string
 
 	mutex           sync.Mutex
 	recommendations []*cephv1.ClusterRecommendation
@@ -48,8 +51,9 @@ func New(p Params) *Recommender {
 		ctx:    ctx,
 		logger: p.Logger,
 
-		k8s:  p.K8S,
-		ceph: p.Ceph,
+		ceph:      p.Ceph,
+		k8s:       p.K8S,
+		namespace: p.Cfg.Namespace,
 	}
 
 	p.LC.Append(fx.Hook{
@@ -86,9 +90,10 @@ func (r *Recommender) Gather() error {
 	}
 
 	p := &recommendermodules.Params{
-		Logger: r.logger,
-		K8S:    r.k8s,
-		Ceph:   r.ceph,
+		Logger:    r.logger,
+		Namespace: r.namespace,
+		K8S:       r.k8s,
+		Ceph:      r.ceph,
 	}
 
 	errs := multierr.Combine()

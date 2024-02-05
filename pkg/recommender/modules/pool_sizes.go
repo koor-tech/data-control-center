@@ -11,7 +11,7 @@ func init() {
 }
 
 func NewPoolSizes() (Module, error) {
-	return nil, nil
+	return &PoolSizes{}, nil
 }
 
 type PoolSizes struct {
@@ -23,8 +23,8 @@ func (m *PoolSizes) GetName() string {
 }
 
 func (m *PoolSizes) Run(ctx context.Context, p *Params) ([]*cephv1.ClusterRecommendation, error) {
+	p.K8S.GetCephResources(p.Namespace)
 
 	// TODO iterate over every Ceph* object and make sure pool sizes are safe
-
 	return nil, nil
 }
