@@ -13,7 +13,7 @@ defineProps<{
 <template>
     <Container>
         <h3 class="text-xl inline-flex items-center gap-1">
-            <GenericBadge>
+            <GenericBadge class="gap-1">
                 <InformationIcon class="h-5 w-auto" :class="getRecommendationLevelTextColor(recommendation.level)" />
                 {{ RecommendationLevel[recommendation.level] }}
             </GenericBadge>

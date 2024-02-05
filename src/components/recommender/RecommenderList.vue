@@ -49,7 +49,7 @@ async function listClusterRecommendations(): Promise<ListClusterRecommendationsR
             <DataNoDataBlock v-else-if="data === null || data === undefined" />
 
             <template v-else>
-                <div class="grid grid-col-2">
+                <div class="mt-2 gap-2 grid grid-col-2">
                     <RecommenderListEntry
                         v-for="recommendation in data.recommendations"
                         :key="recommendation.title"
