@@ -18,7 +18,7 @@ import (
 // generated with a version of connect newer than the one compiled into your binary. You can fix the
 // problem by either regenerating this code with an older version of connect or updating the connect
 // version compiled into your binary.
-const _ = connect.IsAtLeastVersion0_1_0
+const _ = connect.IsAtLeastVersion1_13_0
 
 const (
 	// StatsServiceName is the fully-qualified name of the StatsService service.
@@ -50,6 +50,16 @@ const (
 	StatsServiceListClusterRecommendationsProcedure = "/api.services.stats.v1.StatsService/ListClusterRecommendations"
 )
 
+// These variables are the protoreflect.Descriptor objects for the RPCs defined in this package.
+var (
+	statsServiceServiceDescriptor                          = v1.File_api_services_stats_v1_stats_proto.Services().ByName("StatsService")
+	statsServiceGetClusterStatsMethodDescriptor            = statsServiceServiceDescriptor.Methods().ByName("GetClusterStats")
+	statsServiceGetClusterResourcesMethodDescriptor        = statsServiceServiceDescriptor.Methods().ByName("GetClusterResources")
+	statsServiceGetClusterNodesMethodDescriptor            = statsServiceServiceDescriptor.Methods().ByName("GetClusterNodes")
+	statsServiceGetClusterRadarMethodDescriptor            = statsServiceServiceDescriptor.Methods().ByName("GetClusterRadar")
+	statsServiceListClusterRecommendationsMethodDescriptor = statsServiceServiceDescriptor.Methods().ByName("ListClusterRecommendations")
+)
+
 // StatsServiceClient is a client for the api.services.stats.v1.StatsService service.
 type StatsServiceClient interface {
 	GetClusterStats(context.Context, *connect.Request[v1.GetClusterStatsRequest]) (*connect.Response[v1.GetClusterStatsResponse], error)
@@ -72,27 +82,32 @@ func NewStatsServiceClient(httpClient connect.HTTPClient, baseURL string, opts .
 		getClusterStats: connect.NewClient[v1.GetClusterStatsRequest, v1.GetClusterStatsResponse](
 			httpClient,
 			baseURL+StatsServiceGetClusterStatsProcedure,
-			opts...,
+			connect.WithSchema(statsServiceGetClusterStatsMethodDescriptor),
+			connect.WithClientOptions(opts...),
 		),
 		getClusterResources: connect.NewClient[v1.GetClusterResourcesRequest, v1.GetClusterResourcesResponse](
 			httpClient,
 			baseURL+StatsServiceGetClusterResourcesProcedure,
-			opts...,
+			connect.WithSchema(statsServiceGetClusterResourcesMethodDescriptor),
+			connect.WithClientOptions(opts...),
 		),
 		getClusterNodes: connect.NewClient[v1.GetClusterNodesRequest, v1.GetClusterNodesResponse](
 			httpClient,
 			baseURL+StatsServiceGetClusterNodesProcedure,
-			opts...,
+			connect.WithSchema(statsServiceGetClusterNodesMethodDescriptor),
+			connect.WithClientOptions(opts...),
 		),
 		getClusterRadar: connect.NewClient[v1.GetClusterRadarRequest, v1.GetClusterRadarResponse](
 			httpClient,
 			baseURL+StatsServiceGetClusterRadarProcedure,
-			opts...,
+			connect.WithSchema(statsServiceGetClusterRadarMethodDescriptor),
+			connect.WithClientOptions(opts...),
 		),
 		listClusterRecommendations: connect.NewClient[v1.ListClusterRecommendationsRequest, v1.ListClusterRecommendationsResponse](
 			httpClient,
 			baseURL+StatsServiceListClusterRecommendationsProcedure,
-			opts...,
+			connect.WithSchema(statsServiceListClusterRecommendationsMethodDescriptor),
+			connect.WithClientOptions(opts...),
 		),
 	}
 }
@@ -149,27 +164,32 @@ func NewStatsServiceHandler(svc StatsServiceHandler, opts ...connect.HandlerOpti
 	statsServiceGetClusterStatsHandler := connect.NewUnaryHandler(
 		StatsServiceGetClusterStatsProcedure,
 		svc.GetClusterStats,
-		opts...,
+		connect.WithSchema(statsServiceGetClusterStatsMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
 	)
 	statsServiceGetClusterResourcesHandler := connect.NewUnaryHandler(
 		StatsServiceGetClusterResourcesProcedure,
 		svc.GetClusterResources,
-		opts...,
+		connect.WithSchema(statsServiceGetClusterResourcesMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
 	)
 	statsServiceGetClusterNodesHandler := connect.NewUnaryHandler(
 		StatsServiceGetClusterNodesProcedure,
 		svc.GetClusterNodes,
-		opts...,
+		connect.WithSchema(statsServiceGetClusterNodesMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
 	)
 	statsServiceGetClusterRadarHandler := connect.NewUnaryHandler(
 		StatsServiceGetClusterRadarProcedure,
 		svc.GetClusterRadar,
-		opts...,
+		connect.WithSchema(statsServiceGetClusterRadarMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
 	)
 	statsServiceListClusterRecommendationsHandler := connect.NewUnaryHandler(
 		StatsServiceListClusterRecommendationsProcedure,
 		svc.ListClusterRecommendations,
-		opts...,
+		connect.WithSchema(statsServiceListClusterRecommendationsMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
 	)
 	return "/api.services.stats.v1.StatsService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {

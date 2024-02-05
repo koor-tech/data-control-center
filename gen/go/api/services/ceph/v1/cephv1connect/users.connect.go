@@ -18,7 +18,7 @@ import (
 // generated with a version of connect newer than the one compiled into your binary. You can fix the
 // problem by either regenerating this code with an older version of connect or updating the connect
 // version compiled into your binary.
-const _ = connect.IsAtLeastVersion0_1_0
+const _ = connect.IsAtLeastVersion1_13_0
 
 const (
 	// CephUsersServiceName is the fully-qualified name of the CephUsersService service.
@@ -44,6 +44,14 @@ const (
 	CephUsersServiceDeleteCephUserProcedure = "/api.services.ceph.v1.CephUsersService/DeleteCephUser"
 )
 
+// These variables are the protoreflect.Descriptor objects for the RPCs defined in this package.
+var (
+	cephUsersServiceServiceDescriptor              = v1.File_api_services_ceph_v1_users_proto.Services().ByName("CephUsersService")
+	cephUsersServiceListCephUsersMethodDescriptor  = cephUsersServiceServiceDescriptor.Methods().ByName("ListCephUsers")
+	cephUsersServiceCreateCephUserMethodDescriptor = cephUsersServiceServiceDescriptor.Methods().ByName("CreateCephUser")
+	cephUsersServiceDeleteCephUserMethodDescriptor = cephUsersServiceServiceDescriptor.Methods().ByName("DeleteCephUser")
+)
+
 // CephUsersServiceClient is a client for the api.services.ceph.v1.CephUsersService service.
 type CephUsersServiceClient interface {
 	ListCephUsers(context.Context, *connect.Request[v1.ListCephUsersRequest]) (*connect.Response[v1.ListCephUsersResponse], error)
@@ -64,17 +72,20 @@ func NewCephUsersServiceClient(httpClient connect.HTTPClient, baseURL string, op
 		listCephUsers: connect.NewClient[v1.ListCephUsersRequest, v1.ListCephUsersResponse](
 			httpClient,
 			baseURL+CephUsersServiceListCephUsersProcedure,
-			opts...,
+			connect.WithSchema(cephUsersServiceListCephUsersMethodDescriptor),
+			connect.WithClientOptions(opts...),
 		),
 		createCephUser: connect.NewClient[v1.CreateCephUserRequest, v1.CreateCephUserResponse](
 			httpClient,
 			baseURL+CephUsersServiceCreateCephUserProcedure,
-			opts...,
+			connect.WithSchema(cephUsersServiceCreateCephUserMethodDescriptor),
+			connect.WithClientOptions(opts...),
 		),
 		deleteCephUser: connect.NewClient[v1.DeleteCephUserRequest, v1.DeleteCephUserResponse](
 			httpClient,
 			baseURL+CephUsersServiceDeleteCephUserProcedure,
-			opts...,
+			connect.WithSchema(cephUsersServiceDeleteCephUserMethodDescriptor),
+			connect.WithClientOptions(opts...),
 		),
 	}
 }
@@ -118,17 +129,20 @@ func NewCephUsersServiceHandler(svc CephUsersServiceHandler, opts ...connect.Han
 	cephUsersServiceListCephUsersHandler := connect.NewUnaryHandler(
 		CephUsersServiceListCephUsersProcedure,
 		svc.ListCephUsers,
-		opts...,
+		connect.WithSchema(cephUsersServiceListCephUsersMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
 	)
 	cephUsersServiceCreateCephUserHandler := connect.NewUnaryHandler(
 		CephUsersServiceCreateCephUserProcedure,
 		svc.CreateCephUser,
-		opts...,
+		connect.WithSchema(cephUsersServiceCreateCephUserMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
 	)
 	cephUsersServiceDeleteCephUserHandler := connect.NewUnaryHandler(
 		CephUsersServiceDeleteCephUserProcedure,
 		svc.DeleteCephUser,
-		opts...,
+		connect.WithSchema(cephUsersServiceDeleteCephUserMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
 	)
 	return "/api.services.ceph.v1.CephUsersService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {

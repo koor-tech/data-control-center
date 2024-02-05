@@ -18,7 +18,7 @@ import (
 // generated with a version of connect newer than the one compiled into your binary. You can fix the
 // problem by either regenerating this code with an older version of connect or updating the connect
 // version compiled into your binary.
-const _ = connect.IsAtLeastVersion0_1_0
+const _ = connect.IsAtLeastVersion1_13_0
 
 const (
 	// TroubleshootingServiceName is the fully-qualified name of the TroubleshootingService service.
@@ -50,6 +50,16 @@ const (
 	TroubleshootingServiceGetNetworkTestResultsProcedure = "/api.services.troubleshooting.v1.TroubleshootingService/GetNetworkTestResults"
 )
 
+// These variables are the protoreflect.Descriptor objects for the RPCs defined in this package.
+var (
+	troubleshootingServiceServiceDescriptor                     = v1.File_api_services_troubleshooting_v1_troubleshooting_proto.Services().ByName("TroubleshootingService")
+	troubleshootingServiceGetTroubleshootReportMethodDescriptor = troubleshootingServiceServiceDescriptor.Methods().ByName("GetTroubleshootReport")
+	troubleshootingServiceGetNetworkTestStatusMethodDescriptor  = troubleshootingServiceServiceDescriptor.Methods().ByName("GetNetworkTestStatus")
+	troubleshootingServiceStartNetworkTestMethodDescriptor      = troubleshootingServiceServiceDescriptor.Methods().ByName("StartNetworkTest")
+	troubleshootingServiceCancelNetworkTestMethodDescriptor     = troubleshootingServiceServiceDescriptor.Methods().ByName("CancelNetworkTest")
+	troubleshootingServiceGetNetworkTestResultsMethodDescriptor = troubleshootingServiceServiceDescriptor.Methods().ByName("GetNetworkTestResults")
+)
+
 // TroubleshootingServiceClient is a client for the
 // api.services.troubleshooting.v1.TroubleshootingService service.
 type TroubleshootingServiceClient interface {
@@ -74,27 +84,32 @@ func NewTroubleshootingServiceClient(httpClient connect.HTTPClient, baseURL stri
 		getTroubleshootReport: connect.NewClient[v1.GetTroubleshootReportRequest, v1.GetTroubleshootReportResponse](
 			httpClient,
 			baseURL+TroubleshootingServiceGetTroubleshootReportProcedure,
-			opts...,
+			connect.WithSchema(troubleshootingServiceGetTroubleshootReportMethodDescriptor),
+			connect.WithClientOptions(opts...),
 		),
 		getNetworkTestStatus: connect.NewClient[v1.GetNetworkTestStatusRequest, v1.GetNetworkTestStatusResponse](
 			httpClient,
 			baseURL+TroubleshootingServiceGetNetworkTestStatusProcedure,
-			opts...,
+			connect.WithSchema(troubleshootingServiceGetNetworkTestStatusMethodDescriptor),
+			connect.WithClientOptions(opts...),
 		),
 		startNetworkTest: connect.NewClient[v1.StartNetworkTestRequest, v1.StartNetworkTestResponse](
 			httpClient,
 			baseURL+TroubleshootingServiceStartNetworkTestProcedure,
-			opts...,
+			connect.WithSchema(troubleshootingServiceStartNetworkTestMethodDescriptor),
+			connect.WithClientOptions(opts...),
 		),
 		cancelNetworkTest: connect.NewClient[v1.CancelNetworkTestRequest, v1.CancelNetworkTestResponse](
 			httpClient,
 			baseURL+TroubleshootingServiceCancelNetworkTestProcedure,
-			opts...,
+			connect.WithSchema(troubleshootingServiceCancelNetworkTestMethodDescriptor),
+			connect.WithClientOptions(opts...),
 		),
 		getNetworkTestResults: connect.NewClient[v1.GetNetworkTestResultsRequest, v1.GetNetworkTestResultsResponse](
 			httpClient,
 			baseURL+TroubleshootingServiceGetNetworkTestResultsProcedure,
-			opts...,
+			connect.WithSchema(troubleshootingServiceGetNetworkTestResultsMethodDescriptor),
+			connect.WithClientOptions(opts...),
 		),
 	}
 }
@@ -155,27 +170,32 @@ func NewTroubleshootingServiceHandler(svc TroubleshootingServiceHandler, opts ..
 	troubleshootingServiceGetTroubleshootReportHandler := connect.NewUnaryHandler(
 		TroubleshootingServiceGetTroubleshootReportProcedure,
 		svc.GetTroubleshootReport,
-		opts...,
+		connect.WithSchema(troubleshootingServiceGetTroubleshootReportMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
 	)
 	troubleshootingServiceGetNetworkTestStatusHandler := connect.NewUnaryHandler(
 		TroubleshootingServiceGetNetworkTestStatusProcedure,
 		svc.GetNetworkTestStatus,
-		opts...,
+		connect.WithSchema(troubleshootingServiceGetNetworkTestStatusMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
 	)
 	troubleshootingServiceStartNetworkTestHandler := connect.NewUnaryHandler(
 		TroubleshootingServiceStartNetworkTestProcedure,
 		svc.StartNetworkTest,
-		opts...,
+		connect.WithSchema(troubleshootingServiceStartNetworkTestMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
 	)
 	troubleshootingServiceCancelNetworkTestHandler := connect.NewUnaryHandler(
 		TroubleshootingServiceCancelNetworkTestProcedure,
 		svc.CancelNetworkTest,
-		opts...,
+		connect.WithSchema(troubleshootingServiceCancelNetworkTestMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
 	)
 	troubleshootingServiceGetNetworkTestResultsHandler := connect.NewUnaryHandler(
 		TroubleshootingServiceGetNetworkTestResultsProcedure,
 		svc.GetNetworkTestResults,
-		opts...,
+		connect.WithSchema(troubleshootingServiceGetNetworkTestResultsMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
 	)
 	return "/api.services.troubleshooting.v1.TroubleshootingService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {

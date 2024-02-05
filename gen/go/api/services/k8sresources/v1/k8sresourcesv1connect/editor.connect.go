@@ -18,7 +18,7 @@ import (
 // generated with a version of connect newer than the one compiled into your binary. You can fix the
 // problem by either regenerating this code with an older version of connect or updating the connect
 // version compiled into your binary.
-const _ = connect.IsAtLeastVersion0_1_0
+const _ = connect.IsAtLeastVersion1_13_0
 
 const (
 	// K8sResourcesServiceName is the fully-qualified name of the K8sResourcesService service.
@@ -39,6 +39,13 @@ const (
 	// K8SResourcesServiceSaveResourceProcedure is the fully-qualified name of the K8sResourcesService's
 	// SaveResource RPC.
 	K8SResourcesServiceSaveResourceProcedure = "/api.services.k8sresources.v1.K8sResourcesService/SaveResource"
+)
+
+// These variables are the protoreflect.Descriptor objects for the RPCs defined in this package.
+var (
+	k8sResourcesServiceServiceDescriptor            = v1.File_api_services_k8sresources_v1_editor_proto.Services().ByName("K8sResourcesService")
+	k8SResourcesServiceGetResourcesMethodDescriptor = k8sResourcesServiceServiceDescriptor.Methods().ByName("GetResources")
+	k8SResourcesServiceSaveResourceMethodDescriptor = k8sResourcesServiceServiceDescriptor.Methods().ByName("SaveResource")
 )
 
 // K8SResourcesServiceClient is a client for the api.services.k8sresources.v1.K8sResourcesService
@@ -62,12 +69,14 @@ func NewK8SResourcesServiceClient(httpClient connect.HTTPClient, baseURL string,
 		getResources: connect.NewClient[v1.GetResourcesRequest, v1.GetResourcesResponse](
 			httpClient,
 			baseURL+K8SResourcesServiceGetResourcesProcedure,
-			opts...,
+			connect.WithSchema(k8SResourcesServiceGetResourcesMethodDescriptor),
+			connect.WithClientOptions(opts...),
 		),
 		saveResource: connect.NewClient[v1.SaveResourceRequest, v1.SaveResourceResponse](
 			httpClient,
 			baseURL+K8SResourcesServiceSaveResourceProcedure,
-			opts...,
+			connect.WithSchema(k8SResourcesServiceSaveResourceMethodDescriptor),
+			connect.WithClientOptions(opts...),
 		),
 	}
 }
@@ -104,12 +113,14 @@ func NewK8SResourcesServiceHandler(svc K8SResourcesServiceHandler, opts ...conne
 	k8SResourcesServiceGetResourcesHandler := connect.NewUnaryHandler(
 		K8SResourcesServiceGetResourcesProcedure,
 		svc.GetResources,
-		opts...,
+		connect.WithSchema(k8SResourcesServiceGetResourcesMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
 	)
 	k8SResourcesServiceSaveResourceHandler := connect.NewUnaryHandler(
 		K8SResourcesServiceSaveResourceProcedure,
 		svc.SaveResource,
-		opts...,
+		connect.WithSchema(k8SResourcesServiceSaveResourceMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
 	)
 	return "/api.services.k8sresources.v1.K8sResourcesService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {

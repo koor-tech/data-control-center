@@ -18,7 +18,7 @@ import (
 // generated with a version of connect newer than the one compiled into your binary. You can fix the
 // problem by either regenerating this code with an older version of connect or updating the connect
 // version compiled into your binary.
-const _ = connect.IsAtLeastVersion0_1_0
+const _ = connect.IsAtLeastVersion1_13_0
 
 const (
 	// OSDsServiceName is the fully-qualified name of the OSDsService service.
@@ -41,6 +41,13 @@ const (
 	OSDsServiceSetScrubbingScheduleProcedure = "/api.services.controls.v1.OSDsService/SetScrubbingSchedule"
 )
 
+// These variables are the protoreflect.Descriptor objects for the RPCs defined in this package.
+var (
+	oSDsServiceServiceDescriptor                    = v1.File_api_services_controls_v1_osds_proto.Services().ByName("OSDsService")
+	oSDsServiceGetScrubbingScheduleMethodDescriptor = oSDsServiceServiceDescriptor.Methods().ByName("GetScrubbingSchedule")
+	oSDsServiceSetScrubbingScheduleMethodDescriptor = oSDsServiceServiceDescriptor.Methods().ByName("SetScrubbingSchedule")
+)
+
 // OSDsServiceClient is a client for the api.services.controls.v1.OSDsService service.
 type OSDsServiceClient interface {
 	GetScrubbingSchedule(context.Context, *connect.Request[v1.GetScrubbingScheduleRequest]) (*connect.Response[v1.GetScrubbingScheduleResponse], error)
@@ -60,12 +67,14 @@ func NewOSDsServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 		getScrubbingSchedule: connect.NewClient[v1.GetScrubbingScheduleRequest, v1.GetScrubbingScheduleResponse](
 			httpClient,
 			baseURL+OSDsServiceGetScrubbingScheduleProcedure,
-			opts...,
+			connect.WithSchema(oSDsServiceGetScrubbingScheduleMethodDescriptor),
+			connect.WithClientOptions(opts...),
 		),
 		setScrubbingSchedule: connect.NewClient[v1.SetScrubbingScheduleRequest, v1.SetScrubbingScheduleResponse](
 			httpClient,
 			baseURL+OSDsServiceSetScrubbingScheduleProcedure,
-			opts...,
+			connect.WithSchema(oSDsServiceSetScrubbingScheduleMethodDescriptor),
+			connect.WithClientOptions(opts...),
 		),
 	}
 }
@@ -101,12 +110,14 @@ func NewOSDsServiceHandler(svc OSDsServiceHandler, opts ...connect.HandlerOption
 	oSDsServiceGetScrubbingScheduleHandler := connect.NewUnaryHandler(
 		OSDsServiceGetScrubbingScheduleProcedure,
 		svc.GetScrubbingSchedule,
-		opts...,
+		connect.WithSchema(oSDsServiceGetScrubbingScheduleMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
 	)
 	oSDsServiceSetScrubbingScheduleHandler := connect.NewUnaryHandler(
 		OSDsServiceSetScrubbingScheduleProcedure,
 		svc.SetScrubbingSchedule,
-		opts...,
+		connect.WithSchema(oSDsServiceSetScrubbingScheduleMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
 	)
 	return "/api.services.controls.v1.OSDsService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {

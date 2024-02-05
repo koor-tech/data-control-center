@@ -18,7 +18,7 @@ import (
 // generated with a version of connect newer than the one compiled into your binary. You can fix the
 // problem by either regenerating this code with an older version of connect or updating the connect
 // version compiled into your binary.
-const _ = connect.IsAtLeastVersion0_1_0
+const _ = connect.IsAtLeastVersion1_13_0
 
 const (
 	// AuthServiceName is the fully-qualified name of the AuthService service.
@@ -41,6 +41,14 @@ const (
 	AuthServiceCheckTokenProcedure = "/api.services.auth.v1.AuthService/CheckToken"
 )
 
+// These variables are the protoreflect.Descriptor objects for the RPCs defined in this package.
+var (
+	authServiceServiceDescriptor          = v1.File_api_services_auth_v1_auth_proto.Services().ByName("AuthService")
+	authServiceLoginMethodDescriptor      = authServiceServiceDescriptor.Methods().ByName("Login")
+	authServiceLogoutMethodDescriptor     = authServiceServiceDescriptor.Methods().ByName("Logout")
+	authServiceCheckTokenMethodDescriptor = authServiceServiceDescriptor.Methods().ByName("CheckToken")
+)
+
 // AuthServiceClient is a client for the api.services.auth.v1.AuthService service.
 type AuthServiceClient interface {
 	Login(context.Context, *connect.Request[v1.LoginRequest]) (*connect.Response[v1.LoginResponse], error)
@@ -61,17 +69,20 @@ func NewAuthServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 		login: connect.NewClient[v1.LoginRequest, v1.LoginResponse](
 			httpClient,
 			baseURL+AuthServiceLoginProcedure,
-			opts...,
+			connect.WithSchema(authServiceLoginMethodDescriptor),
+			connect.WithClientOptions(opts...),
 		),
 		logout: connect.NewClient[v1.LogoutRequest, v1.LogoutResponse](
 			httpClient,
 			baseURL+AuthServiceLogoutProcedure,
-			opts...,
+			connect.WithSchema(authServiceLogoutMethodDescriptor),
+			connect.WithClientOptions(opts...),
 		),
 		checkToken: connect.NewClient[v1.CheckTokenRequest, v1.CheckTokenResponse](
 			httpClient,
 			baseURL+AuthServiceCheckTokenProcedure,
-			opts...,
+			connect.WithSchema(authServiceCheckTokenMethodDescriptor),
+			connect.WithClientOptions(opts...),
 		),
 	}
 }
@@ -114,17 +125,20 @@ func NewAuthServiceHandler(svc AuthServiceHandler, opts ...connect.HandlerOption
 	authServiceLoginHandler := connect.NewUnaryHandler(
 		AuthServiceLoginProcedure,
 		svc.Login,
-		opts...,
+		connect.WithSchema(authServiceLoginMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
 	)
 	authServiceLogoutHandler := connect.NewUnaryHandler(
 		AuthServiceLogoutProcedure,
 		svc.Logout,
-		opts...,
+		connect.WithSchema(authServiceLogoutMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
 	)
 	authServiceCheckTokenHandler := connect.NewUnaryHandler(
 		AuthServiceCheckTokenProcedure,
 		svc.CheckToken,
-		opts...,
+		connect.WithSchema(authServiceCheckTokenMethodDescriptor),
+		connect.WithHandlerOptions(opts...),
 	)
 	return "/api.services.auth.v1.AuthService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
