@@ -15,7 +15,7 @@ require (
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.1
 	github.com/json-iterator/go v1.1.12
 	github.com/prometheus/client_golang v1.18.0
-	github.com/rook/rook v1.13.2
+	github.com/rook/rook v1.13.3
 	github.com/rook/rook/pkg/apis v0.0.0-20231219152316-ea4a3871ed48
 	github.com/spf13/cobra v1.8.0
 	github.com/spf13/viper v1.18.2
