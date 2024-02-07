@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # Go builder
-FROM docker.io/library/golang:1.21-bullseye AS gobuilder
+FROM docker.io/library/golang:1.22-bullseye AS gobuilder
 WORKDIR /app
 COPY . ./
 RUN apt-get update && \
