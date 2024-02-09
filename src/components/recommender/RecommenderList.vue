@@ -51,7 +51,7 @@ async function listClusterRecommendations(): Promise<ListClusterRecommendationsR
             <template v-else>
                 <div class="mt-2 gap-2 grid grid-col-2">
                     <RecommenderListEntry
-                        v-for="recommendation in data.recommendations"
+                        v-for="recommendation in data.recommendations.sort((a, b) => a.type - b.type)"
                         :key="recommendation.title"
                         :recommendation="recommendation"
                     />

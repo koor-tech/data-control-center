@@ -20,7 +20,7 @@ defineProps<{
             {{ recommendation.title }}
         </h3>
         <p class="text-base">{{ recommendation.description }}</p>
-        <template v-if="recommendation.extraData">
+        <template v-if="recommendation.extraData && recommendation.extraData.case !== undefined">
             <hr class="my-1" />
             <p v-if="recommendation.extraData.case === 'recommendedValue'" class="text-sm">
                 Current: {{ recommendation.extraData.value.current }} - Expected: {{ recommendation.extraData.value.expected }}
