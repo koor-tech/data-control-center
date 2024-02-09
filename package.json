@@ -1,7 +1,7 @@
 {
     "name": "data-control-center",
     "private": true,
-    "version": "0.5.6",
+    "version": "0.5.7",
     "type": "module",
     "scripts": {
         "build": "COMMIT_REF=$(git describe --tags --exclude='data-control-center-*') yarn nuxi build",
