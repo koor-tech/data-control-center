@@ -60,8 +60,8 @@ func (m *K8SResources) Run(ctx context.Context, p *Params) ([]*cephv1.ClusterRec
 		}
 
 		recs = append(recs, &cephv1.ClusterRecommendation{
-			Title:       "Resources: No requests/limits set on some cluster components",
-			Description: "It is recommended to set sensible resources requests and limits on the cluster components. See https://rook.io/docs/rook/latest-release/CRDs/Cluster/ceph-cluster-crd/#resource-requirementslimits",
+			Title:       "Resources: No requests/limits set on cluster components",
+			Description: "It is recommended to set sensible resources requests and limits on the most important cluster components (MON, MGR, OSD). See https://rook.io/docs/rook/latest-release/CRDs/Cluster/ceph-cluster-crd/#resource-requirementslimits",
 			Level:       cephv1.RecommendationLevel_RECOMMENDATION_LEVEL_HIGH,
 			Type:        cephv1.RecommendationType_RECOMMENDATION_TYPE_CLUSTER,
 		})
