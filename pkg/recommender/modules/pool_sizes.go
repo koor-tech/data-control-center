@@ -105,7 +105,7 @@ func (m *PoolSizes) checkPool(name string, pSpec rookcephv1.PoolSpec) []*cephv1.
 			})
 		}
 	}
-	// TODO check sizes for a hybrid storage pool
+	// TODO check sizes for hybrid storage pools
 
 	return recs
 }
