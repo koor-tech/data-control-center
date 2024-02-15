@@ -7,6 +7,7 @@ import (
 
 	"github.com/koor-tech/data-control-center/pkg/cache"
 	"github.com/koor-tech/data-control-center/pkg/ceph"
+	"github.com/koor-tech/data-control-center/pkg/config"
 	"go.uber.org/fx"
 	"go.uber.org/multierr"
 	"go.uber.org/zap"
@@ -39,6 +40,8 @@ type Params struct {
 
 	LC     fx.Lifecycle
 	Logger *zap.Logger
+
+	Config *config.Config
 	Ceph   *ceph.MgrService
 }
 
@@ -54,27 +57,25 @@ func New(p Params) *Cache {
 
 	p.LC.Append(fx.Hook{
 		OnStart: func(ctx context.Context) error {
-			if err := c.run(ctx); err != nil {
-				return err
-			}
-
 			c.wg.Add(1)
 			go func() {
 				defer c.wg.Done()
+
 				for {
+					func() {
+						ctx, cancel := context.WithTimeout(c.ctx, p.Config.Cache.Timeout)
+						defer cancel()
+
+						if err := c.run(ctx); err != nil {
+							c.logger.Error("error while caching ceph stats", zap.Error(err))
+						}
+					}()
+
 					select {
-					case <-time.After(3 * time.Second):
-						func() {
-							ctx, cancel := context.WithTimeout(c.ctx, 15*time.Second)
-							defer cancel()
-
-							c.run(ctx)
-						}()
-
 					case <-c.ctx.Done():
 						return
+					case <-time.After(3 * time.Second):
 					}
-
 				}
 			}()
 

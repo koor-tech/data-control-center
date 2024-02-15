@@ -170,6 +170,8 @@ config:
   certs:
     caCerts: []
     insecureSkipVerify: false
+  cache:
+    timeout: "20s"
 
 # -- Extra volumes to add to the data-control-center deployment
 additionalVolumes: []

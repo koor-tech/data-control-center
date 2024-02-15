@@ -66,6 +66,7 @@ type Config struct {
 	Users       []*User     `yaml:"users"`
 	Ceph        Ceph        `yaml:"ceph"`
 	UpdateCheck UpdateCheck `yaml:"updateCheck"`
+	Cache       Cache       `yaml:"cache"`
 
 	AncienttCmd string `default:"ancientt" yaml:"ancienttCmd"`
 
@@ -146,4 +147,8 @@ type UpdateCheck struct {
 type Certs struct {
 	InsecureSkipVerify bool     `yaml:"insecureSkipVerify"`
 	CACerts            []string `yaml:"caCerts"`
+}
+
+type Cache struct {
+	Timeout time.Duration `default:"20s" yaml:"timeout"`
 }

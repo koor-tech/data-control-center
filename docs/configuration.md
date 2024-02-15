@@ -62,6 +62,17 @@ Update check settings:
 
 The update check requires internet access to `https://api.github.com`.
 
+### `certs` Section
+
+* `insecureSkipVerify`: If the certificate of the Ceph dashboard API should be verified or not. Default: `false`.
+* `caCerts`: List of CA certs to accepting when making HTTP requests to "external systems" (e.g., OAuth2 provider, Ceph MGR API, etc.)
+
+### `cache` Section
+
+Cache timeout settings:
+
+* `timeout`: Used as a timeout for retrieving and caching the Ceph and K8S info/stats. Default: `20s`.
+
 ### Misc Settings
 
 * `ancienttCmd`: Path to the `ancientt` command binary.

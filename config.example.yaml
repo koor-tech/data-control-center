@@ -48,3 +48,5 @@ ancienttCmd: 'ancientt'
 certs:
   caCerts: []
   insecureSkipVerify: false
+cache:
+  timeout: "20s"
