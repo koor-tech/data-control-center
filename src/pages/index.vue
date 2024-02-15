@@ -61,10 +61,7 @@ const { data: resources } = useLazyAsyncData(`clusterResources`, async () => {
                 <ClusterServices :stats="stats" />
             </div>
             <div class="grid-cols-2">
-                <div class="col-4">
-                    <NodeSummaryList v-if="nodes" :nodes="nodes.nodes" />
-                </div>
-                <div v-if="resources" class="grid grid-cols-1">
+                <div v-if="nodes" class="grid grid-cols-1">
                     <dl class="space-y-2">
                         <Container>
                             <Disclosure v-slot="{ open }" as="div">
@@ -72,7 +69,7 @@ const { data: resources } = useLazyAsyncData(`clusterResources`, async () => {
                                     <DisclosureButton
                                         class="flex w-full items-start justify-between text-left text-base border-b border-gray-300"
                                     >
-                                        <span class="text-lg font-semibold leading-7"> Deployment Resources </span>
+                                        <span class="text-lg font-semibold leading-7"> Storage Nodes </span>
                                         <span class="ml-6 flex h-7 items-center">
                                             <ChevronDownIcon
                                                 :class="[open ? 'upsidedown' : '', 'h-6 w-6 transition-transform']"
@@ -82,48 +79,70 @@ const { data: resources } = useLazyAsyncData(`clusterResources`, async () => {
                                     </DisclosureButton>
                                 </dt>
                                 <DisclosurePanel as="dd" class="mt-2 pr-12">
-                                    <div class="sm:flex sm:items-center">
-                                        <div class="sm:flex-auto">
-                                            <h3 class="text-base font-semibold leading-6 text-gray-900">
-                                                Cluster Component Deployments
-                                            </h3>
-                                            <p class="mt-2 text-sm text-gray-700">
-                                                A list of the Storage Cluster relevant resources.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <ResourceInfoList :rows="resources.deployments" />
+                                    <NodeSummaryList v-if="nodes" :nodes="nodes.nodes" />
                                 </DisclosurePanel>
                             </Disclosure>
                         </Container>
-                        <Container>
-                            <Disclosure v-slot="{ open }" as="div">
-                                <dt>
-                                    <DisclosureButton
-                                        class="flex w-full items-start justify-between text-left text-base border-b border-gray-300"
-                                    >
-                                        <span class="text-lg font-semibold leading-7"> Ceph Resources </span>
-                                        <span class="ml-6 flex h-7 items-center">
-                                            <ChevronDownIcon
-                                                :class="[open ? 'upsidedown' : '', 'h-6 w-6 transition-transform']"
-                                                aria-hidden="true"
-                                            />
-                                        </span>
-                                    </DisclosureButton>
-                                </dt>
-                                <DisclosurePanel as="dd" class="mt-2 pr-12">
-                                    <div class="sm:flex sm:items-center">
-                                        <div class="sm:flex-auto">
-                                            <h2 class="text-base font-semibold leading-6 text-gray-900">Resource Info</h2>
-                                            <p class="mt-2 text-sm text-gray-700">
-                                                A list of the Storage Cluster relevant resources.
-                                            </p>
+                        <template v-if="resources">
+                            <Container>
+                                <Disclosure v-slot="{ open }" as="div">
+                                    <dt>
+                                        <DisclosureButton
+                                            class="flex w-full items-start justify-between text-left text-base border-b border-gray-300"
+                                        >
+                                            <span class="text-lg font-semibold leading-7"> Deployment Resources </span>
+                                            <span class="ml-6 flex h-7 items-center">
+                                                <ChevronDownIcon
+                                                    :class="[open ? 'upsidedown' : '', 'h-6 w-6 transition-transform']"
+                                                    aria-hidden="true"
+                                                />
+                                            </span>
+                                        </DisclosureButton>
+                                    </dt>
+                                    <DisclosurePanel as="dd" class="mt-2 pr-12">
+                                        <div class="sm:flex sm:items-center">
+                                            <div class="sm:flex-auto">
+                                                <h3 class="text-base font-semibold leading-6 text-gray-900">
+                                                    Cluster Component Deployments
+                                                </h3>
+                                                <p class="mt-2 text-sm text-gray-700">
+                                                    A list of the Storage Cluster relevant resources.
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <ResourceInfoList :rows="resources.resources" />
-                                </DisclosurePanel>
-                            </Disclosure>
-                        </Container>
+                                        <ResourceInfoList :rows="resources.deployments" />
+                                    </DisclosurePanel>
+                                </Disclosure>
+                            </Container>
+                            <Container>
+                                <Disclosure v-slot="{ open }" as="div">
+                                    <dt>
+                                        <DisclosureButton
+                                            class="flex w-full items-start justify-between text-left text-base border-b border-gray-300"
+                                        >
+                                            <span class="text-lg font-semibold leading-7"> Ceph Resources </span>
+                                            <span class="ml-6 flex h-7 items-center">
+                                                <ChevronDownIcon
+                                                    :class="[open ? 'upsidedown' : '', 'h-6 w-6 transition-transform']"
+                                                    aria-hidden="true"
+                                                />
+                                            </span>
+                                        </DisclosureButton>
+                                    </dt>
+                                    <DisclosurePanel as="dd" class="mt-2 pr-12">
+                                        <div class="sm:flex sm:items-center">
+                                            <div class="sm:flex-auto">
+                                                <h2 class="text-base font-semibold leading-6 text-gray-900">Resource Info</h2>
+                                                <p class="mt-2 text-sm text-gray-700">
+                                                    A list of the Storage Cluster relevant resources.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <ResourceInfoList :rows="resources.resources" />
+                                    </DisclosurePanel>
+                                </Disclosure>
+                            </Container>
+                        </template>
                     </dl>
                 </div>
             </div>
