@@ -3,7 +3,7 @@ module github.com/koor-tech/data-control-center
 go 1.21.6
 
 require (
-	connectrpc.com/connect v1.14.0
+	connectrpc.com/connect v1.15.0
 	github.com/Masterminds/sprig/v3 v3.2.3
 	github.com/creasty/defaults v1.7.0
 	github.com/envoyproxy/protoc-gen-validate v1.0.4
