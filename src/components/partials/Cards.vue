@@ -20,7 +20,7 @@ defineEmits<{
 <template>
     <div class="sm:px-2">
         <div
-            class="w-full overflow-hidden divide-y-4 rounded-lg bg-base-900 sm:grid sm:gap-1 divide-accent-900 sm:divide-y-0"
+            class="w-full overflow-hidden divide-y-4 rounded-lg bg-gray-200 sm:grid sm:gap-1 divide-accent-900 sm:divide-y-0"
             :class="[items.length === 1 ? '' : 'sm:grid-cols-2 sm:max-w-6xl']"
         >
             <template v-for="(item, itemIdx) in items">
@@ -33,7 +33,7 @@ defineEmits<{
                         itemIdx === items.length - 2 && itemIdx % 2 === 1 ? 'sm:rounded-br-lg' : '',
                         itemIdx === items.length - 1 && itemIdx % 2 === 0 ? 'rounded-br-lg' : '',
                         itemIdx === items.length - 1 ? 'rounded-bl-lg sm:rounded-bl-none' : '',
-                        'group relative bg-base-700 p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-neutral',
+                        'group relative bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-neutral',
                     ]"
                 >
                     <div v-if="item.icon">
@@ -42,7 +42,7 @@ defineEmits<{
                         </span>
                     </div>
                     <div class="mt-4" @click="$emit('selected', itemIdx)">
-                        <h3 class="text-base font-semibold leading-6 text-neutral">
+                        <h3 class="text-base font-semibold leading-6 text-gray-900">
                             <template v-if="item.href !== undefined">
                                 <!-- @vue-ignore nuxt typed router makes sure the "href" is correct for internal links -->
                                 <NuxtLink :to="item.href" class="focus:outline-none">
@@ -57,7 +57,7 @@ defineEmits<{
                                 {{ item.title }}
                             </template>
                         </h3>
-                        <p class="mt-2 text-sm text-base-200">
+                        <p class="mt-2 text-sm text-base-500">
                             {{ item.description }}
                         </p>
                     </div>
