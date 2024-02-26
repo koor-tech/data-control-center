@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { ApexOptions } from 'apexcharts';
+// @ts-expect-error types are currently broken, see https://github.com/apexcharts/vue3-apexcharts/issues/95
 import VueApexCharts from 'vue3-apexcharts';
 
 const props = defineProps<{
