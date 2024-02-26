@@ -39,43 +39,43 @@ const sidebarNavigation = ref<
     (SidebarNavigationitem &
         (
             | {
-                  href: string;
+                  to: string;
                   external: true;
               }
-            | { href: NuxtRoute<RoutesNamesList, string>; external?: false }
+            | { to: NuxtRoute<RoutesNamesList, string>; external?: false }
         ))[]
 >([
     {
         name: 'Overview',
-        href: '/',
+        to: '/',
         icon: markRaw(GlassesIcon),
         position: 'top',
         current: false,
     },
     {
         name: 'Stats',
-        href: '/health',
+        to: '/health',
         icon: markRaw(AntennaIcon),
         position: 'top',
         current: false,
     },
     {
         name: 'Controls',
-        href: '/controls',
+        to: '/controls',
         icon: markRaw(TuneIcon),
         position: 'top',
         current: false,
     },
     {
         name: 'Recommender',
-        href: '/recommender',
+        to: '/recommender',
         icon: markRaw(PlusBoxMultipleIcon),
         position: 'top',
         current: false,
     },
     {
         name: 'Troubleshooting',
-        href: '/troubleshoot',
+        to: '/troubleshoot',
         icon: markRaw(HelpBoxMultipleIcon),
         position: 'top',
         current: false,
@@ -85,14 +85,14 @@ const sidebarNavigation = ref<
     {
         name: 'Koor Account',
         external: true,
-        href: 'https://account.koor.tech/login',
+        to: 'https://account.koor.tech/login',
         icon: markRaw(AccountDetailsIcon),
         position: 'bottom',
         current: false,
     },
     {
         name: 'Knowledge Center',
-        href: 'https://kb.koor.tech',
+        to: 'https://kb.koor.tech',
         external: true,
         icon: markRaw(SchoolIcon),
         position: 'bottom',
@@ -100,7 +100,7 @@ const sidebarNavigation = ref<
     },
     {
         name: 'Github',
-        href: 'https://github.com/koor-tech',
+        to: 'https://github.com/koor-tech',
         external: true,
         icon: markRaw(GithubIcon),
         position: 'bottom',
@@ -108,7 +108,7 @@ const sidebarNavigation = ref<
     },
     {
         name: 'X (Twitter)',
-        href: 'https://twitter.com/koor_tech',
+        to: 'https://twitter.com/koor_tech',
         external: true,
         icon: markRaw(TwitterIcon),
         position: 'bottom',
@@ -116,16 +116,14 @@ const sidebarNavigation = ref<
     },
     {
         name: 'YouTube',
-        href: 'https://www.youtube.com/@koor-tech',
+        to: 'https://www.youtube.com/@koor-tech',
         external: true,
         icon: markRaw(YoutubeIcon),
         position: 'bottom',
         current: false,
     },
 ]);
-const userNavigation = ref<{ name: string; href: RoutesNamedLocations; permission?: string }[]>([
-    { name: 'Login', href: { name: 'auth-login' } },
-]);
+const userNavigation = ref<{ name: string; to: RoutesNamedLocations }[]>([{ name: 'Login', to: { name: 'auth-login' } }]);
 const breadcrumbs = useBreadcrumbs();
 const mobileMenuOpen = ref(false);
 
@@ -136,26 +134,29 @@ onMounted(() => {
 
 function updateUserNav(): void {
     userNavigation.value.length = 0;
+
     if (accessToken.value) {
-        userNavigation.value.push({ name: 'Sign Out', href: { name: 'auth-logout' } });
+        userNavigation.value.push({ name: 'Sign Out', to: { name: 'auth-logout' } });
     }
+
     if (userNavigation.value.length === 0) {
-        userNavigation.value = [{ name: 'Login', href: { name: 'auth-login' } }];
+        userNavigation.value = [{ name: 'Login', to: { name: 'auth-login' } }];
     }
+    console.log(userNavigation.value);
 }
 
 function updateActiveItem(): void {
     const route = router.currentRoute.value;
     if (route.name) {
         sidebarNavigation.value.forEach((e) => {
-            if (e.external || e.href === false) {
+            if (e.external || e.to === false) {
                 return;
             }
 
-            if (route.path === '/' && e.href === '/') {
-                console.log(e.href);
+            if (route.path === '/' && e.to === '/') {
+                console.log(e.to);
                 e.current = true;
-            } else if (e.href !== '/' && route.path.toLowerCase().includes(typeof e.href === 'string' ? e.href : '')) {
+            } else if (e.to !== '/' && route.path.toLowerCase().includes(typeof e.to === 'string' ? e.to : '')) {
                 e.current = true;
             } else {
                 e.current = false;
@@ -193,7 +194,7 @@ const appVersion = accessToken ? ' v' + __APP_VERSION__ + (import.meta.env.DEV ?
                             )"
                             :key="item.name"
                             :external="item.external"
-                            :to="item.href"
+                            :to="item.to"
                             :class="[
                                 item.current
                                     ? 'bg-accent-100/20 text-neutral font-bold'
@@ -219,7 +220,7 @@ const appVersion = accessToken ? ' v' + __APP_VERSION__ + (import.meta.env.DEV ?
                         )"
                         :key="item.name"
                         :external="item.external"
-                        :to="item.href"
+                        :to="item.to"
                         :class="[
                             item.current
                                 ? 'bg-accent-100/20 text-neutral font-bold'
@@ -310,7 +311,7 @@ const appVersion = accessToken ? ' v' + __APP_VERSION__ + (import.meta.env.DEV ?
                                                 )"
                                                 :key="item.name"
                                                 :external="item.external"
-                                                :to="item.href"
+                                                :to="item.to"
                                                 :class="[
                                                     item.current
                                                         ? 'bg-accent-100/20 text-neutral font-bold'
@@ -346,7 +347,7 @@ const appVersion = accessToken ? ' v' + __APP_VERSION__ + (import.meta.env.DEV ?
                                             )"
                                             :key="item.name"
                                             :external="item.external"
-                                            :to="item.href"
+                                            :to="item.to"
                                             :class="[
                                                 item.current
                                                     ? 'bg-accent-100/20 text-neutral font-bold'
@@ -410,7 +411,7 @@ const appVersion = accessToken ? ' v' + __APP_VERSION__ + (import.meta.env.DEV ?
                                             <ChevronRightIcon class="flex-shrink-0 w-5 h-5 text-base-400" aria-hidden="true" />
                                             <!-- @vue-ignore the route should be valid, as we construct it based on our pages -->
                                             <NuxtLink
-                                                :to="page.href"
+                                                :to="page.to"
                                                 :class="[
                                                     page.current ? 'font-bold text-base-200' : 'font-medium text-base-400',
                                                     'ml-4 text-sm hover:text-neutral hover:transition-colors',
@@ -427,16 +428,14 @@ const appVersion = accessToken ? ' v' + __APP_VERSION__ + (import.meta.env.DEV ?
                         <div class="flex items-center ml-2 space-x-4 sm:ml-6 sm:space-x-6">
                             <!-- Account dropdown -->
                             <Menu as="div" class="relative flex-shrink-0">
-                                <div>
-                                    <MenuButton
-                                        class="flex text-sm rounded-full bg-accent-950 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-                                    >
-                                        <span class="sr-only"> Open User Menu </span>
-                                        <AccountIcon
-                                            class="w-auto h-10 rounded-full hover:transition-colors text-base-300 bg-base-800 fill-base-300 hover:text-base-100 hover:fill-base-100"
-                                        />
-                                    </MenuButton>
-                                </div>
+                                <MenuButton
+                                    class="flex text-sm rounded-full bg-accent-950 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                                >
+                                    <span class="sr-only"> Open User Menu </span>
+                                    <AccountIcon
+                                        class="w-auto h-10 rounded-full hover:transition-colors text-base-300 bg-base-800 fill-base-300 hover:text-base-100 hover:fill-base-100"
+                                    />
+                                </MenuButton>
                                 <transition
                                     enter-active-class="transition duration-100 ease-out"
                                     enter-from-class="transform scale-95 opacity-0"
@@ -448,20 +447,12 @@ const appVersion = accessToken ? ' v' + __APP_VERSION__ + (import.meta.env.DEV ?
                                     <MenuItems
                                         class="absolute right-0 w-48 py-1 mt-2 origin-top-right rounded-md shadow-float bg-accent-950 ring-1 ring-base-100 ring-opacity-5 focus:outline-none z-40"
                                     >
-                                        <MenuItem
-                                            v-for="item in userNavigation.filter(
-                                                (e) => e.permission === undefined || can(e.permission),
-                                            )"
-                                            :key="item.name"
-                                            v-slot="{ active }"
-                                        >
-                                            <!-- @vue-ignore nuxt typed router makes sure the "href" is correct for internal links -->
+                                        <MenuItem v-for="item in userNavigation" :key="item.name" v-slot="{ close }">
                                             <NuxtLink
-                                                :to="item.href"
-                                                :class="[
-                                                    active ? 'bg-base-800' : '',
-                                                    'block px-4 py-2 text-sm text-neutral hover:transition-colors',
-                                                ]"
+                                                :to="item.to as NuxtRoute<RoutesNamesList, string, false>"
+                                                class="block px-4 py-2 text-sm text-neutral hover:transition-colors"
+                                                active-class="bg-base-800"
+                                                @mouseup="close"
                                             >
                                                 {{ item.name }}
                                             </NuxtLink>
