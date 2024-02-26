@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { AccountGroupIcon, ApplicationEditIcon, HarddiskIcon } from 'mdi-vue3';
-import Cards from '~/components/partials/Cards.vue';
+import CardsList from '~/components/partials/CardsList.vue';
 import ContentCenterWrapper from '~/components/partials/ContentCenterWrapper.vue';
 import type { CardElements } from '~/utils/types';
 
@@ -42,6 +42,6 @@ const features = [
 
 <template>
     <ContentCenterWrapper>
-        <Cards :items="features" />
+        <CardsList :items="features" />
     </ContentCenterWrapper>
 </template>

@@ -2,7 +2,7 @@
 import type { ApexOptions } from 'apexcharts';
 // @ts-expect-error types are currently broken, see https://github.com/apexcharts/vue3-apexcharts/issues/95
 import VueApexCharts from 'vue3-apexcharts';
-import Container from '~/components/partials/Container.vue';
+import GenericContainer from '~/components/partials/GenericContainer.vue';
 import { ClusterRadar } from '~~/gen/ts/api/resources/ceph/v1/stats_pb';
 
 const props = defineProps<{
@@ -69,7 +69,7 @@ onMounted(() => (renderChart.value = true));
 </script>
 
 <template>
-    <Container>
+    <GenericContainer>
         <template #title> Cluster Radar </template>
         <template #default>
             <div class="h-[12rem] max-h-[12rem] overflow-hidden">
@@ -84,5 +84,5 @@ onMounted(() => (renderChart.value = true));
                 />
             </div>
         </template>
-    </Container>
+    </GenericContainer>
 </template>

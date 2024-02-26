@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { clusterHealthToBGColor, clusterHealthToTextColor } from '~/components/cluster/helpers';
-import Container from '~/components/partials/Container.vue';
+import GenericContainer from '~/components/partials/GenericContainer.vue';
 import { ClusterHealth } from '~~/gen/ts/api/resources/ceph/v1/stats_pb';
 
 defineProps<{
@@ -10,7 +10,7 @@ defineProps<{
 </script>
 
 <template>
-    <Container>
+    <GenericContainer>
         <header class="w-full">
             <div class="mx-auto grid grid-cols-2 items-center justify-center">
                 <div class="inline-flex items-center justify-start gap-2">
@@ -29,5 +29,5 @@ defineProps<{
                 </p>
             </div>
         </header>
-    </Container>
+    </GenericContainer>
 </template>

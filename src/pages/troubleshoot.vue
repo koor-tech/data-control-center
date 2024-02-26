@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Container from '~/components/partials/Container.vue';
+import GenericContainer from '~/components/partials/GenericContainer.vue';
 import AncienttControl from '~/components/troubleshooting/AncienttControl.vue';
 import TroubleshootReport from '~/components/troubleshooting/TroubleshootReport.vue';
 
@@ -14,12 +14,12 @@ definePageMeta({
 
 <template>
     <div class="p-2">
-        <Container>
+        <GenericContainer>
             <TroubleshootReport />
-        </Container>
+        </GenericContainer>
 
-        <Container>
+        <GenericContainer>
             <AncienttControl />
-        </Container>
+        </GenericContainer>
     </div>
 </template>

@@ -6,7 +6,7 @@ import ClusterRadar from '~/components/cluster/ClusterRadar.vue';
 import NodeSummaryList from '~/components/cluster/nodes/NodeSummaryList.vue';
 import StatusDials from '~/components/cluster/StatusDials.vue';
 import ClusterHealthBar from '~/components/cluster/ClusterHealthBar.vue';
-import Container from '~/components/partials/Container.vue';
+import GenericContainer from '~/components/partials/GenericContainer.vue';
 import ClusterServices from '~/components/cluster/ClusterServices.vue';
 import ResourceInfoList from '~/components/cluster/ResourceInfoList.vue';
 
@@ -63,7 +63,7 @@ const { data: resources } = useLazyAsyncData(`clusterResources`, async () => {
             <div class="grid-cols-2">
                 <div v-if="nodes" class="grid grid-cols-1">
                     <dl class="space-y-2">
-                        <Container>
+                        <GenericContainer>
                             <Disclosure v-slot="{ open }" as="div">
                                 <dt>
                                     <DisclosureButton
@@ -82,9 +82,9 @@ const { data: resources } = useLazyAsyncData(`clusterResources`, async () => {
                                     <NodeSummaryList v-if="nodes" :nodes="nodes.nodes" />
                                 </DisclosurePanel>
                             </Disclosure>
-                        </Container>
+                        </GenericContainer>
                         <template v-if="resources">
-                            <Container>
+                            <GenericContainer>
                                 <Disclosure v-slot="{ open }" as="div">
                                     <dt>
                                         <DisclosureButton
@@ -113,8 +113,8 @@ const { data: resources } = useLazyAsyncData(`clusterResources`, async () => {
                                         <ResourceInfoList :rows="resources.deployments" />
                                     </DisclosurePanel>
                                 </Disclosure>
-                            </Container>
-                            <Container>
+                            </GenericContainer>
+                            <GenericContainer>
                                 <Disclosure v-slot="{ open }" as="div">
                                     <dt>
                                         <DisclosureButton
@@ -141,7 +141,7 @@ const { data: resources } = useLazyAsyncData(`clusterResources`, async () => {
                                         <ResourceInfoList :rows="resources.resources" />
                                     </DisclosurePanel>
                                 </Disclosure>
-                            </Container>
+                            </GenericContainer>
                         </template>
                     </dl>
                 </div>

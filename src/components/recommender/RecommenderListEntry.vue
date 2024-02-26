@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { InformationIcon } from 'mdi-vue3';
 import { type ClusterRecommendation, RecommendationLevel } from '~~/gen/ts/api/resources/ceph/v1/recommendations_pb';
-import Container from '~/components/partials/Container.vue';
+import GenericContainer from '~/components/partials/GenericContainer.vue';
 import { getRecommendationLevelTextColor } from '~/components/recommender/helpers';
 import GenericBadge from '~/components/partials/GenericBadge.vue';
 
@@ -11,7 +11,7 @@ defineProps<{
 </script>
 
 <template>
-    <Container>
+    <GenericContainer>
         <h3 class="text-xl inline-flex items-center gap-1">
             <GenericBadge class="gap-1">
                 <InformationIcon class="h-5 w-auto" :class="getRecommendationLevelTextColor(recommendation.level)" />
@@ -26,5 +26,5 @@ defineProps<{
                 Current: {{ recommendation.extraData.value.current }} - Expected: {{ recommendation.extraData.value.expected }}
             </p>
         </template>
-    </Container>
+    </GenericContainer>
 </template>
