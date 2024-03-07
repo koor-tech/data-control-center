@@ -26,7 +26,7 @@ require (
 	golang.org/x/crypto v0.21.0
 	golang.org/x/oauth2 v0.18.0
 	google.golang.org/grpc v1.62.1
-	google.golang.org/protobuf v1.32.0
+	google.golang.org/protobuf v1.33.0
 	k8s.io/api v0.28.4
 	k8s.io/apimachinery v0.28.4
 	k8s.io/client-go v0.28.4
