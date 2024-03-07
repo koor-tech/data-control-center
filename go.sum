@@ -562,8 +562,8 @@ github.com/rogpeppe/go-internal v1.6.1/go.mod h1:xXDCJY+GAPziupqXw64V24skbSoqbTE
 github.com/rogpeppe/go-internal v1.8.1/go.mod h1:JeRgkft04UBgHMgCIwADu4Pn6Mtm5d4nPKWu0nJ5d+o=
 github.com/rogpeppe/go-internal v1.10.0 h1:TMyTOH3F/DB16zRVcYyreMH6GnZZrwQVAoYjRBZyWFQ=
 github.com/rogpeppe/go-internal v1.10.0/go.mod h1:UQnix2H7Ngw/k4C5ijL5+65zddjncjaFoBhdsK/akog=
-github.com/rook/rook v1.13.5 h1:LedgyaO8ADeT4yKq/3moGvnhYoSDduNcdzTlXZcYHck=
-github.com/rook/rook v1.13.5/go.mod h1:1GFgs2guOWkX/d5lbX395GO9wa4kSD2Qq2FayIckEsg=
+github.com/rook/rook v1.13.6 h1:3ISlZ6PrOyOfUm/u7d6za99x2rAqiR3y9bRwZuI91bs=
+github.com/rook/rook v1.13.6/go.mod h1:e63s98WVRahwUGkACfZG/R+t8MGwGzU5L7+RbDKZhJw=
 github.com/rook/rook/pkg/apis v0.0.0-20231219152316-ea4a3871ed48 h1:TOv/Ej1Ivg0wFQdpFuEm8WjnMAcpdF3sMS6sx8hgcnM=
 github.com/rook/rook/pkg/apis v0.0.0-20231219152316-ea4a3871ed48/go.mod h1:CfhzSHQQ5dvRQAlCQ6UvNhp2x7HRApLhqL3Bbxi2NtY=
 github.com/russross/blackfriday/v2 v2.1.0/go.mod h1:+Rmxgy9KzJVeS9/2gXHxylqXiyQDYRxCVz55jmeOWTM=
