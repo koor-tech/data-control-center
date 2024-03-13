@@ -1925,10 +1925,10 @@
   dependencies:
     undici-types "~5.26.4"
 
-"@types/node@^20.11.25":
-  version "20.11.25"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.11.25.tgz#0f50d62f274e54dd7a49f7704cc16bfbcccaf49f"
-  integrity sha512-TBHyJxk2b7HceLVGFcpAUjsa5zIdsPWlR6XHfyGzd0SFu+/NFgQgMAl96MSDZgQDvJAvV6BKsFOrt6zIL09JDw==
+"@types/node@^20.11.26":
+  version "20.11.26"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.11.26.tgz#3fbda536e51d5c79281e1d9657dcb0131baabd2d"
+  integrity sha512-YwOMmyhNnAWijOBQweOJnQPl068Oqd4K3OFbTc6AHJwzweUwwWG3GIFY74OKks2PJUDkQPeddOQES9mLn1CTEQ==
   dependencies:
     undici-types "~5.26.4"
 
@@ -2075,13 +2075,13 @@
     "@unhead/schema" "1.8.10"
     "@unhead/shared" "1.8.10"
 
-"@unhead/dom@1.8.12":
-  version "1.8.12"
-  resolved "https://registry.yarnpkg.com/@unhead/dom/-/dom-1.8.12.tgz#95ef06af6b5e0b3446a6c90aaf3c797fe83e85a1"
-  integrity sha512-1A94VyVX/yxBXmZR1mvxvmhhbgF72dUDcmsmoyXOiobd3Zt2rJLu19Ih8jy35CDR4oUAWzK+o6HO1vWzY4wGAQ==
+"@unhead/dom@1.8.16":
+  version "1.8.16"
+  resolved "https://registry.yarnpkg.com/@unhead/dom/-/dom-1.8.16.tgz#fa6a9addeeb0b9f24e999e67626edd03b8b9372a"
+  integrity sha512-n4wHKDI1ihpbbGrnQHwmWhaKwfdEWGA/1nSra7vqc8vmrIPtnOLrfU0cuepEomHZ/ziUsI6SX/RFB+Jm21D9fw==
   dependencies:
-    "@unhead/schema" "1.8.12"
-    "@unhead/shared" "1.8.12"
+    "@unhead/schema" "1.8.16"
+    "@unhead/shared" "1.8.16"
 
 "@unhead/schema@1.8.10":
   version "1.8.10"
@@ -2091,10 +2091,10 @@
     hookable "^5.5.3"
     zhead "^2.2.4"
 
-"@unhead/schema@1.8.12":
-  version "1.8.12"
-  resolved "https://registry.yarnpkg.com/@unhead/schema/-/schema-1.8.12.tgz#f2a75cc7078801c7e0fbcc2b168756253a484eb8"
-  integrity sha512-sUkjvRGaAN0NCvZtB7VtyC5pUdYQAutHtmKbEK79nfPfb2Z7kFT1nysIno13ivybeq98l4Ge1o4crVuTwGHhTw==
+"@unhead/schema@1.8.16":
+  version "1.8.16"
+  resolved "https://registry.yarnpkg.com/@unhead/schema/-/schema-1.8.16.tgz#2cba4314abcc192c7c3e8af96c8d23df40a0184b"
+  integrity sha512-q/AH7uWlE/KrYqZJWKRCguSV1f3U04PKqy1A3YA5ZppRAW2IHqNQ0P2ntc3b0dIdulhN23nkiH8sLyU7dAZdXw==
   dependencies:
     hookable "^5.5.3"
     zhead "^2.2.4"
@@ -2106,12 +2106,12 @@
   dependencies:
     "@unhead/schema" "1.8.10"
 
-"@unhead/shared@1.8.12":
-  version "1.8.12"
-  resolved "https://registry.yarnpkg.com/@unhead/shared/-/shared-1.8.12.tgz#09e82611fc0e71c8136c4bc918cfa194d1ae0c29"
-  integrity sha512-3pP1cYSH22UeCvvVyAVkh7Nfo2GwWDuO/h/31I2eVl5oVvmb0vZx7Ff47RlfKDMkfN7ddKaRwkLaYAR+hNNWsQ==
+"@unhead/shared@1.8.16":
+  version "1.8.16"
+  resolved "https://registry.yarnpkg.com/@unhead/shared/-/shared-1.8.16.tgz#10d585e439d76c6b6a2d2e61d66981803b60b028"
+  integrity sha512-UNbCyO5WS2aimRdB5Ov38ZEDUl5kYI4vnnF5rCfmUKwexe2qb0HXixueMbNwQSoKKsGxTYm5pkIFCZlHCoZrVQ==
   dependencies:
-    "@unhead/schema" "1.8.12"
+    "@unhead/schema" "1.8.16"
 
 "@unhead/ssr@^1.8.10":
   version "1.8.10"
@@ -2131,15 +2131,15 @@
     hookable "^5.5.3"
     unhead "1.8.10"
 
-"@unhead/vue@^1.8.12":
-  version "1.8.12"
-  resolved "https://registry.yarnpkg.com/@unhead/vue/-/vue-1.8.12.tgz#c5a9df2a41d43a38eeb834c2e4586fcd62429d7a"
-  integrity sha512-26D+3SIfJwTx1PgPa+urjJ5agImucevSS5pwXMTYHQOK45ip+TTAealrRTbMmAkvaw+KK6Su9OaCzlYVJnmDOQ==
+"@unhead/vue@^1.8.16":
+  version "1.8.16"
+  resolved "https://registry.yarnpkg.com/@unhead/vue/-/vue-1.8.16.tgz#2735d337b96d478c27ca8ce762975911cc9121b2"
+  integrity sha512-jWKvMfLEz1A8VSvCgxyl2nWXb1eRQs41UNiTr2q1wMQX3g+GHiuLx5CpDSIR0uRyEBynmejHbmhu90yE2Tw/hg==
   dependencies:
-    "@unhead/schema" "1.8.12"
-    "@unhead/shared" "1.8.12"
+    "@unhead/schema" "1.8.16"
+    "@unhead/shared" "1.8.16"
     hookable "^5.5.3"
-    unhead "1.8.12"
+    unhead "1.8.16"
 
 "@vee-validate/nuxt@^4.12.6":
   version "4.12.6"
@@ -4318,10 +4318,23 @@ eslint-plugin-unicorn@^44.0.2:
     semver "^7.3.7"
     strip-indent "^3.0.0"
 
-eslint-plugin-vue@^9.17.0, eslint-plugin-vue@^9.22.0, eslint-plugin-vue@^9.7.0:
+eslint-plugin-vue@^9.17.0, eslint-plugin-vue@^9.7.0:
   version "9.22.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-9.22.0.tgz#e8a625adb0b6ce3b65635dd74fec8345146f8e26"
   integrity sha512-7wCXv5zuVnBtZE/74z4yZ0CM8AjH6bk4MQGm7hZjUC2DBppKU5ioeOk5LGSg/s9a1ZJnIsdPLJpXnu1Rc+cVHg==
+  dependencies:
+    "@eslint-community/eslint-utils" "^4.4.0"
+    natural-compare "^1.4.0"
+    nth-check "^2.1.1"
+    postcss-selector-parser "^6.0.15"
+    semver "^7.6.0"
+    vue-eslint-parser "^9.4.2"
+    xml-name-validator "^4.0.0"
+
+eslint-plugin-vue@^9.23.0:
+  version "9.23.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-9.23.0.tgz#1354a33b0cd21e0cb373557ff73c5d7a6698fbcd"
+  integrity sha512-Bqd/b7hGYGrlV+wP/g77tjyFmp81lh5TMw0be9093X02SyelxRRfCI6/IsGq/J7Um0YwB9s0Ry0wlFyjPdmtUw==
   dependencies:
     "@eslint-community/eslint-utils" "^4.4.0"
     natural-compare "^1.4.0"
@@ -9458,14 +9471,14 @@ unhead@1.8.10:
     "@unhead/shared" "1.8.10"
     hookable "^5.5.3"
 
-unhead@1.8.12:
-  version "1.8.12"
-  resolved "https://registry.yarnpkg.com/unhead/-/unhead-1.8.12.tgz#513ff300868d27657a82ac83d1930b279d9ca466"
-  integrity sha512-O7YPZo1QtNo24Cv9cXiewB74feARf7v8fCmYWQiY3w0z/7oig1kOoGJub6y2XuusQMZpSX56/GDRmog0IZldeA==
+unhead@1.8.16:
+  version "1.8.16"
+  resolved "https://registry.yarnpkg.com/unhead/-/unhead-1.8.16.tgz#094ad48ece6c34e32e588aecb25efbfb259dbef6"
+  integrity sha512-ZcOWOyrVhL+/8zmsfeFy+vuTAvQE3xOwEpMHG15aiQEXH5mYbwcPil2Bb+GEBdcEGVigl7B0TZL3IJ7xJ47+7g==
   dependencies:
-    "@unhead/dom" "1.8.12"
-    "@unhead/schema" "1.8.12"
-    "@unhead/shared" "1.8.12"
+    "@unhead/dom" "1.8.16"
+    "@unhead/schema" "1.8.16"
+    "@unhead/shared" "1.8.16"
     hookable "^5.5.3"
 
 unicorn-magic@^0.1.0:
