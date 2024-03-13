@@ -20,7 +20,7 @@ require (
 	github.com/spf13/cobra v1.8.0
 	github.com/spf13/viper v1.18.2
 	github.com/stretchr/testify v1.9.0
-	go.uber.org/fx v1.20.1
+	go.uber.org/fx v1.21.0
 	go.uber.org/multierr v1.11.0
 	go.uber.org/zap v1.27.0
 	golang.org/x/crypto v0.21.0
@@ -131,7 +131,6 @@ require (
 	github.com/ugorji/go/codec v1.2.12 // indirect
 	github.com/xlab/treeprint v1.2.0 // indirect
 	go.starlark.net v0.0.0-20231121155337-90ade8b19d09 // indirect
-	go.uber.org/atomic v1.10.0 // indirect
 	go.uber.org/dig v1.17.1 // indirect
 	golang.org/x/arch v0.7.0 // indirect
 	golang.org/x/exp v0.0.0-20231127185646-65229373498e // indirect
