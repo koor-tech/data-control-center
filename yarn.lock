@@ -378,15 +378,30 @@
   resolved "https://registry.yarnpkg.com/@csstools/cascade-layer-name-parser/-/cascade-layer-name-parser-1.0.8.tgz#24d841d80e78f6c2970a36d53e6b58e8fcea41f6"
   integrity sha512-xHxXavWvXB5nAA9IvZtjEzkONM3hPXpxqYK4cEw60LcqPiFjq7ZlEFxOyYFPrG4UdANKtnucNtRVDy7frjq6AA==
 
+"@csstools/cascade-layer-name-parser@^1.0.9":
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/@csstools/cascade-layer-name-parser/-/cascade-layer-name-parser-1.0.9.tgz#7093f9c26fd92dee87d853a97de0647c5a8c4262"
+  integrity sha512-RRqNjxTZDUhx7pxYOBG/AkCVmPS3zYzfE47GEhIGkFuWFTQGJBgWOUUkKNo5MfxIfjDz5/1L3F3rF1oIsYaIpw==
+
 "@csstools/css-parser-algorithms@^2.6.0":
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/@csstools/css-parser-algorithms/-/css-parser-algorithms-2.6.0.tgz#b45d3c7cbdd4214261724c82f96e33c746fedd58"
   integrity sha512-YfEHq0eRH98ffb5/EsrrDspVWAuph6gDggAE74ZtjecsmyyWpW768hOyiONa8zwWGbIWYfa2Xp4tRTrpQQ00CQ==
 
+"@csstools/css-parser-algorithms@^2.6.1":
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/@csstools/css-parser-algorithms/-/css-parser-algorithms-2.6.1.tgz#c45440d1efa2954006748a01697072dae5881bcd"
+  integrity sha512-ubEkAaTfVZa+WwGhs5jbo5Xfqpeaybr/RvWzvFxRs4jfq16wH8l8Ty/QEEpINxll4xhuGfdMbipRyz5QZh9+FA==
+
 "@csstools/css-tokenizer@^2.2.3":
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/@csstools/css-tokenizer/-/css-tokenizer-2.2.3.tgz#b099d543ea57b64f495915a095ead583866c50c6"
   integrity sha512-pp//EvZ9dUmGuGtG1p+n17gTHEOqu9jO+FiCUjNN3BDmyhdA2Jq9QsVeR7K8/2QCK17HSsioPlTW9ZkzoWb3Lg==
+
+"@csstools/css-tokenizer@^2.2.4":
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/@csstools/css-tokenizer/-/css-tokenizer-2.2.4.tgz#a4b8718ed7fcd2dcd555de16b31ca59ad4b96a06"
+  integrity sha512-PuWRAewQLbDhGeTvFuq2oClaSCKPIBmHyIobCV39JHRYN0byDcUWJl5baPeNUcqrjtdMNqFooE0FGl31I3JOqw==
 
 "@csstools/selector-resolve-nested@^1.1.0":
   version "1.1.0"
@@ -1925,10 +1940,10 @@
   dependencies:
     undici-types "~5.26.4"
 
-"@types/node@^20.11.26":
-  version "20.11.26"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.11.26.tgz#3fbda536e51d5c79281e1d9657dcb0131baabd2d"
-  integrity sha512-YwOMmyhNnAWijOBQweOJnQPl068Oqd4K3OFbTc6AHJwzweUwwWG3GIFY74OKks2PJUDkQPeddOQES9mLn1CTEQ==
+"@types/node@^20.11.27":
+  version "20.11.27"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.11.27.tgz#debe5cfc8a507dd60fe2a3b4875b1604f215c2ac"
+  integrity sha512-qyUZfMnCg1KEz57r7pzFtSGt49f6RPkPBis3Vo4PbS7roQEDn22hiHzl/Lo1q4i4hDEgBJmBF/NTNg2XR0HbFg==
   dependencies:
     undici-types "~5.26.4"
 
@@ -2075,13 +2090,13 @@
     "@unhead/schema" "1.8.10"
     "@unhead/shared" "1.8.10"
 
-"@unhead/dom@1.8.16":
-  version "1.8.16"
-  resolved "https://registry.yarnpkg.com/@unhead/dom/-/dom-1.8.16.tgz#fa6a9addeeb0b9f24e999e67626edd03b8b9372a"
-  integrity sha512-n4wHKDI1ihpbbGrnQHwmWhaKwfdEWGA/1nSra7vqc8vmrIPtnOLrfU0cuepEomHZ/ziUsI6SX/RFB+Jm21D9fw==
+"@unhead/dom@1.8.18":
+  version "1.8.18"
+  resolved "https://registry.yarnpkg.com/@unhead/dom/-/dom-1.8.18.tgz#64958f98134deb216f8e4cc6b714349c9d070f93"
+  integrity sha512-F6ckuW+IAojGCSb++WFQlDeI3/80OALpD6yDcDrhAxZ8ogQatd5gXWjTmSiuV/0M2XIeDq3jwampvq6oomU6Gw==
   dependencies:
-    "@unhead/schema" "1.8.16"
-    "@unhead/shared" "1.8.16"
+    "@unhead/schema" "1.8.18"
+    "@unhead/shared" "1.8.18"
 
 "@unhead/schema@1.8.10":
   version "1.8.10"
@@ -2091,10 +2106,10 @@
     hookable "^5.5.3"
     zhead "^2.2.4"
 
-"@unhead/schema@1.8.16":
-  version "1.8.16"
-  resolved "https://registry.yarnpkg.com/@unhead/schema/-/schema-1.8.16.tgz#2cba4314abcc192c7c3e8af96c8d23df40a0184b"
-  integrity sha512-q/AH7uWlE/KrYqZJWKRCguSV1f3U04PKqy1A3YA5ZppRAW2IHqNQ0P2ntc3b0dIdulhN23nkiH8sLyU7dAZdXw==
+"@unhead/schema@1.8.18":
+  version "1.8.18"
+  resolved "https://registry.yarnpkg.com/@unhead/schema/-/schema-1.8.18.tgz#792bad2fa5fcdd87b5a2c33aa4225a2bdc75d866"
+  integrity sha512-E4oq4juwGJkXPOJlc4Qdp1iVTe79H4TSMWkOB8sSlU44vhvcuZduFYH9CCn29JvtV/640Uaf2QeX4o+wX96LRQ==
   dependencies:
     hookable "^5.5.3"
     zhead "^2.2.4"
@@ -2106,12 +2121,12 @@
   dependencies:
     "@unhead/schema" "1.8.10"
 
-"@unhead/shared@1.8.16":
-  version "1.8.16"
-  resolved "https://registry.yarnpkg.com/@unhead/shared/-/shared-1.8.16.tgz#10d585e439d76c6b6a2d2e61d66981803b60b028"
-  integrity sha512-UNbCyO5WS2aimRdB5Ov38ZEDUl5kYI4vnnF5rCfmUKwexe2qb0HXixueMbNwQSoKKsGxTYm5pkIFCZlHCoZrVQ==
+"@unhead/shared@1.8.18":
+  version "1.8.18"
+  resolved "https://registry.yarnpkg.com/@unhead/shared/-/shared-1.8.18.tgz#059f1baaf175ab1ce0a5dc6dc80588ffad93b2d7"
+  integrity sha512-2Tw5oyTjMkPn11UoR9AB3kSk2nDVG+7nCS4dZUwdxTMqndUnYyWoGB0EcO2WbK6YpkpulLIlfmiXVzWW4PTrWg==
   dependencies:
-    "@unhead/schema" "1.8.16"
+    "@unhead/schema" "1.8.18"
 
 "@unhead/ssr@^1.8.10":
   version "1.8.10"
@@ -2131,15 +2146,15 @@
     hookable "^5.5.3"
     unhead "1.8.10"
 
-"@unhead/vue@^1.8.16":
-  version "1.8.16"
-  resolved "https://registry.yarnpkg.com/@unhead/vue/-/vue-1.8.16.tgz#2735d337b96d478c27ca8ce762975911cc9121b2"
-  integrity sha512-jWKvMfLEz1A8VSvCgxyl2nWXb1eRQs41UNiTr2q1wMQX3g+GHiuLx5CpDSIR0uRyEBynmejHbmhu90yE2Tw/hg==
+"@unhead/vue@^1.8.18":
+  version "1.8.18"
+  resolved "https://registry.yarnpkg.com/@unhead/vue/-/vue-1.8.18.tgz#9500cf3ddb3bb915f1d2089feb28735ea1ab05b4"
+  integrity sha512-aKsDCYAiQ27Cjs8nyUHaYNYOQjdhhobMswrelNddekGpk63Y25bRO2NT3DheAOqAAcH4Qdt7JIe5Bu4N1HG5Gg==
   dependencies:
-    "@unhead/schema" "1.8.16"
-    "@unhead/shared" "1.8.16"
+    "@unhead/schema" "1.8.18"
+    "@unhead/shared" "1.8.18"
     hookable "^5.5.3"
-    unhead "1.8.16"
+    unhead "1.8.18"
 
 "@vee-validate/nuxt@^4.12.6":
   version "4.12.6"
@@ -7479,7 +7494,7 @@ postcss-convert-values@^6.1.0:
     browserslist "^4.23.0"
     postcss-value-parser "^4.2.0"
 
-postcss-custom-properties@^13.3.4, postcss-custom-properties@^13.3.5:
+postcss-custom-properties@^13.3.4:
   version "13.3.5"
   resolved "https://registry.yarnpkg.com/postcss-custom-properties/-/postcss-custom-properties-13.3.5.tgz#0083841407dbf93c833457ecffdf1a3d74a76d10"
   integrity sha512-xHg8DTCMfN2nrqs2CQTF+0m5jgnzKL5zrW5Y05KF6xBRO0uDPxiplBm/xcr1o49SLbyJXkMuaRJKhRzkrquKnQ==
@@ -7487,6 +7502,17 @@ postcss-custom-properties@^13.3.4, postcss-custom-properties@^13.3.5:
     "@csstools/cascade-layer-name-parser" "^1.0.8"
     "@csstools/css-parser-algorithms" "^2.6.0"
     "@csstools/css-tokenizer" "^2.2.3"
+    "@csstools/utilities" "^1.0.0"
+    postcss-value-parser "^4.2.0"
+
+postcss-custom-properties@^13.3.6:
+  version "13.3.6"
+  resolved "https://registry.yarnpkg.com/postcss-custom-properties/-/postcss-custom-properties-13.3.6.tgz#f18f3105ab33b8cb2e69da38192a415f6e4c0ea8"
+  integrity sha512-vVVIwQbJiIz+PBLMIWA6XMi53Zg66/f474KolA7x0Das6EwkATc/9ZvM6zZx2gs7ZhcgVHjmWBbHkK9FlCgLeA==
+  dependencies:
+    "@csstools/cascade-layer-name-parser" "^1.0.9"
+    "@csstools/css-parser-algorithms" "^2.6.1"
+    "@csstools/css-tokenizer" "^2.2.4"
     "@csstools/utilities" "^1.0.0"
     postcss-value-parser "^4.2.0"
 
@@ -8416,10 +8442,10 @@ safe-stable-stringify@^2.3.1:
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-sass@^1.71.1:
-  version "1.71.1"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.71.1.tgz#dfb09c63ce63f89353777bbd4a88c0a38386ee54"
-  integrity sha512-wovtnV2PxzteLlfNzbgm1tFXPLoZILYAMJtvoXXkD7/+1uP41eKkIt1ypWq5/q2uT94qHjXehEYfmjKOvjL9sg==
+sass@^1.72.0:
+  version "1.72.0"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.72.0.tgz#5b9978943fcfb32b25a6a5acb102fc9dabbbf41c"
+  integrity sha512-Gpczt3WA56Ly0Mn8Sl21Vj94s1axi9hDIzDFn9Ph9x3C3p4nNyvsqJoQyVXKou6cBlfFWEgRW4rT8Tb4i3XnVA==
   dependencies:
     chokidar ">=3.0.0 <4.0.0"
     immutable "^4.0.0"
@@ -9471,14 +9497,14 @@ unhead@1.8.10:
     "@unhead/shared" "1.8.10"
     hookable "^5.5.3"
 
-unhead@1.8.16:
-  version "1.8.16"
-  resolved "https://registry.yarnpkg.com/unhead/-/unhead-1.8.16.tgz#094ad48ece6c34e32e588aecb25efbfb259dbef6"
-  integrity sha512-ZcOWOyrVhL+/8zmsfeFy+vuTAvQE3xOwEpMHG15aiQEXH5mYbwcPil2Bb+GEBdcEGVigl7B0TZL3IJ7xJ47+7g==
+unhead@1.8.18:
+  version "1.8.18"
+  resolved "https://registry.yarnpkg.com/unhead/-/unhead-1.8.18.tgz#0754e53bb3b7861cb724dd4d04370e453b51f39a"
+  integrity sha512-XmCGVev0bwo+jy5qh6PW1vACnPoQvv3MEwqo4w0+49W2ZGPMZYPtIa8GAZiaWgkycrlie1WgZejjJEG9bYVgZw==
   dependencies:
-    "@unhead/dom" "1.8.16"
-    "@unhead/schema" "1.8.16"
-    "@unhead/shared" "1.8.16"
+    "@unhead/dom" "1.8.18"
+    "@unhead/schema" "1.8.18"
+    "@unhead/shared" "1.8.18"
     hookable "^5.5.3"
 
 unicorn-magic@^0.1.0:
