@@ -8,7 +8,7 @@ require (
 	github.com/creasty/defaults v1.7.0
 	github.com/envoyproxy/protoc-gen-validate v1.0.4
 	github.com/gin-contrib/sessions v0.0.5
-	github.com/gin-contrib/static v1.1.0
+	github.com/gin-contrib/static v1.1.1
 	github.com/gin-contrib/zap v1.1.1
 	github.com/gin-gonic/gin v1.9.1
 	github.com/golang-jwt/jwt/v5 v5.2.1
