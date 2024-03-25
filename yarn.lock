@@ -888,6 +888,15 @@
     "@nuxt/schema" "^3.11.1"
     execa "^7.2.0"
 
+"@nuxt/devtools-kit@1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@nuxt/devtools-kit/-/devtools-kit-1.1.3.tgz#139044b0067ffbc999f9ce61324bcd545fd9c57c"
+  integrity sha512-bVIGng74haYAvJXiV+xtk7xrpHPZOJtcV4Flgl9IM+PYSjqs5pIRFRDnDwCQYAGt99hxGtQkdTBRqPQLxVCmeA==
+  dependencies:
+    "@nuxt/kit" "^3.11.1"
+    "@nuxt/schema" "^3.11.1"
+    execa "^7.2.0"
+
 "@nuxt/devtools-wizard@1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@nuxt/devtools-wizard/-/devtools-wizard-1.1.1.tgz#2a65e25f913aeaaad5888623267672cdbe026607"
@@ -904,7 +913,23 @@
     rc9 "^2.1.1"
     semver "^7.6.0"
 
-"@nuxt/devtools@^1.0.8", "@nuxt/devtools@^1.1.1":
+"@nuxt/devtools-wizard@1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@nuxt/devtools-wizard/-/devtools-wizard-1.1.3.tgz#4f0f17e261cc360f75b2ade221bac4077009565d"
+  integrity sha512-eeAeqHel5fb9eRjiw6/YOeGUGjsddooUrGXSc6aGTGnlnT6qOpMXRxj/amh9Pi0mm0cUiy5wILeGAlwK92waCA==
+  dependencies:
+    consola "^3.2.3"
+    diff "^5.2.0"
+    execa "^7.2.0"
+    global-directory "^4.0.1"
+    magicast "^0.3.3"
+    pathe "^1.1.2"
+    pkg-types "^1.0.3"
+    prompts "^2.4.2"
+    rc9 "^2.1.1"
+    semver "^7.6.0"
+
+"@nuxt/devtools@^1.0.8":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@nuxt/devtools/-/devtools-1.1.1.tgz#4da3e0d59f343d223ade8f25baf7f27786515105"
   integrity sha512-mg8+3cClmMf5Yt3IGdZVUqybjFUZx8C3fGGPHdQO0mnkh+pBMPfb/kifbSY+z7fZmqP+axE3bM/PkqVgUWarDw==
@@ -912,6 +937,50 @@
     "@antfu/utils" "^0.7.7"
     "@nuxt/devtools-kit" "1.1.1"
     "@nuxt/devtools-wizard" "1.1.1"
+    "@nuxt/kit" "^3.11.1"
+    "@vue/devtools-applet" "^7.0.20"
+    "@vue/devtools-core" "^7.0.20"
+    "@vue/devtools-kit" "^7.0.20"
+    birpc "^0.2.17"
+    consola "^3.2.3"
+    cronstrue "^2.48.0"
+    destr "^2.0.3"
+    error-stack-parser-es "^0.1.1"
+    execa "^7.2.0"
+    fast-glob "^3.3.2"
+    flatted "^3.3.1"
+    get-port-please "^3.1.2"
+    hookable "^5.5.3"
+    image-meta "^0.2.0"
+    is-installed-globally "^1.0.0"
+    launch-editor "^2.6.1"
+    local-pkg "^0.5.0"
+    magicast "^0.3.3"
+    nypm "^0.3.8"
+    ohash "^1.1.3"
+    pacote "^17.0.6"
+    pathe "^1.1.2"
+    perfect-debounce "^1.0.0"
+    pkg-types "^1.0.3"
+    rc9 "^2.1.1"
+    scule "^1.3.0"
+    semver "^7.6.0"
+    simple-git "^3.23.0"
+    sirv "^2.0.4"
+    unimport "^3.7.1"
+    vite-plugin-inspect "^0.8.3"
+    vite-plugin-vue-inspector "^4.0.2"
+    which "^3.0.1"
+    ws "^8.16.0"
+
+"@nuxt/devtools@^1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@nuxt/devtools/-/devtools-1.1.3.tgz#612b6eebd4740fed17f0e888c334232c8e2a0af5"
+  integrity sha512-+mps8+01b2ntJOHNNTfeUTj4A/b2CyAxvmbwgoDc91XAycpJMWqzYzqBXemR4ZoDL8mbk6coQ1rmz8f1dM25fA==
+  dependencies:
+    "@antfu/utils" "^0.7.7"
+    "@nuxt/devtools-kit" "1.1.3"
+    "@nuxt/devtools-wizard" "1.1.3"
     "@nuxt/kit" "^3.11.1"
     "@vue/devtools-applet" "^7.0.20"
     "@vue/devtools-core" "^7.0.20"
@@ -1965,10 +2034,26 @@
     "@unhead/schema" "1.8.20"
     "@unhead/shared" "1.8.20"
 
+"@unhead/dom@1.9.1":
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/@unhead/dom/-/dom-1.9.1.tgz#f5118dcc1e4b824cb404e5d8ee24aad7dc4af4c1"
+  integrity sha512-5YVT8pyg7Mw8niWwklP8nFKK9WLIvaK4O3tXvqpW9OxSAexJG576bh6FR0hEtSDLBkJh+pI8mMMMIuzSdK/whA==
+  dependencies:
+    "@unhead/schema" "1.9.1"
+    "@unhead/shared" "1.9.1"
+
 "@unhead/schema@1.8.20":
   version "1.8.20"
   resolved "https://registry.yarnpkg.com/@unhead/schema/-/schema-1.8.20.tgz#d3c46cc7d3f059300654356102e3986d09f73457"
   integrity sha512-n0e5jsKino8JTHc4wpr4l8MXXIrj0muYYAEVa0WSYkIVnMiBr1Ik3l6elhCr4fdSyJ3M2DQQleea/oZCr11XCw==
+  dependencies:
+    hookable "^5.5.3"
+    zhead "^2.2.4"
+
+"@unhead/schema@1.9.1":
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/@unhead/schema/-/schema-1.9.1.tgz#7eed5ead3ff8d95e1f7c75edb0dd7c1dde0c80b3"
+  integrity sha512-wCJKNx4l837NEVMWP3MnUfkgsnMyuXwYs7+5VvbYzAWbnZSvQt/K10xDV0N7ft9RSlPfgukVVG+gtARm1kGVHQ==
   dependencies:
     hookable "^5.5.3"
     zhead "^2.2.4"
@@ -1979,6 +2064,13 @@
   integrity sha512-J0fdtavcMtXcG0g9jmVW03toqfr8A0G7k+Q6jdpwuUPhWk/vhfZn3aiRV+F8LlU91c/AbGWDv8T1MrtMQbb0Sg==
   dependencies:
     "@unhead/schema" "1.8.20"
+
+"@unhead/shared@1.9.1":
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/@unhead/shared/-/shared-1.9.1.tgz#4f20d469236ae683c6e79c555ba0ea1ceb51e648"
+  integrity sha512-rZgzXzOeF4vu2bJJAkHJckgPgWGfpDA3/vesPhJIZGs2NkGYi9lDwMUeJ90HKCMJv1+JRAcPOokjRi6vRlnQpg==
+  dependencies:
+    "@unhead/schema" "1.9.1"
 
 "@unhead/ssr@^1.8.20":
   version "1.8.20"
@@ -1997,6 +2089,16 @@
     "@unhead/shared" "1.8.20"
     hookable "^5.5.3"
     unhead "1.8.20"
+
+"@unhead/vue@^1.9.1":
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/@unhead/vue/-/vue-1.9.1.tgz#3b5d220989df849f0e763a8304249a87b5a8ba8b"
+  integrity sha512-clSKIkwtw26Lx5tR7ecJ/zvyFJkghvJU+jt2liQ4XYQb/Qaveh8L7gqsI1RKUuKaXAjlo2Z4Jpp1v9nHxA0heg==
+  dependencies:
+    "@unhead/schema" "1.9.1"
+    "@unhead/shared" "1.9.1"
+    hookable "^5.5.3"
+    unhead "1.9.1"
 
 "@vee-validate/nuxt@^4.12.6":
   version "4.12.6"
@@ -4237,12 +4339,26 @@ eslint-plugin-unicorn@^44.0.2:
     semver "^7.3.7"
     strip-indent "^3.0.0"
 
-eslint-plugin-vue@^9.17.0, eslint-plugin-vue@^9.23.0, eslint-plugin-vue@^9.7.0:
+eslint-plugin-vue@^9.17.0, eslint-plugin-vue@^9.7.0:
   version "9.23.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-9.23.0.tgz#1354a33b0cd21e0cb373557ff73c5d7a6698fbcd"
   integrity sha512-Bqd/b7hGYGrlV+wP/g77tjyFmp81lh5TMw0be9093X02SyelxRRfCI6/IsGq/J7Um0YwB9s0Ry0wlFyjPdmtUw==
   dependencies:
     "@eslint-community/eslint-utils" "^4.4.0"
+    natural-compare "^1.4.0"
+    nth-check "^2.1.1"
+    postcss-selector-parser "^6.0.15"
+    semver "^7.6.0"
+    vue-eslint-parser "^9.4.2"
+    xml-name-validator "^4.0.0"
+
+eslint-plugin-vue@^9.24.0:
+  version "9.24.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-9.24.0.tgz#71209f4652ee767f18c0bf56f25991b7cdc5aa46"
+  integrity sha512-9SkJMvF8NGMT9aQCwFc5rj8Wo1XWSMSHk36i7ZwdI614BU7sIOR28ZjuFPKp8YGymZN12BSEbiSwa7qikp+PBw==
+  dependencies:
+    "@eslint-community/eslint-utils" "^4.4.0"
+    globals "^13.24.0"
     natural-compare "^1.4.0"
     nth-check "^2.1.1"
     postcss-selector-parser "^6.0.15"
@@ -4988,7 +5104,7 @@ globals@^11.1.0:
   resolved "https://registry.yarnpkg.com/globals/-/globals-11.12.0.tgz#ab8795338868a0babd8525758018c2a7eb95c42e"
   integrity sha512-WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA==
 
-globals@^13.19.0:
+globals@^13.19.0, globals@^13.24.0:
   version "13.24.0"
   resolved "https://registry.yarnpkg.com/globals/-/globals-13.24.0.tgz#8432a19d78ce0c1e833949c36adb345400bb1171"
   integrity sha512-AhO5QUcj8llrbG09iWhPU2B204J1xnPeL8kQmVorSsy+Sjj1sk8gIyh6cUocGmH4L0UuhAJy+hJMRA4mgA4mFQ==
@@ -9215,6 +9331,16 @@ unhead@1.8.20:
     "@unhead/shared" "1.8.20"
     hookable "^5.5.3"
 
+unhead@1.9.1:
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/unhead/-/unhead-1.9.1.tgz#001c67f295e1de3e22d42328efe98a6e0ae6b3a2"
+  integrity sha512-qTyA0V6xjUrIJp6KWs0CqAayw4K2DE7rh0GO0vmcC2YuF0HITO/3zkVtG7zhJUd5VeGgGCO/82zatDOOhMyneA==
+  dependencies:
+    "@unhead/dom" "1.9.1"
+    "@unhead/schema" "1.9.1"
+    "@unhead/shared" "1.9.1"
+    hookable "^5.5.3"
+
 unicorn-magic@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/unicorn-magic/-/unicorn-magic-0.1.0.tgz#1bb9a51c823aaf9d73a8bfcd3d1a23dde94b0ce4"
@@ -9711,6 +9837,7 @@ wide-align@^1.1.2:
     string-width "^1.0.2 || 2 || 3 || 4"
 
 "wrap-ansi-cjs@npm:wrap-ansi@^7.0.0", wrap-ansi@^7.0.0:
+  name wrap-ansi-cjs
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
   integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
