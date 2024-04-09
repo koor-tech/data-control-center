@@ -4,7 +4,7 @@ import type { MonService } from '~~/gen/ts/api/resources/ceph/v1/stats_pb';
 import GenericBadge from '~/components/partials/GenericBadge.vue';
 import ServiceLiItem from '~/components/cluster/services/ServiceLiItem.vue';
 import ServiceBox from '~/components/cluster/services/ServiceBox.vue';
-import Time from '~/components/partials/elements/Time.vue';
+import GenericTime from '~/components/partials/elements/GenericTime.vue';
 
 defineProps<{
     stats: MonService;
@@ -36,14 +36,14 @@ defineProps<{
             <ServiceLiItem>
                 <template #default> Created Since </template>
                 <template #content>
-                    <Time :value="stats.createdSince" />
+                    <GenericTime :value="stats.createdSince" />
                 </template>
             </ServiceLiItem>
 
             <ServiceLiItem>
                 <template #default> Updated Since </template>
                 <template #content>
-                    <Time :value="stats.updatedSince" />
+                    <GenericTime :value="stats.updatedSince" />
                 </template>
             </ServiceLiItem>
         </template>

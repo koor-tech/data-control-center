@@ -31,15 +31,16 @@ func (m *RookEncryption) Run(ctx context.Context, p *Params) ([]*cephv1.ClusterR
 		return nil, err
 	}
 	for _, item := range clusters.Items {
-		if item.Spec.Network.Connections.Encryption == nil || !item.Spec.Network.Connections.Encryption.Enabled {
+		if item.Spec.Network.Connections.Encryption != nil && item.Spec.Network.Connections.Encryption.Enabled {
 			continue
 		}
 
 		recs = append(recs, &cephv1.ClusterRecommendation{
-			Title:       "Ceph network encryption not active",
-			Description: "It is recommended to enable Ceph network encryption for clusters that might be running in \"untrusted\" networks.",
-			Level:       cephv1.RecommendationLevel_RECOMMENDATION_LEVEL_INFORMAL,
-			Type:        cephv1.RecommendationType_RECOMMENDATION_TYPE_CLUSTER,
+			Title: "Ceph network encryption not active",
+			Description: `It is recommended to enable Ceph network encryption for clusters that might be running in \"untrusted\" networks.
+To enable it carefully read the \"encryption.enabled\" settings comments <a class=\"underline\" href=\"https://rook.io/docs/rook/latest-release/CRDs/Cluster/ceph-cluster-crd/#network-configuration-settings\">here</a>.`,
+			Level: cephv1.RecommendationLevel_RECOMMENDATION_LEVEL_INFORMAL,
+			Type:  cephv1.RecommendationType_RECOMMENDATION_TYPE_CLUSTER,
 		})
 	}
 

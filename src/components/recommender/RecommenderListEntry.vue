@@ -17,9 +17,11 @@ defineProps<{
                 <InformationIcon class="h-5 w-auto" :class="getRecommendationLevelTextColor(recommendation.level)" />
                 {{ RecommendationLevel[recommendation.level] }}
             </GenericBadge>
+
             {{ recommendation.title }}
         </h3>
-        <p class="text-base">{{ recommendation.description }}</p>
+        <!-- eslint-disable-next-line vue/no-v-html -->
+        <p class="text-base" v-html="recommendation.description"></p>
         <template v-if="recommendation.extraData && recommendation.extraData.case !== undefined">
             <hr class="my-1" />
             <p v-if="recommendation.extraData.case === 'recommendedValue'" class="text-sm">
