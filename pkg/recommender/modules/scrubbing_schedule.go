@@ -62,7 +62,7 @@ func (m *ScrubbingSchedule) Run(ctx context.Context, p *Params) ([]*cephv1.Clust
 		recs = append(recs, &cephv1.ClusterRecommendation{
 			Title:       "No Custom Scrubbing Schedule set",
 			Description: "It is recommended to set up a custom OSD scrubbing schedule to ensure the cluster will scrub during off hours.",
-			Level:       cephv1.RecommendationLevel_RECOMMENDATION_LEVEL_INFORMAL,
+			Level:       cephv1.RecommendationLevel_RECOMMENDATION_LEVEL_INFO,
 			Type:        cephv1.RecommendationType_RECOMMENDATION_TYPE_OSD,
 		})
 	}

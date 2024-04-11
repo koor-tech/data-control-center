@@ -449,7 +449,7 @@ const appVersion = accessToken ? ' v' + __APP_VERSION__ + (import.meta.env.DEV ?
                                     >
                                         <MenuItem v-for="item in userNavigation" :key="item.name" v-slot="{ close }">
                                             <NuxtLink
-                                                :to="item.to as NuxtRoute<RoutesNamesList, string, false>"
+                                                :to="item.to"
                                                 class="block px-4 py-2 text-sm text-neutral hover:transition-colors"
                                                 active-class="bg-base-800"
                                                 @mouseup="close"
