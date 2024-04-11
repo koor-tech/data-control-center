@@ -2,6 +2,7 @@ package recommender
 
 import (
 	"context"
+	"slices"
 	"sync"
 	"time"
 
@@ -118,6 +119,9 @@ func (r *Recommender) Gather() error {
 	r.mutex.Lock()
 	defer r.mutex.Unlock()
 
+	slices.SortFunc(recommendations, func(a *cephv1.ClusterRecommendation, b *cephv1.ClusterRecommendation) int {
+		return int(b.Level - a.Level)
+	})
 	r.recommendations = recommendations
 
 	return errs

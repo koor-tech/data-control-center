@@ -3,7 +3,7 @@ import { TableIcon } from 'mdi-vue3';
 import type { OsdService } from '~~/gen/ts/api/resources/ceph/v1/stats_pb';
 import ServiceLiItem from '~/components/cluster/services/ServiceLiItem.vue';
 import ServiceBox from '~/components/cluster/services/ServiceBox.vue';
-import Time from '~/components/partials/elements/Time.vue';
+import GenericTime from '~/components/partials/elements/GenericTime.vue';
 
 defineProps<{
     stats: OsdService;
@@ -38,14 +38,14 @@ defineProps<{
             <ServiceLiItem>
                 <template #default> In Updated </template>
                 <template #content>
-                    <Time :value="stats.osdInUpdatedSince" />
+                    <GenericTime :value="stats.osdInUpdatedSince" />
                 </template>
             </ServiceLiItem>
 
             <ServiceLiItem>
                 <template #default> Up Updated </template>
                 <template #content>
-                    <Time :value="stats.osdUpUpdatedSince" />
+                    <GenericTime :value="stats.osdUpUpdatedSince" />
                 </template>
             </ServiceLiItem>
         </template>

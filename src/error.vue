@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
 import { useClipboard } from '@vueuse/core';
 import HeroFull from '~/components/partials/HeroFull.vue';
